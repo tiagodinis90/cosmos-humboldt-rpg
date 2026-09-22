@@ -11,6 +11,7 @@ import WeatherEffects from './components/WeatherEffects';
 import MiniMap from './components/MiniMap';
 import TravelScreen from './components/TravelScreen';
 import LocationScene from './components/LocationScene';
+import ShipCustomize from './components/ShipCustomize';
 
 function createInitialState(): GameState {
   return {
@@ -39,6 +40,12 @@ function createInitialState(): GameState {
     travelFrom: undefined,
     travelTo: undefined,
     travelDistance: undefined,
+    shipConfig: {
+      hullColor: '#8B4513',
+      sailColor: '#F5F0E8',
+      flagColor: '#C62828',
+      name: 'The Explorer',
+    },
   };
 }
 
@@ -332,6 +339,18 @@ export default function App() {
     );
   }
 
+  if (state.phase === 'ship_customize') {
+    return (
+      <ShipCustomize
+        currentConfig={state.shipConfig}
+        onSave={(config) => {
+          update({ shipConfig: config, phase: 'cycle_start' });
+        }}
+        onClose={() => update({ phase: 'cycle_start' })}
+      />
+    );
+  }
+
   if (state.phase === 'traveling' && state.travelFrom && state.travelTo && state.travelDistance !== undefined) {
     return (
       <TravelScreen
@@ -339,6 +358,7 @@ export default function App() {
         to={state.travelTo}
         distance={state.travelDistance}
         onComplete={completeTravel}
+        shipConfig={state.shipConfig}
       />
     );
   }
@@ -460,6 +480,7 @@ function CycleStart({ state, update, rollDice, travel, isRolling }: { state: Gam
           </div>
           <div className="flex items-center gap-3">
             <span className="text-parchment/50 font-mono text-xs">CYCLE {state.cycle}</span>
+            <button onClick={() => update({ phase: 'ship_customize' })} className="text-xs px-2 py-1 bg-forest-800 rounded text-gold-300 hover:bg-forest-700">⛵ Ship</button>
             <button onClick={() => update({ phase: 'world_map' })} className="text-xs px-2 py-1 bg-forest-800 rounded text-gold-300 hover:bg-forest-700">🗺️ Map</button>
             <button onClick={() => update({ phase: 'storylines' })} className="text-xs px-2 py-1 bg-forest-800 rounded text-gold-300 hover:bg-forest-700">📖 Arcs</button>
             <button onClick={() => update({ phase: 'journal' })} className="text-xs px-2 py-1 bg-forest-800 rounded text-gold-300 hover:bg-forest-700">📓 Journal</button>

@@ -154,11 +154,19 @@ export interface NaturgemaldeNode {
   discovered: boolean;
 }
 
+export interface ShipConfig {
+  hullColor: string;
+  sailColor: string;
+  flagColor: string;
+  name: string;
+}
+
 export interface GameState {
-  phase: 'title' | 'creation' | 'cycle_start' | 'dice_assignment' | 'action_result' | 'location' | 'journal' | 'storylines' | 'correspondence' | 'web_of_life' | 'moral_dilemma' | 'world_map' | 'location_detail' | 'traveling' | 'gameover' | 'victory';
+  phase: 'title' | 'creation' | 'cycle_start' | 'dice_assignment' | 'action_result' | 'location' | 'journal' | 'storylines' | 'correspondence' | 'web_of_life' | 'moral_dilemma' | 'world_map' | 'location_detail' | 'traveling' | 'ship_customize' | 'gameover' | 'victory';
   travelFrom?: string;
   travelTo?: string;
   travelDistance?: number;
+  shipConfig: ShipConfig;
   cycle: number;
   dice: DiceRoll[];
   diceCount: number;

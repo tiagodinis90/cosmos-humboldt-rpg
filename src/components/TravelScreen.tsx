@@ -5,7 +5,100 @@ interface TravelScreenProps {
   to: string;
   onComplete: () => void;
   distance: number;
+  shipConfig: ShipConfig;
 }
+
+export interface ShipConfig {
+  hullColor: string;
+  sailColor: string;
+  flagColor: string;
+  name: string;
+}
+
+interface TravelEvent {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  effect: {
+    type: 'positive' | 'negative' | 'neutral';
+    message: string;
+  };
+  triggered: boolean;
+}
+
+const travelEvents: Omit<TravelEvent, 'triggered'>[] = [
+  {
+    id: 'favorable_winds',
+    title: 'Favorable Winds',
+    description: 'The winds shift in your favor, speeding your journey.',
+    icon: '💨',
+    effect: { type: 'positive', message: 'Journey accelerated' }
+  },
+  {
+    id: 'storm',
+    title: 'Sudden Storm',
+    description: 'Dark clouds gather. The ship rocks violently as lightning splits the sky.',
+    icon: '⛈️',
+    effect: { type: 'negative', message: 'Supplies damaged' }
+  },
+  {
+    id: 'dolphin_pod',
+    title: 'Dolphin Pod',
+    description: 'A pod of dolphins swims alongside the ship, their playful leaps lifting your spirits.',
+    icon: '🐬',
+    effect: { type: 'positive', message: 'Morale boosted' }
+  },
+  {
+    id: 'floating_debris',
+    title: 'Floating Debris',
+    description: 'Wreckage from another vessel drifts past. A grim reminder of the sea\'s dangers.',
+    icon: '🪵',
+    effect: { type: 'neutral', message: 'A sobering sight' }
+  },
+  {
+    id: 'starlit_night',
+    title: 'Starlit Night',
+    description: 'The sky clears, revealing a tapestry of stars. You chart new constellations.',
+    icon: '✨',
+    effect: { type: 'positive', message: 'Data collected' }
+  },
+  {
+    id: 'fog_bank',
+    title: 'Dense Fog',
+    description: 'Thick fog rolls in, reducing visibility to mere feet. The crew grows uneasy.',
+    icon: '🌫️',
+    effect: { type: 'negative', message: 'Progress slowed' }
+  },
+  {
+    id: 'trader_ship',
+    title: 'Merchant Vessel',
+    description: 'A trading ship passes by. You exchange news and supplies.',
+    icon: '⛵',
+    effect: { type: 'positive', message: 'Supplies acquired' }
+  },
+  {
+    id: 'whale_sighting',
+    title: 'Whale Sighting',
+    description: 'A massive whale breaches nearby, its song echoing through the water.',
+    icon: '🐋',
+    effect: { type: 'neutral', message: 'Nature\'s majesty' }
+  },
+  {
+    id: 'equipment_malfunction',
+    title: 'Equipment Malfunction',
+    description: 'One of your instruments needs repair. Bonpland works through the night.',
+    icon: '🔧',
+    effect: { type: 'negative', message: 'Instruments damaged' }
+  },
+  {
+    id: 'island_sighting',
+    title: 'Distant Island',
+    description: 'A small island appears on the horizon. You mark it on your chart.',
+    icon: '🏝️',
+    effect: { type: 'positive', message: 'Chart updated' }
+  }
+];
 
 const locationNames: Record<string, string> = {
   berlin: 'Berlin',
@@ -23,16 +116,20 @@ const locationNames: Record<string, string> = {
   washington: 'Washington',
 };
 
-export default function TravelScreen({ from, to, onComplete, distance }: TravelScreenProps) {
+export default function TravelScreen({ from, to, onComplete, distance, shipConfig }: TravelScreenProps) {
   const [progress, setProgress] = useState(0);
   const [dayNight, setDayNight] = useState<'day' | 'dusk' | 'night' | 'dawn'>('day');
   const [weather, setWeather] = useState<'clear' | 'cloudy' | 'storm'>('clear');
+  const [currentEvent, setCurrentEvent] = useState<TravelEvent | null>(null);
+  const [eventLog, setEventLog] = useState<TravelEvent[]>([]);
+  const [shipRock, setShipRock] = useState(0);
 
   useEffect(() => {
-    const duration = 3000 + distance * 500; // 3-8 seconds based on distance
+    const duration = 3000 + distance * 500;
     const interval = 50;
     const steps = duration / interval;
     let step = 0;
+    let eventChance = 0;
 
     const timer = setInterval(() => {
       step++;
@@ -45,9 +142,38 @@ export default function TravelScreen({ from, to, onComplete, distance }: TravelS
       setDayNight(phases[cycle]);
 
       // Random weather changes
-      if (Math.random() < 0.1) {
+      if (Math.random() < 0.08) {
         const weathers: Array<'clear' | 'cloudy' | 'storm'> = ['clear', 'cloudy', 'storm'];
         setWeather(weathers[Math.floor(Math.random() * weathers.length)]);
+      }
+
+      // Random events (15% chance every 2 seconds)
+      eventChance += interval;
+      if (eventChance >= 2000 && Math.random() < 0.15 && !currentEvent) {
+        eventChance = 0;
+        const availableEvents = travelEvents.filter(e => 
+          !eventLog.find(logged => logged.id === e.id)
+        );
+        if (availableEvents.length > 0) {
+          const randomEvent = availableEvents[Math.floor(Math.random() * availableEvents.length)];
+          const triggeredEvent: TravelEvent = { ...randomEvent, triggered: true };
+          setCurrentEvent(triggeredEvent);
+          setEventLog(prev => [...prev, triggeredEvent]);
+          
+          // Ship reacts to event
+          if (randomEvent.id === 'storm') {
+            setShipRock(10);
+            setWeather('storm');
+          } else if (randomEvent.id === 'favorable_winds') {
+            setShipRock(-5);
+          }
+          
+          // Clear event after 3 seconds
+          setTimeout(() => {
+            setCurrentEvent(null);
+            setShipRock(0);
+          }, 3000);
+        }
       }
 
       if (step >= steps) {
@@ -57,7 +183,7 @@ export default function TravelScreen({ from, to, onComplete, distance }: TravelS
     }, interval);
 
     return () => clearInterval(timer);
-  }, [distance, onComplete]);
+  }, [distance, onComplete, currentEvent, eventLog]);
 
   const skyGradient = {
     day: 'from-sky-400 via-sky-300 to-sky-200',
@@ -74,7 +200,7 @@ export default function TravelScreen({ from, to, onComplete, distance }: TravelS
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
+    <div className="fixed inset-0 z-50 overflow-hidden bg-black">
       {/* Sky */}
       <div className={`absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b ${skyGradient[dayNight]} transition-all duration-1000`}>
         {/* Stars (night only) */}
@@ -97,7 +223,7 @@ export default function TravelScreen({ from, to, onComplete, distance }: TravelS
 
         {/* Sun/Moon */}
         {dayNight === 'day' && (
-          <div className="absolute top-10 right-20 w-20 h-20 bg-yellow-300 rounded-full shadow-lg shadow-yellow-300/50 animate-pulse" />
+          <div className="absolute top-10 right-20 w-20 h-20 bg-yellow-300 rounded-full shadow-lg shadow-yellow-300/50" />
         )}
         {dayNight === 'night' && (
           <div className="absolute top-10 right-20 w-16 h-16 bg-gray-200 rounded-full shadow-lg shadow-gray-200/30">
@@ -142,12 +268,18 @@ export default function TravelScreen({ from, to, onComplete, distance }: TravelS
                 fill={dayNight === 'night' ? 'rgba(30,41,59,0.4)' : 'rgba(59,130,246,0.3)'} />
         </svg>
 
-        {/* Ship */}
-        <div className="absolute bottom-[30%] left-1/2 -translate-x-1/2 animate-ship-bob">
+        {/* Ship - Customizable */}
+        <div 
+          className="absolute bottom-[30%] left-1/2 -translate-x-1/2 transition-transform duration-300"
+          style={{ 
+            transform: `translateX(-50%) rotate(${shipRock}deg)`,
+            animation: 'ship-bob 4s ease-in-out infinite'
+          }}
+        >
           <svg width="200" height="160" viewBox="0 0 200 160" className="drop-shadow-2xl">
-            {/* Hull */}
-            <path d="M30,110 Q40,135 100,135 Q160,135 170,110 L155,85 L45,85 Z" fill="#5D4037" stroke="#3E2723" strokeWidth="2" />
-            <path d="M45,85 L155,85 L150,100 L50,100 Z" fill="#6D4C41" />
+            {/* Hull - Customizable color */}
+            <path d="M30,110 Q40,135 100,135 Q160,135 170,110 L155,85 L45,85 Z" fill={shipConfig.hullColor} stroke="#3E2723" strokeWidth="2" />
+            <path d="M45,85 L155,85 L150,100 L50,100 Z" fill={shipConfig.hullColor} opacity="0.8" />
             
             {/* Deck details */}
             <rect x="60" y="75" width="80" height="10" rx="2" fill="#4E342E" />
@@ -158,25 +290,25 @@ export default function TravelScreen({ from, to, onComplete, distance }: TravelS
             <rect x="68" y="25" width="3" height="60" fill="#3E2723" />
             <rect x="128" y="30" width="3" height="55" fill="#3E2723" />
             
-            {/* Sails - animated */}
-            <path d="M72,27 Q90,18 100,27 L100,70 Q85,63 72,70 Z" fill="#F5F0E8" stroke="#D4C5A9" strokeWidth="1">
+            {/* Sails - Customizable color */}
+            <path d="M72,27 Q90,18 100,27 L100,70 Q85,63 72,70 Z" fill={shipConfig.sailColor} stroke="#D4C5A9" strokeWidth="1">
               <animate attributeName="d" 
                 values="M72,27 Q90,18 100,27 L100,70 Q85,63 72,70 Z;M72,27 Q90,22 100,27 L100,70 Q85,65 72,70 Z;M72,27 Q90,18 100,27 L100,70 Q85,63 72,70 Z" 
                 dur="4s" repeatCount="indefinite" />
             </path>
-            <path d="M102,12 Q120,5 130,12 L130,60 Q115,53 102,60 Z" fill="#F5F0E8" stroke="#D4C5A9" strokeWidth="1">
+            <path d="M102,12 Q120,5 130,12 L130,60 Q115,53 102,60 Z" fill={shipConfig.sailColor} stroke="#D4C5A9" strokeWidth="1">
               <animate attributeName="d" 
                 values="M102,12 Q120,5 130,12 L130,60 Q115,53 102,60 Z;M102,12 Q120,8 130,12 L130,60 Q115,55 102,60 Z;M102,12 Q120,5 130,12 L130,60 Q115,53 102,60 Z" 
                 dur="3.5s" repeatCount="indefinite" />
             </path>
-            <path d="M131,32 Q145,26 152,32 L152,70 Q142,65 131,70 Z" fill="#F5F0E8" stroke="#D4C5A9" strokeWidth="1">
+            <path d="M131,32 Q145,26 152,32 L152,70 Q142,65 131,70 Z" fill={shipConfig.sailColor} stroke="#D4C5A9" strokeWidth="1">
               <animate attributeName="d" 
                 values="M131,32 Q145,26 152,32 L152,70 Q142,65 131,70 Z;M131,32 Q145,29 152,32 L152,70 Q142,67 131,70 Z;M131,32 Q145,26 152,32 L152,70 Q142,65 131,70 Z" 
                 dur="4.5s" repeatCount="indefinite" />
             </path>
             
-            {/* Flag */}
-            <path d="M100,10 L100,2 L118,6 L100,10" fill="#C62828">
+            {/* Flag - Customizable color */}
+            <path d="M100,10 L100,2 L118,6 L100,10" fill={shipConfig.flagColor}>
               <animate attributeName="d" 
                 values="M100,10 L100,2 L118,6 L100,10;M100,10 L100,2 L116,7 L100,10;M100,10 L100,2 L118,6 L100,10" 
                 dur="2s" repeatCount="indefinite" />
@@ -196,6 +328,11 @@ export default function TravelScreen({ from, to, onComplete, distance }: TravelS
               <animate attributeName="opacity" values="0.9;0.6;0.9" dur="2s" repeatCount="indefinite" begin="0.9s" />
             </circle>
           </svg>
+          
+          {/* Ship name */}
+          <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-center">
+            <div className="text-white/80 text-xs font-serif italic">{shipConfig.name}</div>
+          </div>
           
           {/* Ship wake */}
           <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-48 h-6 opacity-40">
@@ -221,15 +358,15 @@ export default function TravelScreen({ from, to, onComplete, distance }: TravelS
         )}
       </div>
 
-      {/* UI Overlay */}
+      {/* UI Overlay - Bungie Style */}
       <div className="absolute inset-0 flex flex-col items-center justify-between p-8 pointer-events-none">
         {/* Top - Journey info */}
-        <div className="bg-black/60 backdrop-blur-md rounded-lg px-8 py-4 border border-[#d4a832]/30 pointer-events-auto">
+        <div className="bg-black/70 backdrop-blur-md rounded-lg px-8 py-4 border border-white/10 pointer-events-auto">
           <div className="text-center">
-            <div className="text-[#d4a832] font-serif text-2xl italic mb-1">
+            <div className="text-white font-serif text-2xl mb-1">
               {locationNames[from]} → {locationNames[to]}
             </div>
-            <div className="text-[#f5e6c8]/60 text-sm font-mono">
+            <div className="text-white/60 text-sm font-mono">
               {dayNight === 'day' && '☀️ Day'}
               {dayNight === 'dusk' && '🌅 Dusk'}
               {dayNight === 'night' && '🌙 Night'}
@@ -237,28 +374,73 @@ export default function TravelScreen({ from, to, onComplete, distance }: TravelS
               {' • '}
               {weather === 'clear' && 'Clear Skies'}
               {weather === 'cloudy' && 'Cloudy'}
-              {weather === 'storm' && 'Storm!'}
+              {weather === 'storm' && '⚠️ Storm!'}
             </div>
           </div>
         </div>
 
-        {/* Bottom - Progress */}
-        <div className="w-full max-w-2xl bg-black/60 backdrop-blur-md rounded-lg px-8 py-6 border border-[#d4a832]/30 pointer-events-auto">
-          <div className="text-center mb-3">
-            <div className="text-[#f5e6c8] font-serif text-lg">Journey Progress</div>
-            <div className="text-[#d4a832] font-mono text-2xl font-bold">{Math.round(progress)}%</div>
+        {/* Event notification */}
+        {currentEvent && (
+          <div className={`absolute top-32 left-1/2 -translate-x-1/2 bg-black/80 backdrop-blur-md rounded-lg px-6 py-4 border-2 max-w-md animate-slide-in ${
+            currentEvent.effect.type === 'positive' ? 'border-green-500/50' :
+            currentEvent.effect.type === 'negative' ? 'border-red-500/50' :
+            'border-white/20'
+          }`}>
+            <div className="flex items-start gap-4">
+              <div className="text-4xl">{currentEvent.icon}</div>
+              <div className="flex-grow">
+                <div className={`font-bold text-lg mb-1 ${
+                  currentEvent.effect.type === 'positive' ? 'text-green-400' :
+                  currentEvent.effect.type === 'negative' ? 'text-red-400' :
+                  'text-white'
+                }`}>
+                  {currentEvent.title}
+                </div>
+                <div className="text-white/70 text-sm mb-2">{currentEvent.description}</div>
+                <div className={`text-xs font-mono ${
+                  currentEvent.effect.type === 'positive' ? 'text-green-400/80' :
+                  currentEvent.effect.type === 'negative' ? 'text-red-400/80' :
+                  'text-white/50'
+                }`}>
+                  {currentEvent.effect.message}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="w-full h-3 bg-[#1a1510] rounded-full overflow-hidden border border-[#d4a832]/30">
+        )}
+
+        {/* Bottom - Progress */}
+        <div className="w-full max-w-2xl bg-black/70 backdrop-blur-md rounded-lg px-8 py-6 border border-white/10 pointer-events-auto">
+          <div className="text-center mb-3">
+            <div className="text-white/80 font-serif text-lg">Journey Progress</div>
+            <div className="text-white font-mono text-3xl font-bold">{Math.round(progress)}%</div>
+          </div>
+          <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-[#d4a832] to-[#f0d480] transition-all duration-100 shadow-lg shadow-[#d4a832]/50"
+              className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 transition-all duration-100 shadow-lg shadow-blue-500/50"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="flex justify-between mt-2 text-xs text-[#f5e6c8]/50 font-mono">
+          <div className="flex justify-between mt-2 text-xs text-white/50 font-mono">
             <span>Departed</span>
             <span>{Math.round(distance * (progress / 100))} / {distance} leagues</span>
             <span>Arrival</span>
           </div>
+          
+          {/* Event log */}
+          {eventLog.length > 0 && (
+            <div className="mt-4 pt-4 border-t border-white/10">
+              <div className="text-white/60 text-xs font-mono mb-2">Events Encountered:</div>
+              <div className="flex flex-wrap gap-2">
+                {eventLog.map((event, i) => (
+                  <div key={i} className="flex items-center gap-1 text-xs bg-white/5 px-2 py-1 rounded">
+                    <span>{event.icon}</span>
+                    <span className="text-white/70">{event.title}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
