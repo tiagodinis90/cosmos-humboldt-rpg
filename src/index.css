@@ -193,3 +193,137 @@ h1, h2, h3, h4, h5, h6 {
 .nav-link.active::after {
   width: 100%;
 }
+
+/* Game-specific styles */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+/* Resource bar glow effect */
+.resource-bar {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Dialogue option hover effect */
+button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* Journal entry card */
+.journal-card {
+  transition: all 0.3s ease;
+}
+
+.journal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 168, 50, 0.1);
+}
+
+/* Naturgemälde node pulse */
+@keyframes nodePulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.naturgemalde-node {
+  animation: nodePulse 3s ease-in-out infinite;
+}
+
+/* Skill check success/fail flash */
+@keyframes successFlash {
+  0% { background-color: rgba(77, 154, 107, 0); }
+  50% { background-color: rgba(77, 154, 107, 0.2); }
+  100% { background-color: rgba(77, 154, 107, 0); }
+}
+
+@keyframes failFlash {
+  0% { background-color: rgba(239, 68, 68, 0); }
+  50% { background-color: rgba(239, 68, 68, 0.2); }
+  100% { background-color: rgba(239, 68, 68, 0); }
+}
+
+.flash-success {
+  animation: successFlash 1s ease-out;
+}
+
+.flash-fail {
+  animation: failFlash 1s ease-out;
+}
+
+/* Scrollbar for game content */
+.game-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.game-content::-webkit-scrollbar-track {
+  background: rgba(15, 38, 24, 0.5);
+}
+
+.game-content::-webkit-scrollbar-thumb {
+  background: rgba(212, 168, 50, 0.3);
+  border-radius: 3px;
+}
+
+.game-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 168, 50, 0.5);
+}
+
+/* Location card gradient */
+.location-card {
+  background: linear-gradient(135deg, rgba(15, 38, 24, 0.5) 0%, rgba(10, 26, 15, 0.8) 100%);
+}
+
+/* Button press effect */
+.btn-press {
+  transition: all 0.1s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.98);
+}
+
+/* Tooltip for skill requirements */
+.skill-tooltip {
+  position: relative;
+}
+
+.skill-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: rgba(10, 26, 15, 0.95);
+  border: 1px solid rgba(212, 168, 50, 0.3);
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.skill-tooltip:hover::after {
+  opacity: 1;
+}
