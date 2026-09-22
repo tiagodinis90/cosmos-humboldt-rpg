@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react';
 import { GameState, DiceRoll, Skill, Resources, NaturgemaldeNode } from './types';
 import { initialLocations, allActions, initialStorylines, initialRelationships, randomEvents, naturgemaldeNodes } from './gameData';
+import WorldMap from './components/WorldMap';
+import LocationDetail from './components/LocationDetail';
 
 function createInitialState(): GameState {
   return {
@@ -263,6 +265,29 @@ export default function App() {
     return <MoralDilemmaScreen state={state} update={update} />;
   }
 
+  if (state.phase === 'world_map') {
+    return (
+      <WorldMap
+        state={state}
+        onLocationSelect={(locId) => {
+          update({ currentLocation: locId, phase: 'location_detail' });
+        }}
+        onClose={() => update({ phase: 'cycle_start' })}
+      />
+    );
+  }
+
+  if (state.phase === 'location_detail') {
+    const location = state.locations[state.currentLocation];
+    return (
+      <LocationDetail
+        state={state}
+        location={location}
+        onBack={() => update({ phase: 'world_map' })}
+      />
+    );
+  }
+
   // Default: cycle_start / location
   return <CycleStart state={state} update={update} rollDice={rollDice} travel={travel} />;
 }
@@ -374,6 +399,7 @@ function CycleStart({ state, update, rollDice, travel }: { state: GameState; upd
           </div>
           <div className="flex items-center gap-3">
             <span className="text-parchment/50 font-mono text-xs">CYCLE {state.cycle}</span>
+            <button onClick={() => update({ phase: 'world_map' })} className="text-xs px-2 py-1 bg-forest-800 rounded text-gold-300 hover:bg-forest-700">🗺️ Map</button>
             <button onClick={() => update({ phase: 'storylines' })} className="text-xs px-2 py-1 bg-forest-800 rounded text-gold-300 hover:bg-forest-700">📖 Arcs</button>
             <button onClick={() => update({ phase: 'journal' })} className="text-xs px-2 py-1 bg-forest-800 rounded text-gold-300 hover:bg-forest-700">📓 Journal</button>
           </div>
@@ -398,6 +424,12 @@ function CycleStart({ state, update, rollDice, travel }: { state: GameState; upd
               <h2 className="text-2xl md:text-3xl font-bold text-parchment">{loc.name}</h2>
               <p className="text-gold-400 font-mono text-xs">{loc.region}</p>
             </div>
+            <button
+              onClick={() => update({ phase: 'location_detail' })}
+              className="px-3 py-1 bg-forest-800/50 hover:bg-forest-700/50 backdrop-blur-sm text-parchment rounded-lg text-xs border border-forest-700/30 transition-all"
+            >
+              View Details →
+            </button>
           </div>
           <p className="text-parchment/75 leading-relaxed mb-2">{loc.description}</p>
           <p className="text-parchment/40 italic text-sm">{loc.atmosphere}</p>
