@@ -3,6 +3,9 @@ import { GameState, DiceRoll, Skill, Resources, NaturgemaldeNode } from './types
 import { initialLocations, allActions, initialStorylines, initialRelationships, randomEvents, naturgemaldeNodes } from './gameData';
 import WorldMap from './components/WorldMap';
 import LocationDetail from './components/LocationDetail';
+import DiceRoller from './components/DiceRoller';
+import BonplandPanel from './components/BonplandPanel';
+import StatusEffectsPanel from './components/StatusEffectsPanel';
 
 function createInitialState(): GameState {
   return {
@@ -33,6 +36,7 @@ function createInitialState(): GameState {
 
 export default function App() {
   const [state, setState] = useState<GameState>(createInitialState());
+  const [isRolling, setIsRolling] = useState(false);
 
   const update = useCallback((changes: Partial<GameState>) => {
     setState(prev => ({ ...prev, ...changes }));
@@ -40,11 +44,17 @@ export default function App() {
 
   // ===== DICE ROLLING =====
   const rollDice = () => {
+    setIsRolling(true);
     const dice: DiceRoll[] = [];
     for (let i = 0; i < state.diceCount; i++) {
       dice.push({ id: i, value: Math.floor(Math.random() * 6) + 1, assigned: null });
     }
-    update({ phase: 'dice_assignment', dice });
+    
+    // Show rolling animation for 1.5 seconds
+    setTimeout(() => {
+      setIsRolling(false);
+      update({ phase: 'dice_assignment', dice });
+    }, 1500);
   };
 
   // ===== DICE ASSIGNMENT =====
@@ -273,6 +283,7 @@ export default function App() {
           update({ currentLocation: locId, phase: 'location_detail' });
         }}
         onClose={() => update({ phase: 'cycle_start' })}
+        onTravel={travel}
       />
     );
   }
@@ -289,7 +300,7 @@ export default function App() {
   }
 
   // Default: cycle_start / location
-  return <CycleStart state={state} update={update} rollDice={rollDice} travel={travel} />;
+  return <CycleStart state={state} update={update} rollDice={rollDice} travel={travel} isRolling={isRolling} />;
 }
 
 // ===== TITLE SCREEN =====
@@ -374,7 +385,7 @@ function CharacterCreation({ state, update }: { state: GameState; update: (c: Pa
 }
 
 // ===== CYCLE START / LOCATION VIEW =====
-function CycleStart({ state, update, rollDice, travel }: { state: GameState; update: (c: Partial<GameState>) => void; rollDice: () => void; travel: (id: string) => void }) {
+function CycleStart({ state, update, rollDice, travel, isRolling }: { state: GameState; update: (c: Partial<GameState>) => void; rollDice: () => void; travel: (id: string) => void; isRolling: boolean }) {
   const loc = state.locations[state.currentLocation];
   const availableActions = loc.actions.map(id => state.actions[id]).filter(a => {
     if (a.requiredFlag && !state.flags.includes(a.requiredFlag)) return false;
@@ -435,13 +446,20 @@ function CycleStart({ state, update, rollDice, travel }: { state: GameState; upd
           <p className="text-parchment/40 italic text-sm">{loc.atmosphere}</p>
         </div>
 
-        {/* Roll Dice Button */}
-        <div className="text-center mb-8">
-          <button onClick={rollDice} className="px-10 py-5 bg-gradient-to-r from-gold-600 to-gold-700 text-forest-950 font-bold text-xl rounded-xl hover:from-gold-500 hover:to-gold-600 transition-all shadow-lg hover:shadow-gold-500/20 active:scale-95">
-            🎲 Roll {state.diceCount} Dice for Cycle {state.cycle}
-          </button>
-          <p className="text-parchment/40 text-xs mt-2 font-mono">Assign dice to actions. Higher rolls = better outcomes. Skill bonuses apply.</p>
+        {/* Companion & Status Panels */}
+        <div className="grid md:grid-cols-2 gap-4 mb-6">
+          <BonplandPanel bonpland={state.bonpland} />
+          <StatusEffectsPanel effects={state.statusEffects} />
         </div>
+
+        {/* Dice Roller */}
+        <DiceRoller
+          diceCount={state.diceCount}
+          onRoll={rollDice}
+          dice={state.dice}
+          isRolling={isRolling}
+          cycle={state.cycle}
+        />
 
         {/* Available Actions */}
         <h3 className="text-xl font-bold text-gold-300 mb-4 flex items-center gap-2">
