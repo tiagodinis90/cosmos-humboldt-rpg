@@ -195,6 +195,136 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Game-specific styles */
+
+/* Title screen animations */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes cloud-drift {
+  from { transform: translateX(-300px); }
+  to { transform: translateX(calc(100vw + 300px)); }
+}
+
+@keyframes wave {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes ship-bob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  25% { transform: translateY(-8px) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(1deg); }
+  75% { transform: translateY(-10px) rotate(0deg); }
+}
+
+@keyframes bird-fly {
+  from { transform: translateX(-100px) translateY(0); }
+  25% { transform: translateX(25vw) translateY(-20px); }
+  50% { transform: translateX(50vw) translateY(10px); }
+  75% { transform: translateX(75vw) translateY(-15px); }
+  to { transform: translateX(110vw) translateY(0); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes sail-across {
+  from { transform: translateX(-200px); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  to { transform: translateX(calc(100vw + 200px)); opacity: 0; }
+}
+
+@keyframes rain-fall {
+  from { transform: translateY(-100vh) translateX(0); opacity: 0.7; }
+  to { transform: translateY(100vh) translateX(-20px); opacity: 0; }
+}
+
+@keyframes snow-fall {
+  0% { transform: translateY(-100vh) translateX(0) rotate(0deg); opacity: 0.8; }
+  50% { transform: translateY(50vh) translateX(30px) rotate(180deg); opacity: 0.6; }
+  100% { transform: translateY(100vh) translateX(-10px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes firefly {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  25% { opacity: 1; transform: translate(10px, -15px); }
+  50% { opacity: 0.5; transform: translate(-5px, -25px); }
+  75% { opacity: 1; transform: translate(15px, -10px); }
+}
+
+@keyframes compass-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-cloud-drift {
+  animation: cloud-drift 60s linear infinite;
+}
+
+.animate-wave {
+  animation: wave 8s linear infinite;
+}
+
+.animate-ship-bob {
+  animation: ship-bob 4s ease-in-out infinite;
+}
+
+.animate-bird-fly {
+  animation: bird-fly 20s linear infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-sail-across {
+  animation: sail-across 15s linear infinite;
+}
+
+.animate-rain {
+  animation: rain-fall 1s linear infinite;
+}
+
+.animate-snow {
+  animation: snow-fall 4s linear infinite;
+}
+
+.animate-firefly {
+  animation: firefly 4s ease-in-out infinite;
+}
+
+.animate-compass {
+  animation: compass-spin 20s linear infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
 @keyframes typewriter {
   from { width: 0; }
   to { width: 100%; }

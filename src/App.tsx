@@ -6,6 +6,9 @@ import LocationDetail from './components/LocationDetail';
 import DiceRoller from './components/DiceRoller';
 import BonplandPanel from './components/BonplandPanel';
 import StatusEffectsPanel from './components/StatusEffectsPanel';
+import AnimatedTitle from './components/AnimatedTitle';
+import WeatherEffects from './components/WeatherEffects';
+import MiniMap from './components/MiniMap';
 
 function createInitialState(): GameState {
   return {
@@ -252,7 +255,7 @@ export default function App() {
   };
 
   // ===== RENDER =====
-  if (state.phase === 'title') return <TitleScreen onStart={() => update({ phase: 'creation' })} />;
+  if (state.phase === 'title') return <AnimatedTitle onStart={() => update({ phase: 'creation' })} />;
   if (state.phase === 'creation') return <CharacterCreation state={state} update={update} />;
   if (state.phase === 'gameover') return <GameOverScreen state={state} onRestart={() => setState(createInitialState())} />;
   if (state.phase === 'victory') return <VictoryScreen state={state} onRestart={() => setState(createInitialState())} />;
@@ -393,7 +396,13 @@ function CycleStart({ state, update, rollDice, travel, isRolling }: { state: Gam
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 pt-20 pb-8 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 pt-20 pb-8 px-4 relative">
+      {/* Weather Effects */}
+      <WeatherEffects locationId={state.currentLocation} />
+      
+      {/* Mini Map */}
+      <MiniMap state={state} onOpenFullMap={() => update({ phase: 'world_map' })} />
+      
       {/* Top Bar */}
       <div className="fixed top-0 left-0 right-0 z-40 bg-forest-950/95 backdrop-blur-sm border-b border-forest-700/30 px-4 py-2">
         <div className="max-w-6xl mx-auto flex items-center justify-between flex-wrap gap-2">
