@@ -447,7 +447,7 @@ function CycleStart({ state, update, rollDice, travel }: { state: GameState; upd
         <h3 className="text-xl font-bold text-gold-300 mb-4 flex items-center gap-2">
           <span>🤝</span> Relationships
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
           {state.relationships.map(rel => (
             <div key={rel.id} className="bg-forest-900/30 rounded-lg p-3 border border-forest-700/20 text-center">
               <div className="text-2xl mb-1">{rel.icon}</div>

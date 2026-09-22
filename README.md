@@ -34,6 +34,12 @@ Multiple story arcs progress simultaneously:
 - **The Summit of the World** — Attempt the Chimborazo ascent
 - **The Painting of Nature** — Create the Naturgemälde
 - **The Colonial Critique** — Document and critique colonialism
+- **The Goethe Synthesis** — Merge science and poetry under Goethe's guidance
+- **The Ocean's Veins** — Map the great ocean currents (Humboldt Current)
+- **The Magnetic Web** — Map the Earth's magnetic field
+- **The Final Expedition** — At age 60, explore the Russian Empire
+- **The Legacy** — Inspire Darwin and the next generation
+- **Liberty and Contradiction** — Navigate ideals vs. reality (slavery, 1848 revolutions)
 - **Kosmos** — Write your masterwork unifying all knowledge
 
 ### Relationship System
@@ -43,6 +49,7 @@ Track relationships with key figures:
 - **Scientific Community** 🔬 — Your peers across Europe
 - **Johann W. von Goethe** 🪶 — Poet and scientist
 - **Henriette Herz** 💫 — Salon hostess and intellectual leader
+- **Charles Darwin** 🐢 — Your protégé who will carry your legacy
 
 Higher relationship values unlock new actions and dialogue options.
 
@@ -56,10 +63,14 @@ Each cycle has a chance of random events:
 
 ### Europe
 - **Berlin, Prussia** — Starting point. Salons, libraries, preparation.
-- **Paris, France** — Final synthesis. Writing Kosmos, meeting Goethe.
+- **Berlin (Later Years)** — Royal court. Mentoring Darwin. Witnessing 1848 revolutions.
+- **Paris, France** — Final synthesis. Writing Kosmos, meeting Goethe, publishing.
+
+### The Caribbean
+- **Cuba** — Pearl of the Antilles. Sugar plantations. Documenting slavery. Magnetic research.
 
 ### South America
-- **Caracas, Venezuela** — Tropical coast. First discoveries.
+- **Caracas, Venezuela** — Tropical coast. First discoveries. The Humboldt Current.
 - **The Venezuelan Llanos** — Vast plains. Survival and observation.
 - **Lake Valencia** — Shrinking lake. Climate change discovery.
 - **The Orinoco River** — Dense jungle. Electric eels and indigenous knowledge.
@@ -67,7 +78,11 @@ Each cycle has a chance of random events:
 - **Chimborazo, Ecuador** — The summit. Record-breaking altitude.
 
 ### North America
-- **New Spain (Mexico)** — Colonial society. Silver mines and contradictions.
+- **New Spain (Mexico)** — Colonial society. Silver mines. Aztec heritage.
+- **Washington D.C., USA** — Meeting Jefferson. Sharing data about the West. Confronting American slavery.
+
+### Asia/Europe
+- **The Russian Empire** — Final expedition at age 60. Steppes, Urals, Altai Mountains.
 
 ## 🎯 How to Play
 
@@ -146,15 +161,32 @@ Your expedition fails if:
 
 ## 📚 Historical Accuracy
 
-All locations, actions, and storylines are based on Alexander von Humboldt's actual expedition (1799-1804) and his published works:
+All locations, actions, and storylines are based on Alexander von Humboldt's actual expedition (1799-1804) and his published works, as documented in Andrea Wulf's "The Invention of Nature":
 
+### The American Expedition (1799-1804)
 - The partnership with **Aimé Bonpland**
 - Investigation of **Lake Valencia's desiccation** (early climate change observation)
-- The **electric eel expedition** on the Orinoco
+- The **electric eel expedition** on the Orinoco (using horses to exhaust the eels)
 - The record-breaking **ascent of Chimborazo** (19,286 feet)
+- Discovery of the **Casiquiare channel** connecting the Orinoco and Amazon
 - Creation of the **Naturgemälde** (first ecological visualization)
-- Meetings with **Jefferson, Goethe**, and mentorship of **Darwin**
-- The lifelong project of writing **Kosmos**
+- Documentation of the **Humboldt Current** off the coast of Peru
+
+### Later Life & Legacy
+- Meetings with **Thomas Jefferson** in Washington D.C. (1804)
+- Friendship with **Johann Wolfgang von Goethe** and the synthesis of science and poetry
+- **Russia Expedition** (1829) at age 60 across the Urals and Altai Mountains
+- Mentorship of **Charles Darwin**, who carried Humboldt's legacy to the Beagle
+- Writing **Kosmos** (1845-1862) — his masterwork unifying all knowledge
+- Witnessing the **1848 Revolutions** at age 79
+- Lifelong opposition to **slavery** documented in Cuba and the Americas
+
+### Key Themes from "The Invention of Nature"
+- **Everything is connected** — Mountains, rivers, air, plants, people all exist in relationship
+- **Human impact on nature** — Early observations of deforestation and climate change
+- **The collaborative nature of science** — Knowledge builds across generations
+- **The unity of knowledge** — Science, art, politics, and philosophy are interconnected
+- **Nature as a living whole** — Not a machine but a web of relationships
 
 ## 🛠️ Technical Implementation
 
@@ -178,13 +210,23 @@ Players learn about:
 
 ## 🎮 Game Stats
 
-- **9 Locations** across Europe and the Americas
-- **45+ Unique Actions** with skill-gated outcomes
-- **9 Parallel Storylines** with multiple stages each
-- **5 Relationship tracks** that unlock new content
+- **13 Locations** across Europe, the Caribbean, South America, North America, and Russia
+- **70+ Unique Actions** with skill-gated outcomes
+- **15 Parallel Storylines** with multiple stages each
+- **6 Relationship tracks** that unlock new content
 - **10+ Random events** that add variety
 - **30+ Journal entries** documenting your discoveries
 - **13 Naturgemälde nodes** forming an ecological web
+
+### New Content from "The Invention of Nature"
+- **Cuba** — Document slavery, study magnetism, explore flora
+- **Washington D.C.** — Meet Jefferson, confront American slavery
+- **Russia Expedition** — Final adventure at age 60 across the steppes
+- **Humboldt Current** — Discover the ocean current named after you
+- **Goethe Synthesis** — Merge science and poetry
+- **Darwin Mentorship** — Guide the young naturalist
+- **1848 Revolutions** — Witness revolutionary fervor at age 79
+- **Magnetic Research** — Map the Earth's magnetic field
 
 ## 💡 Design Philosophy
 
