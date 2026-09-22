@@ -792,6 +792,56 @@ export const allActions: Record<string, GameAction> = {
     failText: 'The publication is well-received but does not achieve the widespread fame you hoped for. Still, it establishes your reputation.',
     available: true,
   },
+
+  // === BONPLAND ACTIONS ===
+  bonpland_botanical: {
+    id: 'bonpland_botanical',
+    name: 'Collaborate with Bonpland on Botany',
+    location: 'caracas',
+    description: 'Work with your companion to classify the extraordinary plant specimens you\'ve collected.',
+    dieRequired: 3,
+    skill: 'empathy',
+    cost: { supplies: 2 },
+    effects: {
+      resources: { data: 8 },
+      relationship: { id: 'bonpland', change: 2 },
+      bonpland: { morale: 5, expertise: 3 },
+    },
+    successText: 'Bonpland\'s expertise in botany complements your broad vision perfectly. Together you classify dozens of new species, your conversation flowing between scientific precision and shared wonder.',
+    failText: 'The work is tedious and the heat oppressive. You and Bonpland make progress, but the pace is slower than hoped.',
+    available: true,
+  },
+  bonpland_morale: {
+    id: 'bonpland_morale',
+    name: 'Boost Bonpland\'s Spirits',
+    location: 'any',
+    description: 'Your companion\'s morale is flagging. Spend time encouraging him and reminding him of your shared purpose.',
+    dieRequired: 2,
+    skill: 'empathy',
+    effects: {
+      relationship: { id: 'bonpland', change: 3 },
+      bonpland: { morale: 15 },
+    },
+    successText: 'You remind Bonpland of the importance of your work, of the lives that will be touched by your discoveries. His eyes light up with renewed purpose. "You are right, Alexander. We must continue."',
+    failText: 'Bonpland appreciates your words, but the hardship has worn him down. He nods politely, but his heart is not yet restored.',
+    available: true,
+  },
+  bonpland_health: {
+    id: 'bonpland_health',
+    name: 'Care for Bonpland\'s Health',
+    location: 'any',
+    description: 'Your companion is struggling. Use your knowledge of medicine and your supplies to nurse him back to health.',
+    dieRequired: 3,
+    skill: 'logic',
+    cost: { supplies: 5, instruments: 2 },
+    effects: {
+      relationship: { id: 'bonpland', change: 2 },
+      bonpland: { health: 20 },
+    },
+    successText: 'Your careful attention and medical knowledge restore Bonpland\'s strength. He rests, eats the nourishing food you prepare, and within days his color returns. "Thank you, my friend," he says.',
+    failText: 'You do what you can, but Bonpland\'s condition improves only slightly. He needs more time and better care than you can provide on the trail.',
+    available: true,
+  },
 };
 
 // ===== STORYLINES (parallel arcs like Citizen Sleeper) =====
@@ -939,6 +989,220 @@ export const initialRelationships: Relationship[] = [
   { id: 'herz', name: 'Henriette Herz', title: 'Salon Hostess', value: 0, icon: '💫', description: 'Intellectual leader of Berlin\'s salon culture.' },
   { id: 'darwin', name: 'Charles Darwin', title: 'Protégé', value: 0, icon: '🐢', description: 'The young naturalist who will carry your legacy forward.' },
 ];
+
+// ===== STATUS EFFECTS =====
+export const statusEffectTemplates = {
+  altitude_sickness: {
+    id: 'altitude_sickness',
+    name: 'Altitude Sickness',
+    icon: '🫁',
+    description: 'Thin air causes headache, nausea, and difficulty breathing. Humboldt documented this condition during his Chimborazo ascent.',
+    severity: 'moderate' as const,
+    effects: { vitality: -10, data: -2 },
+    duration: 3,
+    cure: 'andes_rest',
+  },
+  hypothermia: {
+    id: 'hypothermia',
+    name: 'Hypothermia',
+    icon: '🥶',
+    description: 'Extreme cold saps your strength and clouds your judgment. You must find warmth soon.',
+    severity: 'severe' as const,
+    effects: { vitality: -15, instruments: -5 },
+    duration: 2,
+    cure: 'chimborazo_rest',
+  },
+  tropical_fever: {
+    id: 'tropical_fever',
+    name: 'Tropical Fever',
+    icon: '🤒',
+    description: 'A fever wracks your body. The humid air and insect bites have taken their toll.',
+    severity: 'moderate' as const,
+    effects: { vitality: -12, supplies: -3 },
+    duration: 4,
+    cure: 'caracas_rest',
+  },
+  jaguar_wound: {
+    id: 'jaguar_wound',
+    name: 'Jaguar Wound',
+    icon: '🩸',
+    description: 'A jaguar attack left you with deep claw marks. The wound needs careful tending.',
+    severity: 'severe' as const,
+    effects: { vitality: -20, supplies: -5 },
+    duration: 5,
+    cure: 'llanos_rest',
+  },
+  electric_shock: {
+    id: 'electric_shock',
+    name: 'Electric Shock',
+    icon: '⚡',
+    description: 'An electric eel\'s discharge has left your muscles trembling and your hands numb.',
+    severity: 'mild' as const,
+    effects: { vitality: -8, instruments: -3 },
+    duration: 2,
+  },
+};
+
+// ===== MORAL DILEMMAS =====
+export const moralDilemmas = [
+  {
+    id: 'tableau_physique',
+    title: 'The Tableau Physique Dilemma',
+    description: 'While preparing your famous cross-section of Chimborazo, you discover an error in your data. Some plant species were collected from Mt. Antisana, not Chimborazo. You can either:\n\n• Admit the error and delay publication (lose credibility but maintain integrity)\n• Proceed with the elegant but flawed diagram (gain fame but compromise truth)\n• Revise the work extensively (lose time but achieve accuracy)',
+    choices: [
+      {
+        id: 'admit_error',
+        text: 'Admit the error publicly',
+        effects: { data: -10, vitality: -5 },
+        relationship: { id: 'scientific_community', change: -2 },
+        flag: 'integrity_maintained',
+        outcome: 'You publish a correction, admitting your mistake. Some colleagues question your rigor, but your honesty earns respect from those who value truth over fame. The delay costs you prestige, but your conscience is clear.',
+      },
+      {
+        id: 'proceed_flawed',
+        text: 'Proceed with the elegant diagram',
+        effects: { data: 15, credits: 20 },
+        relationship: { id: 'scientific_community', change: 3 },
+        flag: 'fame_over_truth',
+        outcome: 'The Tableau Physique becomes a sensation. Your reputation soars as the diagram is praised for its beauty and insight. But you know the truth—some data is from Antisana, not Chimborazo. The weight of this compromise will follow you.',
+      },
+      {
+        id: 'revise_extensively',
+        text: 'Revise the work extensively',
+        effects: { data: 5, vitality: -10, supplies: -5 },
+        flag: 'perfectionist',
+        outcome: 'You spend months revising the work, recollecting specimens, and verifying every data point. The final version is accurate but the delay means others publish similar work first. Still, your Tableau Physique stands as a model of scientific rigor.',
+      },
+    ],
+    trigger: { type: 'flag', target: 'chimborazo_ascent_complete', minData: 50 },
+  },
+  {
+    id: 'colonial_compromise',
+    title: 'The Colonial Compromise',
+    description: 'Spanish colonial officials offer you increased funding and access to restricted areas if you soften your criticism of slavery in your publications. You can:\n\n• Accept their terms (gain resources but betray your principles)\n• Refuse and publish anyway (maintain integrity but lose support)\n• Negotiate a middle ground (partial criticism, partial access)',
+    choices: [
+      {
+        id: 'accept_terms',
+        text: 'Accept their terms',
+        effects: { credits: 30, instruments: 10 },
+        relationship: { id: 'indigenous', change: -5 },
+        flag: 'colonial_compromised',
+        outcome: 'You gain access to restricted mines and receive generous funding. But when you publish, your criticism of slavery is muted. Bonpland looks at you with disappointment. The indigenous guides you befriended feel betrayed.',
+      },
+      {
+        id: 'refuse_publish',
+        text: 'Refuse and publish the truth',
+        effects: { credits: -10, vitality: -5 },
+        relationship: { id: 'indigenous', change: 3 },
+        flag: 'anti_colonial_stance',
+        outcome: 'You publish your unvarnished account, condemning slavery and colonial exploitation. The Spanish authorities restrict your access and withdraw support. But your words inspire abolitionists across Europe, and the indigenous peoples remember your courage.',
+      },
+      {
+        id: 'negotiate',
+        text: 'Negotiate a middle ground',
+        effects: { credits: 15 },
+        flag: 'diplomatic_solution',
+        outcome: 'You craft a careful compromise—criticizing the system while acknowledging "progress." The officials are satisfied enough to grant limited access. It\'s not the truth you wanted to tell, but it\'s more than you would have managed otherwise. A pragmatic solution, if not a principled one.',
+      },
+    ],
+    trigger: { type: 'location', target: 'mexico', minCycle: 20 },
+  },
+];
+
+// ===== CORRESPONDENCE TEMPLATES =====
+export const correspondenceTemplates = [
+  {
+    id: 'goethe_letter_1',
+    from: 'Johann Wolfgang von Goethe',
+    to: 'Alexander von Humboldt',
+    subject: 'On the Unity of Nature',
+    content: 'My dear Alexander,\n\nYour letters from the Tropics fill me with wonder. You see nature as I have always wished to see it—not as a collection of parts, but as a living whole. Your concept of the "web of life" resonates deeply with my own intuitions about the interconnectedness of all things.\n\nWhen you describe the vegetation zones of Chimborazo, I see not just science but poetry. The mountain is a poem written in the language of nature, and you have learned to read it.\n\nContinue your work, my friend. You are showing the world what I have only glimpsed in my dreams.\n\nYour devoted friend,\nGoethe',
+    cycle: 15,
+    read: false,
+  },
+  {
+    id: 'darwin_letter_1',
+    from: 'Charles Darwin',
+    to: 'Alexander von Humboldt',
+    subject: 'A Young Naturalist\'s Gratitude',
+    content: 'Dear Baron von Humboldt,\n\nI write to you with the deepest respect and gratitude. Your "Personal Narrative" inspired me to pursue natural science, and I carry your words with me as I prepare for my voyage aboard the Beagle.\n\nYou wrote that "the greatest good to the naturalist is to see with his own eyes." I intend to follow your advice. I will observe, collect, and think—though I doubt I shall achieve a fraction of what you have accomplished.\n\nIf I may be so bold, I wonder: do you believe species are fixed, or might they change over time? Your observations of variation in the Tropics must have given you thoughts on this matter.\n\nWith highest admiration,\nCharles Darwin',
+    cycle: 40,
+    read: false,
+  },
+  {
+    id: 'bonpland_letter_1',
+    from: 'Aimé Bonpland',
+    to: 'Alexander von Humboldt',
+    subject: 'Memories of Our Journey',
+    content: 'My dear Alexander,\n\nI think often of our days in the Orinoco, when we collected specimens until our hands were raw and our backs ached. Do you remember the electric eels? We thought we would never escape that pool alive!\n\nThose were the best days of my life. Your vision inspired me, your friendship sustained me. Even now, separated by distance, I feel we are still partners in the great work of understanding nature.\n\nHow fares your great work, Kosmos? I hope it captures even a fraction of the wonder we witnessed together.\n\nYour faithful friend and companion,\nAimé',
+    cycle: 30,
+    read: false,
+  },
+];
+
+// ===== WEB OF LIFE CONNECTIONS =====
+export const webConnectionTemplates = [
+  { from: 'deforestation', to: 'climate_change', strength: 0.9 },
+  { from: 'altitude', to: 'temperature', strength: 0.8 },
+  { from: 'ocean_currents', to: 'coastal_climate', strength: 0.7 },
+  { from: 'volcanic_activity', to: 'soil_fertility', strength: 0.6 },
+  { from: 'indigenous_knowledge', to: 'biodiversity', strength: 0.8 },
+  { from: 'magnetic_field', to: 'navigation', strength: 0.5 },
+  { from: 'vegetation_zones', to: 'animal_migration', strength: 0.7 },
+  { from: 'water_cycle', to: 'forest_cover', strength: 0.9 },
+];
+
+// ===== BONPLAND ACTIONS =====
+export const bonplandActions = {
+  bonpland_botanical: {
+    id: 'bonpland_botanical',
+    name: 'Collaborate with Bonpland on Botany',
+    location: 'caracas',
+    description: 'Work with your companion to classify the extraordinary plant specimens you\'ve collected.',
+    dieRequired: 3,
+    skill: 'empathy' as const,
+    cost: { supplies: 2 },
+    effects: {
+      resources: { data: 8 },
+      relationship: { id: 'bonpland', change: 2 },
+      bonpland: { morale: 5, expertise: 3 },
+    },
+    successText: 'Bonpland\'s expertise in botany complements your broad vision perfectly. Together you classify dozens of new species, your conversation flowing between scientific precision and shared wonder.',
+    failText: 'The work is tedious and the heat oppressive. You and Bonpland make progress, but the pace is slower than hoped.',
+    available: true,
+  },
+  bonpland_morale: {
+    id: 'bonpland_morale',
+    name: 'Boost Bonpland\'s Spirits',
+    location: 'any',
+    description: 'Your companion\'s morale is flagging. Spend time encouraging him and reminding him of your shared purpose.',
+    dieRequired: 2,
+    skill: 'empathy' as const,
+    effects: {
+      relationship: { id: 'bonpland', change: 3 },
+      bonpland: { morale: 15 },
+    },
+    successText: 'You remind Bonpland of the importance of your work, of the lives that will be touched by your discoveries. His eyes light up with renewed purpose. "You are right, Alexander. We must continue."',
+    failText: 'Bonpland appreciates your words, but the hardship has worn him down. He nods politely, but his heart is not yet restored.',
+    available: true,
+  },
+  bonpland_health: {
+    id: 'bonpland_health',
+    name: 'Care for Bonpland\'s Health',
+    location: 'any',
+    description: 'Your companion is struggling. Use your knowledge of medicine and your supplies to nurse him back to health.',
+    dieRequired: 3,
+    skill: 'logic' as const,
+    cost: { supplies: 5, instruments: 2 },
+    effects: {
+      relationship: { id: 'bonpland', change: 2 },
+      bonpland: { health: 20 },
+    },
+    successText: 'Your careful attention and medical knowledge restore Bonpland\'s strength. He rests, eats the nourishing food you prepare, and within days his color returns. "Thank you, my friend," he says.',
+    failText: 'You do what you can, but Bonpland\'s condition improves only slightly. He needs more time and better care than you can provide on the trail.',
+    available: true,
+  },
+};
 
 // ===== RANDOM EVENTS =====
 export const randomEvents: RandomEvent[] = [

@@ -17,6 +17,35 @@ export interface Resources {
   vitality: number;     // Health - the "stabilizer"
 }
 
+export interface StatusEffect {
+  id: string;
+  name: string;
+  icon: string;
+  description: string;
+  severity: 'mild' | 'moderate' | 'severe';
+  effects: Partial<Resources>;
+  duration: number; // cycles remaining
+  cure?: string; // action id that can cure it
+}
+
+export interface BonplandState {
+  health: number;      // 0-100
+  morale: number;      // 0-100
+  expertise: number;   // 0-100
+  relationship: number; // -5 to 10
+}
+
+export interface Correspondence {
+  id: string;
+  from: string;
+  to: string;
+  subject: string;
+  content: string;
+  cycle: number;
+  read: boolean;
+  response?: string;
+}
+
 export interface Relationship {
   id: string;
   name: string;
@@ -70,6 +99,8 @@ export interface GameAction {
     storyline?: string;    // storyline id to progress
     unlockAction?: string;
     unlockLocation?: string;
+    bonpland?: Partial<BonplandState>;
+    statusEffect?: string; // status effect id to apply
   };
   successText: string;
   failText: string;
@@ -124,7 +155,7 @@ export interface NaturgemaldeNode {
 }
 
 export interface GameState {
-  phase: 'title' | 'creation' | 'cycle_start' | 'dice_assignment' | 'action_result' | 'location' | 'journal' | 'storylines' | 'gameover' | 'victory';
+  phase: 'title' | 'creation' | 'cycle_start' | 'dice_assignment' | 'action_result' | 'location' | 'journal' | 'storylines' | 'correspondence' | 'web_of_life' | 'moral_dilemma' | 'gameover' | 'victory';
   cycle: number;
   dice: DiceRoll[];
   diceCount: number;
@@ -142,4 +173,8 @@ export interface GameState {
   pendingAction: string | null;
   actionResult: { success: boolean; text: string } | null;
   totalActionsCompleted: number;
+  statusEffects: StatusEffect[];
+  bonpland: BonplandState;
+  correspondence: Correspondence[];
+  webConnections: Array<{ from: string; to: string; strength: number }>;
 }

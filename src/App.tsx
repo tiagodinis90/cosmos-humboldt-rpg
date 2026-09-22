@@ -22,6 +22,10 @@ function createInitialState(): GameState {
     pendingAction: null,
     actionResult: null,
     totalActionsCompleted: 0,
+    statusEffects: [],
+    bonpland: { health: 100, morale: 80, expertise: 70, relationship: 0 },
+    correspondence: [],
+    webConnections: [],
   };
 }
 
@@ -245,6 +249,18 @@ export default function App() {
 
   if (state.phase === 'dice_assignment') {
     return <DiceAssignment state={state} assignDie={assignDie} unassignDie={unassignDie} resolveCycle={resolveCycle} />;
+  }
+
+  if (state.phase === 'correspondence') {
+    return <CorrespondenceScreen state={state} onClose={() => update({ phase: 'cycle_start' })} />;
+  }
+
+  if (state.phase === 'web_of_life') {
+    return <WebOfLifeScreen state={state} onClose={() => update({ phase: 'cycle_start' })} />;
+  }
+
+  if (state.phase === 'moral_dilemma') {
+    return <MoralDilemmaScreen state={state} update={update} />;
   }
 
   // Default: cycle_start / location
@@ -698,6 +714,229 @@ function ResourceBar({ label, value, icon, color, max = 100 }: { label: string; 
         </div>
         <div className="h-1.5 bg-forest-800 rounded-full overflow-hidden">
           <div className={`h-full ${color} transition-all duration-500`} style={{ width: `${pct}%` }} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ===== CORRESPONDENCE SCREEN =====
+function CorrespondenceScreen({ state, onClose }: { state: GameState; onClose: () => void }) {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 pt-20 pb-8 px-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-3xl font-bold text-parchment">✉️ Correspondence</h2>
+          <button onClick={onClose} className="px-4 py-2 bg-forest-800 hover:bg-forest-700 text-parchment rounded-lg text-sm">← Return</button>
+        </div>
+
+        <div className="space-y-4">
+          {state.correspondence.length === 0 ? (
+            <p className="text-center text-parchment/40 py-16">No letters yet. Continue your journey and relationships will develop.</p>
+          ) : (
+            state.correspondence.map(letter => (
+              <div key={letter.id} className="bg-forest-900/40 rounded-lg p-6 border border-gold-500/20">
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="text-gold-300 font-bold text-lg">{letter.subject}</h3>
+                    <p className="text-parchment/60 text-sm">From: {letter.from}</p>
+                  </div>
+                  <span className="text-xs font-mono text-parchment/40">Cycle {letter.cycle}</span>
+                </div>
+                <div className="text-parchment/75 text-sm leading-relaxed whitespace-pre-line mb-3">
+                  {letter.content}
+                </div>
+                {letter.response && (
+                  <div className="mt-4 p-3 bg-forest-950/50 rounded border-l-2 border-gold-500/50">
+                    <p className="text-xs text-gold-400 font-mono mb-1">Your Response:</p>
+                    <p className="text-parchment/70 text-sm">{letter.response}</p>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ===== WEB OF LIFE SCREEN =====
+function WebOfLifeScreen({ state, onClose }: { state: GameState; onClose: () => void }) {
+  const discoveredNodes = state.naturgemalde.filter(n => n.discovered);
+  const connectionCount = state.webConnections.length;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 pt-20 pb-8 px-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-3xl font-bold text-parchment">🕸️ Web of Life</h2>
+          <button onClick={onClose} className="px-4 py-2 bg-forest-800 hover:bg-forest-700 text-parchment rounded-lg text-sm">← Return</button>
+        </div>
+
+        <div className="bg-forest-900/40 rounded-xl border border-gold-500/20 p-6 mb-6">
+          <p className="text-parchment/70 text-sm mb-4 text-center">
+            Nature is a web of interconnected forces. Each discovery reveals new connections, building toward your vision of <span className="text-gold-300 italic">Cosmos</span>.
+          </p>
+          <div className="flex justify-center gap-8 mb-6 text-sm">
+            <div className="text-center">
+              <div className="text-2xl font-bold text-gold-400">{discoveredNodes.length}</div>
+              <div className="text-parchment/50 text-xs">Nodes Discovered</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-forest-400">{connectionCount}</div>
+              <div className="text-parchment/50 text-xs">Connections Made</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-blue-400">{state.resources.data}</div>
+              <div className="text-parchment/50 text-xs">Total Data</div>
+            </div>
+          </div>
+
+          <div className="relative h-96 bg-forest-950/50 rounded-lg border border-forest-700/30">
+            <svg className="w-full h-full">
+              {/* Draw web connections */}
+              {state.webConnections.map((conn, i) => {
+                const fromNode = discoveredNodes.find(n => n.id === conn.from);
+                const toNode = discoveredNodes.find(n => n.id === conn.to);
+                if (!fromNode || !toNode) return null;
+                return (
+                  <line
+                    key={i}
+                    x1={`${fromNode.x}%`}
+                    y1={`${fromNode.y}%`}
+                    x2={`${toNode.x}%`}
+                    y2={`${toNode.y}%`}
+                    stroke={`rgba(212,168,50,${conn.strength * 0.5})`}
+                    strokeWidth={conn.strength * 3}
+                    className="animate-pulse"
+                  />
+                );
+              })}
+              {/* Draw nodes */}
+              {discoveredNodes.map(node => (
+                <g key={node.id}>
+                  <circle
+                    cx={`${node.x}%`}
+                    cy={`${node.y}%`}
+                    r="18"
+                    fill={node.category === 'flora' ? 'rgba(77,154,107,0.4)' : node.category === 'fauna' ? 'rgba(139,92,246,0.4)' : node.category === 'climate' ? 'rgba(59,130,246,0.4)' : node.category === 'geology' ? 'rgba(212,168,50,0.4)' : 'rgba(244,114,182,0.4)'}
+                    stroke="rgba(212,168,50,0.6)"
+                    strokeWidth="2"
+                    className="animate-pulse"
+                  />
+                  <text
+                    x={`${node.x}%`}
+                    y={`${node.y + 6}%`}
+                    textAnchor="middle"
+                    fill="rgba(245,240,232,0.8)"
+                    fontSize="9"
+                    fontFamily="monospace"
+                    fontWeight="bold"
+                  >
+                    {node.label}
+                  </text>
+                </g>
+              ))}
+            </svg>
+          </div>
+        </div>
+
+        <div className="bg-forest-900/30 rounded-lg p-6 border border-forest-700/20">
+          <h3 className="text-gold-300 font-bold mb-3">Understanding the Web</h3>
+          <p className="text-parchment/70 text-sm leading-relaxed">
+            Every action you take reveals connections in nature. Deforestation affects climate. Altitude shapes temperature. Ocean currents influence coastal ecosystems. As you gather data and make discoveries, the web grows more complex, more beautiful, more true. This is Humboldt's vision: nature not as a collection of parts, but as a living, breathing whole.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ===== MORAL DILEMMA SCREEN =====
+function MoralDilemmaScreen({ state, update }: { state: GameState; update: (c: Partial<GameState>) => void }) {
+  // For now, show the Tableau Physique dilemma as an example
+  const dilemma = {
+    id: 'tableau_physique',
+    title: 'The Tableau Physique Dilemma',
+    description: 'While preparing your famous cross-section of Chimborazo, you discover an error in your data. Some plant species were collected from Mt. Antisana, not Chimborazo. You must decide:\n\n• Admit the error and delay publication\n• Proceed with the elegant but flawed diagram\n• Revise the work extensively',
+    choices: [
+      {
+        id: 'admit_error',
+        text: 'Admit the error publicly',
+        outcome: 'You publish a correction, admitting your mistake. Some colleagues question your rigor, but your honesty earns respect. The delay costs you prestige, but your conscience is clear.',
+        effects: { data: -10, vitality: -5 },
+        relationship: { id: 'scientific_community', change: -2 },
+        flag: 'integrity_maintained',
+      },
+      {
+        id: 'proceed_flawed',
+        text: 'Proceed with the elegant diagram',
+        outcome: 'The Tableau Physique becomes a sensation. Your reputation soars. But you know the truth—some data is from Antisana, not Chimborazo. The weight of this compromise will follow you.',
+        effects: { data: 15, credits: 20 },
+        relationship: { id: 'scientific_community', change: 3 },
+        flag: 'fame_over_truth',
+      },
+      {
+        id: 'revise_extensively',
+        text: 'Revise the work extensively',
+        outcome: 'You spend months revising, recollecting specimens, verifying every data point. The final version is accurate but others publish similar work first. Still, your Tableau Physique stands as a model of scientific rigor.',
+        effects: { data: 5, vitality: -10, supplies: -5 },
+        flag: 'perfectionist',
+      },
+    ],
+  };
+
+  const handleChoice = (choice: typeof dilemma.choices[0]) => {
+    const newResources = { ...state.resources };
+    if (choice.effects.data) newResources.data += choice.effects.data;
+    if (choice.effects.vitality) newResources.vitality += choice.effects.vitality;
+    if (choice.effects.credits) newResources.credits += choice.effects.credits;
+    if (choice.effects.supplies) newResources.supplies += choice.effects.supplies;
+
+    const newRelationships = state.relationships.map(r => {
+      if (choice.relationship && r.id === choice.relationship.id) {
+        return { ...r, value: r.value + choice.relationship.change };
+      }
+      return r;
+    });
+
+    const newFlags = choice.flag ? [...state.flags, choice.flag] : state.flags;
+
+    update({
+      resources: newResources,
+      relationships: newRelationships,
+      flags: newFlags,
+      phase: 'cycle_start',
+      message: { text: choice.outcome, type: 'info' },
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 flex items-center justify-center px-4">
+      <div className="max-w-3xl w-full">
+        <div className="bg-forest-900/50 rounded-xl border-2 border-gold-500/30 p-8">
+          <h2 className="text-3xl font-bold text-gold-300 mb-4 text-center">⚖️ {dilemma.title}</h2>
+          <p className="text-parchment/80 text-sm leading-relaxed whitespace-pre-line mb-8">
+            {dilemma.description}
+          </p>
+
+          <div className="space-y-4">
+            {dilemma.choices.map(choice => (
+              <button
+                key={choice.id}
+                onClick={() => handleChoice(choice)}
+                className="w-full text-left p-4 bg-forest-800/50 hover:bg-forest-700/50 border border-forest-600/30 hover:border-gold-500/50 rounded-lg transition-all"
+              >
+                <div className="font-bold text-parchment mb-2">{choice.text}</div>
+                <div className="text-xs text-parchment/50">
+                  {choice.effects.data && <span className="mr-3">{choice.effects.data > 0 ? '+' : ''}{choice.effects.data} Data</span>}
+                  {choice.effects.vitality && <span className="mr-3">{choice.effects.vitality > 0 ? '+' : ''}{choice.effects.vitality} Vitality</span>}
+                  {choice.effects.credits && <span className="mr-3">{choice.effects.credits > 0 ? '+' : ''}{choice.effects.credits} Credits</span>}
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>

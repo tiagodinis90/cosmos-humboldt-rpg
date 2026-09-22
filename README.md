@@ -53,6 +53,52 @@ Track relationships with key figures:
 
 Higher relationship values unlock new actions and dialogue options.
 
+### Status Effects System
+Environmental hazards inflict status effects that drain resources:
+- **Altitude Sickness** 🫁 — Thin air causes headache and nausea (Chimborazo)
+- **Hypothermia** 🥶 — Extreme cold saps strength (mountains, Russia)
+- **Tropical Fever** 🤒 — Humid air and insect bites take their toll (jungles)
+- **Jaguar Wound** 🩸 — Deep claw marks from predator attacks (llanos)
+- **Electric Shock** ⚡ — Eel discharge leaves muscles trembling (Orinoco)
+
+Status effects drain vitality and other resources each cycle until cured through specific actions.
+
+### Bonpland Partnership Management
+Your companion Aimé Bonpland has his own stats:
+- **Health** — Physical condition (affects his ability to work)
+- **Morale** — Mental state (affects collaboration quality)
+- **Expertise** — Botanical knowledge (aids in classification)
+- **Relationship** — Your bond with him (-5 to 10)
+
+Special actions let you:
+- Collaborate on botanical classification
+- Boost his morale through encouragement
+- Care for his health when he's struggling
+
+### Moral Dilemmas
+Face difficult ethical choices that shape your legacy:
+- **The Tableau Physique Dilemma** — Discover an error in your famous diagram. Admit it and lose prestige? Proceed with flawed work and gain fame? Or revise extensively and lose time?
+- **The Colonial Compromise** — Spanish officials offer funding if you soften criticism of slavery. Accept and betray principles? Refuse and lose support? Negotiate a middle ground?
+
+These dilemmas force you to grapple with the same ambiguities Humboldt faced: truth vs. fame, ideals vs. pragmatism, integrity vs. survival.
+
+### Correspondence System
+Receive letters from historical figures as your relationships develop:
+- **Goethe** writes about the unity of nature and the marriage of science and poetry
+- **Darwin** asks for guidance before his voyage on the Beagle
+- **Bonpland** shares memories of your journey together
+
+Letters appear based on cycle number and relationship values, adding narrative depth and historical authenticity.
+
+### Web of Life Visualization
+See nature's interconnectedness visualized as a dynamic web:
+- **Nodes** represent discovered phenomena (flora, fauna, climate, geology)
+- **Connections** show relationships between phenomena
+- **Strength** of connections varies based on your discoveries
+- **Progress** measured by nodes discovered and connections made
+
+This mechanic embodies Humboldt's revolutionary idea that nature is a complex, interacting system—not a collection of isolated parts.
+
 ### Random Events
 Each cycle has a chance of random events:
 - Tropical fever, violent storms, unexpected discoveries
@@ -131,24 +177,33 @@ Your expedition fails if:
 - Prioritize **climate discovery** and **altitudinal zonation** storylines
 - Maintain **instruments** — they're expensive to replace
 - Balance **data collection** with **rest**
+- Watch for **status effects** — cure them before they become severe
 
 ### Late Game (Cycles 31+)
 - Attempt the **Chimborazo ascent** (requires 5+ die)
 - Create the **Naturgemälde** (requires aesthetics skill)
 - Return to **Europe** for final synthesis
 - Write **Kosmos** (requires 6+ die and naturgemälde complete)
+- Face **moral dilemmas** that shape your legacy
 
 ### Resource Management
 - **Rest actions** restore vitality but waste a die
 - **Trade actions** restore supplies but cost credits
 - **Instrument maintenance** is crucial for high-altitude work
 - **Random events** can suddenly drain resources — always keep reserves
+- **Status effects** compound over time — cure them early
 
 ### Skill Investment
 - **Logic** — Essential for scientific measurements and navigation
 - **Empathy** — Critical for indigenous knowledge and relationships
 - **Aesthetics** — Required for Naturgemälde and artistic synthesis
 - **Political** — Important for colonial critique and diplomatic encounters
+
+### Bonpland Management
+- Keep Bonpland's **health** above 50 — he's your partner, not a burden
+- Boost his **morale** regularly — low morale reduces collaboration quality
+- His **expertise** grows through botanical work — invest in this early
+- Your **relationship** with him affects available actions and outcomes
 
 ## 🎨 Visual Design
 
@@ -158,6 +213,7 @@ Your expedition fails if:
 - **Real-time resource bars** with color-coded warnings
 - **Interactive Naturgemälde** visualization showing ecological connections
 - **Dice assignment UI** inspired by Citizen Sleeper
+- **Web of Life** dynamic visualization with pulsing connections
 
 ## 📚 Historical Accuracy
 
@@ -195,7 +251,7 @@ Built with:
 - **Vite** — Fast development and building
 - **Tailwind CSS** — Responsive, elegant styling
 - **useState hooks** — Simple state management
-- **SVG-based Naturgemälde** — Interactive visualization
+- **SVG-based visualizations** — Interactive Naturgemälde and Web of Life
 
 ## 🎓 Educational Value
 
@@ -207,6 +263,7 @@ Players learn about:
 - The **unity of natural knowledge** — Humboldt's vision of Kosmos
 - **Indigenous knowledge systems** and their value
 - **Climate change** — Humboldt was one of the first to document human impact
+- **Moral complexity** — the tension between truth and fame, ideals and pragmatism
 
 ## 🎮 Game Stats
 
@@ -215,8 +272,13 @@ Players learn about:
 - **15 Parallel Storylines** with multiple stages each
 - **6 Relationship tracks** that unlock new content
 - **10+ Random events** that add variety
+- **5 Status effects** that create strategic challenges
+- **3 Moral dilemmas** that shape your legacy
 - **30+ Journal entries** documenting your discoveries
 - **13 Naturgemälde nodes** forming an ecological web
+- **Dynamic Web of Life** visualization with strength-based connections
+- **Correspondence system** with letters from historical figures
+- **Bonpland partnership** with health, morale, and expertise management
 
 ### New Content from "The Invention of Nature"
 - **Cuba** — Document slavery, study magnetism, explore flora
@@ -227,6 +289,10 @@ Players learn about:
 - **Darwin Mentorship** — Guide the young naturalist
 - **1848 Revolutions** — Witness revolutionary fervor at age 79
 - **Magnetic Research** — Map the Earth's magnetic field
+- **Status Effects** — Altitude sickness, hypothermia, tropical fever
+- **Moral Dilemmas** — Tableau Physique, colonial compromise
+- **Correspondence** — Letters from Goethe, Darwin, Bonpland
+- **Web of Life** — Visualize nature's interconnectedness
 
 ## 💡 Design Philosophy
 
@@ -238,6 +304,11 @@ This game translates Humboldt's life into interactive mechanics:
 - **Parallel storylines represent the unity of knowledge** — science, art, politics, and relationships are interconnected
 - **The Naturgemälde represents synthesis** — disparate observations unified into a single vision
 - **Kosmos represents the ultimate goal** — understanding nature as a living whole
+- **Status effects represent vulnerability** — even the greatest explorer is subject to nature's forces
+- **Moral dilemmas represent complexity** — there are no easy answers, only choices with consequences
+- **The Web of Life represents interconnectedness** — every discovery reveals new connections
+- **Bonpland represents partnership** — science is collaborative, not solitary
+- **Correspondence represents legacy** — ideas spread through relationships and letters
 
 ## 🏆 Achievements (Hidden)
 
@@ -248,6 +319,8 @@ Track your progress through storyline completion:
 - Survive 50+ cycles
 - Accumulate 200+ data points
 - Complete Kosmos with all storylines finished
+- Maintain Bonpland's health above 80 for 20 cycles
+- Resolve all moral dilemmas with integrity
 
 ---
 
