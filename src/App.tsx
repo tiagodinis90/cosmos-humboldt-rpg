@@ -9,6 +9,8 @@ import StatusEffectsPanel from './components/StatusEffectsPanel';
 import AnimatedTitle from './components/AnimatedTitle';
 import WeatherEffects from './components/WeatherEffects';
 import MiniMap from './components/MiniMap';
+import TravelScreen from './components/TravelScreen';
+import LocationScene from './components/LocationScene';
 
 function createInitialState(): GameState {
   return {
@@ -34,6 +36,9 @@ function createInitialState(): GameState {
     bonpland: { health: 100, morale: 80, expertise: 70, relationship: 0 },
     correspondence: [],
     webConnections: [],
+    travelFrom: undefined,
+    travelTo: undefined,
+    travelDistance: undefined,
   };
 }
 
@@ -241,14 +246,39 @@ export default function App() {
       if (!loc) return prev;
       if (loc.requiredFlag && !prev.flags.includes(loc.requiredFlag)) return prev;
       
-      const newLocations = JSON.parse(JSON.stringify(prev.locations));
-      newLocations[locationId].discovered = true;
+      // Calculate distance based on location (simplified)
+      const distances: Record<string, number> = {
+        caracas: 3, llanos: 2, lake_valencia: 1, orinoco: 4,
+        andes_foothills: 5, chimborazo: 6, cuba: 4, mexico: 7,
+        washington: 8, paris: 9, berlin_later: 10, russia: 12,
+      };
+      const distance = distances[locationId] || 3;
       
       return {
         ...prev,
-        currentLocation: locationId,
+        travelFrom: prev.currentLocation,
+        travelTo: locationId,
+        travelDistance: distance,
+        phase: 'traveling',
+      };
+    });
+  };
+
+  const completeTravel = () => {
+    setState(prev => {
+      if (!prev.travelTo) return prev;
+      
+      const newLocations = JSON.parse(JSON.stringify(prev.locations));
+      newLocations[prev.travelTo].discovered = true;
+      
+      return {
+        ...prev,
+        currentLocation: prev.travelTo,
         locations: newLocations,
         resources: { ...prev.resources, supplies: Math.max(0, prev.resources.supplies - 5) },
+        travelFrom: undefined,
+        travelTo: undefined,
+        travelDistance: undefined,
         phase: 'cycle_start',
       };
     });
@@ -298,6 +328,17 @@ export default function App() {
         state={state}
         location={location}
         onBack={() => update({ phase: 'world_map' })}
+      />
+    );
+  }
+
+  if (state.phase === 'traveling' && state.travelFrom && state.travelTo && state.travelDistance !== undefined) {
+    return (
+      <TravelScreen
+        from={state.travelFrom}
+        to={state.travelTo}
+        distance={state.travelDistance}
+        onComplete={completeTravel}
       />
     );
   }

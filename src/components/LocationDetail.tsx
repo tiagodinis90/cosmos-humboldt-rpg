@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GameState, Location } from '../types';
+import LocationScene from './LocationScene';
 
 interface LocationDetailProps {
   state: GameState;
@@ -100,6 +101,9 @@ export default function LocationDetail({ state, location, onBack }: LocationDeta
 
   return (
     <div className={`min-h-screen bg-gradient-to-b ${theme.bg} pt-16 pb-8 px-4 relative overflow-hidden`}>
+      {/* Location scene background */}
+      <LocationScene locationId={location.id} />
+      
       {/* Animated background particles */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {theme.particles.map((particle, i) => (

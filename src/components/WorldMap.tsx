@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { GameState } from '../types';
 
 interface WorldMapProps {
@@ -8,43 +8,45 @@ interface WorldMapProps {
   onTravel: (locationId: string) => void;
 }
 
-const locationData: Record<string, { x: number; y: number; icon: string; region: string }> = {
-  berlin: { x: 52, y: 22, icon: '🏛️', region: 'Prussia' },
-  berlin_later: { x: 52, y: 22, icon: '🏛️', region: 'Prussia' },
-  paris: { x: 48, y: 26, icon: '🗼', region: 'France' },
-  russia: { x: 72, y: 20, icon: '🏔️', region: 'Russian Empire' },
-  cuba: { x: 28, y: 52, icon: '🏝️', region: 'Caribbean' },
-  caracas: { x: 32, y: 58, icon: '🌴', region: 'Venezuela' },
-  lake_valencia: { x: 30, y: 60, icon: '💧', region: 'Venezuela' },
-  llanos: { x: 34, y: 62, icon: '🌾', region: 'Venezuela' },
-  orinoco: { x: 36, y: 64, icon: '🐊', region: 'Venezuela' },
-  andes_foothills: { x: 28, y: 68, icon: '⛰️', region: 'Colombia/Ecuador' },
-  chimborazo: { x: 27, y: 70, icon: '🌋', region: 'Ecuador' },
-  mexico: { x: 22, y: 56, icon: '🏔️', region: 'New Spain' },
-  washington: { x: 36, y: 40, icon: '🏛️', region: 'United States' },
+const locationData: Record<string, {
+  x: number; y: number; icon: string; region: string;
+  label: string; labelX?: number; labelY?: number;
+}> = {
+  berlin: { x: 54, y: 24, icon: '🏛️', region: 'Prussia', label: 'Berlin', labelX: 57, labelY: 20 },
+  berlin_later: { x: 54, y: 24, icon: '🏛️', region: 'Prussia', label: 'Berlin', labelX: 57, labelY: 20 },
+  paris: { x: 48, y: 28, icon: '🗼', region: 'France', label: 'Paris', labelX: 42, labelY: 26 },
+  russia: { x: 74, y: 20, icon: '🏔️', region: 'Russian Empire', label: 'Russia', labelX: 77, labelY: 17 },
+  cuba: { x: 28, y: 54, icon: '🏝️', region: 'Caribbean', label: 'Cuba', labelX: 22, labelY: 52 },
+  caracas: { x: 33, y: 60, icon: '🌴', region: 'Venezuela', label: 'Caracas', labelX: 36, labelY: 58 },
+  lake_valencia: { x: 30, y: 62, icon: '💧', region: 'Venezuela', label: 'Lake Valencia', labelX: 20, labelY: 64 },
+  llanos: { x: 35, y: 65, icon: '🌾', region: 'Venezuela', label: 'Llanos', labelX: 38, labelY: 68 },
+  orinoco: { x: 38, y: 67, icon: '🐊', region: 'Venezuela', label: 'Orinoco', labelX: 41, labelY: 70 },
+  andes_foothills: { x: 28, y: 70, icon: '⛰️', region: 'Colombia', label: 'Andes', labelX: 20, labelY: 72 },
+  chimborazo: { x: 26, y: 73, icon: '🌋', region: 'Ecuador', label: 'Chimborazo', labelX: 17, labelY: 76 },
+  mexico: { x: 22, y: 56, icon: '🏔️', region: 'New Spain', label: 'Mexico', labelX: 15, labelY: 54 },
+  washington: { x: 38, y: 40, icon: '🏛️', region: 'United States', label: 'Washington', labelX: 41, labelY: 38 },
 };
 
-const connections: Array<[string, string]> = [
-  ['berlin', 'caracas'],
-  ['caracas', 'cuba'],
-  ['caracas', 'llanos'],
-  ['caracas', 'lake_valencia'],
-  ['llanos', 'orinoco'],
-  ['lake_valencia', 'llanos'],
-  ['orinoco', 'andes_foothills'],
-  ['andes_foothills', 'chimborazo'],
-  ['chimborazo', 'mexico'],
-  ['cuba', 'mexico'],
-  ['mexico', 'washington'],
-  ['washington', 'paris'],
-  ['paris', 'berlin_later'],
-  ['berlin_later', 'russia'],
+const connections: Array<[string, string, 'sea' | 'land']> = [
+  ['berlin', 'caracas', 'sea'],
+  ['caracas', 'cuba', 'sea'],
+  ['caracas', 'llanos', 'land'],
+  ['caracas', 'lake_valencia', 'land'],
+  ['llanos', 'orinoco', 'land'],
+  ['lake_valencia', 'llanos', 'land'],
+  ['orinoco', 'andes_foothills', 'land'],
+  ['andes_foothills', 'chimborazo', 'land'],
+  ['chimborazo', 'mexico', 'sea'],
+  ['cuba', 'mexico', 'sea'],
+  ['mexico', 'washington', 'sea'],
+  ['washington', 'paris', 'sea'],
+  ['paris', 'berlin_later', 'land'],
+  ['berlin_later', 'russia', 'land'],
 ];
 
 export default function WorldMap({ state, onLocationSelect, onClose, onTravel }: WorldMapProps) {
   const [hoveredLocation, setHoveredLocation] = useState<string | null>(null);
   const [traveling, setTraveling] = useState<string | null>(null);
-  const [showTooltip, setShowTooltip] = useState<string | null>(null);
 
   const handleLocationClick = (locId: string) => {
     const location = state.locations[locId];
@@ -61,7 +63,6 @@ export default function WorldMap({ state, onLocationSelect, onClose, onTravel }:
       return;
     }
     
-    // Travel animation
     setTraveling(locId);
     setTimeout(() => {
       onTravel(locId);
@@ -69,74 +70,133 @@ export default function WorldMap({ state, onLocationSelect, onClose, onTravel }:
     }, 1500);
   };
 
+  const discoveredCount = Object.values(state.locations).filter(l => l.discovered).length;
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-950/20 via-forest-950 to-forest-950 pt-16 pb-8 px-4">
-      {/* Parchment texture overlay */}
-      <div className="fixed inset-0 opacity-[0.03] pointer-events-none" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.5'/%3E%3C/svg%3E")`
+    <div className="min-h-screen bg-[#1a1510] pt-16 pb-8 px-4 relative overflow-hidden">
+      {/* Paper texture overlay */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.15]" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
       }} />
 
-      <div className="max-w-7xl mx-auto">
+      {/* Vignette */}
+      <div className="fixed inset-0 pointer-events-none" style={{
+        background: 'radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%)'
+      }} />
+
+      <div className="max-w-7xl mx-auto relative">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-4xl font-bold text-parchment font-serif">🗺️ Map of the Known World</h2>
-            <p className="text-parchment/50 text-sm font-mono mt-1">Cycle {state.cycle} • {Object.values(state.locations).filter(l => l.discovered).length} locations discovered</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#f5e6c8] font-serif italic">
+              Chart of the Known World
+            </h2>
+            <p className="text-[#d4a832]/60 text-sm font-mono mt-1 tracking-wider">
+              Cycle {state.cycle} • {discoveredCount}/13 locations charted
+            </p>
           </div>
-          <button onClick={onClose} className="px-5 py-2 bg-forest-800/80 hover:bg-forest-700 text-parchment rounded-lg text-sm border border-forest-600/30 transition-all hover:scale-105">
-            ← Return to Expedition
+          <button onClick={onClose} className="px-5 py-2 bg-[#2a2015] hover:bg-[#3a2f20] text-[#f5e6c8] rounded border border-[#d4a832]/30 transition-all hover:border-[#d4a832]/60 font-serif text-sm">
+            ← Return
           </button>
         </div>
 
-        {/* Map Container */}
-        <div className="relative bg-gradient-to-br from-blue-950/40 via-forest-950/60 to-blue-950/40 rounded-2xl border-2 border-gold-600/30 p-4 md:p-8 shadow-2xl shadow-black/50 overflow-hidden">
-          {/* Ocean texture */}
-          <div className="absolute inset-0 opacity-20">
-            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <defs>
-                <pattern id="waves" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
-                  <path d="M 0,5 Q 2.5,3 5,5 T 10,5" fill="none" stroke="rgba(59,130,246,0.3)" strokeWidth="0.3" />
-                </pattern>
-              </defs>
-              <rect width="100" height="100" fill="url(#waves)" />
-            </svg>
-          </div>
+        {/* Map Container - parchment style */}
+        <div className="relative rounded-lg border-2 border-[#8b6914]/40 overflow-hidden shadow-2xl shadow-black/50"
+          style={{
+            background: 'linear-gradient(135deg, #2a2015 0%, #1a1510 50%, #2a2015 100%)',
+          }}
+        >
+          {/* Inner parchment border */}
+          <div className="absolute inset-2 border border-[#d4a832]/20 rounded pointer-events-none" />
 
-          {/* Compass Rose */}
-          <div className="absolute top-4 right-4 md:top-8 md:right-8 w-16 h-16 md:w-24 md:h-24 opacity-40">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(212,168,50,0.5)" strokeWidth="1" />
-              <circle cx="50" cy="50" r="35" fill="none" stroke="rgba(212,168,50,0.3)" strokeWidth="0.5" />
-              <line x1="50" y1="5" x2="50" y2="95" stroke="rgba(212,168,50,0.5)" strokeWidth="0.5" />
-              <line x1="5" y1="50" x2="95" y2="50" stroke="rgba(212,168,50,0.5)" strokeWidth="0.5" />
-              <polygon points="50,5 45,20 55,20" fill="rgba(212,168,50,0.6)" />
-              <text x="50" y="15" textAnchor="middle" fill="rgba(212,168,50,0.8)" fontSize="8" fontWeight="bold">N</text>
-              <text x="50" y="92" textAnchor="middle" fill="rgba(212,168,50,0.6)" fontSize="6">S</text>
-              <text x="90" y="52" textAnchor="middle" fill="rgba(212,168,50,0.6)" fontSize="6">E</text>
-              <text x="10" y="52" textAnchor="middle" fill="rgba(212,168,50,0.6)" fontSize="6">W</text>
-            </svg>
-          </div>
+          {/* Main SVG Map */}
+          <svg viewBox="0 0 100 100" className="w-full" style={{ minHeight: '600px' }} preserveAspectRatio="xMidYMid meet">
+            <defs>
+              {/* Paper texture pattern */}
+              <filter id="paper">
+                <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="5" result="noise" />
+                <feDiffuseLighting in="noise" lightingColor="#f5e6c8" surfaceScale="2">
+                  <feDistantLight azimuth="45" elevation="60" />
+                </feDiffuseLighting>
+              </filter>
 
-          {/* Continent outlines (simplified) */}
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+              {/* Ink bleed effect */}
+              <filter id="ink">
+                <feGaussianBlur stdDeviation="0.1" />
+              </filter>
+
+              {/* Glow for current location */}
+              <filter id="glow">
+                <feGaussianBlur stdDeviation="0.5" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+
+              {/* Sea pattern */}
+              <pattern id="sea" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+                <path d="M 0,2 Q 1,1 2,2 T 4,2" fill="none" stroke="rgba(100,140,180,0.08)" strokeWidth="0.2" />
+              </pattern>
+
+              {/* Land texture */}
+              <pattern id="land" x="0" y="0" width="2" height="2" patternUnits="userSpaceOnUse">
+                <circle cx="1" cy="1" r="0.1" fill="rgba(139,105,20,0.1)" />
+              </pattern>
+            </defs>
+
+            {/* Ocean background */}
+            <rect width="100" height="100" fill="#0d1b2a" opacity="0.3" />
+            <rect width="100" height="100" fill="url(#sea)" />
+
+            {/* Continent shapes - hand-drawn style */}
             {/* Europe */}
-            <path d="M 45,15 Q 50,18 55,20 Q 58,25 55,28 Q 50,30 45,28 Q 42,22 45,15" 
-                  fill="rgba(77,154,107,0.15)" stroke="rgba(212,168,50,0.3)" strokeWidth="0.3" />
-            {/* North America */}
-            <path d="M 15,25 Q 25,22 35,28 Q 40,35 38,45 Q 30,50 20,48 Q 15,40 15,25" 
-                  fill="rgba(77,154,107,0.15)" stroke="rgba(212,168,50,0.3)" strokeWidth="0.3" />
-            {/* South America */}
-            <path d="M 25,55 Q 35,52 38,60 Q 40,70 35,80 Q 28,85 25,75 Q 22,65 25,55" 
-                  fill="rgba(77,154,107,0.15)" stroke="rgba(212,168,50,0.3)" strokeWidth="0.3" />
+            <path d="M 44,14 Q 46,13 49,14 Q 52,15 55,16 Q 58,18 59,21 Q 60,24 58,27 Q 56,29 53,30 Q 50,31 47,30 Q 44,28 43,25 Q 42,22 43,19 Q 43,16 44,14 Z"
+                  fill="rgba(139,105,20,0.15)" stroke="rgba(212,168,50,0.4)" strokeWidth="0.3" strokeDasharray="0.5,0.3" filter="url(#ink)" />
+            {/* British Isles */}
+            <path d="M 42,16 Q 43,15 44,16 Q 44,18 43,19 Q 42,18 42,16 Z"
+                  fill="rgba(139,105,20,0.1)" stroke="rgba(212,168,50,0.3)" strokeWidth="0.2" />
+            
             {/* Africa */}
-            <path d="M 50,40 Q 58,38 62,45 Q 65,55 60,65 Q 55,70 50,60 Q 48,50 50,40" 
-                  fill="rgba(77,154,107,0.1)" stroke="rgba(212,168,50,0.2)" strokeWidth="0.3" />
+            <path d="M 50,38 Q 54,36 58,38 Q 62,42 63,48 Q 64,55 62,62 Q 60,68 56,70 Q 52,71 50,68 Q 48,62 48,55 Q 48,48 49,42 Q 49,40 50,38 Z"
+                  fill="rgba(139,105,20,0.12)" stroke="rgba(212,168,50,0.3)" strokeWidth="0.3" strokeDasharray="0.5,0.3" filter="url(#ink)" />
+            
+            {/* North America */}
+            <path d="M 12,20 Q 18,18 25,20 Q 32,22 38,28 Q 42,34 40,40 Q 38,44 34,46 Q 28,48 22,46 Q 16,44 14,38 Q 12,32 12,26 Q 12,22 12,20 Z"
+                  fill="rgba(139,105,20,0.15)" stroke="rgba(212,168,50,0.4)" strokeWidth="0.3" strokeDasharray="0.5,0.3" filter="url(#ink)" />
+            {/* Florida */}
+            <path d="M 34,46 Q 36,48 37,52 Q 36,53 35,51 Q 34,48 34,46 Z"
+                  fill="rgba(139,105,20,0.1)" stroke="rgba(212,168,50,0.3)" strokeWidth="0.2" />
+            
+            {/* Central America / Caribbean */}
+            <path d="M 20,48 Q 24,46 28,48 Q 30,50 28,52 Q 24,54 20,52 Q 18,50 20,48 Z"
+                  fill="rgba(139,105,20,0.12)" stroke="rgba(212,168,50,0.3)" strokeWidth="0.2" />
+            {/* Cuba */}
+            <path d="M 26,52 Q 30,51 32,52 Q 31,54 28,54 Q 26,53 26,52 Z"
+                  fill="rgba(139,105,20,0.15)" stroke="rgba(212,168,50,0.4)" strokeWidth="0.2" />
+            
+            {/* South America */}
+            <path d="M 24,56 Q 30,54 36,56 Q 40,60 42,66 Q 43,72 40,78 Q 36,84 30,86 Q 26,85 24,80 Q 22,74 22,68 Q 22,62 24,56 Z"
+                  fill="rgba(139,105,20,0.15)" stroke="rgba(212,168,50,0.4)" strokeWidth="0.3" strokeDasharray="0.5,0.3" filter="url(#ink)" />
+            
             {/* Asia (Russia) */}
-            <path d="M 55,15 Q 70,12 85,18 Q 90,25 85,30 Q 75,32 65,28 Q 58,22 55,15" 
-                  fill="rgba(77,154,107,0.15)" stroke="rgba(212,168,50,0.3)" strokeWidth="0.3" />
+            <path d="M 58,12 Q 65,10 72,12 Q 80,14 86,18 Q 90,22 88,26 Q 84,28 78,28 Q 72,27 66,25 Q 60,22 58,18 Q 57,15 58,12 Z"
+                  fill="rgba(139,105,20,0.12)" stroke="rgba(212,168,50,0.3)" strokeWidth="0.3" strokeDasharray="0.5,0.3" filter="url(#ink)" />
 
-            {/* Connection lines */}
-            {connections.map(([from, to], i) => {
+            {/* Mountain ranges - decorative */}
+            {/* Andes */}
+            <g opacity="0.3">
+              <path d="M 25,68 L 26,66 L 27,68 M 26,70 L 27,68 L 28,70 M 25,72 L 26,70 L 27,72 M 24,74 L 25,72 L 26,74" 
+                    fill="none" stroke="rgba(212,168,50,0.5)" strokeWidth="0.3" />
+            </g>
+            {/* Alps */}
+            <g opacity="0.2">
+              <path d="M 48,26 L 49,24 L 50,26 M 50,26 L 51,24 L 52,26" 
+                    fill="none" stroke="rgba(212,168,50,0.5)" strokeWidth="0.3" />
+            </g>
+
+            {/* Sea route connections */}
+            {connections.map(([from, to, type], i) => {
               const fromPos = locationData[from];
               const toPos = locationData[to];
               if (!fromPos || !toPos) return null;
@@ -145,35 +205,47 @@ export default function WorldMap({ state, onLocationSelect, onClose, onTravel }:
               const toDiscovered = state.locations[to]?.discovered;
               const bothDiscovered = fromDiscovered && toDiscovered;
               
+              // Create curved path for sea routes
+              const midX = (fromPos.x + toPos.x) / 2;
+              const midY = (fromPos.y + toPos.y) / 2 + (type === 'sea' ? 3 : 0);
+              
               return (
-                <line
+                <path
                   key={i}
-                  x1={fromPos.x}
-                  y1={fromPos.y}
-                  x2={toPos.x}
-                  y2={toPos.y}
-                  stroke={bothDiscovered ? 'rgba(212,168,50,0.5)' : 'rgba(245,240,232,0.1)'}
-                  strokeWidth={bothDiscovered ? '0.4' : '0.2'}
-                  strokeDasharray={bothDiscovered ? '0' : '1,1'}
+                  d={`M ${fromPos.x},${fromPos.y} Q ${midX},${midY} ${toPos.x},${toPos.y}`}
+                  fill="none"
+                  stroke={bothDiscovered ? 'rgba(212,168,50,0.5)' : 'rgba(245,230,200,0.1)'}
+                  strokeWidth={bothDiscovered ? '0.3' : '0.15'}
+                  strokeDasharray={type === 'sea' ? '0.8,0.4' : '0.4,0.2'}
                   className="transition-all duration-500"
+                  filter={bothDiscovered ? 'url(#ink)' : undefined}
                 />
               );
             })}
 
             {/* Travel animation */}
             {traveling && (
-              <circle r="1" fill="rgba(212,168,50,0.8)" className="animate-ping">
-                <animateMotion
-                  dur="1.5s"
-                  repeatCount="1"
-                  path={`M ${locationData[state.currentLocation]?.x},${locationData[state.currentLocation]?.y} L ${locationData[traveling]?.x},${locationData[traveling]?.y}`}
-                />
-              </circle>
+              <g>
+                <circle r="0.8" fill="rgba(212,168,50,0.9)" filter="url(#glow)">
+                  <animateMotion
+                    dur="1.5s"
+                    repeatCount="1"
+                    path={`M ${locationData[state.currentLocation]?.x},${locationData[state.currentLocation]?.y} L ${locationData[traveling]?.x},${locationData[traveling]?.y}`}
+                  />
+                </circle>
+                <circle r="1.5" fill="none" stroke="rgba(212,168,50,0.4)" strokeWidth="0.2">
+                  <animateMotion
+                    dur="1.5s"
+                    repeatCount="1"
+                    path={`M ${locationData[state.currentLocation]?.x},${locationData[state.currentLocation]?.y} L ${locationData[traveling]?.x},${locationData[traveling]?.y}`}
+                  />
+                  <animate attributeName="r" values="1.5;3;1.5" dur="1s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.6;0;0.6" dur="1s" repeatCount="indefinite" />
+                </circle>
+              </g>
             )}
-          </svg>
 
-          {/* Location nodes */}
-          <div className="relative h-[500px] md:h-[650px]">
+            {/* Location markers */}
             {Object.entries(locationData).map(([locId, pos]) => {
               const location = state.locations[locId];
               if (!location) return null;
@@ -182,121 +254,165 @@ export default function WorldMap({ state, onLocationSelect, onClose, onTravel }:
               const isAccessible = location.connections.includes(state.currentLocation) || isCurrent;
               const isLocked = location.requiredFlag && !state.flags.includes(location.requiredFlag);
               const isHovered = hoveredLocation === locId;
+              const isDiscovered = location.discovered;
               
               return (
-                <div
+                <g
                   key={locId}
-                  className="absolute transform -translate-x-1/2 -translate-y-1/2 group"
-                  style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
-                  onMouseEnter={() => {
-                    setHoveredLocation(locId);
-                    setShowTooltip(locId);
-                  }}
-                  onMouseLeave={() => {
-                    setHoveredLocation(null);
-                    setShowTooltip(null);
-                  }}
                   onClick={() => handleLocationClick(locId)}
+                  onMouseEnter={() => setHoveredLocation(locId)}
+                  onMouseLeave={() => setHoveredLocation(null)}
+                  className={`cursor-pointer transition-all ${isLocked ? 'opacity-30' : ''}`}
+                  style={{ cursor: isLocked ? 'not-allowed' : 'pointer' }}
                 >
-                  {/* Glow ring for current */}
+                  {/* Pulse ring for current */}
                   {isCurrent && (
-                    <div className="absolute inset-0 -m-4 rounded-full bg-gold-500/20 animate-pulse" />
+                    <>
+                      <circle cx={pos.x} cy={pos.y} r="2" fill="none" stroke="rgba(212,168,50,0.6)" strokeWidth="0.2">
+                        <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="0.8;0;0.8" dur="2s" repeatCount="indefinite" />
+                      </circle>
+                      <circle cx={pos.x} cy={pos.y} r="1.5" fill="none" stroke="rgba(212,168,50,0.4)" strokeWidth="0.15">
+                        <animate attributeName="r" values="1.5;5;1.5" dur="2s" repeatCount="indefinite" begin="0.5s" />
+                        <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite" begin="0.5s" />
+                      </circle>
+                    </>
                   )}
-                  
-                  {/* Location marker */}
-                  <div className={`relative cursor-pointer transition-all duration-300 ${
-                    isLocked ? 'opacity-30 cursor-not-allowed' :
-                    isCurrent ? 'scale-125' :
-                    isAccessible ? 'hover:scale-110' : 'opacity-40'
-                  } ${isHovered ? 'scale-110' : ''}`}>
-                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-xl md:text-2xl transition-all ${
-                      isCurrent ? 'bg-gold-600/40 border-2 border-gold-400 shadow-lg shadow-gold-500/50' :
-                      location.discovered ? 'bg-forest-700/60 border-2 border-forest-400/50 hover:border-gold-400' :
-                      'bg-forest-900/60 border-2 border-forest-700/30'
-                    }`}>
-                      {pos.icon}
-                    </div>
-                    
-                    {/* Lock icon */}
-                    {isLocked && (
-                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-900/80 rounded-full flex items-center justify-center text-xs border border-red-500/50">
-                        🔒
-                      </div>
-                    )}
-                  </div>
-                  
-                  {/* Location name */}
-                  <div className={`absolute top-full mt-1 left-1/2 -translate-x-1/2 whitespace-nowrap text-center transition-all ${
-                    isCurrent ? 'text-gold-300 font-bold' :
-                    location.discovered ? 'text-parchment/80' : 'text-parchment/40'
-                  }`}>
-                    <div className="text-xs md:text-sm font-serif">{location.name.split(',')[0]}</div>
-                    {location.discovered && (
-                      <div className="text-[10px] text-parchment/40 font-mono">{pos.region}</div>
-                    )}
-                  </div>
 
-                  {/* Tooltip */}
-                  {showTooltip === locId && location.discovered && (
-                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-48 bg-forest-950/95 backdrop-blur-md border border-gold-500/30 rounded-lg p-3 shadow-xl z-50 pointer-events-none">
-                      <div className="text-gold-300 font-bold text-sm mb-1">{location.name}</div>
-                      <div className="text-parchment/60 text-xs mb-2">{pos.region}</div>
-                      <div className="text-parchment/70 text-xs leading-relaxed line-clamp-3">{location.description}</div>
-                      <div className="mt-2 pt-2 border-t border-forest-700/30">
-                        <div className="text-[10px] text-parchment/40 font-mono">
-                          {location.actions.length} actions • {location.connections.length} connections
-                        </div>
-                      </div>
-                    </div>
+                  {/* Location dot */}
+                  <circle
+                    cx={pos.x}
+                    cy={pos.y}
+                    r={isHovered ? 1.5 : isCurrent ? 1.3 : 1}
+                    fill={isCurrent ? 'rgba(212,168,50,0.9)' : isDiscovered ? 'rgba(212,168,50,0.6)' : 'rgba(245,230,200,0.2)'}
+                    stroke={isCurrent ? 'rgba(245,230,200,0.9)' : isAccessible ? 'rgba(212,168,50,0.6)' : 'rgba(245,230,200,0.2)'}
+                    strokeWidth="0.2"
+                    filter={isCurrent ? 'url(#glow)' : undefined}
+                    className="transition-all duration-300"
+                  />
+
+                  {/* Lock icon */}
+                  {isLocked && (
+                    <text x={pos.x + 1.5} y={pos.y - 0.5} fontSize="1.5" fill="rgba(220,50,50,0.7)">🔒</text>
                   )}
-                </div>
+
+                  {/* Location label */}
+                  <text
+                    x={pos.labelX || pos.x}
+                    y={pos.labelY || pos.y - 2}
+                    textAnchor="middle"
+                    fill={isCurrent ? 'rgba(212,168,50,1)' : isDiscovered ? 'rgba(245,230,200,0.7)' : 'rgba(245,230,200,0.3)'}
+                    fontSize={isCurrent ? '1.8' : '1.4'}
+                    fontFamily="serif"
+                    fontStyle="italic"
+                    fontWeight={isCurrent ? 'bold' : 'normal'}
+                    className="pointer-events-none transition-all"
+                    filter="url(#ink)"
+                  >
+                    {pos.label}
+                  </text>
+
+                  {/* Region subtitle */}
+                  {isDiscovered && (
+                    <text
+                      x={pos.labelX || pos.x}
+                      y={(pos.labelY || pos.y - 2) + 1.5}
+                      textAnchor="middle"
+                      fill="rgba(245,230,200,0.3)"
+                      fontSize="0.9"
+                      fontFamily="monospace"
+                      className="pointer-events-none"
+                    >
+                      {pos.region}
+                    </text>
+                  )}
+                </g>
               );
             })}
-          </div>
 
-          {/* Legend */}
-          <div className="absolute bottom-4 left-4 bg-forest-950/90 backdrop-blur-md rounded-lg p-3 border border-forest-700/30 shadow-lg">
-            <div className="text-xs text-parchment/70 space-y-1.5">
-              <div className="font-bold text-gold-400 mb-2">Legend</div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-gold-500/40 border-2 border-gold-400"></div>
-                <span>Current Location</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-forest-700/60 border-2 border-forest-400/50"></div>
-                <span>Discovered</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-forest-900/60 border-2 border-forest-700/30"></div>
-                <span>Undiscovered</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-full bg-red-900/60 border-2 border-red-500/50 flex items-center justify-center text-[8px]">🔒</div>
-                <span>Locked</span>
+            {/* Compass Rose */}
+            <g transform="translate(88, 85)" opacity="0.5">
+              <circle r="5" fill="none" stroke="rgba(212,168,50,0.4)" strokeWidth="0.2" />
+              <circle r="3.5" fill="none" stroke="rgba(212,168,50,0.3)" strokeWidth="0.15" />
+              <line x1="0" y1="-5" x2="0" y2="5" stroke="rgba(212,168,50,0.4)" strokeWidth="0.15" />
+              <line x1="-5" y1="0" x2="5" y2="0" stroke="rgba(212,168,50,0.4)" strokeWidth="0.15" />
+              <line x1="-3.5" y1="-3.5" x2="3.5" y2="3.5" stroke="rgba(212,168,50,0.2)" strokeWidth="0.1" />
+              <line x1="3.5" y1="-3.5" x2="-3.5" y2="3.5" stroke="rgba(212,168,50,0.2)" strokeWidth="0.1" />
+              <polygon points="0,-5 -0.8,-2 0.8,-2" fill="rgba(212,168,50,0.7)" />
+              <text x="0" y="-5.5" textAnchor="middle" fill="rgba(212,168,50,0.8)" fontSize="1.5" fontFamily="serif" fontWeight="bold">N</text>
+              <text x="0" y="7" textAnchor="middle" fill="rgba(212,168,50,0.5)" fontSize="1" fontFamily="serif">S</text>
+              <text x="6.5" y="0.5" textAnchor="middle" fill="rgba(212,168,50,0.5)" fontSize="1" fontFamily="serif">E</text>
+              <text x="-6.5" y="0.5" textAnchor="middle" fill="rgba(212,168,50,0.5)" fontSize="1" fontFamily="serif">W</text>
+            </g>
+
+            {/* Decorative sea monsters / ships */}
+            <g opacity="0.15" transform="translate(15, 35)">
+              <text fontSize="3">⛵</text>
+            </g>
+            <g opacity="0.1" transform="translate(65, 50)">
+              <text fontSize="2.5">🐙</text>
+            </g>
+            <g opacity="0.1" transform="translate(45, 75)">
+              <text fontSize="2">🐋</text>
+            </g>
+
+            {/* Title cartouche */}
+            <g transform="translate(50, 8)">
+              <text textAnchor="middle" fill="rgba(212,168,50,0.6)" fontSize="2.5" fontFamily="serif" fontStyle="italic">
+                Humboldt's Expedition
+              </text>
+              <text y="3" textAnchor="middle" fill="rgba(212,168,50,0.4)" fontSize="1.2" fontFamily="serif">
+                Anno Domini 1799–1804
+              </text>
+            </g>
+
+            {/* Scale bar */}
+            <g transform="translate(10, 92)" opacity="0.4">
+              <line x1="0" y1="0" x2="15" y2="0" stroke="rgba(212,168,50,0.6)" strokeWidth="0.2" />
+              <line x1="0" y1="-0.5" x2="0" y2="0.5" stroke="rgba(212,168,50,0.6)" strokeWidth="0.2" />
+              <line x1="15" y1="-0.5" x2="15" y2="0.5" stroke="rgba(212,168,50,0.6)" strokeWidth="0.2" />
+              <text x="7.5" y="2" textAnchor="middle" fill="rgba(212,168,50,0.6)" fontSize="1" fontFamily="serif">~1000 leagues</text>
+            </g>
+          </svg>
+
+          {/* Tooltip overlay */}
+          {hoveredLocation && state.locations[hoveredLocation]?.discovered && (
+            <div className="absolute top-4 left-4 bg-[#1a1510]/95 backdrop-blur-md border border-[#d4a832]/30 rounded-lg p-4 max-w-xs shadow-xl pointer-events-none">
+              <div className="text-[#d4a832] font-serif font-bold text-lg italic">{state.locations[hoveredLocation].name}</div>
+              <div className="text-[#f5e6c8]/50 text-xs font-mono mb-2">{locationData[hoveredLocation].region}</div>
+              <div className="text-[#f5e6c8]/70 text-sm leading-relaxed">{state.locations[hoveredLocation].description}</div>
+              <div className="mt-2 pt-2 border-t border-[#d4a832]/20 text-xs text-[#f5e6c8]/40 font-mono">
+                {state.locations[hoveredLocation].actions.length} actions • {state.locations[hoveredLocation].connections.length} connections
               </div>
             </div>
-          </div>
-
-          {/* Stats */}
-          <div className="absolute top-4 left-4 bg-forest-950/90 backdrop-blur-md rounded-lg p-3 border border-forest-700/30 shadow-lg">
-            <div className="text-xs text-parchment/70 space-y-1">
-              <div className="font-bold text-gold-400 mb-2">Journey Progress</div>
-              <div>📍 Locations: <span className="text-gold-300 font-bold">{Object.values(state.locations).filter(l => l.discovered).length}/13</span></div>
-              <div>📊 Data: <span className="text-gold-300 font-bold">{state.resources.data}</span></div>
-              <div>🎲 Cycles: <span className="text-gold-300 font-bold">{state.cycle}</span></div>
-            </div>
-          </div>
+          )}
         </div>
 
-        {/* Current Location Info */}
-        <div className="mt-6 bg-forest-900/40 backdrop-blur-sm rounded-xl p-6 border border-forest-700/20">
-          <div className="flex items-start gap-4">
-            <div className="text-4xl">{locationData[state.currentLocation]?.icon}</div>
-            <div className="flex-grow">
-              <h3 className="text-2xl font-bold text-parchment font-serif">{state.locations[state.currentLocation]?.name}</h3>
-              <p className="text-gold-400 text-sm font-mono">{state.locations[state.currentLocation]?.region}</p>
-              <p className="text-parchment/70 text-sm mt-2 leading-relaxed">{state.locations[state.currentLocation]?.description}</p>
-            </div>
+        {/* Legend */}
+        <div className="mt-4 flex flex-wrap gap-4 justify-center text-xs text-[#f5e6c8]/50 font-serif italic">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#d4a832]/90 border border-[#f5e6c8]/90 shadow-sm shadow-[#d4a832]/50" />
+            <span>Current Position</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#d4a832]/60 border border-[#d4a832]/60" />
+            <span>Charted</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-[#f5e6c8]/20 border border-[#f5e6c8]/20" />
+            <span>Unknown</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-900/60 border border-red-500/50 flex items-center justify-center text-[6px]">🔒</div>
+            <span>Locked</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-0.5 border-t border-dashed border-[#d4a832]/50" />
+            <span>Sea Route</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-0.5 border-t border-dotted border-[#d4a832]/50" />
+            <span>Land Route</span>
           </div>
         </div>
       </div>
