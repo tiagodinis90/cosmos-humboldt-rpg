@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-forest-950: #0a1a0f;
+  --color-forest-900: #0f2618;
+  --color-forest-800: #1a3d28;
+  --color-forest-700: #2d5a3f;
+  --color-forest-600: #3d7a55;
+  --color-forest-500: #4d9a6b;
+  --color-forest-400: #6bb88a;
+  --color-forest-300: #94d4ad;
+  --color-forest-200: #c2ebd4;
+  --color-forest-100: #e8f7ee;
+
+  --color-gold-900: #3d2e0a;
+  --color-gold-800: #6b4f12;
+  --color-gold-700: #9a7118;
+  --color-gold-600: #c49520;
+  --color-gold-500: #d4a832;
+  --color-gold-400: #e4be52;
+  --color-gold-300: #f0d480;
+  --color-gold-200: #f7e5ad;
+  --color-gold-100: #fdf4dc;
+
+  --color-parchment: #f5f0e8;
+  --color-parchment-dark: #e8e0d0;
+  --color-ink: #1a1510;
+  --color-ink-light: #3d352a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Crimson Text', serif;
+  background-color: var(--color-forest-950);
+  color: var(--color-parchment);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-forest-950);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-forest-700);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-forest-600);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes drawLine {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
+/* Ornamental divider */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-600), transparent);
+}
+
+/* Nature web background pattern */
+.web-pattern {
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(77, 154, 107, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(212, 168, 50, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(77, 154, 107, 0.02) 0%, transparent 50%);
+}
+
+/* Section card hover effect */
+.section-card {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(212, 168, 50, 0.1);
+}
+
+.section-card:hover {
+  border-color: rgba(212, 168, 50, 0.3);
+  box-shadow: 0 0 30px rgba(212, 168, 50, 0.05);
+}
+
+/* Table styling */
+.design-table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.design-table th {
+  background: linear-gradient(135deg, var(--color-forest-800), var(--color-forest-900));
+  border-bottom: 2px solid var(--color-gold-600);
+}
+
+.design-table td {
+  border-bottom: 1px solid rgba(212, 168, 50, 0.1);
+}
+
+.design-table tr:hover td {
+  background-color: rgba(77, 154, 107, 0.05);
+}
+
+/* Nav link active state */
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-gold-500);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Game-specific styles */
+
+/* Title screen animations */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes cloud-drift {
+  from { transform: translateX(-300px); }
+  to { transform: translateX(calc(100vw + 300px)); }
+}
+
+@keyframes wave {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes ship-bob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  25% { transform: translateY(-8px) rotate(0deg); }
+  50% { transform: translateY(-3px) rotate(1deg); }
+  75% { transform: translateY(-10px) rotate(0deg); }
+}
+
+@keyframes bird-fly {
+  from { transform: translateX(-100px) translateY(0); }
+  25% { transform: translateX(25vw) translateY(-20px); }
+  50% { transform: translateX(50vw) translateY(10px); }
+  75% { transform: translateX(75vw) translateY(-15px); }
+  to { transform: translateX(110vw) translateY(0); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes sail-across {
+  from { transform: translateX(-200px); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  to { transform: translateX(calc(100vw + 200px)); opacity: 0; }
+}
+
+@keyframes rain-fall {
+  from { transform: translateY(-100vh) translateX(0); opacity: 0.7; }
+  to { transform: translateY(100vh) translateX(-20px); opacity: 0; }
+}
+
+@keyframes snow-fall {
+  0% { transform: translateY(-100vh) translateX(0) rotate(0deg); opacity: 0.8; }
+  50% { transform: translateY(50vh) translateX(30px) rotate(180deg); opacity: 0.6; }
+  100% { transform: translateY(100vh) translateX(-10px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes firefly {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  25% { opacity: 1; transform: translate(10px, -15px); }
+  50% { opacity: 0.5; transform: translate(-5px, -25px); }
+  75% { opacity: 1; transform: translate(15px, -10px); }
+}
+
+@keyframes compass-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-cloud-drift {
+  animation: cloud-drift 60s linear infinite;
+}
+
+.animate-wave {
+  animation: wave 8s linear infinite;
+}
+
+.animate-ship-bob {
+  animation: ship-bob 4s ease-in-out infinite;
+}
+
+.animate-bird-fly {
+  animation: bird-fly 20s linear infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-sail-across {
+  animation: sail-across 15s linear infinite;
+}
+
+.animate-rain {
+  animation: rain-fall 1s linear infinite;
+}
+
+.animate-snow {
+  animation: snow-fall 4s linear infinite;
+}
+
+.animate-firefly {
+  animation: firefly 4s ease-in-out infinite;
+}
+
+.animate-compass {
+  animation: compass-spin 20s linear infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.5s ease-out forwards;
+}
+
+/* Resource bar glow effect */
+.resource-bar {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Dialogue option hover effect */
+button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* Journal entry card */
+.journal-card {
+  transition: all 0.3s ease;
+}
+
+.journal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 168, 50, 0.1);
+}
+
+/* Naturgemälde node pulse */
+@keyframes nodePulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.naturgemalde-node {
+  animation: nodePulse 3s ease-in-out infinite;
+}
+
+/* Skill check success/fail flash */
+@keyframes successFlash {
+  0% { background-color: rgba(77, 154, 107, 0); }
+  50% { background-color: rgba(77, 154, 107, 0.2); }
+  100% { background-color: rgba(77, 154, 107, 0); }
+}
+
+@keyframes failFlash {
+  0% { background-color: rgba(239, 68, 68, 0); }
+  50% { background-color: rgba(239, 68, 68, 0.2); }
+  100% { background-color: rgba(239, 68, 68, 0); }
+}
+
+.flash-success {
+  animation: successFlash 1s ease-out;
+}
+
+.flash-fail {
+  animation: failFlash 1s ease-out;
+}
+
+/* Scrollbar for game content */
+.game-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.game-content::-webkit-scrollbar-track {
+  background: rgba(15, 38, 24, 0.5);
+}
+
+.game-content::-webkit-scrollbar-thumb {
+  background: rgba(212, 168, 50, 0.3);
+  border-radius: 3px;
+}
+
+.game-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 168, 50, 0.5);
+}
+
+/* Location card gradient */
+.location-card {
+  background: linear-gradient(135deg, rgba(15, 38, 24, 0.5) 0%, rgba(10, 26, 15, 0.8) 100%);
+}
+
+/* Button press effect */
+.btn-press {
+  transition: all 0.1s ease;
+}
+
+.btn-press:active {
+  transform: scale(0.98);
+}
+
+/* Tooltip for skill requirements */
+.skill-tooltip {
+  position: relative;
+}
+
+.skill-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  background: rgba(10, 26, 15, 0.95);
+  border: 1px solid rgba(212, 168, 50, 0.3);
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.skill-tooltip:hover::after {
+  opacity: 1;
+}
