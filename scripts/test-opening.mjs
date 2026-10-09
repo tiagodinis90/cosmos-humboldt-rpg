@@ -88,3 +88,24 @@ assert.equal(state.journal.length, 0);
 assert.equal(merged.journal[0].location, 'cumana');
 
 console.log('Narrative graph, alternative paths, skill/flag gating, memory, and arrival state passed.');
+
+// Versioned save round-trip and corrupted/legacy save recovery.
+const saveSource = readFileSync(new URL('../src/gameplay/save.ts', import.meta.url), 'utf8');
+const compiledSave = ts.transpileModule(saveSource, {
+  fileName: 'save.ts',
+  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020 },
+});
+const save = await import('data:text/javascript;charset=utf-8,' + encodeURIComponent(compiledSave.outputText));
+const snapshot = save.encodeSave(merged, p);
+const restored = save.decodeSave(snapshot);
+assert.ok(restored);
+assert.equal(restored.version, 1);
+assert.equal(restored.state.currentLocation, 'cumana');
+assert.equal(restored.opening.completed, true);
+assert.equal(restored.opening.flags.includes('pattern_recurs'), true);
+assert.equal(save.decodeSave(null), null);
+assert.equal(save.decodeSave('{malformed'), null);
+assert.equal(save.decodeSave(JSON.stringify({ ...restored, version: 9 })), null);
+assert.equal(save.decodeSave(JSON.stringify({ ...restored, state: { ...merged, flags: 'not-an-array' } })), null);
+assert.equal(save.decodeSave(JSON.stringify({ ...restored, opening: { ...p, nodeId: 100 } })), null);
+console.log('Save: round-trip, chronology/state persistence and invalid/unsupported input passed.');
