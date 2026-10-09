@@ -4,6 +4,10 @@
 
 > **Current draft version (October 2026):** A playable historical opening (Berlin 1796 → Cumaná 1799) leads into an **isometric, walkable Cumaná**: conversations happen over the scene, inner voices comment, white and red checks persist, measurements and testimony go into a fieldbook with their sources, and choices visibly change the town. The older dice-cycle mechanics and long-term campaigns described below remain partly prototype/design material, not a finished production game.
 
+## Godot foundation (new)
+
+`godot/` contains a first Godot 4.7 vertical slice of Cumaná: a walkable isometric scene, Bonpland with a red skill check, persistent saves and tools for writers and artists. See [godot/README.md](godot/README.md), [docs/godot-architecture.md](docs/godot-architecture.md) and [docs/godot-content-workflow.md](docs/godot-content-workflow.md). The browser prototype below remains the behavioural reference; `npm test` checks that the recorded parity fixtures still match it.
+
 ## Run the experimental slice
 
 ```sh

@@ -1,0 +1,51 @@
+name: Godot and parity checks
+
+# Runs on every pull request (whatever its base) that touches the Godot
+# project, the TypeScript reference it is checked against, or this file.
+on:
+  pull_request:
+    paths:
+      - 'godot/**'
+      - 'src/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/godot-checks.yml'
+
+env:
+  GODOT_VERSION: 4.7.2
+  GODOT_SHA512: 9aa00f7a605200940bce3027a567b782f49bd8e940dd06ae9e987bd65aee1b1467edd56ed84fcdcbdd44354bf613bdbb4e5d2913e925850368e150c59ed54c65
+
+jobs:
+  reference:
+    name: TypeScript reference and fixtures
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test   # includes: parity fixtures still match the TypeScript code
+      - run: npm run build
+
+  godot:
+    name: Godot ${{ env.GODOT_VERSION }} tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and verify Godot
+        run: |
+          curl -sSL -o godot.zip "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          echo "${GODOT_SHA512}  godot.zip" | sha512sum -c -
+          unzip -q godot.zip
+          mv "Godot_v${GODOT_VERSION}-stable_linux.x86_64" godot-bin
+          ./godot-bin --version
+      - name: Import project
+        run: timeout 300 ./godot-bin --headless --path godot --import
+      - name: Validate content
+        run: timeout 120 ./godot-bin --headless --path godot -s res://tools/validate_content.gd
+      - name: Unit, parity and scene tests
+        run: timeout 900 ./godot-bin --headless --path godot -s res://tests/run_tests.gd
