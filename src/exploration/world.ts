@@ -114,7 +114,7 @@ export function findPath(map: ExplorationMap, origin: Point, destination: Point,
     const cx = current % width, cy = Math.floor(current / width);
     const point = centerOf(cx, cy, map.tileSize);
     const d = distance(point, destination);
-    if (d <= Math.max(1, radius) + map.tileSize / 2) {
+    if (d <= (radius > 0 ? radius + map.tileSize / 2 : map.tileSize * 0.71)) {
       if (d < bestDistance) {
         best = current;
         bestDistance = d;
