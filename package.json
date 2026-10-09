@@ -6,7 +6,10 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
-    "test": "node --test scripts/test-opening.mjs scripts/test-cumana.mjs scripts/test-graph.mjs scripts/test-exploration.mjs scripts/test-iso.mjs scripts/test-encounters.mjs"
+    "test": "node --test scripts/test-opening.mjs scripts/test-cumana.mjs scripts/test-graph.mjs scripts/test-exploration.mjs scripts/test-iso.mjs scripts/test-encounters.mjs scripts/test-content.mjs",
+    "test:content": "node --test scripts/test-content.mjs",
+    "validate:content": "node scripts/content-validator.mjs",
+    "fixtures:content": "node scripts/run-content-fixtures.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
@@ -30,6 +33,7 @@
     "@types/react-dom": "^18.2.0",
     "@types/uuid": "^9.0.7",
     "@vitejs/plugin-react": "^4.3.4",
+    "ajv": "^8.20.0",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.7.0",
     "vite": "^6.3.5"
