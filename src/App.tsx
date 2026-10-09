@@ -16,6 +16,10 @@ import { OPENING_NODES, availableOpeningChoices, chooseOpening, finishOpening, s
 import { SAVE_KEY, decodeSave, encodeSave } from './gameplay/save';
 import { beginFieldwork, chooseFieldwork, concludeFieldwork } from './narrative/cumana';
 import CumanaEpisode from './components/CumanaEpisode';
+import ExplorationScene from './components/ExplorationScene';
+import NarrativeEncounter from './components/NarrativeEncounter';
+import { SURVEY_GRAPH, concludeSurvey } from './narrative/survey';
+import { chooseGraph, continueGraph, startGraph } from './narrative/graph-engine';
 
 function createInitialState(): GameState {
   return {
@@ -341,6 +345,43 @@ export default function App() {
       }}
     />
   );
+  if (state.phase === 'exploration') return (
+    <ExplorationScene
+      onLeave={() => update({ phase: 'cycle_start' })}
+      fieldworkComplete={state.flags.includes('cumana_fieldwork_complete')}
+      surveyComplete={state.flags.includes('cumana_survey_complete')}
+      onInteract={(hotspot) => {
+        if (hotspot.id === 'ines' && !state.flags.includes('cumana_fieldwork_complete')) {
+          update({ phase: 'fieldwork', fieldwork: state.fieldwork ?? beginFieldwork() });
+        } else if (hotspot.id === 'damaged-wall' &&
+          state.flags.includes('cumana_fieldwork_complete') &&
+          !state.flags.includes('cumana_survey_complete')) {
+          const ctx = { skills: state.skills, flags: state.flags };
+          update({ phase: 'survey', survey: state.survey ?? startGraph(SURVEY_GRAPH, ctx) });
+        }
+      }}
+    />
+  );
+  if (state.phase === 'survey') {
+    const progress = state.survey ?? startGraph(SURVEY_GRAPH, { skills: state.skills, flags: state.flags });
+    return (
+      <NarrativeEncounter
+        graph={SURVEY_GRAPH}
+        progress={progress}
+        skills={state.skills}
+        flags={state.flags}
+        onContinue={() => setState(prev => ({
+          ...prev,
+          survey: continueGraph(SURVEY_GRAPH, prev.survey ?? progress, { skills: prev.skills, flags: prev.flags }),
+        }))}
+        onChoose={(id) => setState(prev => ({
+          ...prev,
+          survey: chooseGraph(SURVEY_GRAPH, prev.survey ?? progress, { skills: prev.skills, flags: prev.flags }, id),
+        }))}
+        onFinish={() => setState(prev => concludeSurvey(prev, prev.survey ?? progress))}
+      />
+    );
+  }
   if (state.phase === 'fieldwork') return (
     <CumanaEpisode
       progress={state.fieldwork ?? beginFieldwork()}
@@ -589,6 +630,21 @@ function CycleStart({ state, update, rollDice, travel, isRolling }: { state: Gam
               className="px-5 py-3 bg-gold-600 hover:bg-gold-500 rounded-lg font-bold text-forest-950"
             >
               {state.fieldwork ? 'Continue fieldwork →' : 'Begin fieldwork →'}
+            </button>
+          </section>
+        )}
+
+        {state.currentLocation === 'cumana' && (
+          <section className="rounded-xl border border-gold-500/30 bg-forest-900/50 p-5 mb-6">
+            <p className="text-gold-400 text-xs uppercase tracking-widest font-mono mb-2">Exploration · Original world prototype</p>
+            <h3 className="text-xl text-parchment mb-2">Walk the streets of Cumaná</h3>
+            <p className="text-parchment/65 mb-4 text-sm">
+              A navigable historical district with movement, camera tracking and contextual encounters.
+              Approach Inés to begin the historical chapter; examine the damaged wall afterwards for a skill-based conversation.
+            </p>
+            <button type="button" onClick={() => update({ phase: 'exploration' })}
+              className="rounded-lg border border-gold-500 bg-forest-800 hover:bg-forest-700 text-gold-300 px-5 py-3 font-semibold">
+              Explore Cumaná →
             </button>
           </section>
         )}
