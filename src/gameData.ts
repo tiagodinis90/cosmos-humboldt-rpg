@@ -24,6 +24,7 @@ export const initialLocations: Record<string, Location> = {
     atmosphere: 'Tropical heat. Colonial architecture. Unfamiliar flowers.',
     actions: ['caracas_explore', 'caracas_bonpland', 'caracas_market', 'caracas_rest', 'caracas_collect', 'caracas_humboldt_current'],
     connections: ['cumana', 'llanos', 'lake_valencia', 'cuba'],
+    requiredFlag: 'cumana_fieldwork_complete',
     discovered: false,
   },
   cuba: {
