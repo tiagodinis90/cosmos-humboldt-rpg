@@ -341,27 +341,15 @@ export default function App() {
       onChoose={(id) => {
         const next = chooseOpening(opening, id, state.skills);
         setOpening(next);
-        if (next.completed) setState(prev => finishOpening(prev, next));
+        // Arrival in Cumaná puts the player straight into the walkable town.
+        if (next.completed) setState(prev => ({ ...finishOpening(prev, next), phase: 'exploration' }));
       }}
     />
   );
   if (state.phase === 'exploration') return (
-    <ExplorationScene
-      onLeave={() => update({ phase: 'cycle_start' })}
-      fieldworkComplete={state.flags.includes('cumana_fieldwork_complete')}
-      surveyComplete={state.flags.includes('cumana_survey_complete')}
-      onInteract={(hotspot) => {
-        if (hotspot.id === 'ines' && !state.flags.includes('cumana_fieldwork_complete')) {
-          update({ phase: 'fieldwork', fieldwork: state.fieldwork ?? beginFieldwork() });
-        } else if (hotspot.id === 'damaged-wall' &&
-          state.flags.includes('cumana_fieldwork_complete') &&
-          !state.flags.includes('cumana_survey_complete')) {
-          const ctx = { skills: state.skills, flags: state.flags };
-          update({ phase: 'survey', survey: state.survey ?? startGraph(SURVEY_GRAPH, ctx) });
-        }
-      }}
-    />
+    <ExplorationScene state={state} setState={setState} onLeave={() => update({ phase: 'cycle_start' })} />
   );
+  // Legacy route: saves made mid-survey before the survey moved into the scene.
   if (state.phase === 'survey') {
     const progress = state.survey ?? startGraph(SURVEY_GRAPH, { skills: state.skills, flags: state.flags });
     return (
@@ -391,7 +379,8 @@ export default function App() {
         setState(prev => {
           const progress = chooseFieldwork(prev.fieldwork ?? beginFieldwork(), id, prev.skills, prev.flags);
           const updated = { ...prev, fieldwork: progress };
-          return progress.completed ? concludeFieldwork(updated, progress) : updated;
+          // After the chapter, return to the street to see what November changed.
+          return progress.completed ? { ...concludeFieldwork(updated, progress), phase: 'exploration' } : updated;
         });
       }}
     />

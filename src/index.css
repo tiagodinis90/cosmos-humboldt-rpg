@@ -472,3 +472,23 @@ button:not(:disabled):active {
 .skill-tooltip:hover::after {
   opacity: 1;
 }
+
+/* ===== Exploration scene ===== */
+@keyframes cosmos-wave { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -400; } }
+@keyframes cosmos-foam { 0%, 100% { opacity: 0.35; } 50% { opacity: 0.7; } }
+@keyframes cosmos-sway { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.8deg); } }
+@keyframes cosmos-breathe { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-0.7px); } }
+@keyframes cosmos-ripple { from { opacity: 0.9; transform: scale(0.4); } to { opacity: 0; transform: scale(1.6); } }
+@keyframes cosmos-pulse { 0%, 100% { opacity: 0.95; } 50% { opacity: 0.45; } }
+@keyframes cosmos-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.cosmos-waves polyline { animation: cosmos-wave 14s linear infinite; }
+.cosmos-foam { animation: cosmos-foam 5s ease-in-out infinite; }
+.cosmos-sway { animation: cosmos-sway 5.5s ease-in-out infinite; }
+.cosmos-sway-slow { animation: cosmos-sway 9s ease-in-out infinite; }
+.cosmos-breathe { animation: cosmos-breathe 3.2s ease-in-out infinite; }
+.cosmos-ripple { transform-box: fill-box; transform-origin: center; animation: cosmos-ripple 600ms ease-out forwards; }
+.cosmos-pulse { animation: cosmos-pulse 1.8s ease-in-out infinite; }
+.cosmos-fade { animation: cosmos-fade 260ms ease-out; }
+@media (prefers-reduced-motion: reduce) {
+  .cosmos-waves polyline, .cosmos-foam, .cosmos-sway, .cosmos-sway-slow, .cosmos-breathe, .cosmos-pulse { animation: none; }
+}
