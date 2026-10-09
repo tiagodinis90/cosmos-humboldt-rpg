@@ -257,7 +257,7 @@ export default function App() {
       
       // Calculate distance based on location (simplified)
       const distances: Record<string, number> = {
-        caracas: 3, llanos: 2, lake_valencia: 1, orinoco: 4,
+        cumana: 1, caracas: 3, llanos: 2, lake_valencia: 1, orinoco: 4,
         andes_foothills: 5, chimborazo: 6, cuba: 4, mexico: 7,
         washington: 8, paris: 9, berlin_later: 10, russia: 12,
       };
@@ -1115,7 +1115,7 @@ function HumboldtOpening({
             >
               {choice.label}
               <span className="block text-xs font-mono text-gold-400/70 mt-1">
-                {choice.requires ? choice.requires.skill + ' ' + choice.requires.atLeast + '+' : 'Continue'}
+                {choice.requires ? choice.requires.skill + ' ' + choice.requires.atLeast + '+' : choice.requiresFlag ? 'Available from your earlier observations' : 'Continue'}
               </span>
             </button>
           ))}
