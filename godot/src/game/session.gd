@@ -59,9 +59,25 @@ func save_game() -> bool:
 	if f == null:
 		push_warning("Could not write save: " + tmp)
 		return false
-	f.store_string(CosmosSave.encode(state))
+	var text := CosmosSave.encode(state)
+	f.store_string(text)
 	f.close()
-	return DirAccess.rename_absolute(ProjectSettings.globalize_path(tmp), ProjectSettings.globalize_path(save_path)) == OK
+	var from := ProjectSettings.globalize_path(tmp)
+	var to := ProjectSettings.globalize_path(save_path)
+	if DirAccess.rename_absolute(from, to) == OK:
+		return true
+	# Some platforms refuse to rename over an existing file: replace it.
+	DirAccess.remove_absolute(to)
+	if DirAccess.rename_absolute(from, to) == OK:
+		return true
+	var direct := FileAccess.open(save_path, FileAccess.WRITE)
+	if direct == null:
+		push_warning("Could not write save: " + save_path)
+		return false
+	direct.store_string(text)
+	direct.close()
+	DirAccess.remove_absolute(from)
+	return true
 
 
 ## Re-read every file in res://content (dev panel / F5), keeping the save.
