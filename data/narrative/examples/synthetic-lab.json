@@ -1,0 +1,578 @@
+{
+  "schemaVersion": "1.0.0",
+  "contentId": "synthetic.lab",
+  "defaultLocale": "en",
+  "locales": {
+    "en": {
+      "skill.logic": "Logic",
+      "skill.empathy": "Empathy",
+      "skill.aesthetics": "Aesthetics",
+      "skill.political": "Political",
+      "character.researcher.name": "Sample Researcher",
+      "character.researcher.description": "Synthetic fixture character.",
+      "relationship.researcher": "Colleague",
+      "line.open": "A sample instrument is ready.",
+      "line.red.failure": "The sealed control resists a second attempt.",
+      "line.white.failure": "The reading remains uncertain.",
+      "line.white.success": "The improved reading holds.",
+      "line.evidence.check": "The reference note may help interpret the sample.",
+      "line.passive": "A faint pattern emerges.",
+      "line.flagged": "The sample has been recorded.",
+      "line.no_flag": "The sample is still unrecorded.",
+      "line.done": "Synthetic scenario complete.",
+      "choice.red": "Open the sealed control",
+      "choice.white": "Recheck the sample",
+      "choice.evidence": "Use the reference note",
+      "choice.record": "Record the sample",
+      "choice.inspect": "Inspect the recorded sample",
+      "choice.leave": "Finish",
+      "choice.resume": "Continue after save",
+      "check.modifier.evidence": "Reference note",
+      "insight.pattern": "The pattern repeats at regular intervals.",
+      "evidence.sample.date": "Test date",
+      "evidence.sample.content": "Synthetic reference note",
+      "evidence.sample.source": "Fixture author",
+      "asset.researcher": "Synthetic researcher portrait"
+    }
+  },
+  "skills": [
+    {
+      "id": "logic",
+      "labelKey": "skill.logic",
+      "status": "draft"
+    },
+    {
+      "id": "empathy",
+      "labelKey": "skill.empathy",
+      "status": "draft"
+    },
+    {
+      "id": "aesthetics",
+      "labelKey": "skill.aesthetics",
+      "status": "draft"
+    },
+    {
+      "id": "political",
+      "labelKey": "skill.political",
+      "status": "draft"
+    }
+  ],
+  "characters": [
+    {
+      "id": "researcher",
+      "nameKey": "character.researcher.name",
+      "descriptionKey": "character.researcher.description",
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Test-only character; not COSMOS narrative."
+      },
+      "skills": {
+        "logic": 1,
+        "empathy": 1,
+        "aesthetics": 1,
+        "political": 1
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "id": "researcher.trust",
+      "characterId": "researcher",
+      "labelKey": "relationship.researcher",
+      "status": "draft",
+      "minimum": -5,
+      "maximum": 10
+    }
+  ],
+  "graphs": [
+    {
+      "id": "synthetic.lab.graph",
+      "start": "open",
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Original compatibility fixture; not proposed story content."
+      },
+      "cards": [
+        {
+          "type": "line",
+          "id": "open",
+          "textKey": "line.open",
+          "speakerId": "researcher",
+          "next": "passive"
+        },
+        {
+          "type": "passive",
+          "id": "passive",
+          "probes": [
+            {
+              "id": "pattern.insight",
+              "skill": "logic",
+              "atLeast": 1,
+              "textKey": "insight.pattern"
+            }
+          ],
+          "next": "choice"
+        },
+        {
+          "type": "choice",
+          "id": "choice",
+          "choices": [
+            {
+              "id": "red.try",
+              "labelKey": "choice.red",
+              "next": "red.success",
+              "check": {
+                "id": "lab.red.control",
+                "kind": "red",
+                "skill": "logic",
+                "difficulty": 13,
+                "success": "red.success",
+                "failure": "red.failure"
+              }
+            },
+            {
+              "id": "white.try",
+              "labelKey": "choice.white",
+              "next": "white.success",
+              "check": {
+                "id": "lab.white.reading",
+                "kind": "white",
+                "skill": "logic",
+                "difficulty": 13,
+                "success": "white.success",
+                "failure": "white.failure"
+              }
+            },
+            {
+              "id": "evidence.try",
+              "labelKey": "choice.evidence",
+              "next": "evidence.line",
+              "when": {
+                "op": "flag",
+                "name": "evidence.note"
+              }
+            },
+            {
+              "id": "record",
+              "labelKey": "choice.record",
+              "next": "record.set"
+            },
+            {
+              "id": "inspect",
+              "labelKey": "choice.inspect",
+              "next": "conditional",
+              "when": {
+                "op": "flag",
+                "name": "sample.recorded"
+              }
+            },
+            {
+              "id": "leave",
+              "labelKey": "choice.leave",
+              "next": "done"
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "id": "red.failure",
+          "textKey": "line.red.failure",
+          "next": "choice"
+        },
+        {
+          "type": "line",
+          "id": "red.success",
+          "textKey": "line.done",
+          "next": "done"
+        },
+        {
+          "type": "line",
+          "id": "white.failure",
+          "textKey": "line.white.failure",
+          "next": "choice"
+        },
+        {
+          "type": "line",
+          "id": "white.success",
+          "textKey": "line.white.success",
+          "next": "choice"
+        },
+        {
+          "type": "line",
+          "id": "evidence.line",
+          "textKey": "line.evidence.check",
+          "next": "evidence.choice"
+        },
+        {
+          "type": "choice",
+          "id": "evidence.choice",
+          "choices": [
+            {
+              "id": "evidence.roll",
+              "labelKey": "choice.resume",
+              "next": "boost.success",
+              "check": {
+                "id": "lab.evidence.boost",
+                "kind": "white",
+                "skill": "logic",
+                "difficulty": 13,
+                "success": "boost.success",
+                "failure": "boost.failure"
+              }
+            }
+          ]
+        },
+        {
+          "type": "line",
+          "id": "boost.failure",
+          "textKey": "line.white.failure",
+          "next": "done"
+        },
+        {
+          "type": "line",
+          "id": "boost.success",
+          "textKey": "line.white.success",
+          "next": "done"
+        },
+        {
+          "type": "line",
+          "id": "record.set",
+          "textKey": "line.flagged",
+          "next": "conditional",
+          "sets": [
+            "sample.recorded"
+          ]
+        },
+        {
+          "type": "fork",
+          "id": "conditional",
+          "routes": [
+            {
+              "when": {
+                "op": "flag",
+                "name": "sample.recorded"
+              },
+              "next": "recorded"
+            }
+          ],
+          "otherwise": "unrecorded"
+        },
+        {
+          "type": "line",
+          "id": "recorded",
+          "textKey": "line.flagged",
+          "next": "done"
+        },
+        {
+          "type": "line",
+          "id": "unrecorded",
+          "textKey": "line.no_flag",
+          "next": "done"
+        },
+        {
+          "type": "end",
+          "id": "done",
+          "textKey": "line.done"
+        }
+      ]
+    }
+  ],
+  "encounters": [
+    {
+      "id": "synthetic.lab.encounter",
+      "graphId": "synthetic.lab.graph",
+      "status": "draft",
+      "outcomes": [
+        {
+          "when": {
+            "op": "flag",
+            "name": "lab.complete"
+          },
+          "effects": [
+            {
+              "type": "evidence.add",
+              "evidence": {
+                "id": "evidence.note",
+                "kind": "observation",
+                "dateKey": "evidence.sample.date",
+                "contentKey": "evidence.sample.content",
+                "sourceKey": "evidence.sample.source",
+                "provenance": {
+                  "classification": "synthetic",
+                  "status": "draft",
+                  "note": "Synthetic test evidence."
+                },
+                "modifies": [
+                  {
+                    "checkId": "lab.evidence.boost",
+                    "amount": 2
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "saveState": {
+    "version": 2,
+    "dialogues": {},
+    "checkLedger": {
+      "white": {},
+      "red": []
+    },
+    "flags": [],
+    "evidence": []
+  },
+  "assets": [
+    {
+      "id": "researcher.portrait",
+      "role": "portrait",
+      "path": "res://assets/provisional/researcher.png",
+      "status": "draft",
+      "width": 512,
+      "height": 512,
+      "format": "PNG",
+      "importNotes": "Synthetic placeholder contract example. Replace file while preserving stable id; transparent background."
+    }
+  ],
+  "localizationReview": {
+    "skill.logic": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "skill.empathy": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "skill.aesthetics": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "skill.political": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "character.researcher.name": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "character.researcher.description": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "relationship.researcher": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "line.open": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "line.red.failure": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "line.white.failure": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "line.white.success": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "line.evidence.check": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "line.passive": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "line.flagged": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "line.no_flag": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "line.done": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "choice.red": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "choice.white": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "choice.evidence": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "choice.record": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "choice.leave": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "choice.resume": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "check.modifier.evidence": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "insight.pattern": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "evidence.sample.date": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "evidence.sample.content": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "evidence.sample.source": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "asset.researcher": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "choice.inspect": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    }
+  }
+}

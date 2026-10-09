@@ -1,0 +1,1251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cosmos.example/schemas/narrative-content-v1.schema.json",
+  "title": "COSMOS portable narrative content, version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "contentId",
+    "defaultLocale",
+    "locales",
+    "localizationReview",
+    "skills",
+    "characters",
+    "relationships",
+    "graphs",
+    "encounters",
+    "saveState"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "contentId": {
+      "$ref": "#/$defs/id"
+    },
+    "defaultLocale": {
+      "type": "string",
+      "minLength": 2
+    },
+    "locales": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "propertyNames": {
+          "$ref": "#/$defs/id"
+        },
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    },
+    "localizationReview": {
+      "type": "object",
+      "propertyNames": {
+        "$ref": "#/$defs/id"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "provenance"
+        ],
+        "properties": {
+          "status": {
+            "$ref": "#/$defs/status"
+          },
+          "provenance": {
+            "$ref": "#/$defs/provenance"
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/skillDefinition"
+      },
+      "minItems": 1
+    },
+    "characters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/character"
+      }
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relationship"
+      }
+    },
+    "graphs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/graph"
+      },
+      "minItems": 1
+    },
+    "encounters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/encounter"
+      }
+    },
+    "saveState": {
+      "$ref": "#/$defs/saveState"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/asset"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]*$"
+    },
+    "skill": {
+      "type": "string",
+      "enum": [
+        "logic",
+        "empathy",
+        "aesthetics",
+        "political"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "reviewed",
+        "approved"
+      ]
+    },
+    "rollRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkId",
+        "kind",
+        "skill",
+        "first",
+        "second",
+        "modifier",
+        "total",
+        "difficulty",
+        "passed",
+        "explanations"
+      ],
+      "properties": {
+        "checkId": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "white",
+            "red"
+          ]
+        },
+        "skill": {
+          "$ref": "#/$defs/skill"
+        },
+        "first": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        },
+        "second": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 6
+        },
+        "modifier": {
+          "type": "number"
+        },
+        "total": {
+          "type": "number"
+        },
+        "difficulty": {
+          "type": "number"
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "explanations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "transcriptEntry": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "card"
+          ],
+          "properties": {
+            "type": {
+              "const": "line"
+            },
+            "card": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id"
+          ],
+          "properties": {
+            "type": {
+              "const": "insight"
+            },
+            "id": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "choice",
+            "label"
+          ],
+          "properties": {
+            "type": {
+              "const": "choice"
+            },
+            "choice": {
+              "$ref": "#/$defs/id"
+            },
+            "label": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "roll"
+          ],
+          "properties": {
+            "type": {
+              "const": "roll"
+            },
+            "roll": {
+              "$ref": "#/$defs/rollRecord"
+            }
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "status"
+      ],
+      "properties": {
+        "classification": {
+          "enum": [
+            "synthetic",
+            "fictional",
+            "historical",
+            "interpretation",
+            "provisional"
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "citation"
+            ],
+            "properties": {
+              "citation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": "string"
+              },
+              "locator": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "skillDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "labelKey",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/skill"
+        },
+        "labelKey": {
+          "$ref": "#/$defs/id"
+        },
+        "descriptionKey": {
+          "$ref": "#/$defs/id"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        }
+      }
+    },
+    "character": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "nameKey",
+        "status",
+        "provenance"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "nameKey": {
+          "$ref": "#/$defs/id"
+        },
+        "descriptionKey": {
+          "$ref": "#/$defs/id"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        },
+        "skills": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/skill"
+          },
+          "additionalProperties": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "characterId",
+        "labelKey",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "characterId": {
+          "$ref": "#/$defs/id"
+        },
+        "labelKey": {
+          "$ref": "#/$defs/id"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "minimum": {
+          "type": "number"
+        },
+        "maximum": {
+          "type": "number"
+        }
+      }
+    },
+    "condition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "name"
+          ],
+          "properties": {
+            "op": {
+              "const": "flag"
+            },
+            "name": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "skill",
+            "atLeast"
+          ],
+          "properties": {
+            "op": {
+              "const": "skill"
+            },
+            "skill": {
+              "$ref": "#/$defs/skill"
+            },
+            "atLeast": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "conditions"
+          ],
+          "properties": {
+            "op": {
+              "enum": [
+                "all",
+                "any"
+              ]
+            },
+            "conditions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/condition"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "op",
+            "condition"
+          ],
+          "properties": {
+            "op": {
+              "const": "not"
+            },
+            "condition": {
+              "$ref": "#/$defs/condition"
+            }
+          }
+        }
+      ]
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "skill",
+        "difficulty",
+        "success",
+        "failure"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "white",
+            "red"
+          ]
+        },
+        "skill": {
+          "$ref": "#/$defs/skill"
+        },
+        "difficulty": {
+          "type": "number"
+        },
+        "success": {
+          "$ref": "#/$defs/id"
+        },
+        "failure": {
+          "$ref": "#/$defs/id"
+        },
+        "modifiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "when",
+              "amount",
+              "reasonKey"
+            ],
+            "properties": {
+              "when": {
+                "$ref": "#/$defs/condition"
+              },
+              "amount": {
+                "type": "number"
+              },
+              "reasonKey": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          }
+        }
+      }
+    },
+    "choice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "labelKey",
+        "next"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "labelKey": {
+          "$ref": "#/$defs/id"
+        },
+        "next": {
+          "$ref": "#/$defs/id"
+        },
+        "when": {
+          "$ref": "#/$defs/condition"
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "check": {
+          "$ref": "#/$defs/check"
+        }
+      }
+    },
+    "card": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "textKey",
+            "next"
+          ],
+          "properties": {
+            "type": {
+              "const": "line"
+            },
+            "id": {
+              "$ref": "#/$defs/id"
+            },
+            "speakerId": {
+              "$ref": "#/$defs/id"
+            },
+            "textKey": {
+              "$ref": "#/$defs/id"
+            },
+            "next": {
+              "$ref": "#/$defs/id"
+            },
+            "sets": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "choices"
+          ],
+          "properties": {
+            "type": {
+              "const": "choice"
+            },
+            "id": {
+              "$ref": "#/$defs/id"
+            },
+            "promptKey": {
+              "$ref": "#/$defs/id"
+            },
+            "choices": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/choice"
+              },
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "probes",
+            "next"
+          ],
+          "properties": {
+            "type": {
+              "const": "passive"
+            },
+            "id": {
+              "$ref": "#/$defs/id"
+            },
+            "probes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "skill",
+                  "atLeast",
+                  "textKey"
+                ],
+                "properties": {
+                  "id": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "skill": {
+                    "$ref": "#/$defs/skill"
+                  },
+                  "atLeast": {
+                    "type": "number"
+                  },
+                  "textKey": {
+                    "$ref": "#/$defs/id"
+                  }
+                }
+              }
+            },
+            "next": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "routes",
+            "otherwise"
+          ],
+          "properties": {
+            "type": {
+              "const": "fork"
+            },
+            "id": {
+              "$ref": "#/$defs/id"
+            },
+            "routes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "when",
+                  "next"
+                ],
+                "properties": {
+                  "when": {
+                    "$ref": "#/$defs/condition"
+                  },
+                  "next": {
+                    "$ref": "#/$defs/id"
+                  }
+                }
+              }
+            },
+            "otherwise": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "id",
+            "textKey"
+          ],
+          "properties": {
+            "type": {
+              "const": "end"
+            },
+            "id": {
+              "$ref": "#/$defs/id"
+            },
+            "textKey": {
+              "$ref": "#/$defs/id"
+            },
+            "sets": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "graph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "start",
+        "cards",
+        "status",
+        "provenance"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "start": {
+          "$ref": "#/$defs/id"
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/card"
+          },
+          "minItems": 1
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "provenance": {
+          "$ref": "#/$defs/provenance"
+        }
+      }
+    },
+    "effect": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "name"
+          ],
+          "properties": {
+            "type": {
+              "const": "flag.add"
+            },
+            "name": {
+              "$ref": "#/$defs/id"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "relationshipId",
+            "amount"
+          ],
+          "properties": {
+            "type": {
+              "const": "relationship.change"
+            },
+            "relationshipId": {
+              "$ref": "#/$defs/id"
+            },
+            "amount": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "characterId",
+            "field",
+            "amount"
+          ],
+          "properties": {
+            "type": {
+              "const": "character.change"
+            },
+            "characterId": {
+              "$ref": "#/$defs/id"
+            },
+            "field": {
+              "enum": [
+                "morale",
+                "health",
+                "expertise",
+                "relationship"
+              ]
+            },
+            "amount": {
+              "type": "number"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "evidence"
+          ],
+          "properties": {
+            "type": {
+              "const": "evidence.add"
+            },
+            "evidence": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "kind",
+                "dateKey",
+                "contentKey",
+                "sourceKey",
+                "provenance"
+              ],
+              "properties": {
+                "id": {
+                  "$ref": "#/$defs/id"
+                },
+                "kind": {
+                  "enum": [
+                    "measurement",
+                    "observation",
+                    "testimony",
+                    "hypothesis",
+                    "inference"
+                  ]
+                },
+                "dateKey": {
+                  "$ref": "#/$defs/id"
+                },
+                "contentKey": {
+                  "$ref": "#/$defs/id"
+                },
+                "sourceKey": {
+                  "$ref": "#/$defs/id"
+                },
+                "provenance": {
+                  "$ref": "#/$defs/provenance"
+                },
+                "modifies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "checkId",
+                      "amount"
+                    ],
+                    "properties": {
+                      "checkId": {
+                        "$ref": "#/$defs/id"
+                      },
+                      "amount": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "encounter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "graphId",
+        "status",
+        "outcomes"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "graphId": {
+          "$ref": "#/$defs/id"
+        },
+        "exits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "outcomes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "when",
+              "effects"
+            ],
+            "properties": {
+              "when": {
+                "$ref": "#/$defs/condition"
+              },
+              "effects": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/effect"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "saveState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "dialogues",
+        "checkLedger",
+        "flags",
+        "evidence"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "dialogues": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "graphId",
+              "progress"
+            ],
+            "properties": {
+              "graphId": {
+                "$ref": "#/$defs/id"
+              },
+              "progress": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "nodeId",
+                  "finished",
+                  "flags",
+                  "insights",
+                  "whiteAttempts",
+                  "redAttempts",
+                  "lastRoll",
+                  "history"
+                ],
+                "properties": {
+                  "nodeId": {
+                    "$ref": "#/$defs/id"
+                  },
+                  "finished": {
+                    "type": "boolean"
+                  },
+                  "flags": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/id"
+                    }
+                  },
+                  "insights": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "id",
+                        "skill",
+                        "text"
+                      ],
+                      "properties": {
+                        "id": {
+                          "$ref": "#/$defs/id"
+                        },
+                        "skill": {
+                          "$ref": "#/$defs/skill"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "whiteAttempts": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "number"
+                    }
+                  },
+                  "redAttempts": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/id"
+                    }
+                  },
+                  "lastRoll": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/$defs/rollRecord"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "history": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/id"
+                    }
+                  },
+                  "transcript": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/transcriptEntry"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "checkLedger": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "white",
+              "red"
+            ],
+            "properties": {
+              "white": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "number"
+                }
+              },
+              "red": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/id"
+                }
+              }
+            }
+          },
+          "flags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/id"
+            }
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "kind",
+                "provenance"
+              ]
+            }
+          }
+        },
+        "checkLedger": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "white",
+            "red"
+          ],
+          "properties": {
+            "white": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number"
+              }
+            },
+            "red": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/id"
+              }
+            }
+          }
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/id"
+          }
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "kind",
+              "provenance"
+            ],
+            "properties": {
+              "id": {
+                "$ref": "#/$defs/id"
+              },
+              "kind": {
+                "enum": [
+                  "measurement",
+                  "observation",
+                  "testimony",
+                  "hypothesis",
+                  "inference"
+                ]
+              },
+              "dateKey": {
+                "$ref": "#/$defs/id"
+              },
+              "contentKey": {
+                "$ref": "#/$defs/id"
+              },
+              "sourceKey": {
+                "$ref": "#/$defs/id"
+              },
+              "provenance": {
+                "$ref": "#/$defs/provenance"
+              },
+              "modifies": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "checkId",
+                    "amount"
+                  ],
+                  "properties": {
+                    "checkId": {
+                      "$ref": "#/$defs/id"
+                    },
+                    "amount": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "role",
+        "path",
+        "status",
+        "width",
+        "height",
+        "format",
+        "importNotes"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "role": {
+          "enum": [
+            "portrait",
+            "sprite",
+            "animation",
+            "background",
+            "ui"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/status"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "format": {
+          "type": "string"
+        },
+        "importNotes": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
