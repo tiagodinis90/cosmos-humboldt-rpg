@@ -164,7 +164,7 @@ export interface ShipConfig {
 }
 
 export interface GameState {
-  phase: 'title' | 'creation' | 'opening' | 'fieldwork' | 'survey' | 'cycle_start' | 'dice_assignment' | 'action_result' | 'location' | 'journal' | 'storylines' | 'correspondence' | 'web_of_life' | 'moral_dilemma' | 'world_map' | 'location_detail' | 'traveling' | 'ship_customize' | 'gameover' | 'victory';
+  phase: 'title' | 'creation' | 'opening' | 'fieldwork' | 'survey' | 'exploration' | 'cycle_start' | 'dice_assignment' | 'action_result' | 'location' | 'journal' | 'storylines' | 'correspondence' | 'web_of_life' | 'moral_dilemma' | 'world_map' | 'location_detail' | 'traveling' | 'ship_customize' | 'gameover' | 'victory';
   travelFrom?: string;
   travelTo?: string;
   travelDistance?: number;
