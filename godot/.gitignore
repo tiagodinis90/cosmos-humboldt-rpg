@@ -1,0 +1,4 @@
+# Godot editor cache and imports are regenerated locally.
+.godot/
+*.translation
+export/
