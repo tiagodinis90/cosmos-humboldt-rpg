@@ -1,16 +1,8 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import ts from 'typescript';
+import { load } from './load-ts.mjs';
 
 // Test the dependency-free narrative core without requiring an extra runner.
-const source = readFileSync(new URL('../src/narrative/opening.ts', import.meta.url), 'utf8');
-const transpiled = ts.transpileModule(source, {
-  fileName: 'opening.ts',
-  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020 },
-  reportDiagnostics: true,
-});
-assert.equal(transpiled.diagnostics?.filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
-const story = await import('data:text/javascript;charset=utf-8,' + encodeURIComponent(transpiled.outputText));
+const story = await load('src/narrative/opening.ts');
 
 assert.deepEqual(story.validateOpeningGraph(), [], 'Every scene should be reachable and every edge valid');
 
@@ -92,16 +84,11 @@ assert.equal(merged.journal[0].location, 'cumana');
 console.log('Narrative graph, alternative paths, skill/flag gating, memory, and arrival state passed.');
 
 // Versioned save round-trip and corrupted/legacy save recovery.
-const saveSource = readFileSync(new URL('../src/gameplay/save.ts', import.meta.url), 'utf8');
-const compiledSave = ts.transpileModule(saveSource, {
-  fileName: 'save.ts',
-  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020 },
-});
-const save = await import('data:text/javascript;charset=utf-8,' + encodeURIComponent(compiledSave.outputText));
+const save = await load('src/gameplay/save.ts');
 const snapshot = save.encodeSave(merged, p);
 const restored = save.decodeSave(snapshot);
 assert.ok(restored);
-assert.equal(restored.version, 1);
+assert.equal(restored.version, 2);
 assert.equal(restored.state.currentLocation, 'cumana');
 assert.equal(restored.opening.completed, true);
 assert.equal(restored.opening.flags.includes('pattern_recurs'), true);

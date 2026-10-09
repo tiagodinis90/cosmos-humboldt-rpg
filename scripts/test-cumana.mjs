@@ -1,15 +1,7 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import ts from 'typescript';
+import { load } from './load-ts.mjs';
 
-const source = readFileSync(new URL('../src/narrative/cumana.ts', import.meta.url), 'utf8');
-const result = ts.transpileModule(source, {
-  fileName: 'cumana.ts',
-  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020 },
-  reportDiagnostics: true,
-});
-assert.equal(result.diagnostics?.filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
-const story = await import('data:text/javascript;charset=utf-8,' + encodeURIComponent(result.outputText));
+const story = await load('src/narrative/cumana.ts');
 
 assert.deepEqual(story.checkFieldworkGraph(), []);
 const low = { logic: 1, empathy: 1, aesthetics: 1, political: 1 };
