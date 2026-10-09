@@ -69,6 +69,11 @@ async function runScenario(scenario) {
         case 'choose': state.progress=engine.chooseGraph(graphFromContent(graphDef,state.evidence),state.progress,state.context,step.choice,step.dice?dieRandom(step.dice):()=>0); break;
         case 'set_skill': state.context.skills[step.skill]=step.value; break;
         case 'save_restore': state.progress=JSON.parse(JSON.stringify(state.progress)); state.ledger=JSON.parse(JSON.stringify(state.ledger)); break;
+        case 'close_reopen':
+          state.ledger=engine.mergeLedger(state.ledger,state.progress);
+          state.context.flags=[...new Set([...state.context.flags,...state.progress.flags])];
+          state.progress=engine.startGraph(graph,state.context,state.ledger);
+          break;
         case 'grant_encounter_evidence': {
           const encounter=content.encounters.find(e=>e.id===step.encounter);
           assert.ok(encounter,`unknown encounter ${step.encounter}`);

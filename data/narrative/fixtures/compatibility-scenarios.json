@@ -4,11 +4,11 @@
   "scenarios": [
     {"id":"red-check-failure-is-persistent","initial":{"skills":{"logic":1}},"steps":[
       {"op":"start"},{"op":"continue"},{"op":"choose","choice":"red.try","dice":[1,1],"expect":{"nodeId":"red.failure","lastRoll":{"first":1,"second":1,"passed":false},"redAttempts":["lab.red.control"]}},
-      {"op":"continue"},{"op":"choose","choice":"red.try","expectError":"Unavailable dialogue choice: red.try"}
+      {"op":"continue"},{"op":"close_reopen"},{"op":"continue","expect":{"nodeId":"choice","redAttempts":["lab.red.control"]}},{"op":"choose","choice":"red.try","expectError":"Unavailable dialogue choice: red.try"}
     ]},
     {"id":"white-check-reactivates-after-skill-increase","initial":{"skills":{"logic":1}},"steps":[
       {"op":"start"},{"op":"continue"},{"op":"choose","choice":"white.try","dice":[1,2],"expect":{"nodeId":"white.failure","whiteAttempts":{"lab.white.reading":1},"lastRoll":{"first":1,"second":2,"passed":false}}},
-      {"op":"continue"},{"op":"choose","choice":"white.try","expectError":"Unavailable dialogue choice: white.try"},{"op":"set_skill","skill":"logic","value":3},
+      {"op":"continue"},{"op":"close_reopen"},{"op":"continue","expect":{"nodeId":"choice","whiteAttempts":{"lab.white.reading":1}}},{"op":"choose","choice":"white.try","expectError":"Unavailable dialogue choice: white.try"},{"op":"set_skill","skill":"logic","value":3},
       {"op":"choose","choice":"white.try","dice":[5,5],"expect":{"nodeId":"white.success","whiteAttempts":{"lab.white.reading":3},"lastRoll":{"first":5,"second":5,"passed":true}}}
     ]},
     {"id":"passive-conditional-flags-and-save-restore","initial":{"skills":{"logic":1}},"steps":[
@@ -16,6 +16,8 @@
       {"op":"continue","expect":{"nodeId":"choice","insightIds":["pattern.insight"]}},
       {"op":"choose","choice":"record","expect":{"nodeId":"record.set"}},
       {"op":"continue","expect":{"nodeId":"recorded","flags":["sample.recorded"]}},
+      {"op":"close_reopen","expect":{"nodeId":"open","flags":["sample.recorded"]}},
+      {"op":"continue"},{"op":"choose","choice":"inspect","expect":{"nodeId":"recorded","flags":["sample.recorded"]}},
       {"op":"save_restore","expect":{"nodeId":"recorded","flags":["sample.recorded"]}},
       {"op":"continue","expect":{"nodeId":"done","finished":true,"flags":["sample.recorded"]}}
     ]},

@@ -24,6 +24,7 @@
       "choice.white": "Recheck the sample",
       "choice.evidence": "Use the reference note",
       "choice.record": "Record the sample",
+      "choice.inspect": "Inspect the recorded sample",
       "choice.leave": "Finish",
       "choice.resume": "Continue after save",
       "check.modifier.evidence": "Reference note",
@@ -159,6 +160,15 @@
               "id": "record",
               "labelKey": "choice.record",
               "next": "record.set"
+            },
+            {
+              "id": "inspect",
+              "labelKey": "choice.inspect",
+              "next": "conditional",
+              "when": {
+                "op": "flag",
+                "name": "sample.recorded"
+              }
             },
             {
               "id": "leave",
@@ -549,6 +559,14 @@
       }
     },
     "asset.researcher": {
+      "status": "draft",
+      "provenance": {
+        "classification": "synthetic",
+        "status": "draft",
+        "note": "Synthetic fixture copy; not approved game dialogue."
+      }
+    },
+    "choice.inspect": {
       "status": "draft",
       "provenance": {
         "classification": "synthetic",
