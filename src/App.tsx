@@ -102,6 +102,9 @@ export default function App() {
       let newLocations = JSON.parse(JSON.stringify(prev.locations));
       let resultTexts: string[] = [];
 
+      // Progress based on completed actions, never failed attempts.
+      const successfulActions = new Set<string>();
+
       // Process each assigned die
       const assignedDice = prev.dice.filter(d => d.assigned);
       for (const die of assignedDice) {
@@ -121,7 +124,9 @@ export default function App() {
           if (action.cost.vitality) newResources.vitality = Math.max(0, Math.min(100, newResources.vitality + action.cost.vitality));
         }
 
-        // Apply effects
+        // Costs are paid for an attempt; rewards require a successful result.
+        if (success) {
+          successfulActions.add(action.id);
         if (action.effects.resources) {
           const eff = action.effects.resources;
           if (eff.credits) newResources.credits = Math.max(0, newResources.credits + eff.credits);
@@ -138,6 +143,8 @@ export default function App() {
         if (action.effects.relationship) {
           const rel = newRelationships.find(r => r.id === action.effects.relationship!.id);
           if (rel) rel.value = Math.min(10, rel.value + action.effects.relationship.change);
+        }
+
         }
 
         // Journal entry
@@ -159,7 +166,7 @@ export default function App() {
           if (loc === 'mexico' && n.category === 'geology') return true;
           return false;
         });
-        locNodes.forEach(n => { n.discovered = true; });
+        if (success) locNodes.forEach(n => { n.discovered = true; });
 
         resultTexts.push(`[${action.name}] ${success ? '✓' : '✗'} ${success ? action.successText.slice(0, 100) + '...' : action.failText.slice(0, 100) + '...'}`);
       }
@@ -171,7 +178,7 @@ export default function App() {
 
       // Random events
       for (const event of randomEvents) {
-        if (event.once && event.triggered) continue;
+        if (event.once && newFlags.includes('event_seen:' + event.id)) continue;
         if (prev.cycle < event.minCycle) continue;
         if (Math.random() < event.probability) {
           if (event.effects.vitality) newResources.vitality = Math.max(0, Math.min(100, newResources.vitality + event.effects.vitality));
@@ -181,7 +188,7 @@ export default function App() {
           if (event.effects.credits) newResources.credits = Math.max(0, newResources.credits + event.effects.credits);
           if (event.flag) newFlags.push(event.flag);
           resultTexts.push(`⚡ ${event.title}: ${event.text}`);
-          event.triggered = true;
+          if (event.once) newFlags.push('event_seen:' + event.id);
         }
       }
 
@@ -192,7 +199,7 @@ export default function App() {
         
         let met = false;
         if (currentStage.requirement.type === 'action') {
-          met = assignedDice.some(d => d.assigned === currentStage.requirement.target);
+          met = successfulActions.has(currentStage.requirement.target);
         } else if (currentStage.requirement.type === 'flag') {
           met = newFlags.includes(currentStage.requirement.target);
         } else if (currentStage.requirement.type === 'data') {
@@ -555,7 +562,7 @@ function CycleStart({ state, update, rollDice, travel, isRolling }: { state: Gam
               <div className="flex items-start justify-between mb-2">
                 <h4 className="text-parchment font-bold text-sm">{action.name}</h4>
                 <span className="text-xs font-mono px-2 py-0.5 rounded bg-forest-800 text-gold-400">
-                  🎲 {action.dieRequired}+
+                  🎲 {action.dieRequired + 2}+
                 </span>
               </div>
               <p className="text-parchment/60 text-xs mb-2">{action.description}</p>
@@ -654,7 +661,7 @@ function DiceAssignment({ state, assignDie, unassignDie, resolveCycle }: { state
                     <p className="text-parchment/50 text-xs">{action.description}</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs font-mono text-gold-400">Requires {action.dieRequired}+</div>
+                    <div className="text-xs font-mono text-gold-400">Requires {action.dieRequired + 2}+</div>
                     {action.skill && <div className="text-xs text-purple-300">{action.skill} +{state.skills[action.skill]}</div>}
                   </div>
                 </div>
