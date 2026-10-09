@@ -14,6 +14,8 @@ import LocationScene from './components/LocationScene';
 import ShipCustomize from './components/ShipCustomize';
 import { OPENING_NODES, availableOpeningChoices, chooseOpening, finishOpening, startOpening, type OpeningProgress } from './narrative/opening';
 import { SAVE_KEY, decodeSave, encodeSave } from './gameplay/save';
+import { beginFieldwork, chooseFieldwork, concludeFieldwork } from './narrative/cumana';
+import CumanaEpisode from './components/CumanaEpisode';
 
 function createInitialState(): GameState {
   return {
@@ -282,6 +284,8 @@ export default function App() {
     setState(prev => {
       const loc = prev.locations[locationId];
       if (!loc) return prev;
+      if (!prev.locations[prev.currentLocation]?.connections.includes(locationId)) return prev;
+      if (prev.resources.supplies < 5) return prev;
       if (loc.requiredFlag && !prev.flags.includes(loc.requiredFlag)) return prev;
       
       // Calculate distance based on location (simplified)
@@ -337,8 +341,22 @@ export default function App() {
       }}
     />
   );
+  if (state.phase === 'fieldwork') return (
+    <CumanaEpisode
+      progress={state.fieldwork ?? beginFieldwork()}
+      skills={state.skills}
+      priorFlags={state.flags}
+      onChoose={(id) => {
+        setState(prev => {
+          const progress = chooseFieldwork(prev.fieldwork ?? beginFieldwork(), id, prev.skills, prev.flags);
+          const updated = { ...prev, fieldwork: progress };
+          return progress.completed ? concludeFieldwork(updated, progress) : updated;
+        });
+      }}
+    />
+  );
   if (state.phase === 'gameover') return <GameOverScreen state={state} onRestart={restart} />;
-  if (state.phase === 'victory') return <VictoryScreen state={state} onRestart={() => setState(createInitialState())} />;
+  if (state.phase === 'victory') return <VictoryScreen state={state} onRestart={restart} />;
   if (state.phase === 'journal') return <JournalScreen state={state} onClose={() => update({ phase: 'cycle_start' })} />;
   if (state.phase === 'storylines') return <StorylinesScreen state={state} onClose={() => update({ phase: 'cycle_start' })} />;
 
@@ -559,6 +577,21 @@ function CycleStart({ state, update, rollDice, travel, isRolling }: { state: Gam
           <p className="text-parchment/75 leading-relaxed mb-2">{loc.description}</p>
           <p className="text-parchment/40 italic text-sm">{loc.atmosphere}</p>
         </div>
+
+        {state.currentLocation === 'cumana' && !state.flags.includes('cumana_fieldwork_complete') && (
+          <section className="bg-forest-900/60 border border-gold-500/50 rounded-xl p-6 mb-6">
+            <p className="uppercase tracking-[0.15em] text-gold-400 font-mono text-xs mb-2">New chapter · July–November 1799</p>
+            <h3 className="text-2xl text-parchment mb-2">What the Maps Leave Out</h3>
+            <p className="text-parchment/70 mb-4">Investigate Cumaná with Bonpland, speak to a resident who remembers the earlier earthquake, and decide what counts as reliable evidence. The journey to Caracas begins after this chapter.</p>
+            <button
+              type="button"
+              onClick={() => update({ phase: 'fieldwork', fieldwork: state.fieldwork ?? beginFieldwork() })}
+              className="px-5 py-3 bg-gold-600 hover:bg-gold-500 rounded-lg font-bold text-forest-950"
+            >
+              {state.fieldwork ? 'Continue fieldwork →' : 'Begin fieldwork →'}
+            </button>
+          </section>
+        )}
 
         {/* Companion & Status Panels */}
         <div className="grid md:grid-cols-2 gap-4 mb-6">
