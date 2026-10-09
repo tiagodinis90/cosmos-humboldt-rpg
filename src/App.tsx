@@ -1099,9 +1099,10 @@ function HumboldtOpening({
   const choices = availableOpeningChoices(progress, skills);
   return (
     <main className="min-h-screen bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 px-5 py-14 flex items-center justify-center">
-      <article className="max-w-3xl w-full">
+      <div className="w-full max-w-6xl grid lg:grid-cols-[minmax(0,1fr)_19rem] gap-10 items-start">
+      <article className="min-w-0 w-full">
         <div className="border-b border-gold-700/40 pb-5 mb-8">
-          <p className="text-gold-400 uppercase tracking-[0.22em] text-xs font-mono mb-3">COSMOS · 1796</p>
+          <p className="text-gold-400 uppercase tracking-[0.22em] text-xs font-mono mb-3">COSMOS · {node.date.split(' · ').at(-1)}</p>
           <h1 className="text-4xl md:text-5xl text-parchment mb-4">{node.heading}</h1>
           <p className="font-mono text-xs text-parchment/50">{node.date} · {node.place}</p>
         </div>
@@ -1128,9 +1129,32 @@ function HumboldtOpening({
           ))}
         </div>
         <p className="text-parchment/35 mt-8 text-xs font-mono">
-          Dramatized original dialogue · Historical chronology from Andrea Wulf, The Invention of Nature, Chapter 3
+          Original fictional dialogue · Historical chronology drawn from Andrea Wulf, The Invention of Nature, chapters 2–4
         </p>
       </article>
+      <aside aria-label="Field notebook" className="border border-forest-700/50 rounded-lg bg-forest-950/60 lg:sticky lg:top-10 p-5">
+        <div className="border-b border-gold-700/30 pb-4 mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] font-mono text-gold-400">Field notebook</p>
+          <h2 className="text-lg text-parchment mt-2">Observations</h2>
+          <p className="text-xs text-parchment/55 mt-1">Notes retained as you travel. Some are provisional.</p>
+        </div>
+        {progress.notes.length ? (
+          <ol className="space-y-4 max-h-[26rem] overflow-y-auto pr-2">
+            {progress.notes.map((note, index) => (
+              <li key={index} className="flex gap-3 text-sm leading-6 text-parchment/80">
+                <span className="font-mono text-xs text-gold-500/70 pt-1">{String(index + 1).padStart(2, '0')}</span>
+                <span>{note}</span>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p className="text-sm italic text-parchment/45">The first page is blank.</p>
+        )}
+        <div className="mt-6 pt-4 border-t border-gold-700/30">
+          <p className="text-xs text-parchment/55 font-mono">Theories are not evidence. Keep the questions that survive comparison.</p>
+        </div>
+      </aside>
+      </div>
     </main>
   );
 }
