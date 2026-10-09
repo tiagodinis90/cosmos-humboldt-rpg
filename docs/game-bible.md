@@ -1,6 +1,6 @@
 # COSMOS: Humboldt — working game bible
 
-Status: playable opening (1796–1799) on the narrative feature branch. This is a production specification, not a claim that the complete game is implemented.
+Status: playable opening (1796–1799), Cumaná historical episode, original point-and-click walking map and narrative graph engine on the feature branch. This is a working production specification, not a completed game.
 
 ## Premise
 
@@ -80,10 +80,10 @@ Returning to Europe is an intellectual and financial problem. Humboldt must choo
 
 ## Production principles
 
-Do not replace the existing React/TypeScript/Vite prototype with Godot until there is a tested playable slice. Keep historical content separate from game rules. Each new chapter requires: a one-page scene outline, a source ledger, at least one meaningful delayed consequence, a route that does not require the supernatural choice, and tests for branching/state persistence.
+Keep the React/TypeScript/Vite implementation as a behavioral reference while exploring a future original Unity 2.5D production port. Do not migrate blindly or copy commercial game assets. The independent map/pathfinding and dialogue contracts must pass deterministic tests before porting to C#. Keep historical content separate from game rules. Each new chapter requires: a one-page scene outline, a source ledger, at least one meaningful delayed consequence, a route that does not require the supernatural choice, and tests for branching/state persistence.
 
 The game is playable in English for now. Portuguese localization can follow once the narrative format stabilizes. Source citations are for production and research; they should not overwhelm the player's interface.
 
 ## Definition of done for the first vertical slice
 
-Character creation → original 1796–1799 narrative → arrival in Cumaná → one reproducible field observation and one conversation with a person who can disagree → fieldbook update → travel to a second location. Build and type checks pass. Test paths cover high/low skills, the presence/absence of the Correspondence choice, and state carry-over. Human review checks tone, character agency and scientific claims.
+Character creation → original 1796–1799 narrative → arrival in Cumaná → walk around the original town scene → talk to a person who can disagree → maintain separate measurements, testimony and hypotheses → investigate an earthquake-damaged wall through a red/white-check dialogue → fieldbook update → travel to a second location. Build and type checks pass. Test paths cover high/low skills, the presence/absence of the Correspondence choice, and state carry-over. Human review checks tone, character agency and scientific claims.
