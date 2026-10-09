@@ -1,57 +1,90 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
 
-// Keep tests runnable with the project's existing TypeScript dependency,
-// without adding a second runtime or test runner.
+// Test the dependency-free narrative core without requiring an extra runner.
 const source = readFileSync(new URL('../src/narrative/opening.ts', import.meta.url), 'utf8');
-const result = ts.transpileModule(source, {
+const transpiled = ts.transpileModule(source, {
   fileName: 'opening.ts',
   compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2020 },
   reportDiagnostics: true,
 });
-assert.equal(result.diagnostics?.filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
-const mod = await import('data:text/javascript;charset=utf-8,' + encodeURIComponent(result.outputText));
-assert.deepEqual(mod.validateOpeningGraph(), []);
+assert.equal(transpiled.diagnostics?.filter(d => d.category === ts.DiagnosticCategory.Error).length, 0);
+const story = await import('data:text/javascript;charset=utf-8,' + encodeURIComponent(transpiled.outputText));
 
-const lowSkills = { logic: 1, empathy: 1, aesthetics: 1, political: 1 };
-const highSkills = { ...lowSkills, logic: 3 };
-const newGame = mod.startOpening();
-assert.equal(mod.availableOpeningChoices(newGame, lowSkills).length, 2);
-assert.equal(mod.availableOpeningChoices(newGame, highSkills).length, 3);
-assert.throws(() => mod.chooseOpening(newGame, 'study.instrument', lowSkills));
-assert.throws(() => mod.finishOpening({}, newGame));
+assert.deepEqual(story.validateOpeningGraph(), [], 'Every scene should be reachable and every edge valid');
 
-let p = mod.chooseOpening(newGame, 'study.instrument', highSkills);
-assert.equal(p.nodeId, 'berlin.instrument');
-p = mod.chooseOpening(p, 'instrument.return', highSkills);
-p = mod.chooseOpening(p, 'decision.plan', highSkills);
+const low = { logic: 1, empathy: 1, aesthetics: 1, political: 1 };
+const high = { ...low, logic: 3 };
+const start = story.startOpening();
+assert.equal(story.availableOpeningChoices(start, low).length, 2);
+assert.equal(story.availableOpeningChoices(start, high).length, 3);
+assert.throws(() => story.chooseOpening(start, 'study.instrument', low), /Unavailable/);
+assert.throws(() => story.finishOpening({}, start), /incomplete/);
+
+function follow(progress, ids, skills) {
+  let next = progress;
+  for (const id of ids) next = story.chooseOpening(next, id, skills);
+  return next;
+}
+
+const first = follow(start, ['study.instrument', 'instrument.return', 'decision.plan'], high);
+assert.equal(first.nodeId, 'preparation.1797');
+assert.equal(first.completed, false, 'Resigning is not the end of the voyage story');
+let p = follow(first, [
+  'prep.compare', 'records.retrace', 'paris.sea', 'paris.offer',
+  'marseille.measure', 'waiting.keep', 'madrid.records', 'corunna.list',
+], high);
+assert.equal(p.nodeId, 'atlantic.1799');
+assert.equal(story.availableOpeningChoices(p, high).length, 3, 'The recurring-pattern choice must remember the earlier sketch');
+p = follow(p, ['atlantic.remember', 'cumana.landing'], high);
 assert.equal(p.completed, true);
+assert.equal(story.availableOpeningChoices(p, high).length, 0);
 assert.equal(p.resourceChanges.instruments, 4);
-assert.equal(p.resourceChanges.data, 3);
-assert.ok(p.flags.includes('expedition_intent'));
-assert.equal(mod.availableOpeningChoices(p, highSkills).length, 0);
+assert.equal(p.resourceChanges.data, 10);
+assert.equal(p.resourceChanges.supplies, 3);
+assert.ok(p.flags.includes('mystery_correspondence'));
+assert.ok(p.flags.includes('pattern_recurs'));
+assert.ok(p.flags.includes('fieldwork_begun'));
+assert.ok(p.flags.includes('bonpland_companion'));
 
-let q = mod.chooseOpening(newGame, 'study.goethe', lowSkills);
-q = mod.chooseOpening(q, 'goethe.return', lowSkills);
-q = mod.chooseOpening(q, 'decision.depart', lowSkills);
-assert.equal(q.completed, true);
-assert.ok(q.notes.length >= 2);
+let q = follow(start, [
+  'study.goethe', 'goethe.return', 'decision.depart', 'prep.look',
+  'records.annotate', 'paris.botany', 'paris.offer',
+  'marseille.letters', 'waiting.explain', 'madrid.ethics', 'corunna.talk',
+], low);
+assert.equal(q.nodeId, 'atlantic.1799');
+assert.equal(story.availableOpeningChoices(q, low).length, 2, 'Do not show a choice gated on another history');
+assert.throws(() => story.chooseOpening(q, 'atlantic.remember', low), /Unavailable/);
+q = follow(q, ['atlantic.tell', 'cumana.people'], low);
+assert.ok(q.completed);
+assert.ok(q.flags.includes('consent_intent'));
+assert.ok(q.flags.includes('social_observation'));
 
 const state = {
   phase: 'opening',
   cycle: 1,
+  currentLocation: 'berlin',
+  locations: {
+    berlin: { id: 'berlin', discovered: true },
+    cumana: { id: 'cumana', discovered: false },
+  },
   resources: { credits: 50, supplies: 80, instruments: 99, data: 0, vitality: 80 },
   flags: ['existing'],
   journal: [],
 };
-const merged = mod.finishOpening(state, p);
+const merged = story.finishOpening(state, p);
 assert.equal(merged.phase, 'cycle_start');
-assert.equal(merged.resources.instruments, 100);
-assert.equal(merged.resources.data, 3);
+assert.equal(merged.currentLocation, 'cumana');
+assert.equal(merged.locations.cumana.discovered, true);
+assert.equal(state.locations.cumana.discovered, false, 'Source state must remain unchanged');
+assert.equal(merged.resources.instruments, 100, 'Instrument integrity must be capped');
+assert.equal(merged.resources.data, 10);
+assert.equal(merged.resources.supplies, 83);
 assert.ok(merged.flags.includes('existing'));
 assert.ok(merged.flags.includes('expedition_intent'));
 assert.equal(merged.journal.length, 1);
 assert.equal(state.journal.length, 0);
-console.log('Opening: graph, conditions, branching, effects, and transition passed.');
+assert.equal(merged.journal[0].location, 'cumana');
+
+console.log('Narrative graph, alternative paths, skill/flag gating, memory, and arrival state passed.');
