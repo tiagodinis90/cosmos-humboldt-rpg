@@ -45,7 +45,7 @@ p = story.chooseFieldwork(p, 'depart.share', high, ['pattern_recurs']);
 assert.equal(p.completed, true);
 assert.ok(p.flags.includes('correspondence_question_open'));
 assert.equal(p.evidence.filter(e => e.kind === 'measurement').length, 2);
-assert.equal(p.evidence.filter(e => e.kind === 'hypothesis').length, 2);
+assert.equal(p.evidence.filter(e => e.kind === 'hypothesis').length, 3);
 
 const administrative = through([
   'july.authority', 'passport.leave', 'quake.bonpland', 'after.separate', 'depart.care',
