@@ -1,3 +1,5 @@
+> **Personal creative experiment.** This is an unfinished narrative/game-systems prototype, separate from my environmental engineering work. For the purpose, technical scope and limitations of these experiments, see [Creative experiments](https://github.com/tiagodinis90/tiagodinis90/blob/main/CREATIVE_EXPERIMENTS.md).
+
 # COSMOS: The Journey of Alexander von Humboldt
 
 > **Current draft version (October 2026):** The feature branch adds a playable historical opening (Berlin 1796 → Cumaná 1799), a Cumaná fieldwork episode, an **original interactive walking map**, and a new narrative graph engine inspired by general dialogue-RPG conventions. The older mechanics and long-term campaigns described below remain partly prototype/design material, not a finished production game.
