@@ -2,7 +2,7 @@
 
 # COSMOS: The Journey of Alexander von Humboldt
 
-> **Current draft version (October 2026):** The feature branch adds a playable historical opening (Berlin 1796 → Cumaná 1799), a Cumaná fieldwork episode, an **original interactive walking map**, and a new narrative graph engine inspired by general dialogue-RPG conventions. The older mechanics and long-term campaigns described below remain partly prototype/design material, not a finished production game.
+> **Current draft version (October 2026):** A playable historical opening (Berlin 1796 → Cumaná 1799) leads into an **isometric, walkable Cumaná**: conversations happen over the scene, inner voices comment, white and red checks persist, measurements and testimony go into a fieldbook with their sources, and choices visibly change the town. The older dice-cycle mechanics and long-term campaigns described below remain partly prototype/design material, not a finished production game.
 
 ## Run the experimental slice
 
@@ -11,7 +11,14 @@ npm ci
 npm run dev
 ```
 
-Start the game, distribute skill points, and follow Humboldt's original branching story through his first landing in Cumaná. From the field desk, choose **Explore Cumaná** to enter the new scene. Click the ground to walk, use WASD or arrow keys for short steps, approach **Inés Ávila** for the historical fieldwork dialogue, and return to the damaged wall after finishing that chapter for the independent graph-engine encounter. The world and characters use original temporary vector art. The current map is top-down, not yet a full isometric/3D environment.
+Start the game, distribute skill points and follow the prologue. When Humboldt lands, you are in the streets of Cumaná.
+
+- **Click** the ground to walk, **double-click** to run, **WASD / arrows** to walk relative to the screen.
+- **Click** a person or object to walk up to it and interact. **Hold Tab** to reveal everything you can use.
+- In conversations: **1–9** choose, **Space** continues. White checks can be retried only when your score improves; red checks are final.
+- **J** opens the fieldbook. **Field desk** (top right) returns to the older expedition screen.
+
+Try: Bonpland at the plant press, the field instruments on the table, the square and the pier; then Inés, who starts the July–November chapter. After the earthquake the town changes and the broken wall can be surveyed. The art is original vector work drawn from the scene data.
 
 ```sh
 npm run typecheck
@@ -19,7 +26,7 @@ npm test
 npm run build
 ```
 
-Narrative choices and game state save automatically to this browser's local storage. The GitHub Actions workflow checks type safety, narrative branches, the 2d6 graph interpreter and navigation geometry. Browser interaction and visual presentation still require manual playtesting.
+Narrative choices, position in the scene and open conversations save automatically to this browser's local storage (save format v2; v1 saves migrate). The GitHub Actions workflow checks type safety, narrative branches, the 2d6 graph interpreter, navigation edge cases, isometric maths, encounter consequences and save migration. CI does not check visuals; those were playtested in headless Chromium.
 
 Technical direction and migration plan: [Independent exploration reconstruction](docs/exploration-reconstruction.md). Narrative source boundaries: [Historical source ledger](docs/source-ledger.md). Creative design: [Game bible](docs/game-bible.md).
 
