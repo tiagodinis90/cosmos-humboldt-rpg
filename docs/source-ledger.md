@@ -16,12 +16,16 @@ Labels used here: **H** attested historical chronology or reported activity; **D
 | `corunna.1799` | Part I, ch. 3 | Pizarro departed from La Coruña in early June 1799; Humboldt travelled with a large collection of 42 instruments amid British naval threats. | H: departure/instruments. D: scene with sailor and inventory choices. |
 | `atlantic.1799` | Part I, ch. 3 | Observations of sea phosphorescence and ascent of Pico del Teide on Tenerife during the outward voyage. | H: phenomena and route. D: dialogue/options. S: the recurring pattern of the ship's wake. |
 | `cumana.1799` | Part I, ch. 3–4 | 16 July 1799 arrival in Cumaná, New Andalusia, with white sand recorded at 37.7°C and surrounding vegetation. | H: place, date, instrument reading. D: choices and descriptions drawn from the setting. |
+| `cumana.july`, `cumana.memory`, `cumana.sand`, `cumana.passport` | Part II, ch. 4, *South America* | Cumaná still carried damage from the 1797 earthquake; Humboldt recorded sand temperature and navigated Spanish colonial administrative restrictions. | H: background conditions and reading. D: all conversation and scenes involving Inés Ávila, a wholly fictional resident. Inés's testimony is fictional, not documentary evidence of a named witness. |
+| `cumana.november`, `cumana.after` | Part II, ch. 4 | On 4 November 1799, Cumaná experienced an earthquake; Humboldt observed and attempted measurements as the buildings shook, while Bonpland was nearby. | H: earthquake and scientific interest. D: choices, dialogue, safely observing from a doorway, interaction with neighbours. S: branching marks in damaged paper. |
+| `cumana.departure` | Part II, ch. 4 | Roughly two weeks after the November earthquake, Humboldt and Bonpland departed for Caracas by a small coastal vessel, accompanied by José de la Cruz. | H: general itinerary, timing and accompanying figure. D: speech, belongings, attribution choice. |
+
 
 ## Questions for source verification
 
 - The relative timing of Goethe's first sustained work with Humboldt and later experiments must not be collapsed into one fictional day in 1796.
 - Do not put the 1799 meeting with Bonpland in Berlin or have him participate in observations from 1796–1797.
-- Cumaná is the first landing in this arc, not Caracas. The world map and location states must respect that chronology.
+- Cumaná is the first landing in this arc, not Caracas. The world map and location states must respect that chronology. The Cumaná fieldwork chapter closes with a **November 1799** departure before Caracas becomes accessible.
 - The book's explanatory account of Lake Valencia and colonial environmental change requires direct supporting field notes or other primary texts before the game presents precise mechanisms as settled fact.
 - Distinguish the Portuguese edition's page numbers, if used later, from the original 2015 English edition's pagination.
 
