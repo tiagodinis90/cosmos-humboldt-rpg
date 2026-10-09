@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { GameState, DiceRoll, Skill, Resources, NaturgemaldeNode } from './types';
 import { initialLocations, allActions, initialStorylines, initialRelationships, randomEvents, naturgemaldeNodes } from './gameData';
 import WorldMap from './components/WorldMap';
@@ -13,6 +13,7 @@ import TravelScreen from './components/TravelScreen';
 import LocationScene from './components/LocationScene';
 import ShipCustomize from './components/ShipCustomize';
 import { OPENING_NODES, availableOpeningChoices, chooseOpening, finishOpening, startOpening, type OpeningProgress } from './narrative/opening';
+import { SAVE_KEY, decodeSave, encodeSave } from './gameplay/save';
 
 function createInitialState(): GameState {
   return {
@@ -51,9 +52,30 @@ function createInitialState(): GameState {
 }
 
 export default function App() {
-  const [state, setState] = useState<GameState>(createInitialState());
+  // Initialize both state stores from the same, validated snapshot.
+  const [restored] = useState(() => {
+    try {
+      return decodeSave(window.localStorage.getItem(SAVE_KEY));
+    } catch {
+      return null;
+    }
+  });
+  const [state, setState] = useState<GameState>(() => restored?.state ?? createInitialState());
   const [isRolling, setIsRolling] = useState(false);
-  const [opening, setOpening] = useState<OpeningProgress>(startOpening);
+  const [opening, setOpening] = useState<OpeningProgress>(() => restored?.opening ?? startOpening());
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(SAVE_KEY, encodeSave(state, opening));
+    } catch {
+      // The game remains playable if local storage is disabled or full.
+    }
+  }, [state, opening]);
+
+  const restart = () => {
+    setOpening(startOpening());
+    setState(createInitialState());
+  };
 
   const update = useCallback((changes: Partial<GameState>) => {
     setState(prev => ({ ...prev, ...changes }));
@@ -307,6 +329,7 @@ export default function App() {
     <HumboldtOpening
       progress={opening}
       skills={state.skills}
+      onRestart={() => { if (window.confirm('Start a new journey and replace your saved progress?')) restart(); }}
       onChoose={(id) => {
         const next = chooseOpening(opening, id, state.skills);
         setOpening(next);
@@ -314,7 +337,7 @@ export default function App() {
       }}
     />
   );
-  if (state.phase === 'gameover') return <GameOverScreen state={state} onRestart={() => setState(createInitialState())} />;
+  if (state.phase === 'gameover') return <GameOverScreen state={state} onRestart={restart} />;
   if (state.phase === 'victory') return <VictoryScreen state={state} onRestart={() => setState(createInitialState())} />;
   if (state.phase === 'journal') return <JournalScreen state={state} onClose={() => update({ phase: 'cycle_start' })} />;
   if (state.phase === 'storylines') return <StorylinesScreen state={state} onClose={() => update({ phase: 'cycle_start' })} />;
@@ -1090,10 +1113,12 @@ function HumboldtOpening({
   progress,
   skills,
   onChoose,
+  onRestart,
 }: {
   progress: OpeningProgress;
   skills: Record<Skill, number>;
   onChoose: (id: string) => void;
+  onRestart: () => void;
 }) {
   const node = OPENING_NODES[progress.nodeId];
   const choices = availableOpeningChoices(progress, skills);
@@ -1152,6 +1177,8 @@ function HumboldtOpening({
         )}
         <div className="mt-6 pt-4 border-t border-gold-700/30">
           <p className="text-xs text-parchment/55 font-mono">Theories are not evidence. Keep the questions that survive comparison.</p>
+          <p className="text-xs text-parchment/45 mt-3">Progress is saved automatically on this device.</p>
+          <button type="button" onClick={onRestart} className="mt-4 text-xs text-parchment/55 hover:text-red-300 underline underline-offset-4">Start a new journey</button>
         </div>
       </aside>
       </div>
