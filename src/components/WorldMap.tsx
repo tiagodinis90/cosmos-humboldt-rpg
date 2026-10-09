@@ -17,6 +17,7 @@ const locationData: Record<string, {
   paris: { x: 48, y: 28, icon: '🗼', region: 'France', label: 'Paris', labelX: 42, labelY: 26 },
   russia: { x: 74, y: 20, icon: '🏔️', region: 'Russian Empire', label: 'Russia', labelX: 77, labelY: 17 },
   cuba: { x: 28, y: 54, icon: '🏝️', region: 'Caribbean', label: 'Cuba', labelX: 22, labelY: 52 },
+  cumana: { x: 35, y: 59, icon: '🌿', region: 'New Andalusia', label: 'Cumaná', labelX: 38, labelY: 56 },
   caracas: { x: 33, y: 60, icon: '🌴', region: 'Venezuela', label: 'Caracas', labelX: 36, labelY: 58 },
   lake_valencia: { x: 30, y: 62, icon: '💧', region: 'Venezuela', label: 'Lake Valencia', labelX: 20, labelY: 64 },
   llanos: { x: 35, y: 65, icon: '🌾', region: 'Venezuela', label: 'Llanos', labelX: 38, labelY: 68 },
@@ -28,7 +29,7 @@ const locationData: Record<string, {
 };
 
 const connections: Array<[string, string, 'sea' | 'land']> = [
-  ['berlin', 'caracas', 'sea'],
+  ['cumana', 'caracas', 'land'],
   ['caracas', 'cuba', 'sea'],
   ['caracas', 'llanos', 'land'],
   ['caracas', 'lake_valencia', 'land'],
@@ -92,7 +93,7 @@ export default function WorldMap({ state, onLocationSelect, onClose, onTravel }:
               Chart of the Known World
             </h2>
             <p className="text-[#d4a832]/60 text-sm font-mono mt-1 tracking-wider">
-              Cycle {state.cycle} • {discoveredCount}/13 locations charted
+              Cycle {state.cycle} • {discoveredCount}/{Object.keys(state.locations).length} locations charted
             </p>
           </div>
           <button onClick={onClose} className="px-5 py-2 bg-[#2a2015] hover:bg-[#3a2f20] text-[#f5e6c8] rounded border border-[#d4a832]/30 transition-all hover:border-[#d4a832]/60 font-serif text-sm">
