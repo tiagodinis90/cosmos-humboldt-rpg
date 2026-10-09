@@ -30,12 +30,13 @@ export type Choice = {
   check?: SkillCheck;
 };
 
+/** `sets` flags are recorded when the card is reached (e.g. a check outcome). */
 export type Card =
-  | { type: 'line'; id: string; speaker?: string; text: string; next: string }
+  | { type: 'line'; id: string; speaker?: string; text: string; next: string; sets?: string[] }
   | { type: 'choice'; id: string; prompt?: string; choices: Choice[] }
   | { type: 'passive'; id: string; probes: Array<{ id: string; skill: Skill; atLeast: number; text: string }>; next: string }
   | { type: 'fork'; id: string; routes: Array<{ when: Condition; next: string }>; otherwise: string }
-  | { type: 'end'; id: string; text: string };
+  | { type: 'end'; id: string; text: string; sets?: string[] };
 
 export type DialogueGraph = { start: string; cards: Record<string, Card> };
 
@@ -52,6 +53,13 @@ export type RollRecord = {
   explanations: string[];
 };
 
+/** What the player has seen, in order; drives the conversation log. */
+export type TranscriptEntry =
+  | { type: 'line'; card: string }
+  | { type: 'insight'; id: string }
+  | { type: 'choice'; choice: string; label: string }
+  | { type: 'roll'; roll: RollRecord };
+
 export type GraphProgress = {
   nodeId: string;
   finished: boolean;
@@ -61,7 +69,27 @@ export type GraphProgress = {
   redAttempts: string[];
   lastRoll: RollRecord | null;
   history: string[];
+  /** Optional for progress saved before the transcript existed. */
+  transcript?: TranscriptEntry[];
 };
+
+/**
+ * Check attempts that outlive a single conversation: a failed red check stays
+ * consumed and a white check stays locked until the effective score improves,
+ * even if the player walks away and talks again later.
+ */
+export type CheckLedger = { white: Record<string, number>; red: string[] };
+
+export function emptyLedger(): CheckLedger {
+  return { white: {}, red: [] };
+}
+
+export function mergeLedger(ledger: CheckLedger | undefined, progress: GraphProgress): CheckLedger {
+  const base = ledger ?? emptyLedger();
+  const white = { ...base.white };
+  for (const [id, score] of Object.entries(progress.whiteAttempts)) white[id] = Math.max(white[id] ?? -Infinity, score);
+  return { white, red: [...new Set([...base.red, ...progress.redAttempts])] };
+}
 
 export type GraphContext = {
   skills: Record<Skill, number>;
@@ -103,14 +131,23 @@ export function availableGraphChoices(graph: DialogueGraph, progress: GraphProgr
   return card.choices.filter(c => canAttempt(c, context, progress));
 }
 
+function arrive(progress: GraphProgress, card: Extract<Card, { type: 'line' | 'end' }>): GraphProgress {
+  return {
+    ...progress,
+    flags: card.sets?.length ? [...new Set([...progress.flags, ...card.sets])] : progress.flags,
+    transcript: [...(progress.transcript ?? []), { type: 'line', card: card.id }],
+  };
+}
+
 function settle(graph: DialogueGraph, initial: GraphProgress, context: GraphContext): GraphProgress {
   let progress = initial;
   const seen = new Set<string>();
   for (let depth = 0; depth < 64; depth++) {
     const card = graph.cards[progress.nodeId];
     if (!card) throw new Error('Missing dialogue card: ' + progress.nodeId);
-    if (card.type === 'end') return { ...progress, finished: true };
-    if (card.type === 'line' || card.type === 'choice') return progress;
+    if (card.type === 'end') return { ...arrive(progress, card), finished: true };
+    if (card.type === 'line') return arrive(progress, card);
+    if (card.type === 'choice') return progress;
     if (seen.has(card.id)) throw new Error('Non-interactive dialogue loop: ' + card.id);
     seen.add(card.id);
     if (card.type === 'fork') {
@@ -118,27 +155,31 @@ function settle(graph: DialogueGraph, initial: GraphProgress, context: GraphCont
       progress = { ...progress, nodeId: route?.next ?? card.otherwise };
     } else {
       const insights = [...progress.insights];
+      const transcript = [...(progress.transcript ?? [])];
       for (const probe of card.probes) {
         if ((context.skills[probe.skill] ?? 0) >= probe.atLeast && !insights.some(i => i.id === probe.id)) {
           insights.push({ id: probe.id, skill: probe.skill, text: probe.text });
+          transcript.push({ type: 'insight', id: probe.id });
         }
       }
-      progress = { ...progress, nodeId: card.next, insights };
+      progress = { ...progress, nodeId: card.next, insights, transcript };
     }
   }
   throw new Error('Non-interactive dialogue depth exceeded');
 }
 
-export function startGraph(graph: DialogueGraph, context: GraphContext): GraphProgress {
+/** Start a conversation. Pass the ledger so earlier check attempts still count. */
+export function startGraph(graph: DialogueGraph, context: GraphContext, ledger?: CheckLedger): GraphProgress {
   return settle(graph, {
     nodeId: graph.start,
     finished: false,
     flags: [],
     insights: [],
-    whiteAttempts: {},
-    redAttempts: [],
+    whiteAttempts: { ...(ledger?.white ?? {}) },
+    redAttempts: [...(ledger?.red ?? [])],
     lastRoll: null,
     history: [],
+    transcript: [],
   }, context);
 }
 
@@ -205,6 +246,11 @@ export function chooseGraph(
     if (check.kind === 'red') redAttempts.push(check.id);
     else whiteAttempts[check.id] = effectiveCheckScore(check, context, progress);
   }
+  const transcript: TranscriptEntry[] = [
+    ...(progress.transcript ?? []),
+    { type: 'choice', choice: id, label: choice.label },
+    ...(lastRoll ? [{ type: 'roll', roll: lastRoll } as const] : []),
+  ];
   const output: GraphProgress = {
     ...progress,
     nodeId: next,
@@ -213,6 +259,7 @@ export function chooseGraph(
     redAttempts,
     lastRoll,
     history: [...progress.history, id],
+    transcript,
   };
   return settle(graph, output, context);
 }
@@ -251,4 +298,23 @@ export function validateGraph(graph: DialogueGraph): string[] {
   if (!endings) errors.push('No reachable ending');
   for (const id of Object.keys(graph.cards)) if (!reached.has(id)) errors.push('Unreachable card ' + id);
   return errors;
+}
+
+/**
+ * Probability that 2d6 + score passes a difficulty under the double-six /
+ * double-one rules. Shown to the player before a check is attempted.
+ */
+export function successChance(score: number, difficulty: number): number {
+  let passes = 0;
+  for (let a = 1; a <= 6; a++) {
+    for (let b = 1; b <= 6; b++) {
+      if ((a === 6 && b === 6) || (!(a === 1 && b === 1) && a + b + score >= difficulty)) passes++;
+    }
+  }
+  return passes / 36;
+}
+
+/** Skill score plus every modifier that currently applies to a check. */
+export function checkScore(check: SkillCheck, context: GraphContext, progress: GraphProgress): number {
+  return effectiveCheckScore(check, context, progress);
 }

@@ -1,18 +1,12 @@
 import type { GameState, Skill } from '../types';
+import type { Evidence } from '../investigation/evidence';
 
 /**
  * Historical anchors: Andrea Wulf, The Invention of Nature (2015), ch. 4.
  * The characters, dialogue and individual choices below are original fiction.
  * Inés Ávila is a fictional resident of Cumaná, not a historical claim.
  */
-export type EvidenceKind = 'measurement' | 'testimony' | 'hypothesis';
-export type Evidence = {
-  id: string;
-  kind: EvidenceKind;
-  date: string;
-  content: string;
-  source: string;
-};
+export type { Evidence, EvidenceKind } from '../investigation/evidence';
 
 export type FieldChoice = {
   id: string;
