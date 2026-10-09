@@ -65,6 +65,8 @@ const state = {
   phase: 'opening',
   cycle: 1,
   currentLocation: 'berlin',
+  skills: high,
+  actions: {},
   locations: {
     berlin: { id: 'berlin', discovered: true },
     cumana: { id: 'cumana', discovered: false },
