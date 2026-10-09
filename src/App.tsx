@@ -12,6 +12,7 @@ import MiniMap from './components/MiniMap';
 import TravelScreen from './components/TravelScreen';
 import LocationScene from './components/LocationScene';
 import ShipCustomize from './components/ShipCustomize';
+import { OPENING_NODES, availableOpeningChoices, chooseOpening, finishOpening, startOpening, type OpeningProgress } from './narrative/opening';
 
 function createInitialState(): GameState {
   return {
@@ -52,6 +53,7 @@ function createInitialState(): GameState {
 export default function App() {
   const [state, setState] = useState<GameState>(createInitialState());
   const [isRolling, setIsRolling] = useState(false);
+  const [opening, setOpening] = useState<OpeningProgress>(startOpening);
 
   const update = useCallback((changes: Partial<GameState>) => {
     setState(prev => ({ ...prev, ...changes }));
@@ -294,6 +296,17 @@ export default function App() {
   // ===== RENDER =====
   if (state.phase === 'title') return <AnimatedTitle onStart={() => update({ phase: 'creation' })} />;
   if (state.phase === 'creation') return <CharacterCreation state={state} update={update} />;
+  if (state.phase === 'opening') return (
+    <HumboldtOpening
+      progress={opening}
+      skills={state.skills}
+      onChoose={(id) => {
+        const next = chooseOpening(opening, id, state.skills);
+        setOpening(next);
+        if (next.completed) setState(prev => finishOpening(prev, next));
+      }}
+    />
+  );
   if (state.phase === 'gameover') return <GameOverScreen state={state} onRestart={() => setState(createInitialState())} />;
   if (state.phase === 'victory') return <VictoryScreen state={state} onRestart={() => setState(createInitialState())} />;
   if (state.phase === 'journal') return <JournalScreen state={state} onClose={() => update({ phase: 'cycle_start' })} />;
@@ -439,7 +452,7 @@ function CharacterCreation({ state, update }: { state: GameState; update: (c: Pa
         
         <div className="text-center">
           <p className="text-parchment/50 text-sm mb-4 font-mono">Points remaining: {pointsLeft}</p>
-          <button onClick={() => { update({ skills, phase: 'cycle_start' }); }} className="px-8 py-4 bg-gradient-to-r from-gold-600 to-gold-700 text-forest-950 font-bold rounded-lg hover:from-gold-500 hover:to-gold-600 transition-all shadow-lg">
+          <button onClick={() => { update({ skills, phase: 'opening' }); }} className="px-8 py-4 bg-gradient-to-r from-gold-600 to-gold-700 text-forest-950 font-bold rounded-lg hover:from-gold-500 hover:to-gold-600 transition-all shadow-lg">
             Begin Expedition →
           </button>
         </div>
@@ -1061,5 +1074,56 @@ function MoralDilemmaScreen({ state, update }: { state: GameState; update: (c: P
         </div>
       </div>
     </div>
+  );
+}
+
+
+// ===== HISTORICALLY GROUNDED OPENING (1796) =====
+function HumboldtOpening({
+  progress,
+  skills,
+  onChoose,
+}: {
+  progress: OpeningProgress;
+  skills: Record<Skill, number>;
+  onChoose: (id: string) => void;
+}) {
+  const node = OPENING_NODES[progress.nodeId];
+  const choices = availableOpeningChoices(progress, skills);
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 px-5 py-14 flex items-center justify-center">
+      <article className="max-w-3xl w-full">
+        <div className="border-b border-gold-700/40 pb-5 mb-8">
+          <p className="text-gold-400 uppercase tracking-[0.22em] text-xs font-mono mb-3">COSMOS · 1796</p>
+          <h1 className="text-4xl md:text-5xl text-parchment mb-4">{node.heading}</h1>
+          <p className="font-mono text-xs text-parchment/50">{node.date} · {node.place}</p>
+        </div>
+        <p className="text-xl leading-9 text-parchment/90 mb-9">{node.text}</p>
+        {(node.voices ?? []).filter(voice => skills[voice.skill] >= voice.atLeast).map(voice => (
+          <blockquote key={voice.skill} className="border-l-2 border-gold-500/60 pl-4 mb-5 text-parchment/75 italic">
+            <span className="text-gold-400 text-xs font-mono uppercase not-italic tracking-wide">{voice.skill}</span>
+            <p className="mt-1">{voice.text}</p>
+          </blockquote>
+        ))}
+        <div className="space-y-3 mt-10">
+          {choices.map(choice => (
+            <button
+              key={choice.id}
+              type="button"
+              onClick={() => onChoose(choice.id)}
+              className="w-full text-left rounded-lg border border-forest-600/50 bg-forest-900/60 hover:border-gold-500/70 hover:bg-forest-800/70 text-parchment px-5 py-4 transition-colors"
+            >
+              {choice.label}
+              <span className="block text-xs font-mono text-gold-400/70 mt-1">
+                {choice.requires ? choice.requires.skill + ' ' + choice.requires.atLeast + '+' : 'Continue'}
+              </span>
+            </button>
+          ))}
+        </div>
+        <p className="text-parchment/35 mt-8 text-xs font-mono">
+          Dramatized original dialogue · Historical chronology from Andrea Wulf, The Invention of Nature, Chapter 3
+        </p>
+      </article>
+    </main>
   );
 }
