@@ -1,5 +1,31 @@
 # COSMOS: The Journey of Alexander von Humboldt
 
+> **Current draft version (October 2026):** The feature branch adds a playable historical opening (Berlin 1796 → Cumaná 1799), a Cumaná fieldwork episode, an **original interactive walking map**, and a new narrative graph engine inspired by general dialogue-RPG conventions. The older mechanics and long-term campaigns described below remain partly prototype/design material, not a finished production game.
+
+## Run the experimental slice
+
+```sh
+npm ci
+npm run dev
+```
+
+Start the game, distribute skill points, and follow Humboldt's original branching story through his first landing in Cumaná. From the field desk, choose **Explore Cumaná** to enter the new scene. Click the ground to walk, use WASD or arrow keys for short steps, approach **Inés Ávila** for the historical fieldwork dialogue, and return to the damaged wall after finishing that chapter for the independent graph-engine encounter. The world and characters use original temporary vector art. The current map is top-down, not yet a full isometric/3D environment.
+
+```sh
+npm run typecheck
+npm test
+npm run build
+```
+
+Narrative choices and game state save automatically to this browser's local storage. The GitHub Actions workflow checks type safety, narrative branches, the 2d6 graph interpreter and navigation geometry. Browser interaction and visual presentation still require manual playtesting.
+
+Technical direction and migration plan: [Independent exploration reconstruction](docs/exploration-reconstruction.md). Narrative source boundaries: [Historical source ledger](docs/source-ledger.md). Creative design: [Game bible](docs/game-bible.md).
+
+**Rights:** COSMOS includes no extracted game binaries, proprietary dialogue or assets from *Disco Elysium* or *Zero Parades*. Do not upload commercial game files into this public repository.
+
+---
+
+
 A dice-cycle RPG inspired by **Citizen Sleeper**, where you roll dice each cycle and assign them to actions, building your understanding of nature as a living, interconnected whole.
 
 ## 🎲 Core Mechanics (Citizen Sleeper-Inspired)

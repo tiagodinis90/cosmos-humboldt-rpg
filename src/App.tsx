@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { GameState, DiceRoll, Skill, Resources, NaturgemaldeNode } from './types';
 import { initialLocations, allActions, initialStorylines, initialRelationships, randomEvents, naturgemaldeNodes } from './gameData';
 import WorldMap from './components/WorldMap';
@@ -12,6 +12,14 @@ import MiniMap from './components/MiniMap';
 import TravelScreen from './components/TravelScreen';
 import LocationScene from './components/LocationScene';
 import ShipCustomize from './components/ShipCustomize';
+import { OPENING_NODES, availableOpeningChoices, chooseOpening, finishOpening, startOpening, type OpeningProgress } from './narrative/opening';
+import { SAVE_KEY, decodeSave, encodeSave } from './gameplay/save';
+import { beginFieldwork, chooseFieldwork, concludeFieldwork } from './narrative/cumana';
+import CumanaEpisode from './components/CumanaEpisode';
+import ExplorationScene from './components/ExplorationScene';
+import NarrativeEncounter from './components/NarrativeEncounter';
+import { SURVEY_GRAPH, concludeSurvey } from './narrative/survey';
+import { chooseGraph, continueGraph, startGraph } from './narrative/graph-engine';
 
 function createInitialState(): GameState {
   return {
@@ -50,8 +58,30 @@ function createInitialState(): GameState {
 }
 
 export default function App() {
-  const [state, setState] = useState<GameState>(createInitialState());
+  // Initialize both state stores from the same, validated snapshot.
+  const [restored] = useState(() => {
+    try {
+      return decodeSave(window.localStorage.getItem(SAVE_KEY));
+    } catch {
+      return null;
+    }
+  });
+  const [state, setState] = useState<GameState>(() => restored?.state ?? createInitialState());
   const [isRolling, setIsRolling] = useState(false);
+  const [opening, setOpening] = useState<OpeningProgress>(() => restored?.opening ?? startOpening());
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(SAVE_KEY, encodeSave(state, opening));
+    } catch {
+      // The game remains playable if local storage is disabled or full.
+    }
+  }, [state, opening]);
+
+  const restart = () => {
+    setOpening(startOpening());
+    setState(createInitialState());
+  };
 
   const update = useCallback((changes: Partial<GameState>) => {
     setState(prev => ({ ...prev, ...changes }));
@@ -100,6 +130,9 @@ export default function App() {
       let newLocations = JSON.parse(JSON.stringify(prev.locations));
       let resultTexts: string[] = [];
 
+      // Progress based on completed actions, never failed attempts.
+      const successfulActions = new Set<string>();
+
       // Process each assigned die
       const assignedDice = prev.dice.filter(d => d.assigned);
       for (const die of assignedDice) {
@@ -119,7 +152,9 @@ export default function App() {
           if (action.cost.vitality) newResources.vitality = Math.max(0, Math.min(100, newResources.vitality + action.cost.vitality));
         }
 
-        // Apply effects
+        // Costs are paid for an attempt; rewards require a successful result.
+        if (success) {
+          successfulActions.add(action.id);
         if (action.effects.resources) {
           const eff = action.effects.resources;
           if (eff.credits) newResources.credits = Math.max(0, newResources.credits + eff.credits);
@@ -136,6 +171,8 @@ export default function App() {
         if (action.effects.relationship) {
           const rel = newRelationships.find(r => r.id === action.effects.relationship!.id);
           if (rel) rel.value = Math.min(10, rel.value + action.effects.relationship.change);
+        }
+
         }
 
         // Journal entry
@@ -157,7 +194,7 @@ export default function App() {
           if (loc === 'mexico' && n.category === 'geology') return true;
           return false;
         });
-        locNodes.forEach(n => { n.discovered = true; });
+        if (success) locNodes.forEach(n => { n.discovered = true; });
 
         resultTexts.push(`[${action.name}] ${success ? '✓' : '✗'} ${success ? action.successText.slice(0, 100) + '...' : action.failText.slice(0, 100) + '...'}`);
       }
@@ -169,7 +206,7 @@ export default function App() {
 
       // Random events
       for (const event of randomEvents) {
-        if (event.once && event.triggered) continue;
+        if (event.once && newFlags.includes('event_seen:' + event.id)) continue;
         if (prev.cycle < event.minCycle) continue;
         if (Math.random() < event.probability) {
           if (event.effects.vitality) newResources.vitality = Math.max(0, Math.min(100, newResources.vitality + event.effects.vitality));
@@ -179,7 +216,7 @@ export default function App() {
           if (event.effects.credits) newResources.credits = Math.max(0, newResources.credits + event.effects.credits);
           if (event.flag) newFlags.push(event.flag);
           resultTexts.push(`⚡ ${event.title}: ${event.text}`);
-          event.triggered = true;
+          if (event.once) newFlags.push('event_seen:' + event.id);
         }
       }
 
@@ -190,7 +227,7 @@ export default function App() {
         
         let met = false;
         if (currentStage.requirement.type === 'action') {
-          met = assignedDice.some(d => d.assigned === currentStage.requirement.target);
+          met = successfulActions.has(currentStage.requirement.target);
         } else if (currentStage.requirement.type === 'flag') {
           met = newFlags.includes(currentStage.requirement.target);
         } else if (currentStage.requirement.type === 'data') {
@@ -251,11 +288,13 @@ export default function App() {
     setState(prev => {
       const loc = prev.locations[locationId];
       if (!loc) return prev;
+      if (!prev.locations[prev.currentLocation]?.connections.includes(locationId)) return prev;
+      if (prev.resources.supplies < 5) return prev;
       if (loc.requiredFlag && !prev.flags.includes(loc.requiredFlag)) return prev;
       
       // Calculate distance based on location (simplified)
       const distances: Record<string, number> = {
-        caracas: 3, llanos: 2, lake_valencia: 1, orinoco: 4,
+        cumana: 1, caracas: 3, llanos: 2, lake_valencia: 1, orinoco: 4,
         andes_foothills: 5, chimborazo: 6, cuba: 4, mexico: 7,
         washington: 8, paris: 9, berlin_later: 10, russia: 12,
       };
@@ -294,8 +333,71 @@ export default function App() {
   // ===== RENDER =====
   if (state.phase === 'title') return <AnimatedTitle onStart={() => update({ phase: 'creation' })} />;
   if (state.phase === 'creation') return <CharacterCreation state={state} update={update} />;
-  if (state.phase === 'gameover') return <GameOverScreen state={state} onRestart={() => setState(createInitialState())} />;
-  if (state.phase === 'victory') return <VictoryScreen state={state} onRestart={() => setState(createInitialState())} />;
+  if (state.phase === 'opening') return (
+    <HumboldtOpening
+      progress={opening}
+      skills={state.skills}
+      onRestart={() => { if (window.confirm('Start a new journey and replace your saved progress?')) restart(); }}
+      onChoose={(id) => {
+        const next = chooseOpening(opening, id, state.skills);
+        setOpening(next);
+        if (next.completed) setState(prev => finishOpening(prev, next));
+      }}
+    />
+  );
+  if (state.phase === 'exploration') return (
+    <ExplorationScene
+      onLeave={() => update({ phase: 'cycle_start' })}
+      fieldworkComplete={state.flags.includes('cumana_fieldwork_complete')}
+      surveyComplete={state.flags.includes('cumana_survey_complete')}
+      onInteract={(hotspot) => {
+        if (hotspot.id === 'ines' && !state.flags.includes('cumana_fieldwork_complete')) {
+          update({ phase: 'fieldwork', fieldwork: state.fieldwork ?? beginFieldwork() });
+        } else if (hotspot.id === 'damaged-wall' &&
+          state.flags.includes('cumana_fieldwork_complete') &&
+          !state.flags.includes('cumana_survey_complete')) {
+          const ctx = { skills: state.skills, flags: state.flags };
+          update({ phase: 'survey', survey: state.survey ?? startGraph(SURVEY_GRAPH, ctx) });
+        }
+      }}
+    />
+  );
+  if (state.phase === 'survey') {
+    const progress = state.survey ?? startGraph(SURVEY_GRAPH, { skills: state.skills, flags: state.flags });
+    return (
+      <NarrativeEncounter
+        graph={SURVEY_GRAPH}
+        progress={progress}
+        skills={state.skills}
+        flags={state.flags}
+        onContinue={() => setState(prev => ({
+          ...prev,
+          survey: continueGraph(SURVEY_GRAPH, prev.survey ?? progress, { skills: prev.skills, flags: prev.flags }),
+        }))}
+        onChoose={(id) => setState(prev => ({
+          ...prev,
+          survey: chooseGraph(SURVEY_GRAPH, prev.survey ?? progress, { skills: prev.skills, flags: prev.flags }, id),
+        }))}
+        onFinish={() => setState(prev => concludeSurvey(prev, prev.survey ?? progress))}
+      />
+    );
+  }
+  if (state.phase === 'fieldwork') return (
+    <CumanaEpisode
+      progress={state.fieldwork ?? beginFieldwork()}
+      skills={state.skills}
+      priorFlags={state.flags}
+      onChoose={(id) => {
+        setState(prev => {
+          const progress = chooseFieldwork(prev.fieldwork ?? beginFieldwork(), id, prev.skills, prev.flags);
+          const updated = { ...prev, fieldwork: progress };
+          return progress.completed ? concludeFieldwork(updated, progress) : updated;
+        });
+      }}
+    />
+  );
+  if (state.phase === 'gameover') return <GameOverScreen state={state} onRestart={restart} />;
+  if (state.phase === 'victory') return <VictoryScreen state={state} onRestart={restart} />;
   if (state.phase === 'journal') return <JournalScreen state={state} onClose={() => update({ phase: 'cycle_start' })} />;
   if (state.phase === 'storylines') return <StorylinesScreen state={state} onClose={() => update({ phase: 'cycle_start' })} />;
 
@@ -439,7 +541,7 @@ function CharacterCreation({ state, update }: { state: GameState; update: (c: Pa
         
         <div className="text-center">
           <p className="text-parchment/50 text-sm mb-4 font-mono">Points remaining: {pointsLeft}</p>
-          <button onClick={() => { update({ skills, phase: 'cycle_start' }); }} className="px-8 py-4 bg-gradient-to-r from-gold-600 to-gold-700 text-forest-950 font-bold rounded-lg hover:from-gold-500 hover:to-gold-600 transition-all shadow-lg">
+          <button onClick={() => { update({ skills, phase: 'opening' }); }} className="px-8 py-4 bg-gradient-to-r from-gold-600 to-gold-700 text-forest-950 font-bold rounded-lg hover:from-gold-500 hover:to-gold-600 transition-all shadow-lg">
             Begin Expedition →
           </button>
         </div>
@@ -517,6 +619,36 @@ function CycleStart({ state, update, rollDice, travel, isRolling }: { state: Gam
           <p className="text-parchment/40 italic text-sm">{loc.atmosphere}</p>
         </div>
 
+        {state.currentLocation === 'cumana' && !state.flags.includes('cumana_fieldwork_complete') && (
+          <section className="bg-forest-900/60 border border-gold-500/50 rounded-xl p-6 mb-6">
+            <p className="uppercase tracking-[0.15em] text-gold-400 font-mono text-xs mb-2">New chapter · July–November 1799</p>
+            <h3 className="text-2xl text-parchment mb-2">What the Maps Leave Out</h3>
+            <p className="text-parchment/70 mb-4">Investigate Cumaná with Bonpland, speak to a resident who remembers the earlier earthquake, and decide what counts as reliable evidence. The journey to Caracas begins after this chapter.</p>
+            <button
+              type="button"
+              onClick={() => update({ phase: 'fieldwork', fieldwork: state.fieldwork ?? beginFieldwork() })}
+              className="px-5 py-3 bg-gold-600 hover:bg-gold-500 rounded-lg font-bold text-forest-950"
+            >
+              {state.fieldwork ? 'Continue fieldwork →' : 'Begin fieldwork →'}
+            </button>
+          </section>
+        )}
+
+        {state.currentLocation === 'cumana' && (
+          <section className="rounded-xl border border-gold-500/30 bg-forest-900/50 p-5 mb-6">
+            <p className="text-gold-400 text-xs uppercase tracking-widest font-mono mb-2">Exploration · Original world prototype</p>
+            <h3 className="text-xl text-parchment mb-2">Walk the streets of Cumaná</h3>
+            <p className="text-parchment/65 mb-4 text-sm">
+              A navigable historical district with movement, camera tracking and contextual encounters.
+              Approach Inés to begin the historical chapter; examine the damaged wall afterwards for a skill-based conversation.
+            </p>
+            <button type="button" onClick={() => update({ phase: 'exploration' })}
+              className="rounded-lg border border-gold-500 bg-forest-800 hover:bg-forest-700 text-gold-300 px-5 py-3 font-semibold">
+              Explore Cumaná →
+            </button>
+          </section>
+        )}
+
         {/* Companion & Status Panels */}
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           <BonplandPanel bonpland={state.bonpland} />
@@ -542,7 +674,7 @@ function CycleStart({ state, update, rollDice, travel, isRolling }: { state: Gam
               <div className="flex items-start justify-between mb-2">
                 <h4 className="text-parchment font-bold text-sm">{action.name}</h4>
                 <span className="text-xs font-mono px-2 py-0.5 rounded bg-forest-800 text-gold-400">
-                  🎲 {action.dieRequired}+
+                  🎲 {action.dieRequired + 2}+
                 </span>
               </div>
               <p className="text-parchment/60 text-xs mb-2">{action.description}</p>
@@ -641,7 +773,7 @@ function DiceAssignment({ state, assignDie, unassignDie, resolveCycle }: { state
                     <p className="text-parchment/50 text-xs">{action.description}</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs font-mono text-gold-400">Requires {action.dieRequired}+</div>
+                    <div className="text-xs font-mono text-gold-400">Requires {action.dieRequired + 2}+</div>
                     {action.skill && <div className="text-xs text-purple-300">{action.skill} +{state.skills[action.skill]}</div>}
                   </div>
                 </div>
@@ -1061,5 +1193,84 @@ function MoralDilemmaScreen({ state, update }: { state: GameState; update: (c: P
         </div>
       </div>
     </div>
+  );
+}
+
+
+// ===== HISTORICALLY GROUNDED OPENING (1796) =====
+function HumboldtOpening({
+  progress,
+  skills,
+  onChoose,
+  onRestart,
+}: {
+  progress: OpeningProgress;
+  skills: Record<Skill, number>;
+  onChoose: (id: string) => void;
+  onRestart: () => void;
+}) {
+  const node = OPENING_NODES[progress.nodeId];
+  const choices = availableOpeningChoices(progress, skills);
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 px-5 py-14 flex items-center justify-center">
+      <div className="w-full max-w-6xl grid lg:grid-cols-[minmax(0,1fr)_19rem] gap-10 items-start">
+      <article className="min-w-0 w-full">
+        <div className="border-b border-gold-700/40 pb-5 mb-8">
+          <p className="text-gold-400 uppercase tracking-[0.22em] text-xs font-mono mb-3">COSMOS · {node.date.slice(-4)}</p>
+          <h1 className="text-4xl md:text-5xl text-parchment mb-4">{node.heading}</h1>
+          <p className="font-mono text-xs text-parchment/50">{node.date} · {node.place}</p>
+        </div>
+        <p className="text-xl leading-9 text-parchment/90 mb-9">{node.text}</p>
+        {(node.voices ?? []).filter(voice => skills[voice.skill] >= voice.atLeast).map(voice => (
+          <blockquote key={voice.skill} className="border-l-2 border-gold-500/60 pl-4 mb-5 text-parchment/75 italic">
+            <span className="text-gold-400 text-xs font-mono uppercase not-italic tracking-wide">{voice.skill}</span>
+            <p className="mt-1">{voice.text}</p>
+          </blockquote>
+        ))}
+        <div className="space-y-3 mt-10">
+          {choices.map(choice => (
+            <button
+              key={choice.id}
+              type="button"
+              onClick={() => onChoose(choice.id)}
+              className="w-full text-left rounded-lg border border-forest-600/50 bg-forest-900/60 hover:border-gold-500/70 hover:bg-forest-800/70 text-parchment px-5 py-4 transition-colors"
+            >
+              {choice.label}
+              <span className="block text-xs font-mono text-gold-400/70 mt-1">
+                {choice.requires ? choice.requires.skill + ' ' + choice.requires.atLeast + '+' : choice.requiresFlag ? 'Available from your earlier observations' : 'Continue'}
+              </span>
+            </button>
+          ))}
+        </div>
+        <p className="text-parchment/35 mt-8 text-xs font-mono">
+          Original fictional dialogue · Historical chronology drawn from Andrea Wulf, The Invention of Nature, chapters 2–4
+        </p>
+      </article>
+      <aside aria-label="Field notebook" className="border border-forest-700/50 rounded-lg bg-forest-950/60 lg:sticky lg:top-10 p-5">
+        <div className="border-b border-gold-700/30 pb-4 mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] font-mono text-gold-400">Field notebook</p>
+          <h2 className="text-lg text-parchment mt-2">Observations</h2>
+          <p className="text-xs text-parchment/55 mt-1">Notes retained as you travel. Some are provisional.</p>
+        </div>
+        {progress.notes.length ? (
+          <ol className="space-y-4 max-h-[26rem] overflow-y-auto pr-2">
+            {progress.notes.map((note, index) => (
+              <li key={index} className="flex gap-3 text-sm leading-6 text-parchment/80">
+                <span className="font-mono text-xs text-gold-500/70 pt-1">{String(index + 1).padStart(2, '0')}</span>
+                <span>{note}</span>
+              </li>
+            ))}
+          </ol>
+        ) : (
+          <p className="text-sm italic text-parchment/45">The first page is blank.</p>
+        )}
+        <div className="mt-6 pt-4 border-t border-gold-700/30">
+          <p className="text-xs text-parchment/55 font-mono">Theories are not evidence. Keep the questions that survive comparison.</p>
+          <p className="text-xs text-parchment/45 mt-3">Progress is saved automatically on this device.</p>
+          <button type="button" onClick={onRestart} className="mt-4 text-xs text-parchment/55 hover:text-red-300 underline underline-offset-4">Start a new journey</button>
+        </div>
+      </aside>
+      </div>
+    </main>
   );
 }

@@ -11,6 +11,7 @@ const locationPositions: Record<string, { x: number; y: number }> = {
   paris: { x: 48, y: 26 },
   russia: { x: 72, y: 20 },
   cuba: { x: 28, y: 52 },
+  cumana: { x: 35, y: 57 },
   caracas: { x: 32, y: 58 },
   lake_valencia: { x: 30, y: 60 },
   llanos: { x: 34, y: 62 },
