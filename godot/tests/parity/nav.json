@@ -1,0 +1,6745 @@
+{
+ "maps": {
+  "cumana": {
+   "width": 1536,
+   "height": 1024,
+   "tileSize": 32,
+   "margin": 12,
+   "spawn": {
+    "x": 150,
+    "y": 720
+   },
+   "obstacles": [
+    {
+     "x": 60,
+     "y": 130,
+     "width": 240,
+     "height": 230
+    },
+    {
+     "x": 420,
+     "y": 150,
+     "width": 330,
+     "height": 270
+    },
+    {
+     "x": 900,
+     "y": 110,
+     "width": 420,
+     "height": 290
+    },
+    {
+     "x": 1060,
+     "y": 690,
+     "width": 280,
+     "height": 130
+    },
+    {
+     "x": 820,
+     "y": 590,
+     "width": 150,
+     "height": 34
+    },
+    {
+     "x": 1390,
+     "y": 470,
+     "width": 110,
+     "height": 360
+    },
+    {
+     "x": 330,
+     "y": 770,
+     "width": 170,
+     "height": 60
+    },
+    {
+     "x": 330,
+     "y": 600,
+     "width": 84,
+     "height": 42
+    },
+    {
+     "x": 160,
+     "y": 505,
+     "width": 64,
+     "height": 36
+    },
+    {
+     "x": 1112,
+     "y": 502,
+     "width": 36,
+     "height": 36
+    },
+    {
+     "x": 640,
+     "y": 846,
+     "width": 160,
+     "height": 28
+    },
+    {
+     "x": 318,
+     "y": 458,
+     "width": 20,
+     "height": 20
+    },
+    {
+     "x": 790,
+     "y": 470,
+     "width": 20,
+     "height": 20
+    },
+    {
+     "x": 1345,
+     "y": 410,
+     "width": 20,
+     "height": 20
+    },
+    {
+     "x": 1240,
+     "y": 560,
+     "width": 28,
+     "height": 28
+    },
+    {
+     "x": 600,
+     "y": 473,
+     "width": 24,
+     "height": 22
+    },
+    {
+     "x": 240,
+     "y": 534,
+     "width": 24,
+     "height": 22
+    },
+    {
+     "x": 968,
+     "y": 849,
+     "width": 24,
+     "height": 22
+    },
+    {
+     "x": 1288,
+     "y": 847,
+     "width": 24,
+     "height": 22
+    },
+    {
+     "x": 0,
+     "y": 884,
+     "width": 1160,
+     "height": 140
+    },
+    {
+     "x": 1250,
+     "y": 884,
+     "width": 286,
+     "height": 140
+    }
+   ],
+   "hotspots": [
+    {
+     "id": "ines",
+     "label": "Inés Ávila",
+     "kind": "person",
+     "point": {
+      "x": 612,
+      "y": 484
+     },
+     "radius": 76,
+     "markerHeight": 74,
+     "description": "A shipping clerk who knows which walls were repaired, and by whom."
+    },
+    {
+     "id": "bonpland",
+     "label": "Aimé Bonpland",
+     "kind": "person",
+     "point": {
+      "x": 252,
+      "y": 545
+     },
+     "radius": 76,
+     "markerHeight": 80,
+     "description": "Your companion, at his plant press."
+    },
+    {
+     "id": "field-case",
+     "label": "Field instruments",
+     "kind": "object",
+     "point": {
+      "x": 372,
+      "y": 621
+     },
+     "radius": 78,
+     "markerHeight": 58,
+     "description": "Thermometers, a barometer, a hygrometer and a card of blues."
+    },
+    {
+     "id": "damaged-wall",
+     "label": "Broken masonry",
+     "kind": "object",
+     "point": {
+      "x": 895,
+      "y": 607
+     },
+     "radius": 84,
+     "markerHeight": 100,
+     "description": "A courtyard wall with repairs of different ages."
+    },
+    {
+     "id": "quay",
+     "label": "The pier",
+     "kind": "place",
+     "point": {
+      "x": 1205,
+      "y": 930
+     },
+     "radius": 84,
+     "markerHeight": 36,
+     "description": "Boats, porters and a clerk counting barrels."
+    },
+    {
+     "id": "plaza",
+     "label": "The square",
+     "kind": "place",
+     "point": {
+      "x": 1130,
+      "y": 520
+     },
+     "radius": 84,
+     "markerHeight": 60,
+     "description": "The public square, with a well at its centre."
+    }
+   ]
+  },
+  "tiny": {
+   "width": 320,
+   "height": 256,
+   "tileSize": 32,
+   "margin": 12,
+   "spawn": {
+    "x": 40,
+    "y": 40
+   },
+   "obstacles": [
+    {
+     "x": 96,
+     "y": 0,
+     "width": 32,
+     "height": 180
+    },
+    {
+     "x": 192,
+     "y": 76,
+     "width": 32,
+     "height": 180
+    },
+    {
+     "x": 260,
+     "y": 20,
+     "width": 20,
+     "height": 20
+    }
+   ],
+   "hotspots": [
+    {
+     "id": "post",
+     "label": "",
+     "description": "",
+     "kind": "object",
+     "point": {
+      "x": 270,
+      "y": 30
+     },
+     "radius": 50,
+     "markerHeight": 0
+    }
+   ]
+  }
+ },
+ "blocked": [
+  {
+   "map": "cumana",
+   "p": {
+    "x": -39.75,
+    "y": 453.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 464.25,
+    "y": 10.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1350.25,
+    "y": 411.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 796.25,
+    "y": 476.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 723.25,
+    "y": 271.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 313.25,
+    "y": 748.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 187.25,
+    "y": 380.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 910.25,
+    "y": 873.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 578.25,
+    "y": 53.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 312.25,
+    "y": 772.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 917.25,
+    "y": 572.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 734.25,
+    "y": 219.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 457.25,
+    "y": 839.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": -20.75,
+    "y": 173.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 891.25,
+    "y": 747.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": -17.75,
+    "y": 384.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1393.25,
+    "y": 536.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 117.25,
+    "y": 634.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1510.25,
+    "y": 314.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1417.25,
+    "y": -18.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1119.25,
+    "y": 852.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1494.25,
+    "y": 277.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 229.25,
+    "y": 843.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1492.25,
+    "y": 768.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1576.25,
+    "y": 844.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 657.25,
+    "y": 242.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 955.25,
+    "y": -13.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1498.25,
+    "y": 878.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 528.25,
+    "y": 925.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": -37.75,
+    "y": 695.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1497.25,
+    "y": 567.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1058.25,
+    "y": 522.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1339.25,
+    "y": 439.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1459.25,
+    "y": 1062.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 647.25,
+    "y": 856.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 781.25,
+    "y": 209.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 37.25,
+    "y": 17.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1297.25,
+    "y": 80.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 527.25,
+    "y": 568.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 569.25,
+    "y": 481.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 131.25,
+    "y": 378.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 242.25,
+    "y": 593.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 850.25,
+    "y": 981.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 119.25,
+    "y": 1041.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1566.25,
+    "y": 815.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 873.25,
+    "y": 368.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1352.25,
+    "y": 673.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 772.25,
+    "y": 298.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 821.25,
+    "y": 243.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1515.25,
+    "y": 589.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1431.25,
+    "y": 122.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 217.25,
+    "y": 1022.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1077.25,
+    "y": 278.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1296.25,
+    "y": 361.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1380.25,
+    "y": 494.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 782.25,
+    "y": 215.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 122.25,
+    "y": 841.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1371.25,
+    "y": 250.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1184.25,
+    "y": 336.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1353.25,
+    "y": 440.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": -39.75,
+    "y": -30.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 112.25,
+    "y": 144.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 61.25,
+    "y": -27.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": -6.75,
+    "y": 166.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 210.25,
+    "y": 127.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 288.25,
+    "y": 278.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 5.25,
+    "y": 227.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 52.25,
+    "y": 22.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 135.25,
+    "y": 19.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 287.25,
+    "y": 141.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 201.25,
+    "y": 227.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 179.25,
+    "y": 94.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 145.25,
+    "y": 0.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 6.25,
+    "y": -26.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 187.25,
+    "y": 3.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 335.25,
+    "y": 138.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": -24.75,
+    "y": -8.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 332.25,
+    "y": 145.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 180.25,
+    "y": 94.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 278.25,
+    "y": 95.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 233.25,
+    "y": 161.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 208.25,
+    "y": 70.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 354.25,
+    "y": 186.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 171.25,
+    "y": 77.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 69.25,
+    "y": -26.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 212.25,
+    "y": 292.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 148.25,
+    "y": 68.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 65.25,
+    "y": 239.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 36.25,
+    "y": 177.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 325.25,
+    "y": 92.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 283.25,
+    "y": 163.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 310.25,
+    "y": 73.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 237.25,
+    "y": 81.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 9.25,
+    "y": -10.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 279.25,
+    "y": 194.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 167.25,
+    "y": 241.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 109.25,
+    "y": -33.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 34.25,
+    "y": 189.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 217.25,
+    "y": 11.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 166.25,
+    "y": 200.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": -23.75,
+    "y": 257.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 106.25,
+    "y": 240.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 348.25,
+    "y": 121.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 333.25,
+    "y": 190.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 355.25,
+    "y": 107.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 105.25,
+    "y": -24.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": -10.75,
+    "y": 231.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 198.25,
+    "y": 114.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 151.25,
+    "y": 79.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 38.25,
+    "y": 146.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 103.25,
+    "y": 216.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 202.25,
+    "y": -5.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 174.25,
+    "y": 10.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 142.25,
+    "y": 215.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 77.25,
+    "y": 116.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 349.25,
+    "y": 31.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 262.25,
+    "y": 124.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 109.25,
+    "y": 83.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 230.25,
+    "y": 260.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 135.25,
+    "y": 296.5
+   },
+   "expected": true
+  }
+ ],
+ "segmentClear": [
+  {
+   "map": "cumana",
+   "a": {
+    "x": -38.75,
+    "y": -16.5
+   },
+   "b": {
+    "x": 13.25,
+    "y": 575.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 438.25,
+    "y": 852.5
+   },
+   "b": {
+    "x": 472.25,
+    "y": 665.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1560.25,
+    "y": 504.5
+   },
+   "b": {
+    "x": 1183.25,
+    "y": 151.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1016.25,
+    "y": 506.5
+   },
+   "b": {
+    "x": 354.25,
+    "y": 253.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 763.25,
+    "y": 648.5
+   },
+   "b": {
+    "x": 702.25,
+    "y": 293.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 754.25,
+    "y": 522.5
+   },
+   "b": {
+    "x": 150.25,
+    "y": 655.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1279.25,
+    "y": 508.5
+   },
+   "b": {
+    "x": 865.25,
+    "y": 196.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1210.25,
+    "y": 373.5
+   },
+   "b": {
+    "x": 129.25,
+    "y": 592.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 584.25,
+    "y": 178.5
+   },
+   "b": {
+    "x": 787.25,
+    "y": 978.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 596.25,
+    "y": 141.5
+   },
+   "b": {
+    "x": 1314.25,
+    "y": 881.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1134.25,
+    "y": 226.5
+   },
+   "b": {
+    "x": 416.25,
+    "y": 220.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 464.25,
+    "y": 974.5
+   },
+   "b": {
+    "x": 1077.25,
+    "y": 581.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 643.25,
+    "y": 527.5
+   },
+   "b": {
+    "x": 676.25,
+    "y": 779.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": -17.75,
+    "y": 826.5
+   },
+   "b": {
+    "x": 1223.25,
+    "y": -18.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1226.25,
+    "y": 497.5
+   },
+   "b": {
+    "x": 953.25,
+    "y": -30.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1325.25,
+    "y": 1037.5
+   },
+   "b": {
+    "x": 1412.25,
+    "y": 234.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 232.25,
+    "y": 366.5
+   },
+   "b": {
+    "x": 728.25,
+    "y": 1062.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1174.25,
+    "y": 478.5
+   },
+   "b": {
+    "x": 257.25,
+    "y": 584.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 937.25,
+    "y": 1056.5
+   },
+   "b": {
+    "x": 468.25,
+    "y": 54.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 712.25,
+    "y": 1020.5
+   },
+   "b": {
+    "x": 1306.25,
+    "y": 39.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 895.25,
+    "y": 760.5
+   },
+   "b": {
+    "x": 1347.25,
+    "y": 510.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 548.25,
+    "y": 161.5
+   },
+   "b": {
+    "x": 1433.25,
+    "y": 687.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 183.25,
+    "y": 572.5
+   },
+   "b": {
+    "x": 516.25,
+    "y": 669.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1318.25,
+    "y": -9.5
+   },
+   "b": {
+    "x": 868.25,
+    "y": 923.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1266.25,
+    "y": 812.5
+   },
+   "b": {
+    "x": 217.25,
+    "y": 192.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1166.25,
+    "y": 815.5
+   },
+   "b": {
+    "x": 116.25,
+    "y": 752.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1330.25,
+    "y": 378.5
+   },
+   "b": {
+    "x": 517.25,
+    "y": 515.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 275.25,
+    "y": 52.5
+   },
+   "b": {
+    "x": 808.25,
+    "y": 832.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1549.25,
+    "y": 546.5
+   },
+   "b": {
+    "x": 1501.25,
+    "y": 935.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 559.25,
+    "y": 961.5
+   },
+   "b": {
+    "x": 724.25,
+    "y": 690.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1086.25,
+    "y": 884.5
+   },
+   "b": {
+    "x": 191.25,
+    "y": 924.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": -12.75,
+    "y": 321.5
+   },
+   "b": {
+    "x": 1560.25,
+    "y": 721.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1472.25,
+    "y": 821.5
+   },
+   "b": {
+    "x": -28.75,
+    "y": -28.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 779.25,
+    "y": -38.5
+   },
+   "b": {
+    "x": 786.25,
+    "y": 617.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 780.25,
+    "y": 497.5
+   },
+   "b": {
+    "x": 377.25,
+    "y": 181.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1250.25,
+    "y": 88.5
+   },
+   "b": {
+    "x": 25.25,
+    "y": 953.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 613.25,
+    "y": 982.5
+   },
+   "b": {
+    "x": 529.25,
+    "y": 345.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1401.25,
+    "y": 266.5
+   },
+   "b": {
+    "x": 726.25,
+    "y": 427.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 426.25,
+    "y": 1021.5
+   },
+   "b": {
+    "x": 952.25,
+    "y": 97.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 842.25,
+    "y": 647.5
+   },
+   "b": {
+    "x": 1006.25,
+    "y": 75.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 176.25,
+    "y": 97.5
+   },
+   "b": {
+    "x": 138.25,
+    "y": 860.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1066.25,
+    "y": -20.5
+   },
+   "b": {
+    "x": 770.25,
+    "y": 379.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 948.25,
+    "y": 1004.5
+   },
+   "b": {
+    "x": 141.25,
+    "y": 771.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1362.25,
+    "y": 875.5
+   },
+   "b": {
+    "x": 880.25,
+    "y": 90.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 628.25,
+    "y": 1044.5
+   },
+   "b": {
+    "x": 1020.25,
+    "y": 780.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1024.25,
+    "y": 272.5
+   },
+   "b": {
+    "x": 549.25,
+    "y": 1028.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 963.25,
+    "y": 601.5
+   },
+   "b": {
+    "x": 763.25,
+    "y": 519.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1088.25,
+    "y": 282.5
+   },
+   "b": {
+    "x": 587.25,
+    "y": 829.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 110.25,
+    "y": 477.5
+   },
+   "b": {
+    "x": 972.25,
+    "y": 769.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 887.25,
+    "y": 820.5
+   },
+   "b": {
+    "x": 507.25,
+    "y": 471.5
+   },
+   "expected": true
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1489.25,
+    "y": 98.5
+   },
+   "b": {
+    "x": 168.25,
+    "y": 486.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 750.25,
+    "y": 859.5
+   },
+   "b": {
+    "x": 636.25,
+    "y": 478.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1089.25,
+    "y": 776.5
+   },
+   "b": {
+    "x": 1329.25,
+    "y": 40.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 482.25,
+    "y": 971.5
+   },
+   "b": {
+    "x": 340.25,
+    "y": 254.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 77.25,
+    "y": 910.5
+   },
+   "b": {
+    "x": 69.25,
+    "y": 836.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 590.25,
+    "y": 444.5
+   },
+   "b": {
+    "x": 1016.25,
+    "y": -23.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 1460.25,
+    "y": 393.5
+   },
+   "b": {
+    "x": 69.25,
+    "y": 337.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 828.25,
+    "y": 32.5
+   },
+   "b": {
+    "x": 1073.25,
+    "y": 264.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 639.25,
+    "y": 691.5
+   },
+   "b": {
+    "x": 1336.25,
+    "y": 682.5
+   },
+   "expected": false
+  },
+  {
+   "map": "cumana",
+   "a": {
+    "x": 560.25,
+    "y": 823.5
+   },
+   "b": {
+    "x": 1509.25,
+    "y": 789.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": -2.75,
+    "y": 66.5
+   },
+   "b": {
+    "x": -11.75,
+    "y": 138.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 207.25,
+    "y": 69.5
+   },
+   "b": {
+    "x": 189.25,
+    "y": 134.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 24.25,
+    "y": 62.5
+   },
+   "b": {
+    "x": 120.25,
+    "y": 295.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 143.25,
+    "y": 185.5
+   },
+   "b": {
+    "x": 309.25,
+    "y": 268.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 158.25,
+    "y": 92.5
+   },
+   "b": {
+    "x": 162.25,
+    "y": 111.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 189.25,
+    "y": 287.5
+   },
+   "b": {
+    "x": 277.25,
+    "y": 97.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 206.25,
+    "y": 95.5
+   },
+   "b": {
+    "x": 65.25,
+    "y": 294.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 280.25,
+    "y": 39.5
+   },
+   "b": {
+    "x": 229.25,
+    "y": -4.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 319.25,
+    "y": 160.5
+   },
+   "b": {
+    "x": 97.25,
+    "y": 119.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 326.25,
+    "y": 289.5
+   },
+   "b": {
+    "x": 79.25,
+    "y": 118.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 240.25,
+    "y": 282.5
+   },
+   "b": {
+    "x": 342.25,
+    "y": 187.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 221.25,
+    "y": 208.5
+   },
+   "b": {
+    "x": 284.25,
+    "y": 50.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 277.25,
+    "y": 107.5
+   },
+   "b": {
+    "x": -32.75,
+    "y": 84.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 8.25,
+    "y": 205.5
+   },
+   "b": {
+    "x": 214.25,
+    "y": 95.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 288.25,
+    "y": -3.5
+   },
+   "b": {
+    "x": -34.75,
+    "y": 119.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": -23.75,
+    "y": 95.5
+   },
+   "b": {
+    "x": 202.25,
+    "y": 104.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 355.25,
+    "y": 279.5
+   },
+   "b": {
+    "x": 212.25,
+    "y": 264.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 261.25,
+    "y": 229.5
+   },
+   "b": {
+    "x": 296.25,
+    "y": 174.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 284.25,
+    "y": 230.5
+   },
+   "b": {
+    "x": 114.25,
+    "y": 172.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 313.25,
+    "y": 146.5
+   },
+   "b": {
+    "x": 2.25,
+    "y": 285.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 299.25,
+    "y": 11.5
+   },
+   "b": {
+    "x": 242.25,
+    "y": 280.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 192.25,
+    "y": 180.5
+   },
+   "b": {
+    "x": 104.25,
+    "y": 240.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 112.25,
+    "y": 136.5
+   },
+   "b": {
+    "x": 66.25,
+    "y": 14.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 8.25,
+    "y": 223.5
+   },
+   "b": {
+    "x": 357.25,
+    "y": 114.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 127.25,
+    "y": 44.5
+   },
+   "b": {
+    "x": -15.75,
+    "y": 108.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 111.25,
+    "y": -14.5
+   },
+   "b": {
+    "x": 223.25,
+    "y": 128.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 123.25,
+    "y": 43.5
+   },
+   "b": {
+    "x": 103.25,
+    "y": 191.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 196.25,
+    "y": -11.5
+   },
+   "b": {
+    "x": 326.25,
+    "y": 118.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 164.25,
+    "y": 28.5
+   },
+   "b": {
+    "x": 103.25,
+    "y": 214.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 343.25,
+    "y": 47.5
+   },
+   "b": {
+    "x": 65.25,
+    "y": 241.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 70.25,
+    "y": -1.5
+   },
+   "b": {
+    "x": 261.25,
+    "y": 146.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 119.25,
+    "y": 251.5
+   },
+   "b": {
+    "x": 352.25,
+    "y": 139.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 160.25,
+    "y": 19.5
+   },
+   "b": {
+    "x": -34.75,
+    "y": -32.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 275.25,
+    "y": 205.5
+   },
+   "b": {
+    "x": 96.25,
+    "y": 164.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 239.25,
+    "y": 179.5
+   },
+   "b": {
+    "x": 248.25,
+    "y": 40.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 82.25,
+    "y": -19.5
+   },
+   "b": {
+    "x": 30.25,
+    "y": 256.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 189.25,
+    "y": 121.5
+   },
+   "b": {
+    "x": 327.25,
+    "y": 266.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 306.25,
+    "y": 277.5
+   },
+   "b": {
+    "x": 320.25,
+    "y": 227.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 347.25,
+    "y": 24.5
+   },
+   "b": {
+    "x": 328.25,
+    "y": 139.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 307.25,
+    "y": -29.5
+   },
+   "b": {
+    "x": 247.25,
+    "y": 125.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 145.25,
+    "y": 47.5
+   },
+   "b": {
+    "x": 125.25,
+    "y": 166.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 205.25,
+    "y": 247.5
+   },
+   "b": {
+    "x": 15.25,
+    "y": 13.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 289.25,
+    "y": -16.5
+   },
+   "b": {
+    "x": -18.75,
+    "y": 171.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 249.25,
+    "y": 267.5
+   },
+   "b": {
+    "x": 109.25,
+    "y": 73.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": -20.75,
+    "y": 161.5
+   },
+   "b": {
+    "x": -36.75,
+    "y": 54.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": -34.75,
+    "y": 67.5
+   },
+   "b": {
+    "x": 120.25,
+    "y": 151.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 79.25,
+    "y": 215.5
+   },
+   "b": {
+    "x": 48.25,
+    "y": 72.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": -1.75,
+    "y": 196.5
+   },
+   "b": {
+    "x": 176.25,
+    "y": -5.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 256.25,
+    "y": 136.5
+   },
+   "b": {
+    "x": 193.25,
+    "y": 17.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 76.25,
+    "y": 202.5
+   },
+   "b": {
+    "x": 25.25,
+    "y": 224.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 242.25,
+    "y": 231.5
+   },
+   "b": {
+    "x": 359.25,
+    "y": 50.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 5.25,
+    "y": 13.5
+   },
+   "b": {
+    "x": 19.25,
+    "y": 137.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 326.25,
+    "y": 266.5
+   },
+   "b": {
+    "x": 341.25,
+    "y": 133.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": -23.75,
+    "y": 53.5
+   },
+   "b": {
+    "x": 338.25,
+    "y": 269.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 129.25,
+    "y": 229.5
+   },
+   "b": {
+    "x": 162.25,
+    "y": 242.5
+   },
+   "expected": true
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 140.25,
+    "y": 146.5
+   },
+   "b": {
+    "x": 288.25,
+    "y": 215.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 191.25,
+    "y": 205.5
+   },
+   "b": {
+    "x": 198.25,
+    "y": 170.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 118.25,
+    "y": 158.5
+   },
+   "b": {
+    "x": 318.25,
+    "y": 31.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 57.25,
+    "y": 272.5
+   },
+   "b": {
+    "x": 236.25,
+    "y": 114.5
+   },
+   "expected": false
+  },
+  {
+   "map": "tiny",
+   "a": {
+    "x": 125.25,
+    "y": 265.5
+   },
+   "b": {
+    "x": 144.25,
+    "y": -31.5
+   },
+   "expected": false
+  }
+ ],
+ "nearestWalkable": [
+  {
+   "map": "cumana",
+   "p": {
+    "x": 157.25,
+    "y": 142.5
+   },
+   "expected": {
+    "x": 144,
+    "y": 112
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": -13.75,
+    "y": 40.5
+   },
+   "expected": {
+    "x": 16,
+    "y": 48
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": -27.75,
+    "y": 66.5
+   },
+   "expected": {
+    "x": 16,
+    "y": 80
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1467.25,
+    "y": 701.5
+   },
+   "expected": {
+    "x": 1520,
+    "y": 688
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1114.25,
+    "y": 273.5
+   },
+   "expected": {
+    "x": 1104,
+    "y": 432
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 985.25,
+    "y": -24.5
+   },
+   "expected": {
+    "x": 976,
+    "y": 16
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1557.25,
+    "y": 228.5
+   },
+   "expected": {
+    "x": 1520,
+    "y": 240
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1201.25,
+    "y": 817.5
+   },
+   "expected": {
+    "x": 1200,
+    "y": 848
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1230.25,
+    "y": 847.5
+   },
+   "expected": {
+    "x": 1230.25,
+    "y": 847.5
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 617.25,
+    "y": 257.5
+   },
+   "expected": {
+    "x": 624,
+    "y": 112
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1425.25,
+    "y": 680.5
+   },
+   "expected": {
+    "x": 1360,
+    "y": 688
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 81.25,
+    "y": 283.5
+   },
+   "expected": {
+    "x": 48,
+    "y": 272
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1387.25,
+    "y": 12.5
+   },
+   "expected": {
+    "x": 1387.25,
+    "y": 12.5
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 691.25,
+    "y": 931.5
+   },
+   "expected": {
+    "x": 624,
+    "y": 848
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1243.25,
+    "y": 994.5
+   },
+   "expected": {
+    "x": 1232,
+    "y": 1008
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 950.25,
+    "y": 196.5
+   },
+   "expected": {
+    "x": 880,
+    "y": 208
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1254.25,
+    "y": 37.5
+   },
+   "expected": {
+    "x": 1254.25,
+    "y": 37.5
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 659.25,
+    "y": 736.5
+   },
+   "expected": {
+    "x": 659.25,
+    "y": 736.5
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 1148.25,
+    "y": 1047.5
+   },
+   "expected": {
+    "x": 1200,
+    "y": 1008
+   }
+  },
+  {
+   "map": "cumana",
+   "p": {
+    "x": 424.25,
+    "y": 373.5
+   },
+   "expected": {
+    "x": 400,
+    "y": 368
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": -10.75,
+    "y": 76.5
+   },
+   "expected": {
+    "x": 16,
+    "y": 80
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 83.25,
+    "y": 225.5
+   },
+   "expected": {
+    "x": 83.25,
+    "y": 225.5
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 184.25,
+    "y": -2.5
+   },
+   "expected": {
+    "x": 176,
+    "y": 16
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 13.25,
+    "y": 65.5
+   },
+   "expected": {
+    "x": 13.25,
+    "y": 65.5
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 230.25,
+    "y": 98.5
+   },
+   "expected": {
+    "x": 240,
+    "y": 112
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 345.25,
+    "y": 122.5
+   },
+   "expected": {
+    "x": 304,
+    "y": 112
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 277.25,
+    "y": 131.5
+   },
+   "expected": {
+    "x": 277.25,
+    "y": 131.5
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 239.25,
+    "y": 47.5
+   },
+   "expected": {
+    "x": 239.25,
+    "y": 47.5
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 72.25,
+    "y": -25.5
+   },
+   "expected": {
+    "x": 80,
+    "y": 16
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 118.25,
+    "y": 57.5
+   },
+   "expected": {
+    "x": 144,
+    "y": 48
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 282.25,
+    "y": -39.5
+   },
+   "expected": {
+    "x": 304,
+    "y": 16
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 132.25,
+    "y": 74.5
+   },
+   "expected": {
+    "x": 144,
+    "y": 80
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 335.25,
+    "y": -6.5
+   },
+   "expected": {
+    "x": 304,
+    "y": 16
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 120.25,
+    "y": 242.5
+   },
+   "expected": {
+    "x": 120.25,
+    "y": 242.5
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 260.25,
+    "y": 221.5
+   },
+   "expected": {
+    "x": 260.25,
+    "y": 221.5
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": -35.75,
+    "y": 18.5
+   },
+   "expected": {
+    "x": 16,
+    "y": 16
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": -24.75,
+    "y": 9.5
+   },
+   "expected": {
+    "x": 16,
+    "y": 16
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 140.25,
+    "y": 271.5
+   },
+   "expected": {
+    "x": 144,
+    "y": 240
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 175.25,
+    "y": 132.5
+   },
+   "expected": {
+    "x": 175.25,
+    "y": 132.5
+   }
+  },
+  {
+   "map": "tiny",
+   "p": {
+    "x": 346.25,
+    "y": 284.5
+   },
+   "expected": {
+    "x": 304,
+    "y": 240
+   }
+  }
+ ],
+ "planRoute": [
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 368,
+    "y": 848
+   },
+   "destination": {
+    "x": 363.25,
+    "y": 846.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 363.25,
+      "y": 846.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1455.25,
+    "y": 52.5
+   },
+   "destination": {
+    "x": 1536.25,
+    "y": 60.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1520,
+      "y": 48
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 844.25,
+    "y": 415.5
+   },
+   "destination": {
+    "x": 126.25,
+    "y": 117.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 784,
+      "y": 112
+     },
+     {
+      "x": 126.25,
+      "y": 117.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1141.25,
+    "y": 550.5
+   },
+   "destination": {
+    "x": 651.25,
+    "y": 631.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 720,
+      "y": 560
+     },
+     {
+      "x": 651.25,
+      "y": 631.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1232,
+    "y": 848
+   },
+   "destination": {
+    "x": 1514.25,
+    "y": 255.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1040,
+      "y": 848
+     },
+     {
+      "x": 1040,
+      "y": 656
+     },
+     {
+      "x": 1520,
+      "y": 368
+     },
+     {
+      "x": 1514.25,
+      "y": 255.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 860.25,
+    "y": 242.5
+   },
+   "destination": {
+    "x": 7.25,
+    "y": 755.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 784,
+      "y": 432
+     },
+     {
+      "x": 432,
+      "y": 656
+     },
+     {
+      "x": 16,
+      "y": 752
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1360,
+    "y": 688
+   },
+   "destination": {
+    "x": 195.25,
+    "y": 148.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1360,
+      "y": 656
+     },
+     {
+      "x": 944,
+      "y": 496
+     },
+     {
+      "x": 880,
+      "y": 400
+     },
+     {
+      "x": 752,
+      "y": 112
+     },
+     {
+      "x": 208,
+      "y": 112
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1008,
+    "y": 432
+   },
+   "destination": {
+    "x": 756.25,
+    "y": 670.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 784,
+      "y": 592
+     },
+     {
+      "x": 756.25,
+      "y": 670.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1008,
+    "y": 848
+   },
+   "destination": {
+    "x": 1522.25,
+    "y": -19.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1008,
+      "y": 560
+     },
+     {
+      "x": 880,
+      "y": 432
+     },
+     {
+      "x": 880,
+      "y": 80
+     },
+     {
+      "x": 1520,
+      "y": 16
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 624,
+    "y": 432
+   },
+   "destination": {
+    "x": 207.25,
+    "y": 386.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 432
+     },
+     {
+      "x": 207.25,
+      "y": 386.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 506.25,
+    "y": 102.5
+   },
+   "destination": {
+    "x": 724.25,
+    "y": 952.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 400,
+      "y": 112
+     },
+     {
+      "x": 400,
+      "y": 496
+     },
+     {
+      "x": 720,
+      "y": 816
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 592,
+    "y": 432
+   },
+   "destination": {
+    "x": 1102.25,
+    "y": 38.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 784,
+      "y": 432
+     },
+     {
+      "x": 880,
+      "y": 80
+     },
+     {
+      "x": 1102.25,
+      "y": 38.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1357.25,
+    "y": 794.5
+   },
+   "destination": {
+    "x": 1065.25,
+    "y": 385.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1360,
+      "y": 592
+     },
+     {
+      "x": 1072,
+      "y": 432
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 92.25,
+    "y": 506.5
+   },
+   "destination": {
+    "x": 1457.25,
+    "y": 202.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 336,
+      "y": 368
+     },
+     {
+      "x": 400,
+      "y": 112
+     },
+     {
+      "x": 1360,
+      "y": 80
+     },
+     {
+      "x": 1457.25,
+      "y": 202.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1104,
+    "y": 848
+   },
+   "destination": {
+    "x": 1199.25,
+    "y": 697.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1040,
+      "y": 848
+     },
+     {
+      "x": 1040,
+      "y": 656
+     },
+     {
+      "x": 1200,
+      "y": 656
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1488,
+    "y": 848
+   },
+   "destination": {
+    "x": 1076.25,
+    "y": 365.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1360,
+      "y": 848
+     },
+     {
+      "x": 1360,
+      "y": 592
+     },
+     {
+      "x": 1072,
+      "y": 432
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1008,
+    "y": 848
+   },
+   "destination": {
+    "x": 1414.25,
+    "y": 314.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1040,
+      "y": 656
+     },
+     {
+      "x": 1360,
+      "y": 656
+     },
+     {
+      "x": 1360,
+      "y": 848
+     },
+     {
+      "x": 1520,
+      "y": 848
+     },
+     {
+      "x": 1520,
+      "y": 400
+     },
+     {
+      "x": 1414.25,
+      "y": 314.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 400,
+    "y": 304
+   },
+   "destination": {
+    "x": 365.25,
+    "y": -21.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 368,
+      "y": 16
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 80,
+    "y": 848
+   },
+   "destination": {
+    "x": 918.25,
+    "y": 789.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 592,
+      "y": 848
+     },
+     {
+      "x": 656,
+      "y": 816
+     },
+     {
+      "x": 918.25,
+      "y": 789.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1360,
+    "y": 592
+   },
+   "destination": {
+    "x": 168.25,
+    "y": 179.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1136,
+      "y": 464
+     },
+     {
+      "x": 880,
+      "y": 432
+     },
+     {
+      "x": 752,
+      "y": 112
+     },
+     {
+      "x": 176,
+      "y": 112
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 542.25,
+    "y": 740.5
+   },
+   "destination": {
+    "x": 487.25,
+    "y": 936.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 528,
+      "y": 848
+     },
+     {
+      "x": 496,
+      "y": 848
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 666.25,
+    "y": 472.5
+   },
+   "destination": {
+    "x": 403.25,
+    "y": 790.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 592,
+      "y": 560
+     },
+     {
+      "x": 400,
+      "y": 752
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1520,
+    "y": 464
+   },
+   "destination": {
+    "x": 767.25,
+    "y": 227.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1328,
+      "y": 80
+     },
+     {
+      "x": 880,
+      "y": 80
+     },
+     {
+      "x": 767.25,
+      "y": 227.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 592.25,
+    "y": 510.5
+   },
+   "destination": {
+    "x": 484.25,
+    "y": 402.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 496,
+      "y": 432
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 827.25,
+    "y": 444.5
+   },
+   "destination": {
+    "x": 265.25,
+    "y": 157.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 400,
+      "y": 432
+     },
+     {
+      "x": 336,
+      "y": 112
+     },
+     {
+      "x": 272,
+      "y": 112
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1225.25,
+    "y": 55.5
+   },
+   "destination": {
+    "x": 724.25,
+    "y": 590.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 880,
+      "y": 80
+     },
+     {
+      "x": 724.25,
+      "y": 590.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 256.25,
+    "y": 871.5
+   },
+   "destination": {
+    "x": 259.25,
+    "y": 796.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 259.25,
+      "y": 796.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 807.25,
+    "y": 271.5
+   },
+   "destination": {
+    "x": 565.25,
+    "y": 447.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 784,
+      "y": 432
+     },
+     {
+      "x": 565.25,
+      "y": 447.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 496,
+    "y": 848
+   },
+   "destination": {
+    "x": 48.25,
+    "y": 178.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 304,
+      "y": 848
+     },
+     {
+      "x": 48,
+      "y": 400
+     },
+     {
+      "x": 48,
+      "y": 176
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 816,
+    "y": 848
+   },
+   "destination": {
+    "x": 707.25,
+    "y": 612.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 784,
+      "y": 720
+     },
+     {
+      "x": 707.25,
+      "y": 612.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1360,
+    "y": 752
+   },
+   "destination": {
+    "x": 612,
+    "y": 484
+   },
+   "radius": 64,
+   "minRadius": 56,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1360,
+      "y": 656
+     },
+     {
+      "x": 656,
+      "y": 496
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 754.25,
+    "y": 754.5
+   },
+   "destination": {
+    "x": 612,
+    "y": 484
+   },
+   "radius": 64,
+   "minRadius": 56,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 624,
+      "y": 528
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1367.25,
+    "y": 787.5
+   },
+   "destination": {
+    "x": 612,
+    "y": 484
+   },
+   "radius": 64,
+   "minRadius": 56,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1360,
+      "y": 656
+     },
+     {
+      "x": 656,
+      "y": 496
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 195.25,
+    "y": 644.5
+   },
+   "destination": {
+    "x": 252,
+    "y": 545
+   },
+   "radius": 64,
+   "minRadius": 56,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 592
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1423.25,
+    "y": 154.5
+   },
+   "destination": {
+    "x": 252,
+    "y": 545
+   },
+   "radius": 64,
+   "minRadius": 56,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1328,
+      "y": 80
+     },
+     {
+      "x": 880,
+      "y": 80
+     },
+     {
+      "x": 784,
+      "y": 432
+     },
+     {
+      "x": 336,
+      "y": 496
+     },
+     {
+      "x": 304,
+      "y": 528
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 368,
+    "y": 848
+   },
+   "destination": {
+    "x": 252,
+    "y": 545
+   },
+   "radius": 64,
+   "minRadius": 56,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 304,
+      "y": 848
+     },
+     {
+      "x": 272,
+      "y": 592
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 112,
+    "y": 400
+   },
+   "destination": {
+    "x": 372,
+    "y": 621
+   },
+   "radius": 66,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 368,
+      "y": 560
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 951.25,
+    "y": 848.5
+   },
+   "destination": {
+    "x": 372,
+    "y": 621
+   },
+   "radius": 66,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 432,
+      "y": 624
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1200,
+    "y": 432
+   },
+   "destination": {
+    "x": 372,
+    "y": 621
+   },
+   "radius": 66,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 432,
+      "y": 624
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1232,
+    "y": 848
+   },
+   "destination": {
+    "x": 895,
+    "y": 607
+   },
+   "radius": 72,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1040,
+      "y": 848
+     },
+     {
+      "x": 944,
+      "y": 656
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1072,
+    "y": 80
+   },
+   "destination": {
+    "x": 895,
+    "y": 607
+   },
+   "radius": 72,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 880,
+      "y": 80
+     },
+     {
+      "x": 880,
+      "y": 560
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 376.25,
+    "y": 20.5
+   },
+   "destination": {
+    "x": 895,
+    "y": 607
+   },
+   "radius": 72,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 784,
+      "y": 144
+     },
+     {
+      "x": 848,
+      "y": 560
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1031.25,
+    "y": 622.5
+   },
+   "destination": {
+    "x": 1205,
+    "y": 930
+   },
+   "radius": 72,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1040,
+      "y": 848
+     },
+     {
+      "x": 1200,
+      "y": 848
+     },
+     {
+      "x": 1200,
+      "y": 880
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1332.25,
+    "y": 340.5
+   },
+   "destination": {
+    "x": 1205,
+    "y": 930
+   },
+   "radius": 72,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1520,
+      "y": 432
+     },
+     {
+      "x": 1520,
+      "y": 848
+     },
+     {
+      "x": 1360,
+      "y": 848
+     },
+     {
+      "x": 1360,
+      "y": 656
+     },
+     {
+      "x": 1040,
+      "y": 656
+     },
+     {
+      "x": 1040,
+      "y": 848
+     },
+     {
+      "x": 1200,
+      "y": 848
+     },
+     {
+      "x": 1200,
+      "y": 880
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 880,
+    "y": 336
+   },
+   "destination": {
+    "x": 1205,
+    "y": 930
+   },
+   "radius": 72,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 880,
+      "y": 432
+     },
+     {
+      "x": 1008,
+      "y": 592
+     },
+     {
+      "x": 1040,
+      "y": 848
+     },
+     {
+      "x": 1200,
+      "y": 848
+     },
+     {
+      "x": 1200,
+      "y": 880
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 287.25,
+    "y": 730.5
+   },
+   "destination": {
+    "x": 1130,
+    "y": 520
+   },
+   "radius": 72,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 848,
+      "y": 560
+     },
+     {
+      "x": 1072,
+      "y": 528
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 400,
+    "y": 272
+   },
+   "destination": {
+    "x": 1130,
+    "y": 520
+   },
+   "radius": 72,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 400,
+      "y": 432
+     },
+     {
+      "x": 1040,
+      "y": 464
+     },
+     {
+      "x": 1072,
+      "y": 496
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 1200,
+    "y": 1008
+   },
+   "destination": {
+    "x": 1130,
+    "y": 520
+   },
+   "radius": 72,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 1168,
+      "y": 848
+     },
+     {
+      "x": 1040,
+      "y": 848
+     },
+     {
+      "x": 1040,
+      "y": 624
+     },
+     {
+      "x": 1104,
+      "y": 560
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 304,
+    "y": 112
+   },
+   "destination": {
+    "x": 23.25,
+    "y": 66.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 23.25,
+      "y": 66.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 144,
+    "y": 112
+   },
+   "destination": {
+    "x": 267.25,
+    "y": 146.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 267.25,
+      "y": 146.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 304,
+    "y": 16
+   },
+   "destination": {
+    "x": 46.25,
+    "y": 90.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 304,
+      "y": 80
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 46.25,
+      "y": 90.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 304,
+    "y": 240
+   },
+   "destination": {
+    "x": -9.75,
+    "y": 51.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 16,
+      "y": 48
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 240,
+    "y": 176
+   },
+   "destination": {
+    "x": 219.25,
+    "y": 239.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 240
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 16,
+    "y": 240
+   },
+   "destination": {
+    "x": 166.25,
+    "y": 282.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 176,
+      "y": 240
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 68.25,
+    "y": 114.5
+   },
+   "destination": {
+    "x": 191.25,
+    "y": 19.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 176,
+      "y": 16
+     },
+     {
+      "x": 191.25,
+      "y": 19.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 304,
+    "y": 48
+   },
+   "destination": {
+    "x": 227.25,
+    "y": 167.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 176
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 89.25,
+    "y": 195.5
+   },
+   "destination": {
+    "x": 150.25,
+    "y": -26.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 144,
+      "y": 16
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 237.25,
+    "y": 187.5
+   },
+   "destination": {
+    "x": 233.25,
+    "y": 48.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 233.25,
+      "y": 48.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 48,
+    "y": 240
+   },
+   "destination": {
+    "x": 210.25,
+    "y": 72.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 208,
+      "y": 48
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 287.25,
+    "y": 235.5
+   },
+   "destination": {
+    "x": 115.25,
+    "y": 71.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 144,
+      "y": 80
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 16,
+    "y": 16
+   },
+   "destination": {
+    "x": 350.25,
+    "y": 261.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 304,
+      "y": 240
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 240,
+    "y": 240
+   },
+   "destination": {
+    "x": 44.25,
+    "y": 53.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 44.25,
+      "y": 53.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 112,
+    "y": 240
+   },
+   "destination": {
+    "x": 274.25,
+    "y": 215.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 274.25,
+      "y": 215.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 240.25,
+    "y": 179.5
+   },
+   "destination": {
+    "x": 210.25,
+    "y": 126.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 112
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 304,
+    "y": 80
+   },
+   "destination": {
+    "x": -14.75,
+    "y": 63.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 16,
+      "y": 48
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 240,
+    "y": 240
+   },
+   "destination": {
+    "x": 206.25,
+    "y": 155.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 176,
+      "y": 144
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 16,
+    "y": 16
+   },
+   "destination": {
+    "x": 274.25,
+    "y": 274.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 272,
+      "y": 240
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 304,
+    "y": 240
+   },
+   "destination": {
+    "x": 213.25,
+    "y": 38.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 213.25,
+      "y": 38.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 297.25,
+    "y": 90.5
+   },
+   "destination": {
+    "x": 233.25,
+    "y": 245.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 240
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 107.25,
+    "y": 194.5
+   },
+   "destination": {
+    "x": 153.25,
+    "y": 213.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 153.25,
+      "y": 213.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 69.25,
+    "y": 192.5
+   },
+   "destination": {
+    "x": 160.25,
+    "y": 38.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 160.25,
+      "y": 38.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 142.25,
+    "y": 188.5
+   },
+   "destination": {
+    "x": 122.25,
+    "y": 241.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 122.25,
+      "y": 241.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 80,
+    "y": 16
+   },
+   "destination": {
+    "x": 336.25,
+    "y": -36.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 304,
+      "y": 80
+     },
+     {
+      "x": 304,
+      "y": 16
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 33.25,
+    "y": 143.5
+   },
+   "destination": {
+    "x": 28.25,
+    "y": 86.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 28.25,
+      "y": 86.5
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 16,
+    "y": 240
+   },
+   "destination": {
+    "x": 6.25,
+    "y": 187.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 16,
+      "y": 176
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 16,
+    "y": 48
+   },
+   "destination": {
+    "x": 309.25,
+    "y": 239.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 304,
+      "y": 240
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 14.25,
+    "y": 55.5
+   },
+   "destination": {
+    "x": -30.75,
+    "y": 99.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 16,
+      "y": 112
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 240,
+    "y": 176
+   },
+   "destination": {
+    "x": 129.25,
+    "y": 39.5
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 48
+     },
+     {
+      "x": 144,
+      "y": 48
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 16,
+    "y": 240
+   },
+   "destination": {
+    "x": 270,
+    "y": 30
+   },
+   "radius": 38,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 240,
+      "y": 48
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 262.25,
+    "y": 129.5
+   },
+   "destination": {
+    "x": 270,
+    "y": 30
+   },
+   "radius": 38,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 240,
+      "y": 48
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "tiny",
+   "origin": {
+    "x": 34.25,
+    "y": 120.5
+   },
+   "destination": {
+    "x": 270,
+    "y": 30
+   },
+   "radius": 38,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 80,
+      "y": 208
+     },
+     {
+      "x": 144,
+      "y": 208
+     },
+     {
+      "x": 176,
+      "y": 48
+     },
+     {
+      "x": 240,
+      "y": 48
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 150,
+    "y": 720
+   },
+   "destination": {
+    "x": 150,
+    "y": 720
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "here",
+    "waypoints": []
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 150,
+    "y": 720
+   },
+   "destination": {
+    "x": 158,
+    "y": 726
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 158,
+      "y": 726
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 150,
+    "y": 720
+   },
+   "destination": {
+    "x": 585,
+    "y": 400
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 336,
+      "y": 560
+     },
+     {
+      "x": 592,
+      "y": 432
+     }
+    ],
+    "snapped": true
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 150,
+    "y": 720
+   },
+   "destination": {
+    "x": 500,
+    "y": 1100
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "unreachable",
+    "waypoints": []
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 150,
+    "y": 720
+   },
+   "destination": {
+    "x": "NaN",
+    "y": 3
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "unreachable",
+    "waypoints": []
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 345,
+    "y": 610
+   },
+   "destination": {
+    "x": 200,
+    "y": 700
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 304,
+      "y": 624
+     },
+     {
+      "x": 200,
+      "y": 700
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 150,
+    "y": 720
+   },
+   "destination": {
+    "x": 840,
+    "y": 60
+   },
+   "radius": 0,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 560,
+      "y": 624
+     },
+     {
+      "x": 784,
+      "y": 432
+     },
+     {
+      "x": 840,
+      "y": 60
+     }
+    ],
+    "snapped": false
+   }
+  },
+  {
+   "map": "cumana",
+   "origin": {
+    "x": 150,
+    "y": 720
+   },
+   "destination": {
+    "x": 1110,
+    "y": 255
+   },
+   "radius": 28,
+   "minRadius": 0,
+   "expected": {
+    "status": "route",
+    "waypoints": [
+     {
+      "x": 560,
+      "y": 624
+     },
+     {
+      "x": 784,
+      "y": 432
+     },
+     {
+      "x": 880,
+      "y": 80
+     },
+     {
+      "x": 1104.616184786363,
+      "y": 97.97205626891777
+     }
+    ],
+    "snapped": true
+   }
+  }
+ ],
+ "stepDirect": [
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1456,
+    "y": 16
+   },
+   "delta": {
+    "x": -3.255441553543994,
+    "y": 5.793809586108574
+   },
+   "expected": {
+    "x": 1452.744558446456,
+    "y": 21.793809586108573
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1360,
+    "y": 656
+   },
+   "delta": {
+    "x": -12.152823392372962,
+    "y": -12.502755612369047
+   },
+   "expected": {
+    "x": 1347.847176607627,
+    "y": 643.497244387631
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 210.25,
+    "y": 380.5
+   },
+   "delta": {
+    "x": 12.888205700036233,
+    "y": 12.073200508986229
+   },
+   "expected": {
+    "x": 223.13820570003622,
+    "y": 392.57320050898625
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 537.25,
+    "y": 512.5
+   },
+   "delta": {
+    "x": 7.25013912993024,
+    "y": 13.088356737554241
+   },
+   "expected": {
+    "x": 544.5001391299303,
+    "y": 525.5883567375542
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1415.25,
+    "y": 193.5
+   },
+   "delta": {
+    "x": 15.642428489235431,
+    "y": -17.704381420139402
+   },
+   "expected": {
+    "x": 1430.8924284892355,
+    "y": 175.7956185798606
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 867.25,
+    "y": 787.5
+   },
+   "delta": {
+    "x": -3.809042621315011,
+    "y": -18.57933644139177
+   },
+   "expected": {
+    "x": 863.440957378685,
+    "y": 768.9206635586082
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1459.25,
+    "y": 304.5
+   },
+   "delta": {
+    "x": 7.084084184413815,
+    "y": -17.797112557011243
+   },
+   "expected": {
+    "x": 1466.3340841844138,
+    "y": 286.70288744298875
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 927.25,
+    "y": 484.5
+   },
+   "delta": {
+    "x": 10.176489534870017,
+    "y": -3.7403874396068915
+   },
+   "expected": {
+    "x": 937.42648953487,
+    "y": 480.7596125603931
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1360,
+    "y": 688
+   },
+   "delta": {
+    "x": 8.073594117571412,
+    "y": 12.896334022700945
+   },
+   "expected": {
+    "x": 1368.0735941175715,
+    "y": 700.8963340227009
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 311.25,
+    "y": 629.5
+   },
+   "delta": {
+    "x": -16.631932592313706,
+    "y": -12.891079016444776
+   },
+   "expected": {
+    "x": 294.6180674076863,
+    "y": 616.6089209835552
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1520,
+    "y": 656
+   },
+   "delta": {
+    "x": 12.91711643008381,
+    "y": 17.975840418588295
+   },
+   "expected": {
+    "x": 1520,
+    "y": 673.9758404185883
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 766.25,
+    "y": 463.5
+   },
+   "delta": {
+    "x": 7.458648694427055,
+    "y": -2.491392764491678
+   },
+   "expected": {
+    "x": 773.7086486944271,
+    "y": 461.00860723550835
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1040,
+    "y": 752
+   },
+   "delta": {
+    "x": -11.17409253081963,
+    "y": -2.973165485529772
+   },
+   "expected": {
+    "x": 1028.8259074691803,
+    "y": 749.0268345144702
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 368,
+    "y": 848
+   },
+   "delta": {
+    "x": 7.864035399567353,
+    "y": 10.842960528490583
+   },
+   "expected": {
+    "x": 375.86403539956734,
+    "y": 858.8429605284906
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 624,
+    "y": 848
+   },
+   "delta": {
+    "x": 13.091359619559423,
+    "y": -13.518874064795149
+   },
+   "expected": {
+    "x": 624,
+    "y": 834.4811259352049
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 295.25,
+    "y": 577.5
+   },
+   "delta": {
+    "x": 11.88234541187172,
+    "y": -13.420662671989138
+   },
+   "expected": {
+    "x": 307.1323454118717,
+    "y": 564.0793373280109
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 724.25,
+    "y": 788.5
+   },
+   "delta": {
+    "x": 15.588449274929449,
+    "y": -4.933036260741314
+   },
+   "expected": {
+    "x": 739.8384492749294,
+    "y": 783.5669637392587
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1200,
+    "y": 432
+   },
+   "delta": {
+    "x": -8.603540262488433,
+    "y": 0.29880835688617324
+   },
+   "expected": {
+    "x": 1191.3964597375116,
+    "y": 432.2988083568862
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 44.25,
+    "y": 650.5
+   },
+   "delta": {
+    "x": 2.114361423121003,
+    "y": 16.072438394684546
+   },
+   "expected": {
+    "x": 46.364361423121004,
+    "y": 666.5724383946846
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1151.25,
+    "y": 445.5
+   },
+   "delta": {
+    "x": 14.422885717089699,
+    "y": 5.4402471265943
+   },
+   "expected": {
+    "x": 1165.6728857170897,
+    "y": 450.9402471265943
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 535.25,
+    "y": 559.5
+   },
+   "delta": {
+    "x": -2.8937173927639237,
+    "y": 5.291779816752196
+   },
+   "expected": {
+    "x": 532.356282607236,
+    "y": 564.7917798167522
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1520,
+    "y": 16
+   },
+   "delta": {
+    "x": -14.047120695024319,
+    "y": -9.957521273734757
+   },
+   "expected": {
+    "x": 1505.9528793049758,
+    "y": 16
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 912,
+    "y": 848
+   },
+   "delta": {
+    "x": 18.2752445332125,
+    "y": -7.965130297450875
+   },
+   "expected": {
+    "x": 930.2752445332125,
+    "y": 840.0348697025491
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1168,
+    "y": 432
+   },
+   "delta": {
+    "x": -18.61317414725813,
+    "y": 8.382107032640889
+   },
+   "expected": {
+    "x": 1149.3868258527418,
+    "y": 440.3821070326409
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 690.25,
+    "y": 821.5
+   },
+   "delta": {
+    "x": -11.591451369035735,
+    "y": -17.52315938357411
+   },
+   "expected": {
+    "x": 678.6585486309642,
+    "y": 803.9768406164259
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1104,
+    "y": 80
+   },
+   "delta": {
+    "x": -12.947163355046493,
+    "y": -2.9745082664184785
+   },
+   "expected": {
+    "x": 1091.0528366449535,
+    "y": 77.02549173358152
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1069.25,
+    "y": 423.5
+   },
+   "delta": {
+    "x": -15.643046198246555,
+    "y": 7.322546070126141
+   },
+   "expected": {
+    "x": 1053.6069538017534,
+    "y": 430.8225460701261
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 365.25,
+    "y": 83.5
+   },
+   "delta": {
+    "x": -4.763956472633386,
+    "y": 12.18356445067728
+   },
+   "expected": {
+    "x": 360.48604352736663,
+    "y": 95.68356445067728
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 1138.25,
+    "y": 565.5
+   },
+   "delta": {
+    "x": -14.70830434686891,
+    "y": -2.4711578257713263
+   },
+   "expected": {
+    "x": 1123.541695653131,
+    "y": 563.0288421742287
+   }
+  },
+  {
+   "map": "cumana",
+   "position": {
+    "x": 253.25,
+    "y": 453.5
+   },
+   "delta": {
+    "x": 13.617634882041084,
+    "y": -8.410537535515864
+   },
+   "expected": {
+    "x": 266.8676348820411,
+    "y": 445.08946246448414
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 263.25,
+    "y": 151.5
+   },
+   "delta": {
+    "x": -9.744522399150078,
+    "y": -16.18796251536718
+   },
+   "expected": {
+    "x": 253.50547760084993,
+    "y": 135.3120374846328
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 240,
+    "y": 240
+   },
+   "delta": {
+    "x": 2.718185718505728,
+    "y": 4.54737092580058
+   },
+   "expected": {
+    "x": 242.71818571850574,
+    "y": 240
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 48,
+    "y": 240
+   },
+   "delta": {
+    "x": 4.708391793402096,
+    "y": 13.940871708998861
+   },
+   "expected": {
+    "x": 52.70839179340209,
+    "y": 240
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 16,
+    "y": 176
+   },
+   "delta": {
+    "x": 16.29063902250055,
+    "y": -3.2299488332262016
+   },
+   "expected": {
+    "x": 32.29063902250055,
+    "y": 172.7700511667738
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 80,
+    "y": 112
+   },
+   "delta": {
+    "x": 9.979237779033948,
+    "y": 1.0493522235422192
+   },
+   "expected": {
+    "x": 80,
+    "y": 113.04935222354221
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 144,
+    "y": 48
+   },
+   "delta": {
+    "x": -17.866508829345232,
+    "y": -2.413894805318626
+   },
+   "expected": {
+    "x": 144,
+    "y": 45.58610519468137
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 48,
+    "y": 16
+   },
+   "delta": {
+    "x": 17.93540919103446,
+    "y": 0.4222737161546375
+   },
+   "expected": {
+    "x": 65.93540919103447,
+    "y": 16.42227371615464
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 304,
+    "y": 80
+   },
+   "delta": {
+    "x": -3.6556990182286597,
+    "y": -1.3333993690709578
+   },
+   "expected": {
+    "x": 300.3443009817713,
+    "y": 78.66660063092904
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 56.25,
+    "y": 138.5
+   },
+   "delta": {
+    "x": 16.438855974208032,
+    "y": 7.852358514374287
+   },
+   "expected": {
+    "x": 72.68885597420802,
+    "y": 146.3523585143743
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 306.25,
+    "y": 183.5
+   },
+   "delta": {
+    "x": -3.4283884537538456,
+    "y": 19.075257759110656
+   },
+   "expected": {
+    "x": 302.8216115462462,
+    "y": 202.57525775911066
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 144,
+    "y": 16
+   },
+   "delta": {
+    "x": -4.685276888630017,
+    "y": 14.551332795317906
+   },
+   "expected": {
+    "x": 144,
+    "y": 30.551332795317904
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 176,
+    "y": 80
+   },
+   "delta": {
+    "x": -17.43010675414936,
+    "y": 12.195783011706446
+   },
+   "expected": {
+    "x": 158.56989324585064,
+    "y": 92.19578301170645
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 305.25,
+    "y": 153.5
+   },
+   "delta": {
+    "x": -5.762377318815504,
+    "y": -8.275597332173772
+   },
+   "expected": {
+    "x": 299.4876226811845,
+    "y": 145.22440266782624
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 80,
+    "y": 16
+   },
+   "delta": {
+    "x": -15.170374622182162,
+    "y": -8.4862750156253
+   },
+   "expected": {
+    "x": 64.82962537781783,
+    "y": 16
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 272.25,
+    "y": 60.5
+   },
+   "delta": {
+    "x": -13.602468256653504,
+    "y": -16.683989575451236
+   },
+   "expected": {
+    "x": 258.6475317433465,
+    "y": 60.5
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 82.25,
+    "y": 215.5
+   },
+   "delta": {
+    "x": 17.462814374576702,
+    "y": 17.521193510629793
+   },
+   "expected": {
+    "x": 99.71281437457671,
+    "y": 233.0211935106298
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 144,
+    "y": 240
+   },
+   "delta": {
+    "x": 9.070559027171953,
+    "y": 8.885569679031882
+   },
+   "expected": {
+    "x": 153.07055902717195,
+    "y": 240
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 304,
+    "y": 16
+   },
+   "delta": {
+    "x": 8.327665826458329,
+    "y": 3.079545285124121
+   },
+   "expected": {
+    "x": 304,
+    "y": 19.07954528512412
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 144,
+    "y": 144
+   },
+   "delta": {
+    "x": -18.286540917254307,
+    "y": 18.106803706896866
+   },
+   "expected": {
+    "x": 144,
+    "y": 162.10680370689687
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 170.25,
+    "y": 176.5
+   },
+   "delta": {
+    "x": -3.207130424309117,
+    "y": 17.75895863667082
+   },
+   "expected": {
+    "x": 167.04286957569087,
+    "y": 194.25895863667083
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 80,
+    "y": 16
+   },
+   "delta": {
+    "x": 8.197886193263294,
+    "y": -18.12674982386024
+   },
+   "expected": {
+    "x": 80,
+    "y": 16
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 16,
+    "y": 48
+   },
+   "delta": {
+    "x": -4.939558741142768,
+    "y": -19.16376238649886
+   },
+   "expected": {
+    "x": 16,
+    "y": 28.83623761350114
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 106.25,
+    "y": 196.5
+   },
+   "delta": {
+    "x": 4.592967156596934,
+    "y": -6.000999075361062
+   },
+   "expected": {
+    "x": 110.84296715659693,
+    "y": 196.5
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 16,
+    "y": 240
+   },
+   "delta": {
+    "x": 12.292441200601143,
+    "y": -0.9407414965986938
+   },
+   "expected": {
+    "x": 28.292441200601143,
+    "y": 239.0592585034013
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 50.25,
+    "y": 225.5
+   },
+   "delta": {
+    "x": -18.129998947554267,
+    "y": 9.107688455426919
+   },
+   "expected": {
+    "x": 32.12000105244573,
+    "y": 234.6076884554269
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 80,
+    "y": 176
+   },
+   "delta": {
+    "x": 17.059749661506967,
+    "y": 3.212560947617775
+   },
+   "expected": {
+    "x": 80,
+    "y": 179.2125609476178
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 80,
+    "y": 80
+   },
+   "delta": {
+    "x": 16.168935241256346,
+    "y": -8.705400204614458
+   },
+   "expected": {
+    "x": 80,
+    "y": 71.29459979538554
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 243.25,
+    "y": 40.5
+   },
+   "delta": {
+    "x": 2.4881366745047906,
+    "y": 18.11308840201846
+   },
+   "expected": {
+    "x": 245.7381366745048,
+    "y": 58.61308840201846
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 27.25,
+    "y": 99.5
+   },
+   "delta": {
+    "x": 17.79070395873427,
+    "y": 8.36143444681607
+   },
+   "expected": {
+    "x": 45.04070395873427,
+    "y": 107.86143444681608
+   }
+  },
+  {
+   "map": "tiny",
+   "position": {
+    "x": 266.25,
+    "y": 106.5
+   },
+   "delta": {
+    "x": 15.510809438075315,
+    "y": 10.174225731833943
+   },
+   "expected": {
+    "x": 281.76080943807534,
+    "y": 116.67422573183394
+   }
+  }
+ ],
+ "advance": [
+  {
+   "position": {
+    "x": 150,
+    "y": 720
+   },
+   "waypoints": [
+    {
+     "x": 600,
+     "y": 700
+    }
+   ],
+   "maxDistance": 8,
+   "expected": {
+    "position": {
+     "x": 157.99211045172967,
+     "y": 719.6447950910342
+    },
+    "remaining": [
+     {
+      "x": 600,
+      "y": 700
+     }
+    ]
+   }
+  },
+  {
+   "position": {
+    "x": 150,
+    "y": 720
+   },
+   "waypoints": [
+    {
+     "x": 600,
+     "y": 700
+    }
+   ],
+   "maxDistance": 1000000,
+   "expected": {
+    "position": {
+     "x": 600,
+     "y": 700
+    },
+    "remaining": []
+   }
+  },
+  {
+   "position": {
+    "x": 150,
+    "y": 720
+   },
+   "waypoints": [
+    {
+     "x": 600,
+     "y": 700
+    }
+   ],
+   "maxDistance": 0,
+   "expected": {
+    "position": {
+     "x": 150,
+     "y": 720
+    },
+    "remaining": [
+     {
+      "x": 600,
+      "y": 700
+     }
+    ]
+   }
+  },
+  {
+   "position": {
+    "x": 0,
+    "y": 0
+   },
+   "waypoints": [
+    {
+     "x": 0,
+     "y": 0
+    },
+    {
+     "x": 3,
+     "y": 4
+    },
+    {
+     "x": 3,
+     "y": 10
+    }
+   ],
+   "maxDistance": 7,
+   "expected": {
+    "position": {
+     "x": 3,
+     "y": 6
+    },
+    "remaining": [
+     {
+      "x": 3,
+      "y": 10
+     }
+    ]
+   }
+  },
+  {
+   "position": {
+    "x": 0,
+    "y": 0
+   },
+   "waypoints": [
+    {
+     "x": 10,
+     "y": 0
+    }
+   ],
+   "maxDistance": -5,
+   "expected": {
+    "position": {
+     "x": 0,
+     "y": 0
+    },
+    "remaining": [
+     {
+      "x": 10,
+      "y": 0
+     }
+    ]
+   }
+  }
+ ]
+}

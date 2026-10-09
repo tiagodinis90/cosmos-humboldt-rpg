@@ -1,0 +1,6015 @@
+{
+ "scenarios": [
+  {
+   "name": "bonpland help then lose the argument",
+   "start": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "steps": [
+    {
+     "type": "open",
+     "id": "bonpland"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.help"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.walls",
+     "dice": [
+      0,
+      0
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.leave"
+    },
+    {
+     "type": "close"
+    },
+    {
+     "type": "skills",
+     "skills": {
+      "empathy": 6
+     }
+    },
+    {
+     "type": "open",
+     "id": "bonpland"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.leave"
+    },
+    {
+     "type": "close"
+    }
+   ],
+   "records": [
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_open",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_greet",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics"
+     ],
+     "available": [
+      "bon.help",
+      "bon.method",
+      "bon.walls",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.helped",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.help",
+      "line:bon.helped"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.help",
+      "line:bon.helped"
+     ],
+     "available": [
+      "bon.method",
+      "bon.walls",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.walls_no",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.help",
+      "line:bon.helped",
+      "choice:bon.walls",
+      "roll:bonpland_priorities:false",
+      "line:bon.walls_no"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.help",
+      "line:bon.helped",
+      "choice:bon.walls",
+      "roll:bonpland_priorities:false",
+      "line:bon.walls_no"
+     ],
+     "available": [
+      "bon.method",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_end",
+     "finished": true,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.help",
+      "line:bon.helped",
+      "choice:bon.walls",
+      "roll:bonpland_priorities:false",
+      "line:bon.walls_no",
+      "choice:bon.leave",
+      "line:bon.jul_end"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "bonpland_helped_press",
+      "bonpland_priorities_argued",
+      "bonpland_resents_priorities"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": [
+       "bonpland_priorities"
+      ]
+     },
+     "evidence": [],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "bonpland_helped_press",
+      "bonpland_priorities_argued",
+      "bonpland_resents_priorities"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": [
+       "bonpland_priorities"
+      ]
+     },
+     "evidence": [],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "bonpland_helped_press",
+      "bonpland_priorities_argued",
+      "bonpland_resents_priorities"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": [
+       "bonpland_priorities"
+      ]
+     },
+     "evidence": [],
+     "node": "bon.jul_open",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "bonpland_helped_press",
+      "bonpland_priorities_argued",
+      "bonpland_resents_priorities"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": [
+       "bonpland_priorities"
+      ]
+     },
+     "evidence": [],
+     "node": "bon.jul_greet",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "bonpland_helped_press",
+      "bonpland_priorities_argued",
+      "bonpland_resents_priorities"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": [
+       "bonpland_priorities"
+      ]
+     },
+     "evidence": [],
+     "node": "bon.jul_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics"
+     ],
+     "available": [
+      "bon.method",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "bonpland_helped_press",
+      "bonpland_priorities_argued",
+      "bonpland_resents_priorities"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": [
+       "bonpland_priorities"
+      ]
+     },
+     "evidence": [],
+     "node": "bon.jul_end",
+     "finished": true,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.leave",
+      "line:bon.jul_end"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "bonpland_helped_press",
+      "bonpland_priorities_argued",
+      "bonpland_resents_priorities"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": [
+       "bonpland_priorities"
+      ]
+     },
+     "evidence": [],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "bonpland wins the argument and asks his method",
+   "start": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "steps": [
+    {
+     "type": "open",
+     "id": "bonpland"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.walls",
+     "dice": [
+      0.9999,
+      0.9999
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.method"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.leave"
+    },
+    {
+     "type": "close"
+    }
+   ],
+   "records": [
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_open",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_greet",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics"
+     ],
+     "available": [
+      "bon.help",
+      "bon.method",
+      "bon.walls",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.walls_yes",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.walls",
+      "roll:bonpland_priorities:true",
+      "line:bon.walls_yes"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.walls",
+      "roll:bonpland_priorities:true",
+      "line:bon.walls_yes"
+     ],
+     "available": [
+      "bon.help",
+      "bon.method",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.method_answer",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.walls",
+      "roll:bonpland_priorities:true",
+      "line:bon.walls_yes",
+      "choice:bon.method",
+      "line:bon.method_answer"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.walls",
+      "roll:bonpland_priorities:true",
+      "line:bon.walls_yes",
+      "choice:bon.method",
+      "line:bon.method_answer"
+     ],
+     "available": [
+      "bon.help",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.jul_end",
+     "finished": true,
+     "transcript": [
+      "line:bon.jul_open",
+      "line:bon.jul_greet",
+      "insight:bon.empathy",
+      "insight:bon.logic",
+      "insight:bon.aesthetics",
+      "choice:bon.walls",
+      "roll:bonpland_priorities:true",
+      "line:bon.walls_yes",
+      "choice:bon.method",
+      "line:bon.method_answer",
+      "choice:bon.leave",
+      "line:bon.jul_end"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "bonpland_priorities_argued",
+      "bonpland_will_assist_survey",
+      "bonpland_method_asked"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": [
+       "bonpland_priorities"
+      ]
+     },
+     "evidence": [
+      {
+       "id": "bonpland_priority",
+       "kind": "testimony",
+       "basis": null
+      },
+      {
+       "id": "bonpland_assist",
+       "kind": "observation",
+       "basis": null
+      }
+     ],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "bonpland november with care",
+   "start": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_bonpland_care",
+     "ines_refused_publication"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "steps": [
+    {
+     "type": "open",
+     "id": "bonpland"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.nov_ines"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.nov_write"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.nov_leave"
+    },
+    {
+     "type": "close"
+    }
+   ],
+   "records": [
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_bonpland_care",
+      "ines_refused_publication"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.nov_open",
+     "finished": false,
+     "transcript": [
+      "line:bon.nov_open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_bonpland_care",
+      "ines_refused_publication"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.nov_care",
+     "finished": false,
+     "transcript": [
+      "line:bon.nov_open",
+      "line:bon.nov_care"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_bonpland_care",
+      "ines_refused_publication"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.nov_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.nov_open",
+      "line:bon.nov_care"
+     ],
+     "available": [
+      "bon.nov_write",
+      "bon.nov_ines",
+      "bon.nov_leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_bonpland_care",
+      "ines_refused_publication"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.nov_ines_no",
+     "finished": false,
+     "transcript": [
+      "line:bon.nov_open",
+      "line:bon.nov_care",
+      "choice:bon.nov_ines",
+      "line:bon.nov_ines_no"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_bonpland_care",
+      "ines_refused_publication"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.nov_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.nov_open",
+      "line:bon.nov_care",
+      "choice:bon.nov_ines",
+      "line:bon.nov_ines_no"
+     ],
+     "available": [
+      "bon.nov_write",
+      "bon.nov_leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_bonpland_care",
+      "ines_refused_publication"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.nov_write_answer",
+     "finished": false,
+     "transcript": [
+      "line:bon.nov_open",
+      "line:bon.nov_care",
+      "choice:bon.nov_ines",
+      "line:bon.nov_ines_no",
+      "choice:bon.nov_write",
+      "line:bon.nov_write_answer"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_bonpland_care",
+      "ines_refused_publication"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.nov_options",
+     "finished": false,
+     "transcript": [
+      "line:bon.nov_open",
+      "line:bon.nov_care",
+      "choice:bon.nov_ines",
+      "line:bon.nov_ines_no",
+      "choice:bon.nov_write",
+      "line:bon.nov_write_answer"
+     ],
+     "available": [
+      "bon.nov_leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_bonpland_care",
+      "ines_refused_publication"
+     ],
+     "activeEncounter": "bonpland",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "bon.nov_end",
+     "finished": true,
+     "transcript": [
+      "line:bon.nov_open",
+      "line:bon.nov_care",
+      "choice:bon.nov_ines",
+      "line:bon.nov_ines_no",
+      "choice:bon.nov_write",
+      "line:bon.nov_write_answer",
+      "choice:bon.nov_leave",
+      "line:bon.nov_end"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_bonpland_care",
+      "ines_refused_publication",
+      "bonpland_naming_asked",
+      "bonpland_letter_asked"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": []
+     },
+     "evidence": [],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "instruments full",
+   "start": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "steps": [
+    {
+     "type": "open",
+     "id": "instruments"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.sun"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.shade",
+     "dice": [
+      0.9999,
+      0.9999
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.compare"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.sky"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.sky_conditions"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.close"
+    },
+    {
+     "type": "close"
+    }
+   ],
+   "records": [
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.open",
+     "finished": false,
+     "transcript": [
+      "line:inst.open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political"
+     ],
+     "available": [
+      "inst.sun",
+      "inst.shade",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.sun_result",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result"
+     ],
+     "available": [
+      "inst.shade",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.shade_good",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:true",
+      "line:inst.shade_good"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:true",
+      "line:inst.shade_good"
+     ],
+     "available": [
+      "inst.compare",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.compare_good",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:true",
+      "line:inst.shade_good",
+      "choice:inst.compare",
+      "line:inst.compare_good"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:true",
+      "line:inst.shade_good",
+      "choice:inst.compare",
+      "line:inst.compare_good"
+     ],
+     "available": [
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.sky_result",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:true",
+      "line:inst.shade_good",
+      "choice:inst.compare",
+      "line:inst.compare_good",
+      "choice:inst.sky",
+      "line:inst.sky_result"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.sky_choice",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:true",
+      "line:inst.shade_good",
+      "choice:inst.compare",
+      "line:inst.compare_good",
+      "choice:inst.sky",
+      "line:inst.sky_result"
+     ],
+     "available": [
+      "inst.sky_conditions",
+      "inst.sky_number"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.sky_logged",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:true",
+      "line:inst.shade_good",
+      "choice:inst.compare",
+      "line:inst.compare_good",
+      "choice:inst.sky",
+      "line:inst.sky_result",
+      "choice:inst.sky_conditions",
+      "line:inst.sky_logged"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:true",
+      "line:inst.shade_good",
+      "choice:inst.compare",
+      "line:inst.compare_good",
+      "choice:inst.sky",
+      "line:inst.sky_result",
+      "choice:inst.sky_conditions",
+      "line:inst.sky_logged"
+     ],
+     "available": [
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.end",
+     "finished": true,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic",
+      "insight:inst.aesthetics",
+      "insight:inst.empathy",
+      "insight:inst.political",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:true",
+      "line:inst.shade_good",
+      "choice:inst.compare",
+      "line:inst.compare_good",
+      "choice:inst.sky",
+      "line:inst.sky_result",
+      "choice:inst.sky_conditions",
+      "line:inst.sky_logged",
+      "choice:inst.close",
+      "line:inst.end"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "reading_sun",
+      "reading_shade",
+      "reading_shade_reliable",
+      "paired_compared",
+      "cumana_repeatability",
+      "sky_read",
+      "cyanometer_conditions"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_shade_reading": 2
+      },
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "scene_sand_sun",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_shade_air",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_exposure",
+       "kind": "inference",
+       "basis": [
+        "scene_sand_sun",
+        "scene_shade_air"
+       ]
+      },
+      {
+       "id": "scene_cyanometer",
+       "kind": "measurement",
+       "basis": null
+      }
+     ],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "instruments white check locked across conversations",
+   "start": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "steps": [
+    {
+     "type": "open",
+     "id": "instruments"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.shade",
+     "dice": [
+      0,
+      0
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.compare"
+    },
+    {
+     "type": "choose",
+     "id": "inst.sun"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.compare"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.sky"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.sky_number"
+    },
+    {
+     "type": "choose",
+     "id": "inst.close"
+    },
+    {
+     "type": "close"
+    },
+    {
+     "type": "open",
+     "id": "instruments"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.close"
+    },
+    {
+     "type": "close"
+    },
+    {
+     "type": "skills",
+     "skills": {
+      "logic": 2
+     }
+    },
+    {
+     "type": "open",
+     "id": "instruments"
+    },
+    {
+     "type": "continue"
+    }
+   ],
+   "records": [
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.open",
+     "finished": false,
+     "transcript": [
+      "line:inst.open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open"
+     ],
+     "available": [
+      "inst.sun",
+      "inst.shade",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.shade_poor",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor"
+     ],
+     "available": [
+      "inst.sun",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor"
+     ],
+     "available": [
+      "inst.sun",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": "Unavailable dialogue choice: inst.compare"
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.sun_result",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor",
+      "choice:inst.sun",
+      "line:inst.sun_result"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor",
+      "choice:inst.sun",
+      "line:inst.sun_result"
+     ],
+     "available": [
+      "inst.compare",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.compare_doubt",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.compare",
+      "line:inst.compare_doubt"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.compare",
+      "line:inst.compare_doubt"
+     ],
+     "available": [
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.sky_result",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.compare",
+      "line:inst.compare_doubt",
+      "choice:inst.sky",
+      "line:inst.sky_result"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.sky_choice",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.compare",
+      "line:inst.compare_doubt",
+      "choice:inst.sky",
+      "line:inst.sky_result"
+     ],
+     "available": [
+      "inst.sky_conditions",
+      "inst.sky_number"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.compare",
+      "line:inst.compare_doubt",
+      "choice:inst.sky",
+      "line:inst.sky_result",
+      "choice:inst.sky_number"
+     ],
+     "available": [
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "inst.end",
+     "finished": true,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.shade",
+      "roll:cumana_shade_reading:false",
+      "line:inst.shade_poor",
+      "choice:inst.sun",
+      "line:inst.sun_result",
+      "choice:inst.compare",
+      "line:inst.compare_doubt",
+      "choice:inst.sky",
+      "line:inst.sky_result",
+      "choice:inst.sky_number",
+      "choice:inst.close",
+      "line:inst.end"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "reading_shade",
+      "reading_shade_doubtful",
+      "reading_sun",
+      "paired_compared",
+      "sky_read"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_shade_reading": 1
+      },
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "scene_sand_sun",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_shade_wall",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_exposure",
+       "kind": "inference",
+       "basis": [
+        "scene_sand_sun",
+        "scene_shade_wall"
+       ]
+      },
+      {
+       "id": "scene_cyanometer",
+       "kind": "measurement",
+       "basis": null
+      }
+     ],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "reading_shade",
+      "reading_shade_doubtful",
+      "reading_sun",
+      "paired_compared",
+      "sky_read"
+     ],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_shade_reading": 1
+      },
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "scene_sand_sun",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_shade_wall",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_exposure",
+       "kind": "inference",
+       "basis": [
+        "scene_sand_sun",
+        "scene_shade_wall"
+       ]
+      },
+      {
+       "id": "scene_cyanometer",
+       "kind": "measurement",
+       "basis": null
+      }
+     ],
+     "node": "inst.open",
+     "finished": false,
+     "transcript": [
+      "line:inst.open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "reading_shade",
+      "reading_shade_doubtful",
+      "reading_sun",
+      "paired_compared",
+      "sky_read"
+     ],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_shade_reading": 1
+      },
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "scene_sand_sun",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_shade_wall",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_exposure",
+       "kind": "inference",
+       "basis": [
+        "scene_sand_sun",
+        "scene_shade_wall"
+       ]
+      },
+      {
+       "id": "scene_cyanometer",
+       "kind": "measurement",
+       "basis": null
+      }
+     ],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open"
+     ],
+     "available": [
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "reading_shade",
+      "reading_shade_doubtful",
+      "reading_sun",
+      "paired_compared",
+      "sky_read"
+     ],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_shade_reading": 1
+      },
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "scene_sand_sun",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_shade_wall",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_exposure",
+       "kind": "inference",
+       "basis": [
+        "scene_sand_sun",
+        "scene_shade_wall"
+       ]
+      },
+      {
+       "id": "scene_cyanometer",
+       "kind": "measurement",
+       "basis": null
+      }
+     ],
+     "node": "inst.end",
+     "finished": true,
+     "transcript": [
+      "line:inst.open",
+      "choice:inst.close",
+      "line:inst.end"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "reading_shade",
+      "reading_shade_doubtful",
+      "reading_sun",
+      "paired_compared",
+      "sky_read"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_shade_reading": 1
+      },
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "scene_sand_sun",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_shade_wall",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_exposure",
+       "kind": "inference",
+       "basis": [
+        "scene_sand_sun",
+        "scene_shade_wall"
+       ]
+      },
+      {
+       "id": "scene_cyanometer",
+       "kind": "measurement",
+       "basis": null
+      }
+     ],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "reading_shade",
+      "reading_shade_doubtful",
+      "reading_sun",
+      "paired_compared",
+      "sky_read"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_shade_reading": 1
+      },
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "scene_sand_sun",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_shade_wall",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_exposure",
+       "kind": "inference",
+       "basis": [
+        "scene_sand_sun",
+        "scene_shade_wall"
+       ]
+      },
+      {
+       "id": "scene_cyanometer",
+       "kind": "measurement",
+       "basis": null
+      }
+     ],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "reading_shade",
+      "reading_shade_doubtful",
+      "reading_sun",
+      "paired_compared",
+      "sky_read"
+     ],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_shade_reading": 1
+      },
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "scene_sand_sun",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_shade_wall",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_exposure",
+       "kind": "inference",
+       "basis": [
+        "scene_sand_sun",
+        "scene_shade_wall"
+       ]
+      },
+      {
+       "id": "scene_cyanometer",
+       "kind": "measurement",
+       "basis": null
+      }
+     ],
+     "node": "inst.open",
+     "finished": false,
+     "transcript": [
+      "line:inst.open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "reading_shade",
+      "reading_shade_doubtful",
+      "reading_sun",
+      "paired_compared",
+      "sky_read"
+     ],
+     "activeEncounter": "instruments",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_shade_reading": 1
+      },
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "scene_sand_sun",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_shade_wall",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "scene_exposure",
+       "kind": "inference",
+       "basis": [
+        "scene_sand_sun",
+        "scene_shade_wall"
+       ]
+      },
+      {
+       "id": "scene_cyanometer",
+       "kind": "measurement",
+       "basis": null
+      }
+     ],
+     "node": "inst.options",
+     "finished": false,
+     "transcript": [
+      "line:inst.open",
+      "insight:inst.logic"
+     ],
+     "available": [
+      "inst.shade",
+      "inst.close"
+     ],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "ines november remembers",
+   "start": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_aided_neighbours",
+     "ines_consented_publication"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "steps": [
+    {
+     "type": "open",
+     "id": "ines-november"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "ines.helped"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "ines.groves"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "ines.record"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "ines.repairs"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "ines.leave"
+    },
+    {
+     "type": "close"
+    }
+   ],
+   "records": [
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.open",
+     "finished": false,
+     "transcript": [
+      "line:ines.open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.warm",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.options",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy"
+     ],
+     "available": [
+      "ines.repairs",
+      "ines.helped",
+      "ines.groves",
+      "ines.record",
+      "ines.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.helped_answer",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy",
+      "choice:ines.helped",
+      "line:ines.helped_answer"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.options",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy",
+      "choice:ines.helped",
+      "line:ines.helped_answer"
+     ],
+     "available": [
+      "ines.repairs",
+      "ines.groves",
+      "ines.record",
+      "ines.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.groves_answer",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy",
+      "choice:ines.helped",
+      "line:ines.helped_answer",
+      "choice:ines.groves",
+      "line:ines.groves_answer"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.options",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy",
+      "choice:ines.helped",
+      "line:ines.helped_answer",
+      "choice:ines.groves",
+      "line:ines.groves_answer"
+     ],
+     "available": [
+      "ines.repairs",
+      "ines.record",
+      "ines.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.record_answer",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy",
+      "choice:ines.helped",
+      "line:ines.helped_answer",
+      "choice:ines.groves",
+      "line:ines.groves_answer",
+      "choice:ines.record",
+      "line:ines.record_answer"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.options",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy",
+      "choice:ines.helped",
+      "line:ines.helped_answer",
+      "choice:ines.groves",
+      "line:ines.groves_answer",
+      "choice:ines.record",
+      "line:ines.record_answer"
+     ],
+     "available": [
+      "ines.repairs",
+      "ines.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.repairs_answer",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy",
+      "choice:ines.helped",
+      "line:ines.helped_answer",
+      "choice:ines.groves",
+      "line:ines.groves_answer",
+      "choice:ines.record",
+      "line:ines.record_answer",
+      "choice:ines.repairs",
+      "line:ines.repairs_answer"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.options",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy",
+      "choice:ines.helped",
+      "line:ines.helped_answer",
+      "choice:ines.groves",
+      "line:ines.groves_answer",
+      "choice:ines.record",
+      "line:ines.record_answer",
+      "choice:ines.repairs",
+      "line:ines.repairs_answer"
+     ],
+     "available": [
+      "ines.leave"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "ines.end",
+     "finished": true,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.warm",
+      "insight:ines.political",
+      "insight:ines.empathy",
+      "choice:ines.helped",
+      "line:ines.helped_answer",
+      "choice:ines.groves",
+      "line:ines.groves_answer",
+      "choice:ines.record",
+      "line:ines.record_answer",
+      "choice:ines.repairs",
+      "line:ines.repairs_answer",
+      "choice:ines.leave",
+      "line:ines.end"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "cumana_aided_neighbours",
+      "ines_consented_publication",
+      "ines_acknowledged_help",
+      "deforestation_testimony",
+      "ines_bell_record",
+      "ines_repair_order"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {},
+      "red": []
+     },
+     "evidence": [
+      {
+       "id": "cumana_repair_order",
+       "kind": "testimony",
+       "basis": null
+      },
+      {
+       "id": "cumana_dry_groves",
+       "kind": "testimony",
+       "basis": null
+      },
+      {
+       "id": "cumana_bell_record",
+       "kind": "testimony",
+       "basis": null
+      }
+     ],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "wall survey in the scene",
+   "start": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "pattern_recurs",
+     "cumana_repeatability"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "steps": [
+    {
+     "type": "open",
+     "id": "wall-survey"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "street.measure",
+     "dice": [
+      0.5,
+      0.5
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "street.ask",
+     "dice": [
+      0,
+      0.1
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "street.odd"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "street.close"
+    },
+    {
+     "type": "close"
+    },
+    {
+     "type": "open",
+     "id": "ines-november"
+    },
+    {
+     "type": "continue"
+    }
+   ],
+   "records": [
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.intro",
+     "finished": false,
+     "transcript": [
+      "line:street.intro"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.unexpected",
+     "finished": false,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.options",
+     "finished": false,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected"
+     ],
+     "available": [
+      "street.measure",
+      "street.ask",
+      "street.odd",
+      "street.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.options",
+     "finished": false,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected"
+     ],
+     "available": [
+      "street.measure",
+      "street.ask",
+      "street.odd",
+      "street.close"
+     ],
+     "error": "Current card is not a line"
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.survey_success",
+     "finished": false,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected",
+      "choice:street.measure",
+      "roll:cumana_wall_survey:true",
+      "line:street.survey_success"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.options",
+     "finished": false,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected",
+      "choice:street.measure",
+      "roll:cumana_wall_survey:true",
+      "line:street.survey_success"
+     ],
+     "available": [
+      "street.ask",
+      "street.odd",
+      "street.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.permission_denied",
+     "finished": false,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected",
+      "choice:street.measure",
+      "roll:cumana_wall_survey:true",
+      "line:street.survey_success",
+      "choice:street.ask",
+      "roll:ines_publication_consent:false",
+      "line:street.permission_denied"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.options",
+     "finished": false,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected",
+      "choice:street.measure",
+      "roll:cumana_wall_survey:true",
+      "line:street.survey_success",
+      "choice:street.ask",
+      "roll:ines_publication_consent:false",
+      "line:street.permission_denied"
+     ],
+     "available": [
+      "street.odd",
+      "street.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.pattern_note",
+     "finished": false,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected",
+      "choice:street.measure",
+      "roll:cumana_wall_survey:true",
+      "line:street.survey_success",
+      "choice:street.ask",
+      "roll:ines_publication_consent:false",
+      "line:street.permission_denied",
+      "choice:street.odd",
+      "line:street.pattern_note"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.options",
+     "finished": false,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected",
+      "choice:street.measure",
+      "roll:cumana_wall_survey:true",
+      "line:street.survey_success",
+      "choice:street.ask",
+      "roll:ines_publication_consent:false",
+      "line:street.permission_denied",
+      "choice:street.odd",
+      "line:street.pattern_note"
+     ],
+     "available": [
+      "street.close"
+     ],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability"
+     ],
+     "activeEncounter": "wall-survey",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": null,
+     "evidence": [],
+     "node": "street.end",
+     "finished": true,
+     "transcript": [
+      "line:street.intro",
+      "insight:street.logic",
+      "insight:street.empathy",
+      "insight:street.aesthetics",
+      "insight:street.political",
+      "line:street.unexpected",
+      "choice:street.measure",
+      "roll:cumana_wall_survey:true",
+      "line:street.survey_success",
+      "choice:street.ask",
+      "roll:ines_publication_consent:false",
+      "line:street.permission_denied",
+      "choice:street.odd",
+      "line:street.pattern_note",
+      "choice:street.close",
+      "line:street.end"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability",
+      "wall_survey_attempted",
+      "wall_survey_reliable",
+      "publication_permission_requested",
+      "ines_refused_publication",
+      "correspondence_provisional",
+      "cumana_survey_complete"
+     ],
+     "activeEncounter": null,
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_wall_survey": 4
+      },
+      "red": [
+       "ines_publication_consent"
+      ]
+     },
+     "evidence": [
+      {
+       "id": "cumana_wall_baseline",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "cumana_ines_unnamed",
+       "kind": "testimony",
+       "basis": null
+      },
+      {
+       "id": "cumana_branching_pattern",
+       "kind": "hypothesis",
+       "basis": null
+      }
+     ],
+     "node": null,
+     "finished": null,
+     "transcript": [],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability",
+      "wall_survey_attempted",
+      "wall_survey_reliable",
+      "publication_permission_requested",
+      "ines_refused_publication",
+      "correspondence_provisional",
+      "cumana_survey_complete"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_wall_survey": 4
+      },
+      "red": [
+       "ines_publication_consent"
+      ]
+     },
+     "evidence": [
+      {
+       "id": "cumana_wall_baseline",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "cumana_ines_unnamed",
+       "kind": "testimony",
+       "basis": null
+      },
+      {
+       "id": "cumana_branching_pattern",
+       "kind": "hypothesis",
+       "basis": null
+      }
+     ],
+     "node": "ines.open",
+     "finished": false,
+     "transcript": [
+      "line:ines.open"
+     ],
+     "available": [],
+     "error": null
+    },
+    {
+     "flags": [
+      "cumana_fieldwork_complete",
+      "pattern_recurs",
+      "cumana_repeatability",
+      "wall_survey_attempted",
+      "wall_survey_reliable",
+      "publication_permission_requested",
+      "ines_refused_publication",
+      "correspondence_provisional",
+      "cumana_survey_complete"
+     ],
+     "activeEncounter": "ines-november",
+     "bonpland": {
+      "relationship": 0,
+      "morale": 80
+     },
+     "checks": {
+      "white": {
+       "cumana_wall_survey": 4
+      },
+      "red": [
+       "ines_publication_consent"
+      ]
+     },
+     "evidence": [
+      {
+       "id": "cumana_wall_baseline",
+       "kind": "measurement",
+       "basis": null
+      },
+      {
+       "id": "cumana_ines_unnamed",
+       "kind": "testimony",
+       "basis": null
+      },
+      {
+       "id": "cumana_branching_pattern",
+       "kind": "hypothesis",
+       "basis": null
+      }
+     ],
+     "node": "ines.cool",
+     "finished": false,
+     "transcript": [
+      "line:ines.open",
+      "line:ines.cool"
+     ],
+     "available": [],
+     "error": null
+    }
+   ]
+  }
+ ],
+ "routing": [
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "ines",
+   "expected": {
+    "kind": "chapter"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "bonpland",
+   "expected": {
+    "kind": "encounter",
+    "id": "bonpland"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "field-case",
+   "expected": {
+    "kind": "encounter",
+    "id": "instruments"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "damaged-wall",
+   "expected": {
+    "kind": "remark",
+    "text": "Repairs from the 1797 earthquake: the newer stones are paler and set at a slightly different angle. Inés would know which houses were rebuilt, and who paid.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "quay",
+   "expected": {
+    "kind": "remark",
+    "text": "Pirogues are unloading salt and dried fish. At the end of the pier a clerk counts barrels into a ledger. The men carrying them are not in it.",
+    "voice": {
+     "skill": "political",
+     "text": "The customs house stands nearer the water than the church does. That tells you what the town was built for."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "plaza",
+   "expected": {
+    "kind": "remark",
+    "text": "Your rented house faces this square. Every morning young African men and women are put up for sale here, oiled and paraded, and buyers pull their mouths open to look at their teeth.",
+    "voice": {
+     "skill": "political",
+     "text": "Church, cabildo and auction block, all within sight of one another. The arrangement is not an accident."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "nowhere",
+   "expected": {
+    "kind": "remark",
+    "text": "There is nothing more to do here for now.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 0,
+      "y": 0
+     },
+     "heading": 0,
+     "visits": {
+      "plaza": 2,
+      "quay": 1
+     }
+    }
+   },
+   "hotspot": "ines",
+   "expected": {
+    "kind": "chapter"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 0,
+      "y": 0
+     },
+     "heading": 0,
+     "visits": {
+      "plaza": 2,
+      "quay": 1
+     }
+    }
+   },
+   "hotspot": "bonpland",
+   "expected": {
+    "kind": "encounter",
+    "id": "bonpland"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 0,
+      "y": 0
+     },
+     "heading": 0,
+     "visits": {
+      "plaza": 2,
+      "quay": 1
+     }
+    }
+   },
+   "hotspot": "field-case",
+   "expected": {
+    "kind": "encounter",
+    "id": "instruments"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 0,
+      "y": 0
+     },
+     "heading": 0,
+     "visits": {
+      "plaza": 2,
+      "quay": 1
+     }
+    }
+   },
+   "hotspot": "damaged-wall",
+   "expected": {
+    "kind": "remark",
+    "text": "Repairs from the 1797 earthquake: the newer stones are paler and set at a slightly different angle. Inés would know which houses were rebuilt, and who paid.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 0,
+      "y": 0
+     },
+     "heading": 0,
+     "visits": {
+      "plaza": 2,
+      "quay": 1
+     }
+    }
+   },
+   "hotspot": "quay",
+   "expected": {
+    "kind": "remark",
+    "text": "The tide has turned. Two boats wait while the clerk argues with a third.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 0,
+      "y": 0
+     },
+     "heading": 0,
+     "visits": {
+      "plaza": 2,
+      "quay": 1
+     }
+    }
+   },
+   "hotspot": "plaza",
+   "expected": {
+    "kind": "remark",
+    "text": "Water carriers queue at the well. The order of the queue follows the households they work for.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 0,
+      "y": 0
+     },
+     "heading": 0,
+     "visits": {
+      "plaza": 2,
+      "quay": 1
+     }
+    }
+   },
+   "hotspot": "nowhere",
+   "expected": {
+    "kind": "remark",
+    "text": "There is nothing more to do here for now.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "ines",
+   "expected": {
+    "kind": "encounter",
+    "id": "ines-november"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "bonpland",
+   "expected": {
+    "kind": "encounter",
+    "id": "bonpland"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "field-case",
+   "expected": {
+    "kind": "encounter",
+    "id": "instruments"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "damaged-wall",
+   "expected": {
+    "kind": "encounter",
+    "id": "wall-survey"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "quay",
+   "expected": {
+    "kind": "remark",
+    "text": "A small open trading boat, about thirty feet long, is being caulked for the voyage west to Caracas. José de la Cruz is counting your trunks onto the sand and arguing with the owner about the weight.",
+    "voice": {
+     "skill": "political",
+     "text": "The customs house stands nearer the water than the church does. That tells you what the town was built for."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "plaza",
+   "expected": {
+    "kind": "remark",
+    "text": "Cracks run up the front of the church. Since the earthquake, mass has been said outside, under the market awnings.",
+    "voice": {
+     "skill": "political",
+     "text": "Church, cabildo and auction block, all within sight of one another. The arrangement is not an accident."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "nowhere",
+   "expected": {
+    "kind": "remark",
+    "text": "There is nothing more to do here for now.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_reliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "ines",
+   "expected": {
+    "kind": "encounter",
+    "id": "ines-november"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_reliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "bonpland",
+   "expected": {
+    "kind": "encounter",
+    "id": "bonpland"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_reliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "field-case",
+   "expected": {
+    "kind": "encounter",
+    "id": "instruments"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_reliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "damaged-wall",
+   "expected": {
+    "kind": "remark",
+    "text": "The masons have started. They agreed to work around your chalk baseline on the lowest course, and complained about it all morning.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_reliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "quay",
+   "expected": {
+    "kind": "remark",
+    "text": "A small open trading boat, about thirty feet long, is being caulked for the voyage west to Caracas. José de la Cruz is counting your trunks onto the sand and arguing with the owner about the weight.",
+    "voice": {
+     "skill": "political",
+     "text": "The customs house stands nearer the water than the church does. That tells you what the town was built for."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_reliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "plaza",
+   "expected": {
+    "kind": "remark",
+    "text": "Cracks run up the front of the church. Since the earthquake, mass has been said outside, under the market awnings.",
+    "voice": {
+     "skill": "political",
+     "text": "Church, cabildo and auction block, all within sight of one another. The arrangement is not an accident."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_reliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "nowhere",
+   "expected": {
+    "kind": "remark",
+    "text": "There is nothing more to do here for now.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_unreliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "ines",
+   "expected": {
+    "kind": "encounter",
+    "id": "ines-november"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_unreliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "bonpland",
+   "expected": {
+    "kind": "encounter",
+    "id": "bonpland"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_unreliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "field-case",
+   "expected": {
+    "kind": "encounter",
+    "id": "instruments"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_unreliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "damaged-wall",
+   "expected": {
+    "kind": "remark",
+    "text": "The masons are resetting the stones. Whatever the wall could have told you is in your notebook now, or nowhere.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_unreliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "quay",
+   "expected": {
+    "kind": "remark",
+    "text": "A small open trading boat, about thirty feet long, is being caulked for the voyage west to Caracas. José de la Cruz is counting your trunks onto the sand and arguing with the owner about the weight.",
+    "voice": {
+     "skill": "political",
+     "text": "The customs house stands nearer the water than the church does. That tells you what the town was built for."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_unreliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "plaza",
+   "expected": {
+    "kind": "remark",
+    "text": "Cracks run up the front of the church. Since the earthquake, mass has been said outside, under the market awnings.",
+    "voice": {
+     "skill": "political",
+     "text": "Church, cabildo and auction block, all within sight of one another. The arrangement is not an accident."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete",
+     "wall_survey_unreliable"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "nowhere",
+   "expected": {
+    "kind": "remark",
+    "text": "There is nothing more to do here for now.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "ines",
+   "expected": {
+    "kind": "encounter",
+    "id": "ines-november"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "bonpland",
+   "expected": {
+    "kind": "encounter",
+    "id": "bonpland"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "field-case",
+   "expected": {
+    "kind": "encounter",
+    "id": "instruments"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "damaged-wall",
+   "expected": {
+    "kind": "remark",
+    "text": "The masons are resetting the stones. You never measured the crack, and now it is mortar.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "quay",
+   "expected": {
+    "kind": "remark",
+    "text": "A small open trading boat, about thirty feet long, is being caulked for the voyage west to Caracas. José de la Cruz is counting your trunks onto the sand and arguing with the owner about the weight.",
+    "voice": {
+     "skill": "political",
+     "text": "The customs house stands nearer the water than the church does. That tells you what the town was built for."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "plaza",
+   "expected": {
+    "kind": "remark",
+    "text": "Cracks run up the front of the church. Since the earthquake, mass has been said outside, under the market awnings.",
+    "voice": {
+     "skill": "political",
+     "text": "Church, cabildo and auction block, all within sight of one another. The arrangement is not an accident."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "cumana_fieldwork_complete",
+     "cumana_survey_complete"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "nowhere",
+   "expected": {
+    "kind": "remark",
+    "text": "There is nothing more to do here for now.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "reading_shade_reliable",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "ines",
+   "expected": {
+    "kind": "chapter"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "reading_shade_reliable",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "bonpland",
+   "expected": {
+    "kind": "encounter",
+    "id": "bonpland"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "reading_shade_reliable",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "field-case",
+   "expected": {
+    "kind": "remark",
+    "text": "The case is packed again. Everything it can tell you today is in the fieldbook.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "reading_shade_reliable",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "damaged-wall",
+   "expected": {
+    "kind": "remark",
+    "text": "Repairs from the 1797 earthquake: the newer stones are paler and set at a slightly different angle. Inés would know which houses were rebuilt, and who paid.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "reading_shade_reliable",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "quay",
+   "expected": {
+    "kind": "remark",
+    "text": "Pirogues are unloading salt and dried fish. At the end of the pier a clerk counts barrels into a ledger. The men carrying them are not in it.",
+    "voice": {
+     "skill": "political",
+     "text": "The customs house stands nearer the water than the church does. That tells you what the town was built for."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "reading_shade_reliable",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "plaza",
+   "expected": {
+    "kind": "remark",
+    "text": "Your rented house faces this square. Every morning young African men and women are put up for sale here, oiled and paraded, and buyers pull their mouths open to look at their teeth.",
+    "voice": {
+     "skill": "political",
+     "text": "Church, cabildo and auction block, all within sight of one another. The arrangement is not an accident."
+    }
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "reading_shade_reliable",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    }
+   },
+   "hotspot": "nowhere",
+   "expected": {
+    "kind": "remark",
+    "text": "There is nothing more to do here for now.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "ines",
+   "expected": {
+    "kind": "chapter"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "bonpland",
+   "expected": {
+    "kind": "encounter",
+    "id": "bonpland"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "field-case",
+   "expected": {
+    "kind": "remark",
+    "text": "The case is packed again. Everything it can tell you today is in the fieldbook.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "damaged-wall",
+   "expected": {
+    "kind": "remark",
+    "text": "Repairs from the 1797 earthquake: the newer stones are paler and set at a slightly different angle. Inés would know which houses were rebuilt, and who paid.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "quay",
+   "expected": {
+    "kind": "remark",
+    "text": "Pirogues are unloading salt and dried fish. At the end of the pier a clerk counts barrels into a ledger. The men carrying them are not in it.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "plaza",
+   "expected": {
+    "kind": "remark",
+    "text": "Your rented house faces this square. Every morning young African men and women are put up for sale here, oiled and paraded, and buyers pull their mouths open to look at their teeth.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "nowhere",
+   "expected": {
+    "kind": "remark",
+    "text": "There is nothing more to do here for now.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "ines",
+   "expected": {
+    "kind": "chapter"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "bonpland",
+   "expected": {
+    "kind": "encounter",
+    "id": "bonpland"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "field-case",
+   "expected": {
+    "kind": "encounter",
+    "id": "instruments"
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "damaged-wall",
+   "expected": {
+    "kind": "remark",
+    "text": "Repairs from the 1797 earthquake: the newer stones are paler and set at a slightly different angle. Inés would know which houses were rebuilt, and who paid.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "quay",
+   "expected": {
+    "kind": "remark",
+    "text": "Pirogues are unloading salt and dried fish. At the end of the pier a clerk counts barrels into a ledger. The men carrying them are not in it.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "plaza",
+   "expected": {
+    "kind": "remark",
+    "text": "Your rented house faces this square. Every morning young African men and women are put up for sale here, oiled and paraded, and buyers pull their mouths open to look at their teeth.",
+    "voice": null
+   }
+  },
+  {
+   "state": {
+    "phase": "exploration",
+    "cycle": 3,
+    "currentLocation": "cumana",
+    "skills": {
+     "logic": 2,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "reading_sun",
+     "reading_shade",
+     "paired_compared",
+     "sky_read"
+    ],
+    "journal": [],
+    "resources": {
+     "credits": 50,
+     "supplies": 80,
+     "instruments": 80,
+     "data": 0,
+     "vitality": 80
+    },
+    "bonpland": {
+     "health": 100,
+     "morale": 80,
+     "expertise": 70,
+     "relationship": 0
+    },
+    "checks": {
+     "white": {
+      "cumana_shade_reading": 1
+     },
+     "red": []
+    }
+   },
+   "hotspot": "nowhere",
+   "expected": {
+    "kind": "remark",
+    "text": "There is nothing more to do here for now.",
+    "voice": null
+   }
+  }
+ ]
+}

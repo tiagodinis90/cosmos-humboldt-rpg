@@ -1,0 +1,970 @@
+{
+ "constants": {
+  "WALK_SPEED": 125,
+  "RUN_SPEED": 215,
+  "APPROACH_SLACK": 12,
+  "PERSONAL_SPACE": 56,
+  "MAX_SNAP_DISTANCE": 192
+ },
+ "scenarios": [
+  {
+   "name": "approach ines",
+   "start": {
+    "position": {
+     "x": 150,
+     "y": 720
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "hotspot": "ines"
+    },
+    {
+     "type": "tick",
+     "dt": 0.016666666666666666,
+     "count": 1800
+    },
+    {
+     "type": "tick",
+     "dt": 1,
+     "count": 1
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 150,
+       "y": 720
+      },
+      "heading": -0.7103946168803706,
+      "route": [
+       {
+        "x": 336,
+        "y": 560
+       },
+       {
+        "x": 560,
+        "y": 496
+       }
+      ],
+      "target": "ines",
+      "running": false,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 560,
+       "y": 496
+      },
+      "heading": -0.2267988480538859,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 478.2777835307813
+     },
+     "event": {
+      "type": "interact",
+      "hotspot": "ines"
+     }
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 560,
+       "y": 496
+      },
+      "heading": -0.2267988480538859,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 478.2777835307813
+     },
+     "event": null
+    }
+   ]
+  },
+  {
+   "name": "approach bonpland",
+   "start": {
+    "position": {
+     "x": 150,
+     "y": 720
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "hotspot": "bonpland"
+    },
+    {
+     "type": "tick",
+     "dt": 0.016666666666666666,
+     "count": 1800
+    },
+    {
+     "type": "tick",
+     "dt": 1,
+     "count": 1
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 150,
+       "y": 720
+      },
+      "heading": -0.9579761246296553,
+      "route": [
+       {
+        "x": 240,
+        "y": 592
+       }
+      ],
+      "target": "bonpland",
+      "running": false,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 240,
+       "y": 592
+      },
+      "heading": -1.3208177053340742,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 156.47363995254918
+     },
+     "event": {
+      "type": "interact",
+      "hotspot": "bonpland"
+     }
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 240,
+       "y": 592
+      },
+      "heading": -1.3208177053340742,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 156.47363995254918
+     },
+     "event": null
+    }
+   ]
+  },
+  {
+   "name": "approach field-case",
+   "start": {
+    "position": {
+     "x": 150,
+     "y": 720
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "hotspot": "field-case"
+    },
+    {
+     "type": "tick",
+     "dt": 0.016666666666666666,
+     "count": 1800
+    },
+    {
+     "type": "tick",
+     "dt": 1,
+     "count": 1
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 150,
+       "y": 720
+      },
+      "heading": -0.33139655746431956,
+      "route": [
+       {
+        "x": 336,
+        "y": 656
+       }
+      ],
+      "target": "field-case",
+      "running": false,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 336,
+       "y": 656
+      },
+      "heading": -0.7713145875745882,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 196.702821535432
+     },
+     "event": {
+      "type": "interact",
+      "hotspot": "field-case"
+     }
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 336,
+       "y": 656
+      },
+      "heading": -0.7713145875745882,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 196.702821535432
+     },
+     "event": null
+    }
+   ]
+  },
+  {
+   "name": "approach damaged-wall",
+   "start": {
+    "position": {
+     "x": 150,
+     "y": 720
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "hotspot": "damaged-wall"
+    },
+    {
+     "type": "tick",
+     "dt": 0.016666666666666666,
+     "count": 1800
+    },
+    {
+     "type": "tick",
+     "dt": 1,
+     "count": 1
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 150,
+       "y": 720
+      },
+      "heading": -0.09143488058730807,
+      "route": [
+       {
+        "x": 848,
+        "y": 656
+       }
+      ],
+      "target": "damaged-wall",
+      "running": false,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 848,
+       "y": 656
+      },
+      "heading": -0.8062284834336654,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 700.9279563550037
+     },
+     "event": {
+      "type": "interact",
+      "hotspot": "damaged-wall"
+     }
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 848,
+       "y": 656
+      },
+      "heading": -0.8062284834336654,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 700.9279563550037
+     },
+     "event": null
+    }
+   ]
+  },
+  {
+   "name": "approach quay",
+   "start": {
+    "position": {
+     "x": 150,
+     "y": 720
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "hotspot": "quay"
+    },
+    {
+     "type": "tick",
+     "dt": 0.016666666666666666,
+     "count": 1800
+    },
+    {
+     "type": "tick",
+     "dt": 1,
+     "count": 1
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 150,
+       "y": 720
+      },
+      "heading": 0.07732734390659944,
+      "route": [
+       {
+        "x": 976,
+        "y": 784
+       },
+       {
+        "x": 1072,
+        "y": 848
+       },
+       {
+        "x": 1200,
+        "y": 848
+       },
+       {
+        "x": 1200,
+        "y": 880
+       }
+      ],
+      "target": "quay",
+      "running": false,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 1200,
+       "y": 880
+      },
+      "heading": 1.4711276743037347,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 1103.1671354073833
+     },
+     "event": {
+      "type": "interact",
+      "hotspot": "quay"
+     }
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 1200,
+       "y": 880
+      },
+      "heading": 1.4711276743037347,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 1103.1671354073833
+     },
+     "event": null
+    }
+   ]
+  },
+  {
+   "name": "approach plaza",
+   "start": {
+    "position": {
+     "x": 150,
+     "y": 720
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "hotspot": "plaza"
+    },
+    {
+     "type": "tick",
+     "dt": 0.016666666666666666,
+     "count": 1800
+    },
+    {
+     "type": "tick",
+     "dt": 1,
+     "count": 1
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 150,
+       "y": 720
+      },
+      "heading": -0.21576619640704228,
+      "route": [
+       {
+        "x": 880,
+        "y": 560
+       },
+       {
+        "x": 1072,
+        "y": 528
+       }
+      ],
+      "target": "plaza",
+      "running": false,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 1072,
+       "y": 528
+      },
+      "heading": -0.13706617431018764,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 941.9764359603543
+     },
+     "event": {
+      "type": "interact",
+      "hotspot": "plaza"
+     }
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 1072,
+       "y": 528
+      },
+      "heading": -0.13706617431018764,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 941.9764359603543
+     },
+     "event": null
+    }
+   ]
+  },
+  {
+   "name": "retarget and impossible click",
+   "start": {
+    "position": {
+     "x": 150,
+     "y": 720
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "destination": {
+      "x": 1300,
+      "y": 650
+     },
+     "run": true
+    },
+    {
+     "type": "tick",
+     "dt": 0.5,
+     "count": 1
+    },
+    {
+     "type": "walkTo",
+     "destination": {
+      "x": 500,
+      "y": 1100
+     }
+    },
+    {
+     "type": "tick",
+     "dt": 1,
+     "count": 1
+    },
+    {
+     "type": "walkTo",
+     "hotspot": "plaza"
+    },
+    {
+     "type": "tick",
+     "dt": 0.3,
+     "count": 1
+    },
+    {
+     "type": "walkTo",
+     "hotspot": "bonpland"
+    },
+    {
+     "type": "tick",
+     "dt": 0.03333333333333333,
+     "count": 900
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 150,
+       "y": 720
+      },
+      "heading": -0.06079455587478892,
+      "route": [
+       {
+        "x": 1300,
+        "y": 650
+       }
+      ],
+      "target": null,
+      "running": true,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 257.3014023602241,
+       "y": 713.4686102911168
+      },
+      "heading": -0.06079455587478924,
+      "route": [
+       {
+        "x": 1300,
+        "y": 650
+       }
+      ],
+      "target": null,
+      "running": true,
+      "stride": 107.50000000000003
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 257.3014023602241,
+       "y": 713.4686102911168
+      },
+      "heading": -0.06079455587478924,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 107.50000000000003
+     },
+     "event": {
+      "type": "unreachable"
+     }
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 257.3014023602241,
+       "y": 713.4686102911168
+      },
+      "heading": -0.06079455587478924,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 107.50000000000003
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 257.3014023602241,
+       "y": 713.4686102911168
+      },
+      "heading": -0.24164158065177482,
+      "route": [
+       {
+        "x": 880,
+        "y": 560
+       },
+       {
+        "x": 1072,
+        "y": 528
+       }
+      ],
+      "target": "plaza",
+      "running": false,
+      "stride": 107.50000000000003
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 293.7118945434991,
+       "y": 704.4949789764445
+      },
+      "heading": -0.24164158065177543,
+      "route": [
+       {
+        "x": 880,
+        "y": 560
+       },
+       {
+        "x": 1072,
+        "y": 528
+       }
+      ],
+      "target": "plaza",
+      "running": false,
+      "stride": 145.00000000000003
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 293.7118945434991,
+       "y": 704.4949789764445
+      },
+      "heading": -1.7614552626810824,
+      "route": [
+       {
+        "x": 272,
+        "y": 592
+       }
+      ],
+      "target": "bonpland",
+      "running": false,
+      "stride": 145.00000000000003
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 272,
+       "y": 592
+      },
+      "heading": -1.9731174246553373,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 259.57105506880316
+     },
+     "event": {
+      "type": "interact",
+      "hotspot": "bonpland"
+     }
+    }
+   ]
+  },
+  {
+   "name": "inside radius interacts at once",
+   "start": {
+    "position": {
+     "x": 612,
+     "y": 524
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "hotspot": "ines"
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 612,
+       "y": 524
+      },
+      "heading": -1.5707963267948966,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 0
+     },
+     "event": {
+      "type": "interact",
+      "hotspot": "ines"
+     }
+    }
+   ]
+  },
+  {
+   "name": "same tile and stop",
+   "start": {
+    "position": {
+     "x": 150,
+     "y": 720
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "destination": {
+      "x": 158,
+      "y": 726
+     }
+    },
+    {
+     "type": "tick",
+     "dt": 0.016666666666666666,
+     "count": 120
+    },
+    {
+     "type": "walkTo",
+     "destination": {
+      "x": 600,
+      "y": 700
+     }
+    },
+    {
+     "type": "tick",
+     "dt": 0.2,
+     "count": 1
+    },
+    {
+     "type": "stop"
+    },
+    {
+     "type": "tick",
+     "dt": 1,
+     "count": 1
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 150,
+       "y": 720
+      },
+      "heading": 0.6435011087932844,
+      "route": [
+       {
+        "x": 158,
+        "y": 726
+       }
+      ],
+      "target": null,
+      "running": false,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 158,
+       "y": 726
+      },
+      "heading": 0.6435011087932809,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 10
+     },
+     "event": {
+      "type": "arrived",
+      "snapped": false
+     }
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 158,
+       "y": 726
+      },
+      "heading": -0.058755822715722696,
+      "route": [
+       {
+        "x": 600,
+        "y": 700
+       }
+      ],
+      "target": null,
+      "running": false,
+      "stride": 10
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 182.9568593293749,
+       "y": 724.5319494512132
+      },
+      "heading": -0.058755822715723424,
+      "route": [
+       {
+        "x": 600,
+        "y": 700
+       }
+      ],
+      "target": null,
+      "running": false,
+      "stride": 35.000000000000014
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 182.9568593293749,
+       "y": 724.5319494512132
+      },
+      "heading": -0.058755822715723424,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 35.000000000000014
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 182.9568593293749,
+       "y": 724.5319494512132
+      },
+      "heading": -0.058755822715723424,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 35.000000000000014
+     },
+     "event": null
+    }
+   ]
+  },
+  {
+   "name": "keyboard slides along the store",
+   "start": {
+    "position": {
+     "x": 500,
+     "y": 440
+    },
+    "heading": 0.3
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "destination": {
+      "x": 200,
+      "y": 700
+     }
+    },
+    {
+     "type": "push",
+     "direction": {
+      "x": 1,
+      "y": -1
+     },
+     "dt": 0.016666666666666666,
+     "count": 60
+    },
+    {
+     "type": "push",
+     "direction": {
+      "x": 0,
+      "y": 0
+     },
+     "dt": 0.016666666666666666,
+     "count": 1
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 500,
+       "y": 440
+      },
+      "heading": 2.462587344891249,
+      "route": [
+       {
+        "x": 272,
+        "y": 624
+       },
+       {
+        "x": 200,
+        "y": 700
+       }
+      ],
+      "target": null,
+      "running": false,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 588.3883476483197,
+       "y": 432.63430436264
+      },
+      "heading": -0.7853981633974483,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 91.43931867762657
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 588.3883476483197,
+       "y": 432.63430436264
+      },
+      "heading": -0.7853981633974483,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 91.43931867762657
+     },
+     "event": null
+    }
+   ]
+  }
+ ]
+}

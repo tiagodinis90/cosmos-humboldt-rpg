@@ -1,0 +1,8492 @@
+{
+ "graphs": {
+  "synthetic": {
+   "start": "gate",
+   "cards": {
+    "gate": {
+     "type": "fork",
+     "id": "gate",
+     "routes": [
+      {
+       "when": {
+        "op": "all",
+        "conditions": [
+         {
+          "op": "flag",
+          "name": "survey_started"
+         },
+         {
+          "op": "skill",
+          "skill": "logic",
+          "atLeast": 2
+         }
+        ]
+       },
+       "next": "measure"
+      }
+     ],
+     "otherwise": "observe"
+    },
+    "measure": {
+     "type": "line",
+     "id": "measure",
+     "speaker": "Logic",
+     "text": "synthetic measurement",
+     "next": "voices",
+     "sets": [
+      "measured_once"
+     ]
+    },
+    "observe": {
+     "type": "line",
+     "id": "observe",
+     "text": "synthetic observation",
+     "next": "voices"
+    },
+    "voices": {
+     "type": "passive",
+     "id": "voices",
+     "next": "hub",
+     "probes": [
+      {
+       "id": "v.logic",
+       "skill": "logic",
+       "atLeast": 2,
+       "text": "LOGIC: synthetic insight"
+      },
+      {
+       "id": "v.empathy",
+       "skill": "empathy",
+       "atLeast": 3,
+       "text": "synthetic empathy"
+      }
+     ]
+    },
+    "hub": {
+     "type": "choice",
+     "id": "hub",
+     "prompt": "synthetic prompt",
+     "choices": [
+      {
+       "id": "c.red",
+       "label": "red",
+       "next": "hub",
+       "flags": [
+        "red_tried"
+       ],
+       "check": {
+        "id": "synthetic.red",
+        "kind": "red",
+        "skill": "empathy",
+        "difficulty": 9,
+        "success": "red.ok",
+        "failure": "red.no"
+       }
+      },
+      {
+       "id": "c.white",
+       "label": "white",
+       "next": "hub",
+       "check": {
+        "id": "synthetic.white",
+        "kind": "white",
+        "skill": "logic",
+        "difficulty": 10,
+        "success": "white.ok",
+        "failure": "white.no",
+        "modifiers": [
+         {
+          "when": {
+           "op": "flag",
+           "name": "helper"
+          },
+          "amount": 2,
+          "reason": "helper"
+         },
+         {
+          "when": {
+           "op": "not",
+           "condition": {
+            "op": "any",
+            "conditions": [
+             {
+              "op": "flag",
+              "name": "wall_measured"
+             },
+             {
+              "op": "flag",
+              "name": "permission"
+             }
+            ]
+           }
+          },
+          "amount": -1,
+          "reason": "unprepared"
+         }
+        ]
+       }
+      },
+      {
+       "id": "c.gated",
+       "label": "gated",
+       "next": "hub",
+       "flags": [
+        "gated_done"
+       ],
+       "when": {
+        "op": "all",
+        "conditions": [
+         {
+          "op": "flag",
+          "name": "red_tried"
+         },
+         {
+          "op": "not",
+          "condition": {
+           "op": "flag",
+           "name": "gated_done"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "id": "c.leave",
+       "label": "leave",
+       "next": "end"
+      }
+     ]
+    },
+    "red.ok": {
+     "type": "line",
+     "id": "red.ok",
+     "text": "ok",
+     "next": "hub",
+     "sets": [
+      "red_won"
+     ]
+    },
+    "red.no": {
+     "type": "line",
+     "id": "red.no",
+     "text": "no",
+     "next": "hub",
+     "sets": [
+      "red_lost"
+     ]
+    },
+    "white.ok": {
+     "type": "line",
+     "id": "white.ok",
+     "text": "ok",
+     "next": "hub",
+     "sets": [
+      "white_won"
+     ]
+    },
+    "white.no": {
+     "type": "line",
+     "id": "white.no",
+     "text": "no",
+     "next": "hub"
+    },
+    "end": {
+     "type": "end",
+     "id": "end",
+     "text": "end",
+     "sets": [
+      "synthetic_done"
+     ]
+    }
+   }
+  },
+  "survey": {
+   "start": "street.intro",
+   "cards": {
+    "street.intro": {
+     "type": "line",
+     "id": "street.intro",
+     "speaker": "Narrator",
+     "text": "Cumaná, November 1799. The tremors have ceased. You open a notebook beside the damaged wall. Inés is asking Bonpland whether the stones should be moved before someone measures them. The paper holds accounts, sketches and one pattern for which you have no provenance.",
+     "next": "street.passives"
+    },
+    "street.passives": {
+     "type": "passive",
+     "id": "street.passives",
+     "probes": [
+      {
+       "id": "street.logic",
+       "skill": "logic",
+       "atLeast": 2,
+       "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+      },
+      {
+       "id": "street.empathy",
+       "skill": "empathy",
+       "atLeast": 2,
+       "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+      },
+      {
+       "id": "street.aesthetics",
+       "skill": "aesthetics",
+       "atLeast": 2,
+       "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+      },
+      {
+       "id": "street.political",
+       "skill": "political",
+       "atLeast": 2,
+       "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+      }
+     ],
+     "next": "street.memory"
+    },
+    "street.memory": {
+     "type": "fork",
+     "id": "street.memory",
+     "routes": [
+      {
+       "when": {
+        "op": "all",
+        "conditions": [
+         {
+          "op": "flag",
+          "name": "pattern_recurs"
+         },
+         {
+          "op": "skill",
+          "skill": "aesthetics",
+          "atLeast": 2
+         }
+        ]
+       },
+       "next": "street.unexpected"
+      }
+     ],
+     "otherwise": "street.ordinary"
+    },
+    "street.unexpected": {
+     "type": "line",
+     "id": "street.unexpected",
+     "speaker": "Aesthetics",
+     "text": "There it is again: a branching shape in the masonry. The similarity is difficult to ignore, and impossible to measure without returning to the old drawing. Resemblance alone cannot prove a connection.",
+     "next": "street.options"
+    },
+    "street.ordinary": {
+     "type": "line",
+     "id": "street.ordinary",
+     "speaker": "Narrator",
+     "text": "The two sets of marks disagree. You could draw them to resemble each other, but that would change the evidence. Inés has already pointed out where the wall is unsafe.",
+     "next": "street.options"
+    },
+    "street.options": {
+     "type": "choice",
+     "id": "street.options",
+     "prompt": "What do you do with the damaged wall and the notes?",
+     "choices": [
+      {
+       "id": "street.measure",
+       "label": "Attempt to establish a repeatable survey of the damage.",
+       "next": "street.options",
+       "flags": [
+        "wall_survey_attempted"
+       ],
+       "check": {
+        "id": "cumana_wall_survey",
+        "kind": "white",
+        "skill": "logic",
+        "difficulty": 10,
+        "success": "street.survey_success",
+        "failure": "street.survey_failure",
+        "modifiers": [
+         {
+          "when": {
+           "op": "flag",
+           "name": "cumana_attribution"
+          },
+          "amount": 1,
+          "reason": "Attributed eyewitness record"
+         },
+         {
+          "when": {
+           "op": "any",
+           "conditions": [
+            {
+             "op": "flag",
+             "name": "method_comparative"
+            },
+            {
+             "op": "flag",
+             "name": "cumana_repeatability"
+            }
+           ]
+          },
+          "amount": 1,
+          "reason": "Comparative measurement practice"
+         },
+         {
+          "when": {
+           "op": "flag",
+           "name": "bonpland_will_assist_survey"
+          },
+          "amount": 1,
+          "reason": "Bonpland holds the other end of the line"
+         }
+        ]
+       }
+      },
+      {
+       "id": "street.ask",
+       "label": "Ask Inés if you may publish her account alongside your observations.",
+       "next": "street.options",
+       "flags": [
+        "publication_permission_requested"
+       ],
+       "when": {
+        "op": "not",
+        "condition": {
+         "op": "flag",
+         "name": "publication_permission_requested"
+        }
+       },
+       "check": {
+        "id": "ines_publication_consent",
+        "kind": "red",
+        "skill": "empathy",
+        "difficulty": 9,
+        "success": "street.permission_given",
+        "failure": "street.permission_denied"
+       }
+      },
+      {
+       "id": "street.odd",
+       "label": "Keep the unexplained branching pattern as an open question.",
+       "next": "street.pattern_note",
+       "flags": [
+        "correspondence_provisional"
+       ],
+       "when": {
+        "op": "all",
+        "conditions": [
+         {
+          "op": "flag",
+          "name": "pattern_recurs"
+         },
+         {
+          "op": "not",
+          "condition": {
+           "op": "flag",
+           "name": "correspondence_provisional"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "id": "street.close",
+       "label": "Close the fieldbook. You have recorded enough for today.",
+       "next": "street.end"
+      }
+     ]
+    },
+    "street.survey_success": {
+     "type": "line",
+     "id": "street.survey_success",
+     "speaker": "Logic",
+     "sets": [
+      "wall_survey_reliable"
+     ],
+     "text": "You find a stable baseline, draw the measured angle and leave space for a later comparison. The result is reproducible, though its cause remains uncertain.",
+     "next": "street.options"
+    },
+    "street.survey_failure": {
+     "type": "line",
+     "id": "street.survey_failure",
+     "speaker": "Logic",
+     "sets": [
+      "wall_survey_unreliable"
+     ],
+     "text": "The footing gives way twice and the pencil mark slips. You cannot claim a reliable measurement. The attempt belongs in the notebook all the same.",
+     "next": "street.options"
+    },
+    "street.permission_given": {
+     "type": "line",
+     "id": "street.permission_given",
+     "speaker": "Inés",
+     "sets": [
+      "ines_consented_publication"
+     ],
+     "text": "You may include my name, she says. But write that I remember where people ran. I cannot tell you how long the ground shook.",
+     "next": "street.options"
+    },
+    "street.permission_denied": {
+     "type": "line",
+     "id": "street.permission_denied",
+     "speaker": "Inés",
+     "sets": [
+      "ines_refused_publication"
+     ],
+     "text": "I told you what happened to the houses. I did not ask to be put in a book printed in Europe. Leave my name out.",
+     "next": "street.options"
+    },
+    "street.pattern_note": {
+     "type": "line",
+     "id": "street.pattern_note",
+     "speaker": "Aesthetics",
+     "text": "The shapes have been observed, but their relation has not. That sentence is less satisfying than a discovery and considerably more useful.",
+     "next": "street.options"
+    },
+    "street.end": {
+     "type": "end",
+     "id": "street.end",
+     "text": "The fieldbook now distinguishes a physical measurement, a person’s account and a question you do not yet know how to test."
+    }
+   }
+  },
+  "bonpland": {
+   "start": "bon.start",
+   "cards": {
+    "bon.start": {
+     "type": "fork",
+     "id": "bon.start",
+     "routes": [
+      {
+       "when": {
+        "op": "flag",
+        "name": "cumana_fieldwork_complete"
+       },
+       "next": "bon.nov_open"
+      }
+     ],
+     "otherwise": "bon.jul_open"
+    },
+    "bon.jul_open": {
+     "type": "line",
+     "id": "bon.jul_open",
+     "speaker": "Narrator",
+     "next": "bon.jul_greet",
+     "text": "Bonpland is kneeling over the plant press with a strap between his teeth. He takes it out to speak."
+    },
+    "bon.jul_greet": {
+     "type": "line",
+     "id": "bon.jul_greet",
+     "speaker": "Bonpland",
+     "next": "bon.jul_voices",
+     "text": "“Forty specimens since the boat, and this heat cooks them faster than the paper can dry them. If you have come to tell me it is hot, I have noticed.”"
+    },
+    "bon.jul_voices": {
+     "type": "passive",
+     "id": "bon.jul_voices",
+     "next": "bon.jul_options",
+     "probes": [
+      {
+       "id": "bon.empathy",
+       "skill": "empathy",
+       "atLeast": 2,
+       "text": "He has not eaten since morning. He will not say so while the work is unfinished."
+      },
+      {
+       "id": "bon.logic",
+       "skill": "logic",
+       "atLeast": 2,
+       "text": "Every sheet he changes is a measurement as well: how fast a leaf gives up its water in this air."
+      },
+      {
+       "id": "bon.aesthetics",
+       "skill": "aesthetics",
+       "atLeast": 2,
+       "text": "He lays each leaf down the way a compositor sets type — no wasted space, nothing overlapping."
+      }
+     ]
+    },
+    "bon.jul_options": {
+     "type": "choice",
+     "id": "bon.jul_options",
+     "prompt": "Bonpland waits, strap in hand.",
+     "choices": [
+      {
+       "id": "bon.help",
+       "label": "Kneel and hold the boards while he tightens the strap.",
+       "next": "bon.helped",
+       "flags": [
+        "bonpland_helped_press"
+       ],
+       "when": {
+        "op": "not",
+        "condition": {
+         "op": "flag",
+         "name": "bonpland_helped_press"
+        }
+       }
+      },
+      {
+       "id": "bon.method",
+       "label": "Ask what he would measure first, if it were up to him.",
+       "next": "bon.method_answer",
+       "flags": [
+        "bonpland_method_asked"
+       ],
+       "when": {
+        "op": "not",
+        "condition": {
+         "op": "flag",
+         "name": "bonpland_method_asked"
+        }
+       }
+      },
+      {
+       "id": "bon.walls",
+       "label": "Tell him the walls matter more than the plants this week.",
+       "next": "bon.jul_options",
+       "flags": [
+        "bonpland_priorities_argued"
+       ],
+       "when": {
+        "op": "not",
+        "condition": {
+         "op": "flag",
+         "name": "bonpland_priorities_argued"
+        }
+       },
+       "check": {
+        "id": "bonpland_priorities",
+        "kind": "red",
+        "skill": "empathy",
+        "difficulty": 9,
+        "success": "bon.walls_yes",
+        "failure": "bon.walls_no",
+        "modifiers": [
+         {
+          "when": {
+           "op": "flag",
+           "name": "bonpland_helped_press"
+          },
+          "amount": 1,
+          "reason": "You helped with the press"
+         }
+        ]
+       }
+      },
+      {
+       "id": "bon.leave",
+       "label": "Leave him to the press.",
+       "next": "bon.jul_end"
+      }
+     ]
+    },
+    "bon.helped": {
+     "type": "line",
+     "id": "bon.helped",
+     "speaker": "Bonpland",
+     "next": "bon.jul_options",
+     "text": "“Harder. No — like that.” The strap bites into the boards. He checks the edge of every sheet and nods once. “You have the hands of a mining inspector. That is not a compliment, but it will do.”"
+    },
+    "bon.method_answer": {
+     "type": "line",
+     "id": "bon.method_answer",
+     "speaker": "Bonpland",
+     "next": "bon.jul_options",
+     "text": "“Whatever nobody will be able to collect again. Your thermometer can come back next year. This orchid is flowering now, in this ditch, and the ditch will be filled in by spring. Everything else can wait for a second voyage.”"
+    },
+    "bon.walls_yes": {
+     "type": "line",
+     "id": "bon.walls_yes",
+     "speaker": "Bonpland",
+     "next": "bon.jul_options",
+     "sets": [
+      "bonpland_will_assist_survey"
+     ],
+     "text": "He looks at the press, then at you. “Fine. When you measure your wall, I will hold the other end of the line. But the plants do not matter less because they do not fall on people.”"
+    },
+    "bon.walls_no": {
+     "type": "line",
+     "id": "bon.walls_no",
+     "speaker": "Bonpland",
+     "next": "bon.jul_options",
+     "sets": [
+      "bonpland_resents_priorities"
+     ],
+     "text": "“More than the plants.” He goes back to the strap. “Write that in your book, then. I will write mine.”"
+    },
+    "bon.jul_end": {
+     "type": "end",
+     "id": "bon.jul_end",
+     "text": "Bonpland goes back to the press. The strap creaks as he pulls it tight."
+    },
+    "bon.nov_open": {
+     "type": "line",
+     "id": "bon.nov_open",
+     "speaker": "Narrator",
+     "next": "bon.nov_fork",
+     "text": "The press has been moved under the awning. Some of the drying papers are stained where water came through the roof during the shaking."
+    },
+    "bon.nov_fork": {
+     "type": "fork",
+     "id": "bon.nov_fork",
+     "routes": [
+      {
+       "when": {
+        "op": "flag",
+        "name": "cumana_bonpland_care"
+       },
+       "next": "bon.nov_care"
+      }
+     ],
+     "otherwise": "bon.nov_plain"
+    },
+    "bon.nov_care": {
+     "type": "line",
+     "id": "bon.nov_care",
+     "speaker": "Bonpland",
+     "next": "bon.nov_options",
+     "text": "“You came back into the house for me. I noticed.” He does not look up. “I would have got out on my own. Probably.”"
+    },
+    "bon.nov_plain": {
+     "type": "line",
+     "id": "bon.nov_plain",
+     "speaker": "Bonpland",
+     "next": "bon.nov_options",
+     "text": "“Half the sheets from the river are ruined. The other half I carried out under my coat like a thief.” He holds one up to the light. “You see? Still green.”"
+    },
+    "bon.nov_options": {
+     "type": "choice",
+     "id": "bon.nov_options",
+     "prompt": "Bonpland is sorting what survived.",
+     "choices": [
+      {
+       "id": "bon.nov_write",
+       "label": "Ask what he will write home about the earthquake.",
+       "next": "bon.nov_write_answer",
+       "flags": [
+        "bonpland_letter_asked"
+       ],
+       "when": {
+        "op": "not",
+        "condition": {
+         "op": "flag",
+         "name": "bonpland_letter_asked"
+        }
+       }
+      },
+      {
+       "id": "bon.nov_ines",
+       "label": "Ask whether Inés should be named in your account.",
+       "next": "bon.nov_ines_fork",
+       "flags": [
+        "bonpland_naming_asked"
+       ],
+       "when": {
+        "op": "not",
+        "condition": {
+         "op": "flag",
+         "name": "bonpland_naming_asked"
+        }
+       }
+      },
+      {
+       "id": "bon.nov_leave",
+       "label": "Let him work.",
+       "next": "bon.nov_end"
+      }
+     ]
+    },
+    "bon.nov_write_answer": {
+     "type": "line",
+     "id": "bon.nov_write_answer",
+     "speaker": "Bonpland",
+     "next": "bon.nov_options",
+     "text": "“That the ground moved and the plants did not care.” He almost smiles. “And that I was frightened. My family will want to know that more than the rest.”"
+    },
+    "bon.nov_ines_fork": {
+     "type": "fork",
+     "id": "bon.nov_ines_fork",
+     "routes": [
+      {
+       "when": {
+        "op": "flag",
+        "name": "ines_refused_publication"
+       },
+       "next": "bon.nov_ines_no"
+      },
+      {
+       "when": {
+        "op": "flag",
+        "name": "ines_consented_publication"
+       },
+       "next": "bon.nov_ines_yes"
+      }
+     ],
+     "otherwise": "bon.nov_ines_unasked"
+    },
+    "bon.nov_ines_yes": {
+     "type": "line",
+     "id": "bon.nov_ines_yes",
+     "speaker": "Bonpland",
+     "next": "bon.nov_options",
+     "text": "“She said yes. Then use her words, not yours. If you improve her sentences she will end up sounding like you.”"
+    },
+    "bon.nov_ines_no": {
+     "type": "line",
+     "id": "bon.nov_ines_no",
+     "speaker": "Bonpland",
+     "next": "bon.nov_options",
+     "text": "“She said no. That is the end of it, Alexander. You can describe the wall. You cannot describe her.”"
+    },
+    "bon.nov_ines_unasked": {
+     "type": "line",
+     "id": "bon.nov_ines_unasked",
+     "speaker": "Bonpland",
+     "next": "bon.nov_options",
+     "text": "“Have you asked her?” He waits. “Then you do not have an answer yet. Neither do I.”"
+    },
+    "bon.nov_end": {
+     "type": "end",
+     "id": "bon.nov_end",
+     "text": "Bonpland goes back to the papers, holding each sheet up to the light before deciding."
+    }
+   }
+  },
+  "instruments": {
+   "start": "inst.open",
+   "cards": {
+    "inst.open": {
+     "type": "line",
+     "id": "inst.open",
+     "speaker": "Narrator",
+     "next": "inst.voices",
+     "text": "One of the velvet-lined boxes lies open on the table. Each instrument has its own hollow: two mercury thermometers, a barometer in its leather tube, a hygrometer strung with a single hair, and the cyanometer, a card of blues numbered from almost white to almost black."
+    },
+    "inst.voices": {
+     "type": "passive",
+     "id": "inst.voices",
+     "next": "inst.options",
+     "probes": [
+      {
+       "id": "inst.logic",
+       "skill": "logic",
+       "atLeast": 2,
+       "text": "Two thermometers. Until they agree in the same shade, neither of them has told you anything."
+      },
+      {
+       "id": "inst.aesthetics",
+       "skill": "aesthetics",
+       "atLeast": 2,
+       "text": "The cyanometer is the only instrument in the case that asks you to look up."
+      },
+      {
+       "id": "inst.empathy",
+       "skill": "empathy",
+       "atLeast": 2,
+       "text": "Bonpland packed the barometer himself. He is pretending not to watch you unwrap it."
+      },
+      {
+       "id": "inst.political",
+       "skill": "political",
+       "atLeast": 2,
+       "text": "Porters carried this case up from the boat. Nobody wrote down their names, only that nothing broke."
+      }
+     ]
+    },
+    "inst.options": {
+     "type": "choice",
+     "id": "inst.options",
+     "prompt": "What do you measure?",
+     "choices": [
+      {
+       "id": "inst.sun",
+       "label": "Lay the first thermometer on the open sand and wait for the mercury to settle.",
+       "next": "inst.sun_result",
+       "flags": [
+        "reading_sun"
+       ],
+       "when": {
+        "op": "not",
+        "condition": {
+         "op": "flag",
+         "name": "reading_sun"
+        }
+       }
+      },
+      {
+       "id": "inst.shade",
+       "label": "Hang the second thermometer in the shade, clear of the warm stones.",
+       "next": "inst.options",
+       "flags": [
+        "reading_shade"
+       ],
+       "when": {
+        "op": "not",
+        "condition": {
+         "op": "flag",
+         "name": "reading_shade_reliable"
+        }
+       },
+       "check": {
+        "id": "cumana_shade_reading",
+        "kind": "white",
+        "skill": "logic",
+        "difficulty": 8,
+        "success": "inst.shade_good",
+        "failure": "inst.shade_poor",
+        "modifiers": [
+         {
+          "when": {
+           "op": "flag",
+           "name": "cumana_temperature_context"
+          },
+          "amount": 1,
+          "reason": "You have measured this sand before"
+         }
+        ]
+       }
+      },
+      {
+       "id": "inst.compare",
+       "label": "Set the two readings side by side.",
+       "next": "inst.compare_fork",
+       "flags": [
+        "paired_compared"
+       ],
+       "when": {
+        "op": "all",
+        "conditions": [
+         {
+          "op": "flag",
+          "name": "reading_sun"
+         },
+         {
+          "op": "flag",
+          "name": "reading_shade"
+         },
+         {
+          "op": "not",
+          "condition": {
+           "op": "flag",
+           "name": "paired_compared"
+          }
+         }
+        ]
+       }
+      },
+      {
+       "id": "inst.sky",
+       "label": "Hold the cyanometer up against the sky over the harbour.",
+       "next": "inst.sky_result",
+       "flags": [
+        "sky_read"
+       ],
+       "when": {
+        "op": "not",
+        "condition": {
+         "op": "flag",
+         "name": "sky_read"
+        }
+       }
+      },
+      {
+       "id": "inst.close",
+       "label": "Close the case.",
+       "next": "inst.end"
+      }
+     ]
+    },
+    "inst.sun_result": {
+     "type": "line",
+     "id": "inst.sun_result",
+     "speaker": "Logic",
+     "next": "inst.options",
+     "text": "The mercury climbs past anything you would accept as the temperature of air, and keeps climbing. When it stops you write 37.7 degrees. That is the sand, not the climate."
+    },
+    "inst.shade_good": {
+     "type": "line",
+     "id": "inst.shade_good",
+     "speaker": "Logic",
+     "next": "inst.options",
+     "sets": [
+      "reading_shade_reliable"
+     ],
+     "text": "You hang it from a post an arm’s length from the wall and wait until two readings a minute apart agree. Twenty-nine degrees, near enough. Now you know what the shade is doing — here, at this hour."
+    },
+    "inst.shade_poor": {
+     "type": "line",
+     "id": "inst.shade_poor",
+     "speaker": "Logic",
+     "next": "inst.options",
+     "sets": [
+      "reading_shade_doubtful"
+     ],
+     "text": "You hang it too close. The stones have been taking in sun since morning and are giving it back to the bulb. The number you write down is real, but it measures the wall as much as the air."
+    },
+    "inst.compare_fork": {
+     "type": "fork",
+     "id": "inst.compare_fork",
+     "routes": [
+      {
+       "when": {
+        "op": "flag",
+        "name": "reading_shade_reliable"
+       },
+       "next": "inst.compare_good"
+      }
+     ],
+     "otherwise": "inst.compare_doubt"
+    },
+    "inst.compare_good": {
+     "type": "line",
+     "id": "inst.compare_good",
+     "speaker": "Logic",
+     "next": "inst.options",
+     "sets": [
+      "cumana_repeatability"
+     ],
+     "text": "Eight degrees between sand and shade, a few steps apart. Neither number describes Cumaná. Together they describe a method: say where the instrument was, and anyone can check you."
+    },
+    "inst.compare_doubt": {
+     "type": "line",
+     "id": "inst.compare_doubt",
+     "speaker": "Logic",
+     "next": "inst.options",
+     "text": "The difference is there, but you cannot say how much of it belongs to the wall. Write both numbers down. Write why you do not trust the second."
+    },
+    "inst.sky_result": {
+     "type": "line",
+     "id": "inst.sky_result",
+     "speaker": "Aesthetics",
+     "next": "inst.sky_choice",
+     "text": "The sky over the harbour falls between the twenty-second blue and the twenty-third. You want to write that it is deeper than any sky over Berlin. The card only says it is darker than twenty-two."
+    },
+    "inst.sky_choice": {
+     "type": "choice",
+     "id": "inst.sky_choice",
+     "choices": [
+      {
+       "id": "inst.sky_conditions",
+       "label": "Note the hour, the haze over the water, and how long your eyes took to adjust.",
+       "next": "inst.sky_logged",
+       "flags": [
+        "cyanometer_conditions"
+       ]
+      },
+      {
+       "id": "inst.sky_number",
+       "label": "Write down the number.",
+       "next": "inst.options"
+      }
+     ]
+    },
+    "inst.sky_logged": {
+     "type": "line",
+     "id": "inst.sky_logged",
+     "speaker": "Logic",
+     "next": "inst.options",
+     "text": "Beside the number: four in the afternoon, thin haze to seaward, a minute in the shade first. An ugly sentence. Also the only kind someone else could repeat."
+    },
+    "inst.end": {
+     "type": "end",
+     "id": "inst.end",
+     "text": "You close the lid. The readings go into the fieldbook with where and how they were taken."
+    }
+   }
+  }
+ },
+ "runs": [
+  {
+   "name": "synthetic high",
+   "graph": "synthetic",
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "ledger": null,
+   "steps": [
+    {
+     "type": "start"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "c.white",
+     "dice": [
+      0,
+      0
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "c.white",
+     "dice": [
+      0.5,
+      0.5
+     ]
+    },
+    {
+     "type": "choose",
+     "id": "c.white",
+     "context": {
+      "skills": {
+       "logic": 4,
+       "empathy": 3,
+       "aesthetics": 3,
+       "political": 3
+      },
+      "flags": [
+       "survey_started"
+      ]
+     },
+     "dice": [
+      0.5,
+      0.5
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "c.red",
+     "dice": [
+      0.9999,
+      0.9999
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "c.red",
+     "dice": [
+      0.2,
+      0.2
+     ]
+    },
+    {
+     "type": "choose",
+     "id": "c.gated"
+    },
+    {
+     "type": "choose",
+     "id": "c.gated"
+    },
+    {
+     "type": "choose",
+     "id": "c.leave"
+    },
+    {
+     "type": "continue"
+    }
+   ],
+   "records": [
+    {
+     "progress": {
+      "nodeId": "measure",
+      "finished": false,
+      "flags": [
+       "measured_once"
+      ],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "measured_once"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "measure"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       }
+      ]
+     },
+     "available": [
+      "c.red",
+      "c.white",
+      "c.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "white.no",
+      "finished": false,
+      "flags": [
+       "measured_once"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 2
+      },
+      "redAttempts": [],
+      "lastRoll": {
+       "checkId": "synthetic.white",
+       "kind": "white",
+       "skill": "logic",
+       "first": 1,
+       "second": 1,
+       "modifier": -1,
+       "total": 4,
+       "difficulty": 10,
+       "passed": false,
+       "explanations": [
+        "unprepared: -1"
+       ]
+      },
+      "history": [
+       "measure",
+       "c.white"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "measured_once"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 2
+      },
+      "redAttempts": [],
+      "lastRoll": {
+       "checkId": "synthetic.white",
+       "kind": "white",
+       "skill": "logic",
+       "first": 1,
+       "second": 1,
+       "modifier": -1,
+       "total": 4,
+       "difficulty": 10,
+       "passed": false,
+       "explanations": [
+        "unprepared: -1"
+       ]
+      },
+      "history": [
+       "measure",
+       "c.white",
+       "white.no"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       }
+      ]
+     },
+     "available": [
+      "c.red",
+      "c.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "measured_once"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 2
+      },
+      "redAttempts": [],
+      "lastRoll": {
+       "checkId": "synthetic.white",
+       "kind": "white",
+       "skill": "logic",
+       "first": 1,
+       "second": 1,
+       "modifier": -1,
+       "total": 4,
+       "difficulty": 10,
+       "passed": false,
+       "explanations": [
+        "unprepared: -1"
+       ]
+      },
+      "history": [
+       "measure",
+       "c.white",
+       "white.no"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       }
+      ]
+     },
+     "available": [
+      "c.red",
+      "c.leave"
+     ],
+     "error": "Unavailable dialogue choice: c.white"
+    },
+    {
+     "progress": {
+      "nodeId": "white.ok",
+      "finished": false,
+      "flags": [
+       "measured_once",
+       "white_won"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [],
+      "lastRoll": {
+       "checkId": "synthetic.white",
+       "kind": "white",
+       "skill": "logic",
+       "first": 4,
+       "second": 4,
+       "modifier": -1,
+       "total": 11,
+       "difficulty": 10,
+       "passed": true,
+       "explanations": [
+        "unprepared: -1"
+       ]
+      },
+      "history": [
+       "measure",
+       "c.white",
+       "white.no",
+       "c.white"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 4,
+         "second": 4,
+         "modifier": -1,
+         "total": 11,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "measured_once",
+       "white_won"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [],
+      "lastRoll": {
+       "checkId": "synthetic.white",
+       "kind": "white",
+       "skill": "logic",
+       "first": 4,
+       "second": 4,
+       "modifier": -1,
+       "total": 11,
+       "difficulty": 10,
+       "passed": true,
+       "explanations": [
+        "unprepared: -1"
+       ]
+      },
+      "history": [
+       "measure",
+       "c.white",
+       "white.no",
+       "c.white",
+       "white.ok"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 4,
+         "second": 4,
+         "modifier": -1,
+         "total": 11,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       }
+      ]
+     },
+     "available": [
+      "c.red",
+      "c.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "red.ok",
+      "finished": false,
+      "flags": [
+       "measured_once",
+       "white_won",
+       "red_tried",
+       "red_won"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": {
+       "checkId": "synthetic.red",
+       "kind": "red",
+       "skill": "empathy",
+       "first": 6,
+       "second": 6,
+       "modifier": 0,
+       "total": 15,
+       "difficulty": 9,
+       "passed": true,
+       "explanations": []
+      },
+      "history": [
+       "measure",
+       "c.white",
+       "white.no",
+       "c.white",
+       "white.ok",
+       "c.red"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 4,
+         "second": 4,
+         "modifier": -1,
+         "total": 11,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 6,
+         "second": 6,
+         "modifier": 0,
+         "total": 15,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "measured_once",
+       "white_won",
+       "red_tried",
+       "red_won"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": {
+       "checkId": "synthetic.red",
+       "kind": "red",
+       "skill": "empathy",
+       "first": 6,
+       "second": 6,
+       "modifier": 0,
+       "total": 15,
+       "difficulty": 9,
+       "passed": true,
+       "explanations": []
+      },
+      "history": [
+       "measure",
+       "c.white",
+       "white.no",
+       "c.white",
+       "white.ok",
+       "c.red",
+       "red.ok"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 4,
+         "second": 4,
+         "modifier": -1,
+         "total": 11,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 6,
+         "second": 6,
+         "modifier": 0,
+         "total": 15,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       }
+      ]
+     },
+     "available": [
+      "c.gated",
+      "c.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "measured_once",
+       "white_won",
+       "red_tried",
+       "red_won"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": {
+       "checkId": "synthetic.red",
+       "kind": "red",
+       "skill": "empathy",
+       "first": 6,
+       "second": 6,
+       "modifier": 0,
+       "total": 15,
+       "difficulty": 9,
+       "passed": true,
+       "explanations": []
+      },
+      "history": [
+       "measure",
+       "c.white",
+       "white.no",
+       "c.white",
+       "white.ok",
+       "c.red",
+       "red.ok"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 4,
+         "second": 4,
+         "modifier": -1,
+         "total": 11,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 6,
+         "second": 6,
+         "modifier": 0,
+         "total": 15,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       }
+      ]
+     },
+     "available": [
+      "c.gated",
+      "c.leave"
+     ],
+     "error": "Unavailable dialogue choice: c.red"
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "measured_once",
+       "white_won",
+       "red_tried",
+       "red_won",
+       "gated_done"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": null,
+      "history": [
+       "measure",
+       "c.white",
+       "white.no",
+       "c.white",
+       "white.ok",
+       "c.red",
+       "red.ok",
+       "c.gated"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 4,
+         "second": 4,
+         "modifier": -1,
+         "total": 11,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 6,
+         "second": 6,
+         "modifier": 0,
+         "total": 15,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.gated",
+        "label": "gated"
+       }
+      ]
+     },
+     "available": [
+      "c.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "measured_once",
+       "white_won",
+       "red_tried",
+       "red_won",
+       "gated_done"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": null,
+      "history": [
+       "measure",
+       "c.white",
+       "white.no",
+       "c.white",
+       "white.ok",
+       "c.red",
+       "red.ok",
+       "c.gated"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 4,
+         "second": 4,
+         "modifier": -1,
+         "total": 11,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 6,
+         "second": 6,
+         "modifier": 0,
+         "total": 15,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.gated",
+        "label": "gated"
+       }
+      ]
+     },
+     "available": [
+      "c.leave"
+     ],
+     "error": "Unavailable dialogue choice: c.gated"
+    },
+    {
+     "progress": {
+      "nodeId": "end",
+      "finished": true,
+      "flags": [
+       "measured_once",
+       "white_won",
+       "red_tried",
+       "red_won",
+       "gated_done",
+       "synthetic_done"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": null,
+      "history": [
+       "measure",
+       "c.white",
+       "white.no",
+       "c.white",
+       "white.ok",
+       "c.red",
+       "red.ok",
+       "c.gated",
+       "c.leave"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 4,
+         "second": 4,
+         "modifier": -1,
+         "total": 11,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 6,
+         "second": 6,
+         "modifier": 0,
+         "total": 15,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.gated",
+        "label": "gated"
+       },
+       {
+        "type": "choice",
+        "choice": "c.leave",
+        "label": "leave"
+       },
+       {
+        "type": "line",
+        "card": "end"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "end",
+      "finished": true,
+      "flags": [
+       "measured_once",
+       "white_won",
+       "red_tried",
+       "red_won",
+       "gated_done",
+       "synthetic_done"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": null,
+      "history": [
+       "measure",
+       "c.white",
+       "white.no",
+       "c.white",
+       "white.ok",
+       "c.red",
+       "red.ok",
+       "c.gated",
+       "c.leave"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": -1,
+         "total": 4,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.no"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 4,
+         "second": 4,
+         "modifier": -1,
+         "total": 11,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "unprepared: -1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 6,
+         "second": 6,
+         "modifier": 0,
+         "total": 15,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.gated",
+        "label": "gated"
+       },
+       {
+        "type": "choice",
+        "choice": "c.leave",
+        "label": "leave"
+       },
+       {
+        "type": "line",
+        "card": "end"
+       }
+      ]
+     },
+     "available": [],
+     "error": "Dialogue already finished"
+    }
+   ]
+  },
+  {
+   "name": "synthetic low with helper",
+   "graph": "synthetic",
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "helper",
+     "permission"
+    ]
+   },
+   "ledger": null,
+   "steps": [
+    {
+     "type": "start"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "c.red",
+     "dice": [
+      0.5,
+      0.6
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "c.white",
+     "dice": [
+      0.7,
+      0.8
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "c.leave"
+    }
+   ],
+   "records": [
+    {
+     "progress": {
+      "nodeId": "observe",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "observe"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       }
+      ]
+     },
+     "available": [
+      "c.red",
+      "c.white",
+      "c.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "red.ok",
+      "finished": false,
+      "flags": [
+       "red_tried",
+       "red_won"
+      ],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": {
+       "checkId": "synthetic.red",
+       "kind": "red",
+       "skill": "empathy",
+       "first": 4,
+       "second": 4,
+       "modifier": 0,
+       "total": 9,
+       "difficulty": 9,
+       "passed": true,
+       "explanations": []
+      },
+      "history": [
+       "observe",
+       "c.red"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 4,
+         "second": 4,
+         "modifier": 0,
+         "total": 9,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "red_tried",
+       "red_won"
+      ],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": {
+       "checkId": "synthetic.red",
+       "kind": "red",
+       "skill": "empathy",
+       "first": 4,
+       "second": 4,
+       "modifier": 0,
+       "total": 9,
+       "difficulty": 9,
+       "passed": true,
+       "explanations": []
+      },
+      "history": [
+       "observe",
+       "c.red",
+       "red.ok"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 4,
+         "second": 4,
+         "modifier": 0,
+         "total": 9,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       }
+      ]
+     },
+     "available": [
+      "c.white",
+      "c.gated",
+      "c.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "white.ok",
+      "finished": false,
+      "flags": [
+       "red_tried",
+       "red_won",
+       "white_won"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": {
+       "checkId": "synthetic.white",
+       "kind": "white",
+       "skill": "logic",
+       "first": 5,
+       "second": 5,
+       "modifier": 2,
+       "total": 13,
+       "difficulty": 10,
+       "passed": true,
+       "explanations": [
+        "helper: +2"
+       ]
+      },
+      "history": [
+       "observe",
+       "c.red",
+       "red.ok",
+       "c.white"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 4,
+         "second": 4,
+         "modifier": 0,
+         "total": 9,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 5,
+         "second": 5,
+         "modifier": 2,
+         "total": 13,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "helper: +2"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "red_tried",
+       "red_won",
+       "white_won"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": {
+       "checkId": "synthetic.white",
+       "kind": "white",
+       "skill": "logic",
+       "first": 5,
+       "second": 5,
+       "modifier": 2,
+       "total": 13,
+       "difficulty": 10,
+       "passed": true,
+       "explanations": [
+        "helper: +2"
+       ]
+      },
+      "history": [
+       "observe",
+       "c.red",
+       "red.ok",
+       "c.white",
+       "white.ok"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 4,
+         "second": 4,
+         "modifier": 0,
+         "total": 9,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 5,
+         "second": 5,
+         "modifier": 2,
+         "total": 13,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "helper: +2"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       }
+      ]
+     },
+     "available": [
+      "c.gated",
+      "c.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "end",
+      "finished": true,
+      "flags": [
+       "red_tried",
+       "red_won",
+       "white_won",
+       "synthetic_done"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "synthetic.white": 3
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": null,
+      "history": [
+       "observe",
+       "c.red",
+       "red.ok",
+       "c.white",
+       "white.ok",
+       "c.leave"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       },
+       {
+        "type": "choice",
+        "choice": "c.red",
+        "label": "red"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 4,
+         "second": 4,
+         "modifier": 0,
+         "total": 9,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "red.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.white",
+        "label": "white"
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "first": 5,
+         "second": 5,
+         "modifier": 2,
+         "total": 13,
+         "difficulty": 10,
+         "passed": true,
+         "explanations": [
+          "helper: +2"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "white.ok"
+       },
+       {
+        "type": "choice",
+        "choice": "c.leave",
+        "label": "leave"
+       },
+       {
+        "type": "line",
+        "card": "end"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "synthetic with ledger",
+   "graph": "synthetic",
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "ledger": {
+    "white": {
+     "synthetic.white": 2
+    },
+    "red": [
+     "synthetic.red"
+    ]
+   },
+   "steps": [
+    {
+     "type": "start"
+    },
+    {
+     "type": "continue"
+    }
+   ],
+   "records": [
+    {
+     "progress": {
+      "nodeId": "measure",
+      "finished": false,
+      "flags": [
+       "measured_once"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "synthetic.white": 2
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [
+       "measured_once"
+      ],
+      "insights": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "text": "synthetic empathy"
+       }
+      ],
+      "whiteAttempts": {
+       "synthetic.white": 2
+      },
+      "redAttempts": [
+       "synthetic.red"
+      ],
+      "lastRoll": null,
+      "history": [
+       "measure"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "measure"
+       },
+       {
+        "type": "insight",
+        "id": "v.logic"
+       },
+       {
+        "type": "insight",
+        "id": "v.empathy"
+       }
+      ]
+     },
+     "available": [
+      "c.leave"
+     ],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "survey",
+   "graph": "survey",
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "pattern_recurs",
+     "method_comparative"
+    ]
+   },
+   "ledger": null,
+   "steps": [
+    {
+     "type": "start"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "street.measure",
+     "dice": [
+      0,
+      0
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "street.ask",
+     "dice": [
+      0.4,
+      0.3
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "street.odd"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "street.close"
+    }
+   ],
+   "records": [
+    {
+     "progress": {
+      "nodeId": "street.intro",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "street.unexpected",
+      "finished": false,
+      "flags": [],
+      "insights": [
+       {
+        "id": "street.logic",
+        "skill": "logic",
+        "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+       },
+       {
+        "id": "street.empathy",
+        "skill": "empathy",
+        "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+       },
+       {
+        "id": "street.aesthetics",
+        "skill": "aesthetics",
+        "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+       },
+       {
+        "id": "street.political",
+        "skill": "political",
+        "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+       }
+      ],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "street.intro"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       },
+       {
+        "type": "insight",
+        "id": "street.logic"
+       },
+       {
+        "type": "insight",
+        "id": "street.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "street.aesthetics"
+       },
+       {
+        "type": "insight",
+        "id": "street.political"
+       },
+       {
+        "type": "line",
+        "card": "street.unexpected"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "street.options",
+      "finished": false,
+      "flags": [],
+      "insights": [
+       {
+        "id": "street.logic",
+        "skill": "logic",
+        "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+       },
+       {
+        "id": "street.empathy",
+        "skill": "empathy",
+        "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+       },
+       {
+        "id": "street.aesthetics",
+        "skill": "aesthetics",
+        "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+       },
+       {
+        "id": "street.political",
+        "skill": "political",
+        "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+       }
+      ],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "street.intro",
+       "street.unexpected"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       },
+       {
+        "type": "insight",
+        "id": "street.logic"
+       },
+       {
+        "type": "insight",
+        "id": "street.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "street.aesthetics"
+       },
+       {
+        "type": "insight",
+        "id": "street.political"
+       },
+       {
+        "type": "line",
+        "card": "street.unexpected"
+       }
+      ]
+     },
+     "available": [
+      "street.measure",
+      "street.ask",
+      "street.odd",
+      "street.close"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "street.survey_failure",
+      "finished": false,
+      "flags": [
+       "wall_survey_attempted",
+       "wall_survey_unreliable"
+      ],
+      "insights": [
+       {
+        "id": "street.logic",
+        "skill": "logic",
+        "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+       },
+       {
+        "id": "street.empathy",
+        "skill": "empathy",
+        "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+       },
+       {
+        "id": "street.aesthetics",
+        "skill": "aesthetics",
+        "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+       },
+       {
+        "id": "street.political",
+        "skill": "political",
+        "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+       }
+      ],
+      "whiteAttempts": {
+       "cumana_wall_survey": 4
+      },
+      "redAttempts": [],
+      "lastRoll": {
+       "checkId": "cumana_wall_survey",
+       "kind": "white",
+       "skill": "logic",
+       "first": 1,
+       "second": 1,
+       "modifier": 1,
+       "total": 6,
+       "difficulty": 10,
+       "passed": false,
+       "explanations": [
+        "Comparative measurement practice: +1"
+       ]
+      },
+      "history": [
+       "street.intro",
+       "street.unexpected",
+       "street.measure"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       },
+       {
+        "type": "insight",
+        "id": "street.logic"
+       },
+       {
+        "type": "insight",
+        "id": "street.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "street.aesthetics"
+       },
+       {
+        "type": "insight",
+        "id": "street.political"
+       },
+       {
+        "type": "line",
+        "card": "street.unexpected"
+       },
+       {
+        "type": "choice",
+        "choice": "street.measure",
+        "label": "Attempt to establish a repeatable survey of the damage."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_wall_survey",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": 1,
+         "total": 6,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "Comparative measurement practice: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.survey_failure"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "street.options",
+      "finished": false,
+      "flags": [
+       "wall_survey_attempted",
+       "wall_survey_unreliable"
+      ],
+      "insights": [
+       {
+        "id": "street.logic",
+        "skill": "logic",
+        "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+       },
+       {
+        "id": "street.empathy",
+        "skill": "empathy",
+        "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+       },
+       {
+        "id": "street.aesthetics",
+        "skill": "aesthetics",
+        "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+       },
+       {
+        "id": "street.political",
+        "skill": "political",
+        "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+       }
+      ],
+      "whiteAttempts": {
+       "cumana_wall_survey": 4
+      },
+      "redAttempts": [],
+      "lastRoll": {
+       "checkId": "cumana_wall_survey",
+       "kind": "white",
+       "skill": "logic",
+       "first": 1,
+       "second": 1,
+       "modifier": 1,
+       "total": 6,
+       "difficulty": 10,
+       "passed": false,
+       "explanations": [
+        "Comparative measurement practice: +1"
+       ]
+      },
+      "history": [
+       "street.intro",
+       "street.unexpected",
+       "street.measure",
+       "street.survey_failure"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       },
+       {
+        "type": "insight",
+        "id": "street.logic"
+       },
+       {
+        "type": "insight",
+        "id": "street.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "street.aesthetics"
+       },
+       {
+        "type": "insight",
+        "id": "street.political"
+       },
+       {
+        "type": "line",
+        "card": "street.unexpected"
+       },
+       {
+        "type": "choice",
+        "choice": "street.measure",
+        "label": "Attempt to establish a repeatable survey of the damage."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_wall_survey",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": 1,
+         "total": 6,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "Comparative measurement practice: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.survey_failure"
+       }
+      ]
+     },
+     "available": [
+      "street.ask",
+      "street.odd",
+      "street.close"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "street.permission_denied",
+      "finished": false,
+      "flags": [
+       "wall_survey_attempted",
+       "wall_survey_unreliable",
+       "publication_permission_requested",
+       "ines_refused_publication"
+      ],
+      "insights": [
+       {
+        "id": "street.logic",
+        "skill": "logic",
+        "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+       },
+       {
+        "id": "street.empathy",
+        "skill": "empathy",
+        "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+       },
+       {
+        "id": "street.aesthetics",
+        "skill": "aesthetics",
+        "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+       },
+       {
+        "id": "street.political",
+        "skill": "political",
+        "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+       }
+      ],
+      "whiteAttempts": {
+       "cumana_wall_survey": 4
+      },
+      "redAttempts": [
+       "ines_publication_consent"
+      ],
+      "lastRoll": {
+       "checkId": "ines_publication_consent",
+       "kind": "red",
+       "skill": "empathy",
+       "first": 3,
+       "second": 2,
+       "modifier": 0,
+       "total": 8,
+       "difficulty": 9,
+       "passed": false,
+       "explanations": []
+      },
+      "history": [
+       "street.intro",
+       "street.unexpected",
+       "street.measure",
+       "street.survey_failure",
+       "street.ask"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       },
+       {
+        "type": "insight",
+        "id": "street.logic"
+       },
+       {
+        "type": "insight",
+        "id": "street.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "street.aesthetics"
+       },
+       {
+        "type": "insight",
+        "id": "street.political"
+       },
+       {
+        "type": "line",
+        "card": "street.unexpected"
+       },
+       {
+        "type": "choice",
+        "choice": "street.measure",
+        "label": "Attempt to establish a repeatable survey of the damage."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_wall_survey",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": 1,
+         "total": 6,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "Comparative measurement practice: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.survey_failure"
+       },
+       {
+        "type": "choice",
+        "choice": "street.ask",
+        "label": "Ask Inés if you may publish her account alongside your observations."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "ines_publication_consent",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 3,
+         "second": 2,
+         "modifier": 0,
+         "total": 8,
+         "difficulty": 9,
+         "passed": false,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.permission_denied"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "street.options",
+      "finished": false,
+      "flags": [
+       "wall_survey_attempted",
+       "wall_survey_unreliable",
+       "publication_permission_requested",
+       "ines_refused_publication"
+      ],
+      "insights": [
+       {
+        "id": "street.logic",
+        "skill": "logic",
+        "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+       },
+       {
+        "id": "street.empathy",
+        "skill": "empathy",
+        "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+       },
+       {
+        "id": "street.aesthetics",
+        "skill": "aesthetics",
+        "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+       },
+       {
+        "id": "street.political",
+        "skill": "political",
+        "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+       }
+      ],
+      "whiteAttempts": {
+       "cumana_wall_survey": 4
+      },
+      "redAttempts": [
+       "ines_publication_consent"
+      ],
+      "lastRoll": {
+       "checkId": "ines_publication_consent",
+       "kind": "red",
+       "skill": "empathy",
+       "first": 3,
+       "second": 2,
+       "modifier": 0,
+       "total": 8,
+       "difficulty": 9,
+       "passed": false,
+       "explanations": []
+      },
+      "history": [
+       "street.intro",
+       "street.unexpected",
+       "street.measure",
+       "street.survey_failure",
+       "street.ask",
+       "street.permission_denied"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       },
+       {
+        "type": "insight",
+        "id": "street.logic"
+       },
+       {
+        "type": "insight",
+        "id": "street.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "street.aesthetics"
+       },
+       {
+        "type": "insight",
+        "id": "street.political"
+       },
+       {
+        "type": "line",
+        "card": "street.unexpected"
+       },
+       {
+        "type": "choice",
+        "choice": "street.measure",
+        "label": "Attempt to establish a repeatable survey of the damage."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_wall_survey",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": 1,
+         "total": 6,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "Comparative measurement practice: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.survey_failure"
+       },
+       {
+        "type": "choice",
+        "choice": "street.ask",
+        "label": "Ask Inés if you may publish her account alongside your observations."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "ines_publication_consent",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 3,
+         "second": 2,
+         "modifier": 0,
+         "total": 8,
+         "difficulty": 9,
+         "passed": false,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.permission_denied"
+       }
+      ]
+     },
+     "available": [
+      "street.odd",
+      "street.close"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "street.pattern_note",
+      "finished": false,
+      "flags": [
+       "wall_survey_attempted",
+       "wall_survey_unreliable",
+       "publication_permission_requested",
+       "ines_refused_publication",
+       "correspondence_provisional"
+      ],
+      "insights": [
+       {
+        "id": "street.logic",
+        "skill": "logic",
+        "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+       },
+       {
+        "id": "street.empathy",
+        "skill": "empathy",
+        "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+       },
+       {
+        "id": "street.aesthetics",
+        "skill": "aesthetics",
+        "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+       },
+       {
+        "id": "street.political",
+        "skill": "political",
+        "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+       }
+      ],
+      "whiteAttempts": {
+       "cumana_wall_survey": 4
+      },
+      "redAttempts": [
+       "ines_publication_consent"
+      ],
+      "lastRoll": null,
+      "history": [
+       "street.intro",
+       "street.unexpected",
+       "street.measure",
+       "street.survey_failure",
+       "street.ask",
+       "street.permission_denied",
+       "street.odd"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       },
+       {
+        "type": "insight",
+        "id": "street.logic"
+       },
+       {
+        "type": "insight",
+        "id": "street.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "street.aesthetics"
+       },
+       {
+        "type": "insight",
+        "id": "street.political"
+       },
+       {
+        "type": "line",
+        "card": "street.unexpected"
+       },
+       {
+        "type": "choice",
+        "choice": "street.measure",
+        "label": "Attempt to establish a repeatable survey of the damage."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_wall_survey",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": 1,
+         "total": 6,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "Comparative measurement practice: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.survey_failure"
+       },
+       {
+        "type": "choice",
+        "choice": "street.ask",
+        "label": "Ask Inés if you may publish her account alongside your observations."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "ines_publication_consent",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 3,
+         "second": 2,
+         "modifier": 0,
+         "total": 8,
+         "difficulty": 9,
+         "passed": false,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.permission_denied"
+       },
+       {
+        "type": "choice",
+        "choice": "street.odd",
+        "label": "Keep the unexplained branching pattern as an open question."
+       },
+       {
+        "type": "line",
+        "card": "street.pattern_note"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "street.options",
+      "finished": false,
+      "flags": [
+       "wall_survey_attempted",
+       "wall_survey_unreliable",
+       "publication_permission_requested",
+       "ines_refused_publication",
+       "correspondence_provisional"
+      ],
+      "insights": [
+       {
+        "id": "street.logic",
+        "skill": "logic",
+        "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+       },
+       {
+        "id": "street.empathy",
+        "skill": "empathy",
+        "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+       },
+       {
+        "id": "street.aesthetics",
+        "skill": "aesthetics",
+        "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+       },
+       {
+        "id": "street.political",
+        "skill": "political",
+        "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+       }
+      ],
+      "whiteAttempts": {
+       "cumana_wall_survey": 4
+      },
+      "redAttempts": [
+       "ines_publication_consent"
+      ],
+      "lastRoll": null,
+      "history": [
+       "street.intro",
+       "street.unexpected",
+       "street.measure",
+       "street.survey_failure",
+       "street.ask",
+       "street.permission_denied",
+       "street.odd",
+       "street.pattern_note"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       },
+       {
+        "type": "insight",
+        "id": "street.logic"
+       },
+       {
+        "type": "insight",
+        "id": "street.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "street.aesthetics"
+       },
+       {
+        "type": "insight",
+        "id": "street.political"
+       },
+       {
+        "type": "line",
+        "card": "street.unexpected"
+       },
+       {
+        "type": "choice",
+        "choice": "street.measure",
+        "label": "Attempt to establish a repeatable survey of the damage."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_wall_survey",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": 1,
+         "total": 6,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "Comparative measurement practice: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.survey_failure"
+       },
+       {
+        "type": "choice",
+        "choice": "street.ask",
+        "label": "Ask Inés if you may publish her account alongside your observations."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "ines_publication_consent",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 3,
+         "second": 2,
+         "modifier": 0,
+         "total": 8,
+         "difficulty": 9,
+         "passed": false,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.permission_denied"
+       },
+       {
+        "type": "choice",
+        "choice": "street.odd",
+        "label": "Keep the unexplained branching pattern as an open question."
+       },
+       {
+        "type": "line",
+        "card": "street.pattern_note"
+       }
+      ]
+     },
+     "available": [
+      "street.close"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "street.end",
+      "finished": true,
+      "flags": [
+       "wall_survey_attempted",
+       "wall_survey_unreliable",
+       "publication_permission_requested",
+       "ines_refused_publication",
+       "correspondence_provisional"
+      ],
+      "insights": [
+       {
+        "id": "street.logic",
+        "skill": "logic",
+        "text": "LOGIC: A mark in masonry and a memory of shaking are different kinds of observation."
+       },
+       {
+        "id": "street.empathy",
+        "skill": "empathy",
+        "text": "EMPATHY: Inés wants the entrance made safe. Your experiment is not her priority."
+       },
+       {
+        "id": "street.aesthetics",
+        "skill": "aesthetics",
+        "text": "AESTHETICS: The irregular cracks resemble a coastline in a map you once drew."
+       },
+       {
+        "id": "street.political",
+        "skill": "political",
+        "text": "POLITICAL: Someone will pay for these repairs. It will not necessarily be the office that files the report."
+       }
+      ],
+      "whiteAttempts": {
+       "cumana_wall_survey": 4
+      },
+      "redAttempts": [
+       "ines_publication_consent"
+      ],
+      "lastRoll": null,
+      "history": [
+       "street.intro",
+       "street.unexpected",
+       "street.measure",
+       "street.survey_failure",
+       "street.ask",
+       "street.permission_denied",
+       "street.odd",
+       "street.pattern_note",
+       "street.close"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "street.intro"
+       },
+       {
+        "type": "insight",
+        "id": "street.logic"
+       },
+       {
+        "type": "insight",
+        "id": "street.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "street.aesthetics"
+       },
+       {
+        "type": "insight",
+        "id": "street.political"
+       },
+       {
+        "type": "line",
+        "card": "street.unexpected"
+       },
+       {
+        "type": "choice",
+        "choice": "street.measure",
+        "label": "Attempt to establish a repeatable survey of the damage."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_wall_survey",
+         "kind": "white",
+         "skill": "logic",
+         "first": 1,
+         "second": 1,
+         "modifier": 1,
+         "total": 6,
+         "difficulty": 10,
+         "passed": false,
+         "explanations": [
+          "Comparative measurement practice: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.survey_failure"
+       },
+       {
+        "type": "choice",
+        "choice": "street.ask",
+        "label": "Ask Inés if you may publish her account alongside your observations."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "ines_publication_consent",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 3,
+         "second": 2,
+         "modifier": 0,
+         "total": 8,
+         "difficulty": 9,
+         "passed": false,
+         "explanations": []
+        }
+       },
+       {
+        "type": "line",
+        "card": "street.permission_denied"
+       },
+       {
+        "type": "choice",
+        "choice": "street.odd",
+        "label": "Keep the unexplained branching pattern as an open question."
+       },
+       {
+        "type": "line",
+        "card": "street.pattern_note"
+       },
+       {
+        "type": "choice",
+        "choice": "street.close",
+        "label": "Close the fieldbook. You have recorded enough for today."
+       },
+       {
+        "type": "line",
+        "card": "street.end"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "bonpland july",
+   "graph": "bonpland",
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 2,
+     "aesthetics": 2,
+     "political": 2
+    },
+    "flags": []
+   },
+   "ledger": null,
+   "steps": [
+    {
+     "type": "start"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.help"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.walls",
+     "dice": [
+      0.6,
+      0.2
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "bon.leave"
+    }
+   ],
+   "records": [
+    {
+     "progress": {
+      "nodeId": "bon.jul_open",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "bon.jul_greet",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "bon.jul_open"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       },
+       {
+        "type": "line",
+        "card": "bon.jul_greet"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "bon.jul_options",
+      "finished": false,
+      "flags": [],
+      "insights": [
+       {
+        "id": "bon.empathy",
+        "skill": "empathy",
+        "text": "He has not eaten since morning. He will not say so while the work is unfinished."
+       },
+       {
+        "id": "bon.logic",
+        "skill": "logic",
+        "text": "Every sheet he changes is a measurement as well: how fast a leaf gives up its water in this air."
+       },
+       {
+        "id": "bon.aesthetics",
+        "skill": "aesthetics",
+        "text": "He lays each leaf down the way a compositor sets type — no wasted space, nothing overlapping."
+       }
+      ],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "bon.jul_open",
+       "bon.jul_greet"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       },
+       {
+        "type": "line",
+        "card": "bon.jul_greet"
+       },
+       {
+        "type": "insight",
+        "id": "bon.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "bon.logic"
+       },
+       {
+        "type": "insight",
+        "id": "bon.aesthetics"
+       }
+      ]
+     },
+     "available": [
+      "bon.help",
+      "bon.method",
+      "bon.walls",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "bon.helped",
+      "finished": false,
+      "flags": [
+       "bonpland_helped_press"
+      ],
+      "insights": [
+       {
+        "id": "bon.empathy",
+        "skill": "empathy",
+        "text": "He has not eaten since morning. He will not say so while the work is unfinished."
+       },
+       {
+        "id": "bon.logic",
+        "skill": "logic",
+        "text": "Every sheet he changes is a measurement as well: how fast a leaf gives up its water in this air."
+       },
+       {
+        "id": "bon.aesthetics",
+        "skill": "aesthetics",
+        "text": "He lays each leaf down the way a compositor sets type — no wasted space, nothing overlapping."
+       }
+      ],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "bon.jul_open",
+       "bon.jul_greet",
+       "bon.help"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       },
+       {
+        "type": "line",
+        "card": "bon.jul_greet"
+       },
+       {
+        "type": "insight",
+        "id": "bon.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "bon.logic"
+       },
+       {
+        "type": "insight",
+        "id": "bon.aesthetics"
+       },
+       {
+        "type": "choice",
+        "choice": "bon.help",
+        "label": "Kneel and hold the boards while he tightens the strap."
+       },
+       {
+        "type": "line",
+        "card": "bon.helped"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "bon.jul_options",
+      "finished": false,
+      "flags": [
+       "bonpland_helped_press"
+      ],
+      "insights": [
+       {
+        "id": "bon.empathy",
+        "skill": "empathy",
+        "text": "He has not eaten since morning. He will not say so while the work is unfinished."
+       },
+       {
+        "id": "bon.logic",
+        "skill": "logic",
+        "text": "Every sheet he changes is a measurement as well: how fast a leaf gives up its water in this air."
+       },
+       {
+        "id": "bon.aesthetics",
+        "skill": "aesthetics",
+        "text": "He lays each leaf down the way a compositor sets type — no wasted space, nothing overlapping."
+       }
+      ],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "bon.jul_open",
+       "bon.jul_greet",
+       "bon.help",
+       "bon.helped"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       },
+       {
+        "type": "line",
+        "card": "bon.jul_greet"
+       },
+       {
+        "type": "insight",
+        "id": "bon.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "bon.logic"
+       },
+       {
+        "type": "insight",
+        "id": "bon.aesthetics"
+       },
+       {
+        "type": "choice",
+        "choice": "bon.help",
+        "label": "Kneel and hold the boards while he tightens the strap."
+       },
+       {
+        "type": "line",
+        "card": "bon.helped"
+       }
+      ]
+     },
+     "available": [
+      "bon.method",
+      "bon.walls",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "bon.walls_yes",
+      "finished": false,
+      "flags": [
+       "bonpland_helped_press",
+       "bonpland_priorities_argued",
+       "bonpland_will_assist_survey"
+      ],
+      "insights": [
+       {
+        "id": "bon.empathy",
+        "skill": "empathy",
+        "text": "He has not eaten since morning. He will not say so while the work is unfinished."
+       },
+       {
+        "id": "bon.logic",
+        "skill": "logic",
+        "text": "Every sheet he changes is a measurement as well: how fast a leaf gives up its water in this air."
+       },
+       {
+        "id": "bon.aesthetics",
+        "skill": "aesthetics",
+        "text": "He lays each leaf down the way a compositor sets type — no wasted space, nothing overlapping."
+       }
+      ],
+      "whiteAttempts": {},
+      "redAttempts": [
+       "bonpland_priorities"
+      ],
+      "lastRoll": {
+       "checkId": "bonpland_priorities",
+       "kind": "red",
+       "skill": "empathy",
+       "first": 4,
+       "second": 2,
+       "modifier": 1,
+       "total": 9,
+       "difficulty": 9,
+       "passed": true,
+       "explanations": [
+        "You helped with the press: +1"
+       ]
+      },
+      "history": [
+       "bon.jul_open",
+       "bon.jul_greet",
+       "bon.help",
+       "bon.helped",
+       "bon.walls"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       },
+       {
+        "type": "line",
+        "card": "bon.jul_greet"
+       },
+       {
+        "type": "insight",
+        "id": "bon.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "bon.logic"
+       },
+       {
+        "type": "insight",
+        "id": "bon.aesthetics"
+       },
+       {
+        "type": "choice",
+        "choice": "bon.help",
+        "label": "Kneel and hold the boards while he tightens the strap."
+       },
+       {
+        "type": "line",
+        "card": "bon.helped"
+       },
+       {
+        "type": "choice",
+        "choice": "bon.walls",
+        "label": "Tell him the walls matter more than the plants this week."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "bonpland_priorities",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 4,
+         "second": 2,
+         "modifier": 1,
+         "total": 9,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": [
+          "You helped with the press: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "bon.walls_yes"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "bon.jul_options",
+      "finished": false,
+      "flags": [
+       "bonpland_helped_press",
+       "bonpland_priorities_argued",
+       "bonpland_will_assist_survey"
+      ],
+      "insights": [
+       {
+        "id": "bon.empathy",
+        "skill": "empathy",
+        "text": "He has not eaten since morning. He will not say so while the work is unfinished."
+       },
+       {
+        "id": "bon.logic",
+        "skill": "logic",
+        "text": "Every sheet he changes is a measurement as well: how fast a leaf gives up its water in this air."
+       },
+       {
+        "id": "bon.aesthetics",
+        "skill": "aesthetics",
+        "text": "He lays each leaf down the way a compositor sets type — no wasted space, nothing overlapping."
+       }
+      ],
+      "whiteAttempts": {},
+      "redAttempts": [
+       "bonpland_priorities"
+      ],
+      "lastRoll": {
+       "checkId": "bonpland_priorities",
+       "kind": "red",
+       "skill": "empathy",
+       "first": 4,
+       "second": 2,
+       "modifier": 1,
+       "total": 9,
+       "difficulty": 9,
+       "passed": true,
+       "explanations": [
+        "You helped with the press: +1"
+       ]
+      },
+      "history": [
+       "bon.jul_open",
+       "bon.jul_greet",
+       "bon.help",
+       "bon.helped",
+       "bon.walls",
+       "bon.walls_yes"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       },
+       {
+        "type": "line",
+        "card": "bon.jul_greet"
+       },
+       {
+        "type": "insight",
+        "id": "bon.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "bon.logic"
+       },
+       {
+        "type": "insight",
+        "id": "bon.aesthetics"
+       },
+       {
+        "type": "choice",
+        "choice": "bon.help",
+        "label": "Kneel and hold the boards while he tightens the strap."
+       },
+       {
+        "type": "line",
+        "card": "bon.helped"
+       },
+       {
+        "type": "choice",
+        "choice": "bon.walls",
+        "label": "Tell him the walls matter more than the plants this week."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "bonpland_priorities",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 4,
+         "second": 2,
+         "modifier": 1,
+         "total": 9,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": [
+          "You helped with the press: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "bon.walls_yes"
+       }
+      ]
+     },
+     "available": [
+      "bon.method",
+      "bon.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "bon.jul_end",
+      "finished": true,
+      "flags": [
+       "bonpland_helped_press",
+       "bonpland_priorities_argued",
+       "bonpland_will_assist_survey"
+      ],
+      "insights": [
+       {
+        "id": "bon.empathy",
+        "skill": "empathy",
+        "text": "He has not eaten since morning. He will not say so while the work is unfinished."
+       },
+       {
+        "id": "bon.logic",
+        "skill": "logic",
+        "text": "Every sheet he changes is a measurement as well: how fast a leaf gives up its water in this air."
+       },
+       {
+        "id": "bon.aesthetics",
+        "skill": "aesthetics",
+        "text": "He lays each leaf down the way a compositor sets type — no wasted space, nothing overlapping."
+       }
+      ],
+      "whiteAttempts": {},
+      "redAttempts": [
+       "bonpland_priorities"
+      ],
+      "lastRoll": null,
+      "history": [
+       "bon.jul_open",
+       "bon.jul_greet",
+       "bon.help",
+       "bon.helped",
+       "bon.walls",
+       "bon.walls_yes",
+       "bon.leave"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       },
+       {
+        "type": "line",
+        "card": "bon.jul_greet"
+       },
+       {
+        "type": "insight",
+        "id": "bon.empathy"
+       },
+       {
+        "type": "insight",
+        "id": "bon.logic"
+       },
+       {
+        "type": "insight",
+        "id": "bon.aesthetics"
+       },
+       {
+        "type": "choice",
+        "choice": "bon.help",
+        "label": "Kneel and hold the boards while he tightens the strap."
+       },
+       {
+        "type": "line",
+        "card": "bon.helped"
+       },
+       {
+        "type": "choice",
+        "choice": "bon.walls",
+        "label": "Tell him the walls matter more than the plants this week."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "bonpland_priorities",
+         "kind": "red",
+         "skill": "empathy",
+         "first": 4,
+         "second": 2,
+         "modifier": 1,
+         "total": 9,
+         "difficulty": 9,
+         "passed": true,
+         "explanations": [
+          "You helped with the press: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "bon.walls_yes"
+       },
+       {
+        "type": "choice",
+        "choice": "bon.leave",
+        "label": "Leave him to the press."
+       },
+       {
+        "type": "line",
+        "card": "bon.jul_end"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "instruments",
+   "graph": "instruments",
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": [
+     "cumana_temperature_context"
+    ]
+   },
+   "ledger": null,
+   "steps": [
+    {
+     "type": "start"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.sun"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.shade",
+     "dice": [
+      0.3,
+      0.5
+     ]
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.compare"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.sky"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.sky_conditions"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "inst.close"
+    }
+   ],
+   "records": [
+    {
+     "progress": {
+      "nodeId": "inst.open",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.options",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       }
+      ]
+     },
+     "available": [
+      "inst.sun",
+      "inst.shade",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.sun_result",
+      "finished": false,
+      "flags": [
+       "reading_sun"
+      ],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open",
+       "inst.sun"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.options",
+      "finished": false,
+      "flags": [
+       "reading_sun"
+      ],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       }
+      ]
+     },
+     "available": [
+      "inst.shade",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.shade_good",
+      "finished": false,
+      "flags": [
+       "reading_sun",
+       "reading_shade",
+       "reading_shade_reliable"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "cumana_shade_reading": 2
+      },
+      "redAttempts": [],
+      "lastRoll": {
+       "checkId": "cumana_shade_reading",
+       "kind": "white",
+       "skill": "logic",
+       "first": 2,
+       "second": 4,
+       "modifier": 1,
+       "total": 8,
+       "difficulty": 8,
+       "passed": true,
+       "explanations": [
+        "You have measured this sand before: +1"
+       ]
+      },
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result",
+       "inst.shade"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.shade",
+        "label": "Hang the second thermometer in the shade, clear of the warm stones."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_shade_reading",
+         "kind": "white",
+         "skill": "logic",
+         "first": 2,
+         "second": 4,
+         "modifier": 1,
+         "total": 8,
+         "difficulty": 8,
+         "passed": true,
+         "explanations": [
+          "You have measured this sand before: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "inst.shade_good"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.options",
+      "finished": false,
+      "flags": [
+       "reading_sun",
+       "reading_shade",
+       "reading_shade_reliable"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "cumana_shade_reading": 2
+      },
+      "redAttempts": [],
+      "lastRoll": {
+       "checkId": "cumana_shade_reading",
+       "kind": "white",
+       "skill": "logic",
+       "first": 2,
+       "second": 4,
+       "modifier": 1,
+       "total": 8,
+       "difficulty": 8,
+       "passed": true,
+       "explanations": [
+        "You have measured this sand before: +1"
+       ]
+      },
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result",
+       "inst.shade",
+       "inst.shade_good"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.shade",
+        "label": "Hang the second thermometer in the shade, clear of the warm stones."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_shade_reading",
+         "kind": "white",
+         "skill": "logic",
+         "first": 2,
+         "second": 4,
+         "modifier": 1,
+         "total": 8,
+         "difficulty": 8,
+         "passed": true,
+         "explanations": [
+          "You have measured this sand before: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "inst.shade_good"
+       }
+      ]
+     },
+     "available": [
+      "inst.compare",
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.compare_good",
+      "finished": false,
+      "flags": [
+       "reading_sun",
+       "reading_shade",
+       "reading_shade_reliable",
+       "paired_compared",
+       "cumana_repeatability"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "cumana_shade_reading": 2
+      },
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result",
+       "inst.shade",
+       "inst.shade_good",
+       "inst.compare"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.shade",
+        "label": "Hang the second thermometer in the shade, clear of the warm stones."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_shade_reading",
+         "kind": "white",
+         "skill": "logic",
+         "first": 2,
+         "second": 4,
+         "modifier": 1,
+         "total": 8,
+         "difficulty": 8,
+         "passed": true,
+         "explanations": [
+          "You have measured this sand before: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "inst.shade_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.compare",
+        "label": "Set the two readings side by side."
+       },
+       {
+        "type": "line",
+        "card": "inst.compare_good"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.options",
+      "finished": false,
+      "flags": [
+       "reading_sun",
+       "reading_shade",
+       "reading_shade_reliable",
+       "paired_compared",
+       "cumana_repeatability"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "cumana_shade_reading": 2
+      },
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result",
+       "inst.shade",
+       "inst.shade_good",
+       "inst.compare",
+       "inst.compare_good"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.shade",
+        "label": "Hang the second thermometer in the shade, clear of the warm stones."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_shade_reading",
+         "kind": "white",
+         "skill": "logic",
+         "first": 2,
+         "second": 4,
+         "modifier": 1,
+         "total": 8,
+         "difficulty": 8,
+         "passed": true,
+         "explanations": [
+          "You have measured this sand before: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "inst.shade_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.compare",
+        "label": "Set the two readings side by side."
+       },
+       {
+        "type": "line",
+        "card": "inst.compare_good"
+       }
+      ]
+     },
+     "available": [
+      "inst.sky",
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.sky_result",
+      "finished": false,
+      "flags": [
+       "reading_sun",
+       "reading_shade",
+       "reading_shade_reliable",
+       "paired_compared",
+       "cumana_repeatability",
+       "sky_read"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "cumana_shade_reading": 2
+      },
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result",
+       "inst.shade",
+       "inst.shade_good",
+       "inst.compare",
+       "inst.compare_good",
+       "inst.sky"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.shade",
+        "label": "Hang the second thermometer in the shade, clear of the warm stones."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_shade_reading",
+         "kind": "white",
+         "skill": "logic",
+         "first": 2,
+         "second": 4,
+         "modifier": 1,
+         "total": 8,
+         "difficulty": 8,
+         "passed": true,
+         "explanations": [
+          "You have measured this sand before: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "inst.shade_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.compare",
+        "label": "Set the two readings side by side."
+       },
+       {
+        "type": "line",
+        "card": "inst.compare_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sky",
+        "label": "Hold the cyanometer up against the sky over the harbour."
+       },
+       {
+        "type": "line",
+        "card": "inst.sky_result"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.sky_choice",
+      "finished": false,
+      "flags": [
+       "reading_sun",
+       "reading_shade",
+       "reading_shade_reliable",
+       "paired_compared",
+       "cumana_repeatability",
+       "sky_read"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "cumana_shade_reading": 2
+      },
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result",
+       "inst.shade",
+       "inst.shade_good",
+       "inst.compare",
+       "inst.compare_good",
+       "inst.sky",
+       "inst.sky_result"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.shade",
+        "label": "Hang the second thermometer in the shade, clear of the warm stones."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_shade_reading",
+         "kind": "white",
+         "skill": "logic",
+         "first": 2,
+         "second": 4,
+         "modifier": 1,
+         "total": 8,
+         "difficulty": 8,
+         "passed": true,
+         "explanations": [
+          "You have measured this sand before: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "inst.shade_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.compare",
+        "label": "Set the two readings side by side."
+       },
+       {
+        "type": "line",
+        "card": "inst.compare_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sky",
+        "label": "Hold the cyanometer up against the sky over the harbour."
+       },
+       {
+        "type": "line",
+        "card": "inst.sky_result"
+       }
+      ]
+     },
+     "available": [
+      "inst.sky_conditions",
+      "inst.sky_number"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.sky_logged",
+      "finished": false,
+      "flags": [
+       "reading_sun",
+       "reading_shade",
+       "reading_shade_reliable",
+       "paired_compared",
+       "cumana_repeatability",
+       "sky_read",
+       "cyanometer_conditions"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "cumana_shade_reading": 2
+      },
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result",
+       "inst.shade",
+       "inst.shade_good",
+       "inst.compare",
+       "inst.compare_good",
+       "inst.sky",
+       "inst.sky_result",
+       "inst.sky_conditions"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.shade",
+        "label": "Hang the second thermometer in the shade, clear of the warm stones."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_shade_reading",
+         "kind": "white",
+         "skill": "logic",
+         "first": 2,
+         "second": 4,
+         "modifier": 1,
+         "total": 8,
+         "difficulty": 8,
+         "passed": true,
+         "explanations": [
+          "You have measured this sand before: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "inst.shade_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.compare",
+        "label": "Set the two readings side by side."
+       },
+       {
+        "type": "line",
+        "card": "inst.compare_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sky",
+        "label": "Hold the cyanometer up against the sky over the harbour."
+       },
+       {
+        "type": "line",
+        "card": "inst.sky_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sky_conditions",
+        "label": "Note the hour, the haze over the water, and how long your eyes took to adjust."
+       },
+       {
+        "type": "line",
+        "card": "inst.sky_logged"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.options",
+      "finished": false,
+      "flags": [
+       "reading_sun",
+       "reading_shade",
+       "reading_shade_reliable",
+       "paired_compared",
+       "cumana_repeatability",
+       "sky_read",
+       "cyanometer_conditions"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "cumana_shade_reading": 2
+      },
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result",
+       "inst.shade",
+       "inst.shade_good",
+       "inst.compare",
+       "inst.compare_good",
+       "inst.sky",
+       "inst.sky_result",
+       "inst.sky_conditions",
+       "inst.sky_logged"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.shade",
+        "label": "Hang the second thermometer in the shade, clear of the warm stones."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_shade_reading",
+         "kind": "white",
+         "skill": "logic",
+         "first": 2,
+         "second": 4,
+         "modifier": 1,
+         "total": 8,
+         "difficulty": 8,
+         "passed": true,
+         "explanations": [
+          "You have measured this sand before: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "inst.shade_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.compare",
+        "label": "Set the two readings side by side."
+       },
+       {
+        "type": "line",
+        "card": "inst.compare_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sky",
+        "label": "Hold the cyanometer up against the sky over the harbour."
+       },
+       {
+        "type": "line",
+        "card": "inst.sky_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sky_conditions",
+        "label": "Note the hour, the haze over the water, and how long your eyes took to adjust."
+       },
+       {
+        "type": "line",
+        "card": "inst.sky_logged"
+       }
+      ]
+     },
+     "available": [
+      "inst.close"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "inst.end",
+      "finished": true,
+      "flags": [
+       "reading_sun",
+       "reading_shade",
+       "reading_shade_reliable",
+       "paired_compared",
+       "cumana_repeatability",
+       "sky_read",
+       "cyanometer_conditions"
+      ],
+      "insights": [],
+      "whiteAttempts": {
+       "cumana_shade_reading": 2
+      },
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "inst.open",
+       "inst.sun",
+       "inst.sun_result",
+       "inst.shade",
+       "inst.shade_good",
+       "inst.compare",
+       "inst.compare_good",
+       "inst.sky",
+       "inst.sky_result",
+       "inst.sky_conditions",
+       "inst.sky_logged",
+       "inst.close"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "inst.open"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sun",
+        "label": "Lay the first thermometer on the open sand and wait for the mercury to settle."
+       },
+       {
+        "type": "line",
+        "card": "inst.sun_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.shade",
+        "label": "Hang the second thermometer in the shade, clear of the warm stones."
+       },
+       {
+        "type": "roll",
+        "roll": {
+         "checkId": "cumana_shade_reading",
+         "kind": "white",
+         "skill": "logic",
+         "first": 2,
+         "second": 4,
+         "modifier": 1,
+         "total": 8,
+         "difficulty": 8,
+         "passed": true,
+         "explanations": [
+          "You have measured this sand before: +1"
+         ]
+        }
+       },
+       {
+        "type": "line",
+        "card": "inst.shade_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.compare",
+        "label": "Set the two readings side by side."
+       },
+       {
+        "type": "line",
+        "card": "inst.compare_good"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sky",
+        "label": "Hold the cyanometer up against the sky over the harbour."
+       },
+       {
+        "type": "line",
+        "card": "inst.sky_result"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.sky_conditions",
+        "label": "Note the hour, the haze over the water, and how long your eyes took to adjust."
+       },
+       {
+        "type": "line",
+        "card": "inst.sky_logged"
+       },
+       {
+        "type": "choice",
+        "choice": "inst.close",
+        "label": "Close the case."
+       },
+       {
+        "type": "line",
+        "card": "inst.end"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    }
+   ]
+  },
+  {
+   "name": "errors",
+   "graph": "synthetic",
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "ledger": null,
+   "steps": [
+    {
+     "type": "start"
+    },
+    {
+     "type": "choose",
+     "id": "c.leave"
+    },
+    {
+     "type": "continue"
+    },
+    {
+     "type": "choose",
+     "id": "c.gated"
+    }
+   ],
+   "records": [
+    {
+     "progress": {
+      "nodeId": "observe",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       }
+      ]
+     },
+     "available": [],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "observe",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       }
+      ]
+     },
+     "available": [],
+     "error": "Current card has no choices"
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "observe"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       }
+      ]
+     },
+     "available": [
+      "c.red",
+      "c.white",
+      "c.leave"
+     ],
+     "error": null
+    },
+    {
+     "progress": {
+      "nodeId": "hub",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [
+       "observe"
+      ],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "observe"
+       }
+      ]
+     },
+     "available": [
+      "c.red",
+      "c.white",
+      "c.leave"
+     ],
+     "error": "Unavailable dialogue choice: c.gated"
+    }
+   ]
+  }
+ ],
+ "conditions": [
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "flag",
+    "name": "survey_started"
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "flag",
+    "name": "a"
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "skill",
+    "skill": "logic",
+    "atLeast": 2
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "skill",
+    "skill": "aesthetics",
+    "atLeast": 6
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "a"
+     },
+     {
+      "op": "flag",
+      "name": "b"
+     }
+    ]
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "all",
+    "conditions": []
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "any",
+    "conditions": []
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "any",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "x"
+     },
+     {
+      "op": "skill",
+      "skill": "aesthetics",
+      "atLeast": 5
+     }
+    ]
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "not",
+    "condition": {
+     "op": "any",
+     "conditions": [
+      {
+       "op": "flag",
+       "name": "wall_measured"
+      },
+      {
+       "op": "flag",
+       "name": "a"
+      }
+     ]
+    }
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 3,
+     "empathy": 3,
+     "aesthetics": 3,
+     "political": 3
+    },
+    "flags": [
+     "survey_started"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "not",
+    "condition": {
+     "op": "all",
+     "conditions": [
+      {
+       "op": "flag",
+       "name": "a"
+      },
+      {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "b"
+       }
+      }
+     ]
+    }
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "flag",
+    "name": "survey_started"
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "flag",
+    "name": "a"
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "skill",
+    "skill": "logic",
+    "atLeast": 2
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "skill",
+    "skill": "aesthetics",
+    "atLeast": 6
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "a"
+     },
+     {
+      "op": "flag",
+      "name": "b"
+     }
+    ]
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "all",
+    "conditions": []
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "any",
+    "conditions": []
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "any",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "x"
+     },
+     {
+      "op": "skill",
+      "skill": "aesthetics",
+      "atLeast": 5
+     }
+    ]
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "not",
+    "condition": {
+     "op": "any",
+     "conditions": [
+      {
+       "op": "flag",
+       "name": "wall_measured"
+      },
+      {
+       "op": "flag",
+       "name": "a"
+      }
+     ]
+    }
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 1,
+     "empathy": 1,
+     "aesthetics": 1,
+     "political": 1
+    },
+    "flags": []
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "not",
+    "condition": {
+     "op": "all",
+     "conditions": [
+      {
+       "op": "flag",
+       "name": "a"
+      },
+      {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "b"
+       }
+      }
+     ]
+    }
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "flag",
+    "name": "survey_started"
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "flag",
+    "name": "a"
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "skill",
+    "skill": "logic",
+    "atLeast": 2
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "skill",
+    "skill": "aesthetics",
+    "atLeast": 6
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "a"
+     },
+     {
+      "op": "flag",
+      "name": "b"
+     }
+    ]
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "all",
+    "conditions": []
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "any",
+    "conditions": []
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "any",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "x"
+     },
+     {
+      "op": "skill",
+      "skill": "aesthetics",
+      "atLeast": 5
+     }
+    ]
+   },
+   "expected": true
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "not",
+    "condition": {
+     "op": "any",
+     "conditions": [
+      {
+       "op": "flag",
+       "name": "wall_measured"
+      },
+      {
+       "op": "flag",
+       "name": "a"
+      }
+     ]
+    }
+   },
+   "expected": false
+  },
+  {
+   "context": {
+    "skills": {
+     "logic": 2,
+     "empathy": 0,
+     "aesthetics": 5,
+     "political": 1
+    },
+    "flags": [
+     "a",
+     "b"
+    ]
+   },
+   "progressFlags": [
+    "b"
+   ],
+   "condition": {
+    "op": "not",
+    "condition": {
+     "op": "all",
+     "conditions": [
+      {
+       "op": "flag",
+       "name": "a"
+      },
+      {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "b"
+       }
+      }
+     ]
+    }
+   },
+   "expected": true
+  }
+ ],
+ "chance": [
+  [
+   -3,
+   2,
+   0.8333333333333334
+  ],
+  [
+   -3,
+   3,
+   0.7222222222222222
+  ],
+  [
+   -3,
+   4,
+   0.5833333333333334
+  ],
+  [
+   -3,
+   5,
+   0.4166666666666667
+  ],
+  [
+   -3,
+   6,
+   0.2777777777777778
+  ],
+  [
+   -3,
+   7,
+   0.16666666666666666
+  ],
+  [
+   -3,
+   8,
+   0.08333333333333333
+  ],
+  [
+   -3,
+   9,
+   0.027777777777777776
+  ],
+  [
+   -3,
+   10,
+   0.027777777777777776
+  ],
+  [
+   -3,
+   11,
+   0.027777777777777776
+  ],
+  [
+   -3,
+   12,
+   0.027777777777777776
+  ],
+  [
+   -3,
+   13,
+   0.027777777777777776
+  ],
+  [
+   -3,
+   14,
+   0.027777777777777776
+  ],
+  [
+   -3,
+   15,
+   0.027777777777777776
+  ],
+  [
+   -3,
+   16,
+   0.027777777777777776
+  ],
+  [
+   -2,
+   2,
+   0.9166666666666666
+  ],
+  [
+   -2,
+   3,
+   0.8333333333333334
+  ],
+  [
+   -2,
+   4,
+   0.7222222222222222
+  ],
+  [
+   -2,
+   5,
+   0.5833333333333334
+  ],
+  [
+   -2,
+   6,
+   0.4166666666666667
+  ],
+  [
+   -2,
+   7,
+   0.2777777777777778
+  ],
+  [
+   -2,
+   8,
+   0.16666666666666666
+  ],
+  [
+   -2,
+   9,
+   0.08333333333333333
+  ],
+  [
+   -2,
+   10,
+   0.027777777777777776
+  ],
+  [
+   -2,
+   11,
+   0.027777777777777776
+  ],
+  [
+   -2,
+   12,
+   0.027777777777777776
+  ],
+  [
+   -2,
+   13,
+   0.027777777777777776
+  ],
+  [
+   -2,
+   14,
+   0.027777777777777776
+  ],
+  [
+   -2,
+   15,
+   0.027777777777777776
+  ],
+  [
+   -2,
+   16,
+   0.027777777777777776
+  ],
+  [
+   -1,
+   2,
+   0.9722222222222222
+  ],
+  [
+   -1,
+   3,
+   0.9166666666666666
+  ],
+  [
+   -1,
+   4,
+   0.8333333333333334
+  ],
+  [
+   -1,
+   5,
+   0.7222222222222222
+  ],
+  [
+   -1,
+   6,
+   0.5833333333333334
+  ],
+  [
+   -1,
+   7,
+   0.4166666666666667
+  ],
+  [
+   -1,
+   8,
+   0.2777777777777778
+  ],
+  [
+   -1,
+   9,
+   0.16666666666666666
+  ],
+  [
+   -1,
+   10,
+   0.08333333333333333
+  ],
+  [
+   -1,
+   11,
+   0.027777777777777776
+  ],
+  [
+   -1,
+   12,
+   0.027777777777777776
+  ],
+  [
+   -1,
+   13,
+   0.027777777777777776
+  ],
+  [
+   -1,
+   14,
+   0.027777777777777776
+  ],
+  [
+   -1,
+   15,
+   0.027777777777777776
+  ],
+  [
+   -1,
+   16,
+   0.027777777777777776
+  ],
+  [
+   0,
+   2,
+   0.9722222222222222
+  ],
+  [
+   0,
+   3,
+   0.9722222222222222
+  ],
+  [
+   0,
+   4,
+   0.9166666666666666
+  ],
+  [
+   0,
+   5,
+   0.8333333333333334
+  ],
+  [
+   0,
+   6,
+   0.7222222222222222
+  ],
+  [
+   0,
+   7,
+   0.5833333333333334
+  ],
+  [
+   0,
+   8,
+   0.4166666666666667
+  ],
+  [
+   0,
+   9,
+   0.2777777777777778
+  ],
+  [
+   0,
+   10,
+   0.16666666666666666
+  ],
+  [
+   0,
+   11,
+   0.08333333333333333
+  ],
+  [
+   0,
+   12,
+   0.027777777777777776
+  ],
+  [
+   0,
+   13,
+   0.027777777777777776
+  ],
+  [
+   0,
+   14,
+   0.027777777777777776
+  ],
+  [
+   0,
+   15,
+   0.027777777777777776
+  ],
+  [
+   0,
+   16,
+   0.027777777777777776
+  ],
+  [
+   1,
+   2,
+   0.9722222222222222
+  ],
+  [
+   1,
+   3,
+   0.9722222222222222
+  ],
+  [
+   1,
+   4,
+   0.9722222222222222
+  ],
+  [
+   1,
+   5,
+   0.9166666666666666
+  ],
+  [
+   1,
+   6,
+   0.8333333333333334
+  ],
+  [
+   1,
+   7,
+   0.7222222222222222
+  ],
+  [
+   1,
+   8,
+   0.5833333333333334
+  ],
+  [
+   1,
+   9,
+   0.4166666666666667
+  ],
+  [
+   1,
+   10,
+   0.2777777777777778
+  ],
+  [
+   1,
+   11,
+   0.16666666666666666
+  ],
+  [
+   1,
+   12,
+   0.08333333333333333
+  ],
+  [
+   1,
+   13,
+   0.027777777777777776
+  ],
+  [
+   1,
+   14,
+   0.027777777777777776
+  ],
+  [
+   1,
+   15,
+   0.027777777777777776
+  ],
+  [
+   1,
+   16,
+   0.027777777777777776
+  ],
+  [
+   2,
+   2,
+   0.9722222222222222
+  ],
+  [
+   2,
+   3,
+   0.9722222222222222
+  ],
+  [
+   2,
+   4,
+   0.9722222222222222
+  ],
+  [
+   2,
+   5,
+   0.9722222222222222
+  ],
+  [
+   2,
+   6,
+   0.9166666666666666
+  ],
+  [
+   2,
+   7,
+   0.8333333333333334
+  ],
+  [
+   2,
+   8,
+   0.7222222222222222
+  ],
+  [
+   2,
+   9,
+   0.5833333333333334
+  ],
+  [
+   2,
+   10,
+   0.4166666666666667
+  ],
+  [
+   2,
+   11,
+   0.2777777777777778
+  ],
+  [
+   2,
+   12,
+   0.16666666666666666
+  ],
+  [
+   2,
+   13,
+   0.08333333333333333
+  ],
+  [
+   2,
+   14,
+   0.027777777777777776
+  ],
+  [
+   2,
+   15,
+   0.027777777777777776
+  ],
+  [
+   2,
+   16,
+   0.027777777777777776
+  ],
+  [
+   3,
+   2,
+   0.9722222222222222
+  ],
+  [
+   3,
+   3,
+   0.9722222222222222
+  ],
+  [
+   3,
+   4,
+   0.9722222222222222
+  ],
+  [
+   3,
+   5,
+   0.9722222222222222
+  ],
+  [
+   3,
+   6,
+   0.9722222222222222
+  ],
+  [
+   3,
+   7,
+   0.9166666666666666
+  ],
+  [
+   3,
+   8,
+   0.8333333333333334
+  ],
+  [
+   3,
+   9,
+   0.7222222222222222
+  ],
+  [
+   3,
+   10,
+   0.5833333333333334
+  ],
+  [
+   3,
+   11,
+   0.4166666666666667
+  ],
+  [
+   3,
+   12,
+   0.2777777777777778
+  ],
+  [
+   3,
+   13,
+   0.16666666666666666
+  ],
+  [
+   3,
+   14,
+   0.08333333333333333
+  ],
+  [
+   3,
+   15,
+   0.027777777777777776
+  ],
+  [
+   3,
+   16,
+   0.027777777777777776
+  ],
+  [
+   4,
+   2,
+   0.9722222222222222
+  ],
+  [
+   4,
+   3,
+   0.9722222222222222
+  ],
+  [
+   4,
+   4,
+   0.9722222222222222
+  ],
+  [
+   4,
+   5,
+   0.9722222222222222
+  ],
+  [
+   4,
+   6,
+   0.9722222222222222
+  ],
+  [
+   4,
+   7,
+   0.9722222222222222
+  ],
+  [
+   4,
+   8,
+   0.9166666666666666
+  ],
+  [
+   4,
+   9,
+   0.8333333333333334
+  ],
+  [
+   4,
+   10,
+   0.7222222222222222
+  ],
+  [
+   4,
+   11,
+   0.5833333333333334
+  ],
+  [
+   4,
+   12,
+   0.4166666666666667
+  ],
+  [
+   4,
+   13,
+   0.2777777777777778
+  ],
+  [
+   4,
+   14,
+   0.16666666666666666
+  ],
+  [
+   4,
+   15,
+   0.08333333333333333
+  ],
+  [
+   4,
+   16,
+   0.027777777777777776
+  ],
+  [
+   5,
+   2,
+   0.9722222222222222
+  ],
+  [
+   5,
+   3,
+   0.9722222222222222
+  ],
+  [
+   5,
+   4,
+   0.9722222222222222
+  ],
+  [
+   5,
+   5,
+   0.9722222222222222
+  ],
+  [
+   5,
+   6,
+   0.9722222222222222
+  ],
+  [
+   5,
+   7,
+   0.9722222222222222
+  ],
+  [
+   5,
+   8,
+   0.9722222222222222
+  ],
+  [
+   5,
+   9,
+   0.9166666666666666
+  ],
+  [
+   5,
+   10,
+   0.8333333333333334
+  ],
+  [
+   5,
+   11,
+   0.7222222222222222
+  ],
+  [
+   5,
+   12,
+   0.5833333333333334
+  ],
+  [
+   5,
+   13,
+   0.4166666666666667
+  ],
+  [
+   5,
+   14,
+   0.2777777777777778
+  ],
+  [
+   5,
+   15,
+   0.16666666666666666
+  ],
+  [
+   5,
+   16,
+   0.08333333333333333
+  ],
+  [
+   6,
+   2,
+   0.9722222222222222
+  ],
+  [
+   6,
+   3,
+   0.9722222222222222
+  ],
+  [
+   6,
+   4,
+   0.9722222222222222
+  ],
+  [
+   6,
+   5,
+   0.9722222222222222
+  ],
+  [
+   6,
+   6,
+   0.9722222222222222
+  ],
+  [
+   6,
+   7,
+   0.9722222222222222
+  ],
+  [
+   6,
+   8,
+   0.9722222222222222
+  ],
+  [
+   6,
+   9,
+   0.9722222222222222
+  ],
+  [
+   6,
+   10,
+   0.9166666666666666
+  ],
+  [
+   6,
+   11,
+   0.8333333333333334
+  ],
+  [
+   6,
+   12,
+   0.7222222222222222
+  ],
+  [
+   6,
+   13,
+   0.5833333333333334
+  ],
+  [
+   6,
+   14,
+   0.4166666666666667
+  ],
+  [
+   6,
+   15,
+   0.2777777777777778
+  ],
+  [
+   6,
+   16,
+   0.16666666666666666
+  ],
+  [
+   7,
+   2,
+   0.9722222222222222
+  ],
+  [
+   7,
+   3,
+   0.9722222222222222
+  ],
+  [
+   7,
+   4,
+   0.9722222222222222
+  ],
+  [
+   7,
+   5,
+   0.9722222222222222
+  ],
+  [
+   7,
+   6,
+   0.9722222222222222
+  ],
+  [
+   7,
+   7,
+   0.9722222222222222
+  ],
+  [
+   7,
+   8,
+   0.9722222222222222
+  ],
+  [
+   7,
+   9,
+   0.9722222222222222
+  ],
+  [
+   7,
+   10,
+   0.9722222222222222
+  ],
+  [
+   7,
+   11,
+   0.9166666666666666
+  ],
+  [
+   7,
+   12,
+   0.8333333333333334
+  ],
+  [
+   7,
+   13,
+   0.7222222222222222
+  ],
+  [
+   7,
+   14,
+   0.5833333333333334
+  ],
+  [
+   7,
+   15,
+   0.4166666666666667
+  ],
+  [
+   7,
+   16,
+   0.2777777777777778
+  ],
+  [
+   8,
+   2,
+   0.9722222222222222
+  ],
+  [
+   8,
+   3,
+   0.9722222222222222
+  ],
+  [
+   8,
+   4,
+   0.9722222222222222
+  ],
+  [
+   8,
+   5,
+   0.9722222222222222
+  ],
+  [
+   8,
+   6,
+   0.9722222222222222
+  ],
+  [
+   8,
+   7,
+   0.9722222222222222
+  ],
+  [
+   8,
+   8,
+   0.9722222222222222
+  ],
+  [
+   8,
+   9,
+   0.9722222222222222
+  ],
+  [
+   8,
+   10,
+   0.9722222222222222
+  ],
+  [
+   8,
+   11,
+   0.9722222222222222
+  ],
+  [
+   8,
+   12,
+   0.9166666666666666
+  ],
+  [
+   8,
+   13,
+   0.8333333333333334
+  ],
+  [
+   8,
+   14,
+   0.7222222222222222
+  ],
+  [
+   8,
+   15,
+   0.5833333333333334
+  ],
+  [
+   8,
+   16,
+   0.4166666666666667
+  ],
+  [
+   9,
+   2,
+   0.9722222222222222
+  ],
+  [
+   9,
+   3,
+   0.9722222222222222
+  ],
+  [
+   9,
+   4,
+   0.9722222222222222
+  ],
+  [
+   9,
+   5,
+   0.9722222222222222
+  ],
+  [
+   9,
+   6,
+   0.9722222222222222
+  ],
+  [
+   9,
+   7,
+   0.9722222222222222
+  ],
+  [
+   9,
+   8,
+   0.9722222222222222
+  ],
+  [
+   9,
+   9,
+   0.9722222222222222
+  ],
+  [
+   9,
+   10,
+   0.9722222222222222
+  ],
+  [
+   9,
+   11,
+   0.9722222222222222
+  ],
+  [
+   9,
+   12,
+   0.9722222222222222
+  ],
+  [
+   9,
+   13,
+   0.9166666666666666
+  ],
+  [
+   9,
+   14,
+   0.8333333333333334
+  ],
+  [
+   9,
+   15,
+   0.7222222222222222
+  ],
+  [
+   9,
+   16,
+   0.5833333333333334
+  ],
+  [
+   10,
+   2,
+   0.9722222222222222
+  ],
+  [
+   10,
+   3,
+   0.9722222222222222
+  ],
+  [
+   10,
+   4,
+   0.9722222222222222
+  ],
+  [
+   10,
+   5,
+   0.9722222222222222
+  ],
+  [
+   10,
+   6,
+   0.9722222222222222
+  ],
+  [
+   10,
+   7,
+   0.9722222222222222
+  ],
+  [
+   10,
+   8,
+   0.9722222222222222
+  ],
+  [
+   10,
+   9,
+   0.9722222222222222
+  ],
+  [
+   10,
+   10,
+   0.9722222222222222
+  ],
+  [
+   10,
+   11,
+   0.9722222222222222
+  ],
+  [
+   10,
+   12,
+   0.9722222222222222
+  ],
+  [
+   10,
+   13,
+   0.9722222222222222
+  ],
+  [
+   10,
+   14,
+   0.9166666666666666
+  ],
+  [
+   10,
+   15,
+   0.8333333333333334
+  ],
+  [
+   10,
+   16,
+   0.7222222222222222
+  ],
+  [
+   11,
+   2,
+   0.9722222222222222
+  ],
+  [
+   11,
+   3,
+   0.9722222222222222
+  ],
+  [
+   11,
+   4,
+   0.9722222222222222
+  ],
+  [
+   11,
+   5,
+   0.9722222222222222
+  ],
+  [
+   11,
+   6,
+   0.9722222222222222
+  ],
+  [
+   11,
+   7,
+   0.9722222222222222
+  ],
+  [
+   11,
+   8,
+   0.9722222222222222
+  ],
+  [
+   11,
+   9,
+   0.9722222222222222
+  ],
+  [
+   11,
+   10,
+   0.9722222222222222
+  ],
+  [
+   11,
+   11,
+   0.9722222222222222
+  ],
+  [
+   11,
+   12,
+   0.9722222222222222
+  ],
+  [
+   11,
+   13,
+   0.9722222222222222
+  ],
+  [
+   11,
+   14,
+   0.9722222222222222
+  ],
+  [
+   11,
+   15,
+   0.9166666666666666
+  ],
+  [
+   11,
+   16,
+   0.8333333333333334
+  ],
+  [
+   12,
+   2,
+   0.9722222222222222
+  ],
+  [
+   12,
+   3,
+   0.9722222222222222
+  ],
+  [
+   12,
+   4,
+   0.9722222222222222
+  ],
+  [
+   12,
+   5,
+   0.9722222222222222
+  ],
+  [
+   12,
+   6,
+   0.9722222222222222
+  ],
+  [
+   12,
+   7,
+   0.9722222222222222
+  ],
+  [
+   12,
+   8,
+   0.9722222222222222
+  ],
+  [
+   12,
+   9,
+   0.9722222222222222
+  ],
+  [
+   12,
+   10,
+   0.9722222222222222
+  ],
+  [
+   12,
+   11,
+   0.9722222222222222
+  ],
+  [
+   12,
+   12,
+   0.9722222222222222
+  ],
+  [
+   12,
+   13,
+   0.9722222222222222
+  ],
+  [
+   12,
+   14,
+   0.9722222222222222
+  ],
+  [
+   12,
+   15,
+   0.9722222222222222
+  ],
+  [
+   12,
+   16,
+   0.9166666666666666
+  ]
+ ],
+ "validate": [
+  {
+   "graph": {
+    "start": "gate",
+    "cards": {
+     "gate": {
+      "type": "fork",
+      "id": "gate",
+      "routes": [
+       {
+        "when": {
+         "op": "all",
+         "conditions": [
+          {
+           "op": "flag",
+           "name": "survey_started"
+          },
+          {
+           "op": "skill",
+           "skill": "logic",
+           "atLeast": 2
+          }
+         ]
+        },
+        "next": "measure"
+       }
+      ],
+      "otherwise": "observe"
+     },
+     "measure": {
+      "type": "line",
+      "id": "measure",
+      "speaker": "Logic",
+      "text": "synthetic measurement",
+      "next": "voices",
+      "sets": [
+       "measured_once"
+      ]
+     },
+     "observe": {
+      "type": "line",
+      "id": "observe",
+      "text": "synthetic observation",
+      "next": "voices"
+     },
+     "voices": {
+      "type": "passive",
+      "id": "voices",
+      "next": "hub",
+      "probes": [
+       {
+        "id": "v.logic",
+        "skill": "logic",
+        "atLeast": 2,
+        "text": "LOGIC: synthetic insight"
+       },
+       {
+        "id": "v.empathy",
+        "skill": "empathy",
+        "atLeast": 3,
+        "text": "synthetic empathy"
+       }
+      ]
+     },
+     "hub": {
+      "type": "choice",
+      "id": "hub",
+      "prompt": "synthetic prompt",
+      "choices": [
+       {
+        "id": "c.red",
+        "label": "red",
+        "next": "hub",
+        "flags": [
+         "red_tried"
+        ],
+        "check": {
+         "id": "synthetic.red",
+         "kind": "red",
+         "skill": "empathy",
+         "difficulty": 9,
+         "success": "red.ok",
+         "failure": "red.no"
+        }
+       },
+       {
+        "id": "c.white",
+        "label": "white",
+        "next": "hub",
+        "check": {
+         "id": "synthetic.white",
+         "kind": "white",
+         "skill": "logic",
+         "difficulty": 10,
+         "success": "white.ok",
+         "failure": "white.no",
+         "modifiers": [
+          {
+           "when": {
+            "op": "flag",
+            "name": "helper"
+           },
+           "amount": 2,
+           "reason": "helper"
+          },
+          {
+           "when": {
+            "op": "not",
+            "condition": {
+             "op": "any",
+             "conditions": [
+              {
+               "op": "flag",
+               "name": "wall_measured"
+              },
+              {
+               "op": "flag",
+               "name": "permission"
+              }
+             ]
+            }
+           },
+           "amount": -1,
+           "reason": "unprepared"
+          }
+         ]
+        }
+       },
+       {
+        "id": "c.gated",
+        "label": "gated",
+        "next": "hub",
+        "flags": [
+         "gated_done"
+        ],
+        "when": {
+         "op": "all",
+         "conditions": [
+          {
+           "op": "flag",
+           "name": "red_tried"
+          },
+          {
+           "op": "not",
+           "condition": {
+            "op": "flag",
+            "name": "gated_done"
+           }
+          }
+         ]
+        }
+       },
+       {
+        "id": "c.leave",
+        "label": "leave",
+        "next": "end"
+       }
+      ]
+     },
+     "red.ok": {
+      "type": "line",
+      "id": "red.ok",
+      "text": "ok",
+      "next": "hub",
+      "sets": [
+       "red_won"
+      ]
+     },
+     "red.no": {
+      "type": "line",
+      "id": "red.no",
+      "text": "no",
+      "next": "hub",
+      "sets": [
+       "red_lost"
+      ]
+     },
+     "white.ok": {
+      "type": "line",
+      "id": "white.ok",
+      "text": "ok",
+      "next": "hub",
+      "sets": [
+       "white_won"
+      ]
+     },
+     "white.no": {
+      "type": "line",
+      "id": "white.no",
+      "text": "no",
+      "next": "hub"
+     },
+     "end": {
+      "type": "end",
+      "id": "end",
+      "text": "end",
+      "sets": [
+       "synthetic_done"
+      ]
+     }
+    }
+   },
+   "expected": []
+  },
+  {
+   "graph": {
+    "start": "missing",
+    "cards": {}
+   },
+   "expected": [
+    "Missing card missing",
+    "No reachable ending"
+   ]
+  },
+  {
+   "graph": {
+    "start": "a",
+    "cards": {
+     "a": {
+      "type": "line",
+      "id": "a",
+      "text": "",
+      "next": "b"
+     },
+     "z": {
+      "type": "end",
+      "id": "z",
+      "text": ""
+     }
+    }
+   },
+   "expected": [
+    "Broken edge a -> b",
+    "No reachable ending",
+    "Unreachable card z"
+   ]
+  }
+ ],
+ "ledgers": [
+  {
+   "ledger": {
+    "white": {
+     "w1": 4,
+     "w3": 0
+    },
+    "red": [
+     "r2",
+     "r0"
+    ]
+   },
+   "progress": {
+    "whiteAttempts": {
+     "w1": 3,
+     "w2": 1
+    },
+    "redAttempts": [
+     "r1",
+     "r2"
+    ]
+   },
+   "expected": {
+    "white": {
+     "w1": 4,
+     "w3": 0,
+     "w2": 1
+    },
+    "red": [
+     "r2",
+     "r0",
+     "r1"
+    ]
+   }
+  },
+  {
+   "ledger": null,
+   "progress": {
+    "whiteAttempts": {
+     "w1": 3,
+     "w2": 1
+    },
+    "redAttempts": [
+     "r1",
+     "r2"
+    ]
+   },
+   "expected": {
+    "white": {
+     "w1": 3,
+     "w2": 1
+    },
+    "red": [
+     "r1",
+     "r2"
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,345 @@
+{
+ "sanitize": [
+  {
+   "input": {
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 700,
+      "y": 700
+     },
+     "heading": 1.25,
+     "visits": {
+      "plaza": 1
+     }
+    },
+    "dialogues": {
+     "bonpland": {
+      "nodeId": "bon.jul_open",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       }
+      ]
+     }
+    },
+    "activeEncounter": "bonpland",
+    "evidence": [
+     {
+      "id": "e",
+      "kind": "measurement",
+      "date": "d",
+      "content": "c",
+      "source": "s"
+     }
+    ],
+    "checks": {
+     "white": {
+      "a": 2
+     },
+     "red": [
+      "b"
+     ]
+    }
+   },
+   "expected": {
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 700,
+      "y": 700
+     },
+     "heading": 1.25,
+     "visits": {
+      "plaza": 1
+     }
+    },
+    "evidence": [
+     {
+      "id": "e",
+      "kind": "measurement",
+      "date": "d",
+      "content": "c",
+      "source": "s"
+     }
+    ],
+    "dialogues": [
+     "bonpland"
+    ],
+    "activeEncounter": "bonpland",
+    "checks": {
+     "white": {
+      "a": 2
+     },
+     "red": [
+      "b"
+     ]
+    }
+   }
+  },
+  {
+   "input": {
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": "left",
+      "y": 3
+     },
+     "heading": 0,
+     "visits": {}
+    },
+    "dialogues": {
+     "bonpland": {
+      "nodeId": 42,
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       }
+      ]
+     }
+    },
+    "activeEncounter": "bonpland",
+    "evidence": [
+     {
+      "id": "ok",
+      "kind": "measurement",
+      "date": "d",
+      "content": "c",
+      "source": "s"
+     },
+     {
+      "id": 7
+     },
+     {
+      "id": "x",
+      "kind": "rumour",
+      "date": "d",
+      "content": "c",
+      "source": "s"
+     }
+    ],
+    "checks": "none"
+   },
+   "expected": {
+    "exploration": null,
+    "evidence": [
+     {
+      "id": "ok",
+      "kind": "measurement",
+      "date": "d",
+      "content": "c",
+      "source": "s"
+     }
+    ],
+    "dialogues": [],
+    "activeEncounter": null,
+    "checks": {
+     "white": {},
+     "red": []
+    }
+   }
+  },
+  {
+   "input": {
+    "exploration": {
+     "scene": "elsewhere",
+     "position": {
+      "x": 1,
+      "y": 1
+     },
+     "heading": 0,
+     "visits": {}
+    },
+    "dialogues": [],
+    "activeEncounter": "missing",
+    "evidence": "nope",
+    "checks": {
+     "white": {
+      "a": "x"
+     },
+     "red": []
+    }
+   },
+   "expected": {
+    "exploration": null,
+    "evidence": [],
+    "dialogues": [],
+    "activeEncounter": null,
+    "checks": {
+     "white": {},
+     "red": []
+    }
+   }
+  },
+  {
+   "input": {
+    "exploration": {
+     "scene": "cumana",
+     "position": {
+      "x": 1,
+      "y": 1
+     },
+     "heading": 0,
+     "visits": {
+      "a": -1
+     }
+    },
+    "dialogues": {
+     "a": {
+      "nodeId": "bon.jul_open",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": [
+       {
+        "type": "line",
+        "card": "bon.jul_open"
+       }
+      ]
+     },
+     "b": {
+      "nodeId": "bon.jul_open",
+      "finished": false,
+      "flags": [],
+      "insights": [],
+      "whiteAttempts": {},
+      "redAttempts": [],
+      "lastRoll": null,
+      "history": [],
+      "transcript": "bad"
+     }
+    },
+    "activeEncounter": "a",
+    "checks": {
+     "white": {},
+     "red": [
+      1
+     ]
+    }
+   },
+   "expected": {
+    "exploration": null,
+    "evidence": [],
+    "dialogues": [
+     "a"
+    ],
+    "activeEncounter": "a",
+    "checks": {
+     "white": {},
+     "red": []
+    }
+   }
+  },
+  {
+   "input": {},
+   "expected": {
+    "exploration": null,
+    "evidence": [],
+    "dialogues": [],
+    "activeEncounter": null,
+    "checks": {
+     "white": {},
+     "red": []
+    }
+   }
+  }
+ ],
+ "normalize": [
+  {
+   "input": null,
+   "expected": {
+    "scene": "cumana",
+    "position": {
+     "x": 150,
+     "y": 720
+    },
+    "heading": 0.7853981633974483,
+    "visits": {}
+   }
+  },
+  {
+   "input": {
+    "scene": "cumana",
+    "position": {
+     "x": "NaN",
+     "y": 1
+    },
+    "heading": 0,
+    "visits": {}
+   },
+   "expected": {
+    "scene": "cumana",
+    "position": {
+     "x": 150,
+     "y": 720
+    },
+    "heading": 0.7853981633974483,
+    "visits": {}
+   }
+  },
+  {
+   "input": {
+    "scene": "cumana",
+    "position": {
+     "x": 345,
+     "y": 610
+    },
+    "heading": 2,
+    "visits": {
+     "ines": 2
+    }
+   },
+   "expected": {
+    "scene": "cumana",
+    "position": {
+     "x": 304,
+     "y": 624
+    },
+    "heading": 2,
+    "visits": {
+     "ines": 2
+    }
+   }
+  },
+  {
+   "input": {
+    "scene": "cumana",
+    "position": {
+     "x": 700,
+     "y": 700
+    },
+    "heading": 0.5,
+    "visits": {}
+   },
+   "expected": {
+    "scene": "cumana",
+    "position": {
+     "x": 700,
+     "y": 700
+    },
+    "heading": 0.5,
+    "visits": {}
+   }
+  }
+ ]
+}

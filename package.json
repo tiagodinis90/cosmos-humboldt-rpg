@@ -6,7 +6,9 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
-    "test": "node --test scripts/test-opening.mjs scripts/test-cumana.mjs scripts/test-graph.mjs scripts/test-exploration.mjs scripts/test-iso.mjs scripts/test-encounters.mjs"
+    "test": "node --test scripts/test-opening.mjs scripts/test-cumana.mjs scripts/test-graph.mjs scripts/test-exploration.mjs scripts/test-iso.mjs scripts/test-encounters.mjs && node scripts/godot-export.mjs check",
+    "godot:fixtures": "node scripts/godot-export.mjs fixtures",
+    "godot:seed-content": "node scripts/godot-export.mjs content"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
