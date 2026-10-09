@@ -1,4 +1,5 @@
 import type { FieldworkProgress } from './narrative/cumana';
+import type { GraphProgress } from './narrative/graph-engine';
 // ===== COSMOS: A Humboldtian RPG =====
 // Gameplay inspired by Citizen Sleeper's dice-cycle system
 
@@ -163,12 +164,13 @@ export interface ShipConfig {
 }
 
 export interface GameState {
-  phase: 'title' | 'creation' | 'opening' | 'fieldwork' | 'cycle_start' | 'dice_assignment' | 'action_result' | 'location' | 'journal' | 'storylines' | 'correspondence' | 'web_of_life' | 'moral_dilemma' | 'world_map' | 'location_detail' | 'traveling' | 'ship_customize' | 'gameover' | 'victory';
+  phase: 'title' | 'creation' | 'opening' | 'fieldwork' | 'survey' | 'cycle_start' | 'dice_assignment' | 'action_result' | 'location' | 'journal' | 'storylines' | 'correspondence' | 'web_of_life' | 'moral_dilemma' | 'world_map' | 'location_detail' | 'traveling' | 'ship_customize' | 'gameover' | 'victory';
   travelFrom?: string;
   travelTo?: string;
   travelDistance?: number;
   shipConfig: ShipConfig;
   fieldwork?: FieldworkProgress;
+  survey?: GraphProgress;
   cycle: number;
   dice: DiceRoll[];
   diceCount: number;
