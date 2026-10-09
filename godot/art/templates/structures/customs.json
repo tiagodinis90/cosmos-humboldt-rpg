@@ -1,0 +1,13 @@
+{
+  "anchor_px": [
+    474.0,
+    593.0
+  ],
+  "id": "customs",
+  "kind": "house",
+  "note": "anchor_px is the footprint's front ground corner (maxX, maxY). Keep it when painting over.",
+  "size_px": [
+    818,
+    623
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "anchor_px": [
+    164.0,
+    363.0
+  ],
+  "id": "sea-wall",
+  "kind": "seawall",
+  "note": "anchor_px is the footprint's front ground corner (maxX, maxY). Keep it when painting over.",
+  "size_px": [
+    578,
+    393
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "anchor_px": [
+    204.0,
+    247.0
+  ],
+  "id": "damaged-wall",
+  "kind": "wall",
+  "note": "anchor_px is the footprint's front ground corner (maxX, maxY). Keep it when painting over.",
+  "size_px": [
+    292,
+    277
+  ]
+}

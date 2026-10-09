@@ -1,0 +1,13 @@
+{
+  "anchor_px": [
+    142.0,
+    324.0
+  ],
+  "id": "tamarind",
+  "kind": "tree",
+  "note": "anchor_px is the footprint's front ground corner (maxX, maxY). Keep it when painting over.",
+  "size_px": [
+    284,
+    414
+  ]
+}
