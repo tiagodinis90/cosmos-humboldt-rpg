@@ -1,0 +1,60 @@
+key,en
+location.cuman_beside_the_lodging,"Cumaná, beside the lodging"
+evidence.scene_sand_sun.content,Sand in full sun: 37.7 °C.
+evidence.scene_sand_sun.method,Bulb laid on the sand surface; read after the mercury settled.
+evidence.scene_sand_sun.uncertainty,"A surface temperature, not an air temperature."
+evidence.scene_sand_sun.source,Reading attributed to Humboldt at Cumaná; placement dramatized
+evidence.scene_shade_wall.content,Air in shade: reading compromised by heat radiating from the wall.
+evidence.scene_shade_wall.method,Thermometer hung close to sun-warmed masonry.
+evidence.scene_shade_wall.uncertainty,"Unknown bias, probably warm. Kept as a record of the attempt."
+evidence.scene_shade_wall.source,Dramatized reading; value illustrative
+evidence.scene_shade_air.content,Air in shade: about 29 °C.
+evidence.scene_shade_air.method,Hung from a post an arm’s length from the wall; two readings a minute apart agreed.
+evidence.scene_shade_air.uncertainty,"About half a degree between readings; one place, one hour."
+evidence.scene_shade_air.source,Dramatized reading; value illustrative
+evidence.scene_exposure.reliable.content,Exposure alone separates sand and shade by about eight degrees over a few steps.
+evidence.scene_exposure.reliable.uncertainty,Holds for this spot and hour until repeated elsewhere.
+evidence.scene_exposure.reliable.source,Inference by Humboldt from paired readings
+evidence.scene_exposure.doubtful.content,"Sand and shade differ, but the size of the difference cannot be trusted."
+evidence.scene_exposure.doubtful.uncertainty,Depends on a compromised shade reading.
+evidence.scene_exposure.doubtful.source,Inference by Humboldt from paired readings
+evidence.scene_cyanometer.conditions.content,Sky over the harbour: between the 22nd and 23rd blue of the cyanometer.
+evidence.scene_cyanometer.conditions.method,"Four in the afternoon, thin haze to seaward, eyes adjusted in shade for a minute."
+evidence.scene_cyanometer.conditions.uncertainty,Depends on the observer’s eye; conditions recorded for comparison.
+evidence.scene_cyanometer.conditions.source,Cyanometer reading; value illustrative
+evidence.scene_cyanometer.number.content,Sky over the harbour: between the 22nd and 23rd blue of the cyanometer.
+evidence.scene_cyanometer.number.method,Number only; no conditions recorded.
+evidence.scene_cyanometer.number.uncertainty,Cannot be compared with later readings without the conditions.
+evidence.scene_cyanometer.number.source,Cyanometer reading; value illustrative
+date.july_1799,July 1799
+location.cuman_beside_the_plant_press,"Cumaná, beside the plant press"
+evidence.bonpland_priority.content,Bonpland: collect first what cannot be collected again. Instruments can return; a plant flowering in a ditch cannot.
+evidence.bonpland_priority.source,Aimé Bonpland; dialogue dramatized
+location.cuman_,Cumaná
+evidence.bonpland_assist.content,Bonpland agreed to hold the baseline when the wall is surveyed.
+evidence.bonpland_assist.source,Agreement between the travellers; dramatized
+date.november_1799,November 1799
+location.cuman_the_store_doorway,"Cumaná, the store doorway"
+evidence.cumana_repair_order.content,"Repairs follow the governor’s order, then whoever can afford to pay the masons."
+evidence.cumana_repair_order.source,"Inés Ávila, fictional conversation"
+evidence.cumana_dry_groves.content,Residents say the land around Cumaná has grown drier since the old groves were cleared.
+evidence.cumana_dry_groves.uncertainty,"Memory across a generation; no measurements. A claim to test elsewhere, not a result."
+evidence.cumana_dry_groves.source,"Inés Ávila, fictional conversation; based on testimony Humboldt reports from near Cumaná"
+evidence.cumana_bell_record.content,The only public record of the tremors is the church bell; the count changes with the teller.
+evidence.cumana_bell_record.uncertainty,"A lead to a record, not a count."
+evidence.cumana_bell_record.source,"Inés Ávila, fictional conversation"
+location.cuman_the_courtyard_wall,"Cumaná, the courtyard wall"
+evidence.cumana_wall_baseline.content,Angle of the main crack measured against a chalk baseline on the lowest course; repeatable.
+evidence.cumana_wall_baseline.method,Baseline between two fixed stones; angle drawn from both ends.
+evidence.cumana_wall_baseline.uncertainty,"Records the damage, not the earthquake that caused it."
+evidence.cumana_wall_baseline.source,Survey by Humboldt; scene dramatized
+evidence.cumana_wall_attempt.content,Attempted to survey the crack; the footing gave way and no reliable angle was taken.
+evidence.cumana_wall_attempt.uncertainty,No measurement. The attempt is recorded so it is not mistaken for one.
+evidence.cumana_wall_attempt.source,Survey by Humboldt; scene dramatized
+evidence.cumana_ines_named.content,"Inés Ávila agrees to be named. She remembers where people ran, not how long the ground shook."
+evidence.cumana_ines_named.source,"Inés Ávila, fictional conversation"
+evidence.cumana_ines_unnamed.content,"A resident’s account of the damage, kept without her name at her request."
+evidence.cumana_ines_unnamed.source,Unnamed resident (fictional)
+evidence.cumana_branching_pattern.content,A branching crack resembles an earlier drawing. Resemblance noted; no mechanism proposed.
+evidence.cumana_branching_pattern.uncertainty,Could be coincidence or the observer’s eye.
+evidence.cumana_branching_pattern.source,Unverified comparison

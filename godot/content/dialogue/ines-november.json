@@ -1,0 +1,259 @@
+{
+ "id": "ines-november",
+ "status": "provisional draft (AI-assisted); see docs/production/human-led-creative-production.md",
+ "title_key": "ines-november.title",
+ "place_key": "ines-november.place",
+ "exits": [
+  "ines.leave"
+ ],
+ "graph": {
+  "start": "ines.open",
+  "cards": {
+   "ines.open": {
+    "type": "line",
+    "id": "ines.open",
+    "speaker": "narrator",
+    "text_key": "ines-november.line.ines.open",
+    "next": "ines.fork"
+   },
+   "ines.fork": {
+    "type": "fork",
+    "id": "ines.fork",
+    "routes": [
+     {
+      "when": {
+       "op": "flag",
+       "name": "ines_refused_publication"
+      },
+      "next": "ines.cool"
+     },
+     {
+      "when": {
+       "op": "flag",
+       "name": "ines_consented_publication"
+      },
+      "next": "ines.warm"
+     },
+     {
+      "when": {
+       "op": "flag",
+       "name": "cumana_survey_complete"
+      },
+      "next": "ines.after_survey"
+     }
+    ],
+    "otherwise": "ines.before_survey"
+   },
+   "ines.cool": {
+    "type": "line",
+    "id": "ines.cool",
+    "speaker": "ines",
+    "text_key": "ines-november.line.ines.cool",
+    "next": "ines.voices"
+   },
+   "ines.warm": {
+    "type": "line",
+    "id": "ines.warm",
+    "speaker": "ines",
+    "text_key": "ines-november.line.ines.warm",
+    "next": "ines.voices"
+   },
+   "ines.after_survey": {
+    "type": "line",
+    "id": "ines.after_survey",
+    "speaker": "ines",
+    "text_key": "ines-november.line.ines.after_survey",
+    "next": "ines.voices"
+   },
+   "ines.before_survey": {
+    "type": "line",
+    "id": "ines.before_survey",
+    "speaker": "ines",
+    "text_key": "ines-november.line.ines.before_survey",
+    "next": "ines.voices",
+    "sets": [
+     "ines_warned_masons"
+    ]
+   },
+   "ines.voices": {
+    "type": "passive",
+    "id": "ines.voices",
+    "next": "ines.options",
+    "probes": [
+     {
+      "id": "ines.political",
+      "skill": "political",
+      "atLeast": 2,
+      "text_key": "ines-november.voice.ines.political"
+     },
+     {
+      "id": "ines.empathy",
+      "skill": "empathy",
+      "atLeast": 2,
+      "text_key": "ines-november.voice.ines.empathy"
+     }
+    ]
+   },
+   "ines.options": {
+    "type": "choice",
+    "id": "ines.options",
+    "prompt_key": "ines-november.prompt.ines.options",
+    "choices": [
+     {
+      "id": "ines.repairs",
+      "label_key": "ines-november.choice.ines.repairs",
+      "next": "ines.repairs_answer",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "ines_repair_order"
+       }
+      },
+      "flags": [
+       "ines_repair_order"
+      ]
+     },
+     {
+      "id": "ines.helped",
+      "label_key": "ines-november.choice.ines.helped",
+      "next": "ines.helped_answer",
+      "when": {
+       "op": "all",
+       "conditions": [
+        {
+         "op": "flag",
+         "name": "cumana_aided_neighbours"
+        },
+        {
+         "op": "not",
+         "condition": {
+          "op": "flag",
+          "name": "ines_acknowledged_help"
+         }
+        }
+       ]
+      },
+      "flags": [
+       "ines_acknowledged_help"
+      ]
+     },
+     {
+      "id": "ines.groves",
+      "label_key": "ines-november.choice.ines.groves",
+      "next": "ines.groves_answer",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "deforestation_testimony"
+       }
+      },
+      "flags": [
+       "deforestation_testimony"
+      ]
+     },
+     {
+      "id": "ines.record",
+      "label_key": "ines-november.choice.ines.record",
+      "next": "ines.record_answer",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "ines_bell_record"
+       }
+      },
+      "flags": [
+       "ines_bell_record"
+      ]
+     },
+     {
+      "id": "ines.leave",
+      "label_key": "ines-november.choice.ines.leave",
+      "next": "ines.end"
+     }
+    ]
+   },
+   "ines.repairs_answer": {
+    "type": "line",
+    "id": "ines.repairs_answer",
+    "speaker": "ines",
+    "text_key": "ines-november.line.ines.repairs_answer",
+    "next": "ines.options"
+   },
+   "ines.helped_answer": {
+    "type": "line",
+    "id": "ines.helped_answer",
+    "speaker": "ines",
+    "text_key": "ines-november.line.ines.helped_answer",
+    "next": "ines.options"
+   },
+   "ines.groves_answer": {
+    "type": "line",
+    "id": "ines.groves_answer",
+    "speaker": "ines",
+    "text_key": "ines-november.line.ines.groves_answer",
+    "next": "ines.options"
+   },
+   "ines.record_answer": {
+    "type": "line",
+    "id": "ines.record_answer",
+    "speaker": "ines",
+    "text_key": "ines-november.line.ines.record_answer",
+    "next": "ines.options"
+   },
+   "ines.end": {
+    "type": "end",
+    "id": "ines.end",
+    "text_key": "ines-november.line.ines.end"
+   }
+  }
+ },
+ "consequences": [
+  {
+   "when": {
+    "op": "flag",
+    "name": "ines_repair_order"
+   },
+   "evidence": {
+    "id": "cumana_repair_order",
+    "kind": "testimony",
+    "date_key": "date.november_1799",
+    "location_key": "location.cuman_the_store_doorway",
+    "content_key": "evidence.cumana_repair_order.content",
+    "source_key": "evidence.cumana_repair_order.source"
+   }
+  },
+  {
+   "when": {
+    "op": "flag",
+    "name": "deforestation_testimony"
+   },
+   "evidence": {
+    "id": "cumana_dry_groves",
+    "kind": "testimony",
+    "date_key": "date.november_1799",
+    "location_key": "location.cuman_the_store_doorway",
+    "content_key": "evidence.cumana_dry_groves.content",
+    "uncertainty_key": "evidence.cumana_dry_groves.uncertainty",
+    "source_key": "evidence.cumana_dry_groves.source"
+   }
+  },
+  {
+   "when": {
+    "op": "flag",
+    "name": "ines_bell_record"
+   },
+   "evidence": {
+    "id": "cumana_bell_record",
+    "kind": "testimony",
+    "date_key": "date.november_1799",
+    "location_key": "location.cuman_the_store_doorway",
+    "content_key": "evidence.cumana_bell_record.content",
+    "uncertainty_key": "evidence.cumana_bell_record.uncertainty",
+    "source_key": "evidence.cumana_bell_record.source"
+   }
+  }
+ ]
+}

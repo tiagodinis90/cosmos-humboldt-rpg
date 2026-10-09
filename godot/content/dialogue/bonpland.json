@@ -1,0 +1,369 @@
+{
+ "id": "bonpland",
+ "status": "provisional draft (AI-assisted); see docs/production/human-led-creative-production.md",
+ "title_key": "bonpland.title",
+ "place_key": "bonpland.place",
+ "exits": [
+  "bon.leave",
+  "bon.nov_leave"
+ ],
+ "graph": {
+  "start": "bon.start",
+  "cards": {
+   "bon.start": {
+    "type": "fork",
+    "id": "bon.start",
+    "routes": [
+     {
+      "when": {
+       "op": "flag",
+       "name": "cumana_fieldwork_complete"
+      },
+      "next": "bon.nov_open"
+     }
+    ],
+    "otherwise": "bon.jul_open"
+   },
+   "bon.jul_open": {
+    "type": "line",
+    "id": "bon.jul_open",
+    "speaker": "narrator",
+    "text_key": "bonpland.line.bon.jul_open",
+    "next": "bon.jul_greet"
+   },
+   "bon.jul_greet": {
+    "type": "line",
+    "id": "bon.jul_greet",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.jul_greet",
+    "next": "bon.jul_voices"
+   },
+   "bon.jul_voices": {
+    "type": "passive",
+    "id": "bon.jul_voices",
+    "next": "bon.jul_options",
+    "probes": [
+     {
+      "id": "bon.empathy",
+      "skill": "empathy",
+      "atLeast": 2,
+      "text_key": "bonpland.voice.bon.empathy"
+     },
+     {
+      "id": "bon.logic",
+      "skill": "logic",
+      "atLeast": 2,
+      "text_key": "bonpland.voice.bon.logic"
+     },
+     {
+      "id": "bon.aesthetics",
+      "skill": "aesthetics",
+      "atLeast": 2,
+      "text_key": "bonpland.voice.bon.aesthetics"
+     }
+    ]
+   },
+   "bon.jul_options": {
+    "type": "choice",
+    "id": "bon.jul_options",
+    "prompt_key": "bonpland.prompt.bon.jul_options",
+    "choices": [
+     {
+      "id": "bon.help",
+      "label_key": "bonpland.choice.bon.help",
+      "next": "bon.helped",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "bonpland_helped_press"
+       }
+      },
+      "flags": [
+       "bonpland_helped_press"
+      ]
+     },
+     {
+      "id": "bon.method",
+      "label_key": "bonpland.choice.bon.method",
+      "next": "bon.method_answer",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "bonpland_method_asked"
+       }
+      },
+      "flags": [
+       "bonpland_method_asked"
+      ]
+     },
+     {
+      "id": "bon.walls",
+      "label_key": "bonpland.choice.bon.walls",
+      "next": "bon.jul_options",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "bonpland_priorities_argued"
+       }
+      },
+      "flags": [
+       "bonpland_priorities_argued"
+      ],
+      "check": {
+       "id": "bonpland_priorities",
+       "kind": "red",
+       "skill": "empathy",
+       "difficulty": 9,
+       "success": "bon.walls_yes",
+       "failure": "bon.walls_no",
+       "modifiers": [
+        {
+         "when": {
+          "op": "flag",
+          "name": "bonpland_helped_press"
+         },
+         "amount": 1,
+         "reason_key": "bonpland.reason.bonpland_priorities.0"
+        }
+       ]
+      }
+     },
+     {
+      "id": "bon.leave",
+      "label_key": "bonpland.choice.bon.leave",
+      "next": "bon.jul_end"
+     }
+    ]
+   },
+   "bon.helped": {
+    "type": "line",
+    "id": "bon.helped",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.helped",
+    "next": "bon.jul_options"
+   },
+   "bon.method_answer": {
+    "type": "line",
+    "id": "bon.method_answer",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.method_answer",
+    "next": "bon.jul_options"
+   },
+   "bon.walls_yes": {
+    "type": "line",
+    "id": "bon.walls_yes",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.walls_yes",
+    "next": "bon.jul_options",
+    "sets": [
+     "bonpland_will_assist_survey"
+    ]
+   },
+   "bon.walls_no": {
+    "type": "line",
+    "id": "bon.walls_no",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.walls_no",
+    "next": "bon.jul_options",
+    "sets": [
+     "bonpland_resents_priorities"
+    ]
+   },
+   "bon.jul_end": {
+    "type": "end",
+    "id": "bon.jul_end",
+    "text_key": "bonpland.line.bon.jul_end"
+   },
+   "bon.nov_open": {
+    "type": "line",
+    "id": "bon.nov_open",
+    "speaker": "narrator",
+    "text_key": "bonpland.line.bon.nov_open",
+    "next": "bon.nov_fork"
+   },
+   "bon.nov_fork": {
+    "type": "fork",
+    "id": "bon.nov_fork",
+    "routes": [
+     {
+      "when": {
+       "op": "flag",
+       "name": "cumana_bonpland_care"
+      },
+      "next": "bon.nov_care"
+     }
+    ],
+    "otherwise": "bon.nov_plain"
+   },
+   "bon.nov_care": {
+    "type": "line",
+    "id": "bon.nov_care",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.nov_care",
+    "next": "bon.nov_options"
+   },
+   "bon.nov_plain": {
+    "type": "line",
+    "id": "bon.nov_plain",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.nov_plain",
+    "next": "bon.nov_options"
+   },
+   "bon.nov_options": {
+    "type": "choice",
+    "id": "bon.nov_options",
+    "prompt_key": "bonpland.prompt.bon.nov_options",
+    "choices": [
+     {
+      "id": "bon.nov_write",
+      "label_key": "bonpland.choice.bon.nov_write",
+      "next": "bon.nov_write_answer",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "bonpland_letter_asked"
+       }
+      },
+      "flags": [
+       "bonpland_letter_asked"
+      ]
+     },
+     {
+      "id": "bon.nov_ines",
+      "label_key": "bonpland.choice.bon.nov_ines",
+      "next": "bon.nov_ines_fork",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "bonpland_naming_asked"
+       }
+      },
+      "flags": [
+       "bonpland_naming_asked"
+      ]
+     },
+     {
+      "id": "bon.nov_leave",
+      "label_key": "bonpland.choice.bon.nov_leave",
+      "next": "bon.nov_end"
+     }
+    ]
+   },
+   "bon.nov_write_answer": {
+    "type": "line",
+    "id": "bon.nov_write_answer",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.nov_write_answer",
+    "next": "bon.nov_options"
+   },
+   "bon.nov_ines_fork": {
+    "type": "fork",
+    "id": "bon.nov_ines_fork",
+    "routes": [
+     {
+      "when": {
+       "op": "flag",
+       "name": "ines_refused_publication"
+      },
+      "next": "bon.nov_ines_no"
+     },
+     {
+      "when": {
+       "op": "flag",
+       "name": "ines_consented_publication"
+      },
+      "next": "bon.nov_ines_yes"
+     }
+    ],
+    "otherwise": "bon.nov_ines_unasked"
+   },
+   "bon.nov_ines_yes": {
+    "type": "line",
+    "id": "bon.nov_ines_yes",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.nov_ines_yes",
+    "next": "bon.nov_options"
+   },
+   "bon.nov_ines_no": {
+    "type": "line",
+    "id": "bon.nov_ines_no",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.nov_ines_no",
+    "next": "bon.nov_options"
+   },
+   "bon.nov_ines_unasked": {
+    "type": "line",
+    "id": "bon.nov_ines_unasked",
+    "speaker": "bonpland",
+    "text_key": "bonpland.line.bon.nov_ines_unasked",
+    "next": "bon.nov_options"
+   },
+   "bon.nov_end": {
+    "type": "end",
+    "id": "bon.nov_end",
+    "text_key": "bonpland.line.bon.nov_end"
+   }
+  }
+ },
+ "consequences": [
+  {
+   "when_new": "bonpland_helped_press",
+   "bonpland": {
+    "relationship": 1,
+    "morale": 5
+   }
+  },
+  {
+   "when_new": "bonpland_resents_priorities",
+   "bonpland": {
+    "relationship": -1,
+    "morale": -5
+   }
+  },
+  {
+   "when": {
+    "op": "flag",
+    "name": "bonpland_method_asked"
+   },
+   "evidence": {
+    "id": "bonpland_priority",
+    "kind": "testimony",
+    "date_key": "date.july_1799",
+    "location_key": "location.cuman_beside_the_plant_press",
+    "content_key": "evidence.bonpland_priority.content",
+    "source_key": "evidence.bonpland_priority.source"
+   }
+  },
+  {
+   "when": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "bonpland_will_assist_survey"
+     },
+     {
+      "op": "not",
+      "condition": {
+       "op": "flag",
+       "name": "cumana_fieldwork_complete"
+      }
+     }
+    ]
+   },
+   "evidence": {
+    "id": "bonpland_assist",
+    "kind": "observation",
+    "date_key": "date.july_1799",
+    "location_key": "location.cuman_",
+    "content_key": "evidence.bonpland_assist.content",
+    "source_key": "evidence.bonpland_assist.source"
+   }
+  }
+ ]
+}
