@@ -1102,7 +1102,7 @@ function HumboldtOpening({
       <div className="w-full max-w-6xl grid lg:grid-cols-[minmax(0,1fr)_19rem] gap-10 items-start">
       <article className="min-w-0 w-full">
         <div className="border-b border-gold-700/40 pb-5 mb-8">
-          <p className="text-gold-400 uppercase tracking-[0.22em] text-xs font-mono mb-3">COSMOS · {node.date.split(' · ').at(-1)}</p>
+          <p className="text-gold-400 uppercase tracking-[0.22em] text-xs font-mono mb-3">COSMOS · {node.date.slice(-4)}</p>
           <h1 className="text-4xl md:text-5xl text-parchment mb-4">{node.heading}</h1>
           <p className="font-mono text-xs text-parchment/50">{node.date} · {node.place}</p>
         </div>
