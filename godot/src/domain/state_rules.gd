@@ -121,7 +121,19 @@ static func is_graph_progress(value) -> bool:
 	var roll = v.get("lastRoll", 0)
 	if not (roll == null or roll is Dictionary):
 		return false
-	return not v.has("transcript") or v.transcript is Array
+	for i in v.insights:
+		if not i is Dictionary or not i.get("id") is String:
+			return false
+	# Stricter than the TypeScript check: a transcript entry the dialogue
+	# panel cannot draw would leave the conversation impossible to continue.
+	if not v.has("transcript"):
+		return true
+	if not v.transcript is Array:
+		return false
+	for entry in v.transcript:
+		if not entry is Dictionary or not entry.get("type") is String:
+			return false
+	return true
 
 
 static func is_ledger(value) -> bool:

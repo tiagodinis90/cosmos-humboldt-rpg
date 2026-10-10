@@ -39,6 +39,27 @@ func test_step_direct_and_advance() -> void:
 		near(CosmosNav.advance_along_path(point(c.position), c.waypoints, num(c.maxDistance)), c.expected, EPS, "advance %s" % [c.waypoints])
 
 
+## Bit for bit: a last-bit difference can decide whether Humboldt is
+## already within reach of a hotspot.
+func test_distance_and_reach_are_exact() -> void:
+	var data: Dictionary = load_json("res://tests/parity/nav.json")
+	ok(data.has("distance") and data.reach.size() > 100, "fixture has distance and reach cases")
+	for c in data.distance:
+		eq(CosmosNav.distance(c.a, c.b), c.expected, "distance %s %s" % [c.a, c.b])
+	var map: Dictionary = data.maps.cumana
+	var inside := 0
+	for c in data.reach:
+		var h = CosmosWalker.find_hotspot(map, c.hotspot)
+		eq(CosmosNav.distance(c.position, h.point), c.distance, "distance to %s from %s" % [c.hotspot, c.position])
+		var r := CosmosWalker.walk_to(CosmosWalker.create(c.position), map, h.point, h)
+		var event = null if r.event == null else r.event.type
+		eq(event, c.event, "reach %s from %s" % [c.hotspot, c.position])
+		eq(r.walker.route.size(), int(c.route), "route length to %s from %s" % [c.hotspot, c.position])
+		if c.event == "interact":
+			inside += 1
+	ok(inside > 0 and inside < data.reach.size(), "the boundary cases fall on both sides (%d of %d inside)" % [inside, data.reach.size()])
+
+
 func test_walker_scenarios() -> void:
 	var data: Dictionary = load_json("res://tests/parity/walker.json")
 	eq(CosmosWalker.WALK_SPEED, data.constants.WALK_SPEED, "walk speed")
@@ -46,8 +67,13 @@ func test_walker_scenarios() -> void:
 	eq(CosmosWalker.APPROACH_SLACK, data.constants.APPROACH_SLACK, "approach slack")
 	eq(CosmosWalker.PERSONAL_SPACE, data.constants.PERSONAL_SPACE, "personal space")
 	eq(CosmosNav.MAX_SNAP_DISTANCE, data.constants.MAX_SNAP_DISTANCE, "snap distance")
-	var map: Dictionary = load_json("res://tests/parity/nav.json").maps.cumana
+	var base_map: Dictionary = load_json("res://tests/parity/nav.json").maps.cumana
+	var events := {}
 	for scenario in data.scenarios:
+		var map := base_map
+		if scenario.has("extraHotspots"):
+			map = map.duplicate()
+			map.hotspots = map.hotspots + scenario.extraHotspots
 		var start: Dictionary = scenario.start
 		var w := CosmosWalker.create(point(start.position), num(start.heading) if start.has("heading") else PI / 4.0)
 		for i in scenario.steps.size():
@@ -81,3 +107,7 @@ func test_walker_scenarios() -> void:
 				if event.has("snapped"):
 					got_event.snapped = event.snapped
 			eq(got_event, expected.event, "%s, step %d event" % [scenario.name, i])
+			if got_event != null:
+				events[got_event.type] = true
+	for type in ["interact", "arrived", "unreachable", "out-of-reach"]:
+		ok(events.has(type), "the scenarios produce a '%s' event" % type)

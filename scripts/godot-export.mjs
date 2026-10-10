@@ -6,7 +6,10 @@
  *   node scripts/godot-export.mjs content --force  (re)seed godot/content from TS
  *
  * Parity fixtures record what the TypeScript code actually does for a set of
- * synthetic inputs; the Godot tests must reproduce the same results.
+ * synthetic inputs; the Godot tests must reproduce the same results. They
+ * include a frozen copy of the content as exported from TypeScript
+ * (godot/tests/parity/content): parity and scene tests run on that copy, so
+ * writers can change godot/content freely without breaking the tests.
  *
  * Content seeding is a one-off: once writers edit godot/content, that folder
  * is the source of truth for Godot, so this never overwrites it without --force.
@@ -336,34 +339,53 @@ function navFixtures() {
     [MAP.spawn, [{ x: 600, y: 700 }], 8], [MAP.spawn, [{ x: 600, y: 700 }], 1e6], [MAP.spawn, [{ x: 600, y: 700 }], 0],
     [{ x: 0, y: 0 }, [{ x: 0, y: 0 }, { x: 3, y: 4 }, { x: 3, y: 10 }], 7], [{ x: 0, y: 0 }, [{ x: 10, y: 0 }], -5],
   ].map(([position, waypoints, maxDistance]) => ({ position, waypoints, maxDistance, expected: world.advanceAlongPath(position, waypoints, maxDistance) })));
+  // Distances and "within reach" exactly at each hotspot's radius, where
+  // Math.hypot and sqrt(x*x + y*y) disagree in the last bit. Godot compares
+  // these bit for bit.
+  out.distance = [];
+  out.reach = [];
+  const r = rng(97);
+  for (let i = 0; i < 200; i++) {
+    const a = { x: r() * 1500 - 50, y: r() * 1000 - 50 }, b = { x: r() * 1500, y: r() * 1000 };
+    out.distance.push({ a, b, expected: world.distance(a, b) });
+  }
+  for (const h of MAP.hotspots) {
+    for (let i = 0; i < 40; i++) {
+      const angle = r() * Math.PI * 2;
+      const position = { x: h.point.x + Math.cos(angle) * h.radius, y: h.point.y + Math.sin(angle) * h.radius };
+      const result = control.walkTo(control.createWalker(position), MAP, h.point, { hotspot: h });
+      out.reach.push({ position, hotspot: h.id, distance: world.distance(position, h.point), event: result.event?.type ?? null, route: result.walker.route.length });
+    }
+  }
   return out;
 }
 
 function walkerFixtures() {
   const scenarios = [];
-  const hotspot = id => MAP.hotspots.find(h => h.id === id);
-  const run = (name, start, steps) => {
+  const run = (name, start, steps, extraHotspots = []) => {
+    const map = { ...MAP, hotspots: [...MAP.hotspots, ...extraHotspots] };
+    const hotspot = id => map.hotspots.find(h => h.id === id);
     let w = control.createWalker(start.position, start.heading);
     const records = [];
     for (const step of steps) {
       let event = null;
       if (step.type === 'walkTo') {
-        const r = control.walkTo(w, MAP, step.destination ?? hotspot(step.hotspot).point, { hotspot: step.hotspot ? hotspot(step.hotspot) : undefined, run: step.run });
+        const r = control.walkTo(w, map, step.destination ?? hotspot(step.hotspot).point, { hotspot: step.hotspot ? hotspot(step.hotspot) : undefined, run: step.run });
         w = r.walker; event = r.event;
       } else if (step.type === 'tick') {
         for (let i = 0; i < step.count; i++) {
-          const r = control.tickWalker(w, MAP, step.dt);
+          const r = control.tickWalker(w, map, step.dt);
           w = r.walker;
           if (r.event) event = r.event;
         }
       } else if (step.type === 'push') {
-        for (let i = 0; i < step.count; i++) w = control.pushWalker(w, MAP, step.direction, step.dt);
+        for (let i = 0; i < step.count; i++) w = control.pushWalker(w, map, step.direction, step.dt);
       } else if (step.type === 'stop') {
         w = control.stopWalker(w);
       }
       records.push({ walker: clone(w), event: event && { type: event.type, ...(event.hotspot ? { hotspot: event.hotspot.id } : {}), ...('snapped' in event ? { snapped: event.snapped } : {}) } });
     }
-    scenarios.push({ name, start, steps, records });
+    scenarios.push({ name, start, steps, records, ...(extraHotspots.length ? { extraHotspots } : {}) });
   };
   for (const h of MAP.hotspots) {
     run('approach ' + h.id, { position: MAP.spawn }, [{ type: 'walkTo', hotspot: h.id }, { type: 'tick', dt: 1 / 60, count: 1800 }, { type: 'tick', dt: 1, count: 1 }]);
@@ -374,6 +396,9 @@ function walkerFixtures() {
     { type: 'walkTo', hotspot: 'plaza' }, { type: 'tick', dt: 0.3, count: 1 },
     { type: 'walkTo', hotspot: 'bonpland' }, { type: 'tick', dt: 1 / 30, count: 900 },
   ]);
+  // From the TypeScript tests: the radius cannot be entered through the wall.
+  run('out of reach behind a facade', { position: MAP.spawn }, [{ type: 'walkTo', hotspot: 'sealed' }, { type: 'tick', dt: 1 / 30, count: 900 }],
+    [{ id: 'sealed', label: 'Sealed', description: '', kind: 'object', point: { x: 1110, y: 255 }, radius: 40, markerHeight: 0 }]);
   run('inside radius interacts at once', { position: { x: 612, y: 524 } }, [{ type: 'walkTo', hotspot: 'ines' }]);
   run('same tile and stop', { position: { x: 150, y: 720 } }, [
     { type: 'walkTo', destination: { x: 158, y: 726 } }, { type: 'tick', dt: 1 / 60, count: 120 },
@@ -680,15 +705,32 @@ function stringify(value) {
   return JSON.stringify(value, (k, v) => (typeof v === 'number' && !Number.isFinite(v) ? String(v) : v), 1) + '\n';
 }
 
+function contentFiles(content) {
+  const { sceneJson, dialogues, world_text, dialogue_text, evidence_text } = content;
+  return {
+    'content/scenes/cumana.json': stringify(sceneJson),
+    ...Object.fromEntries(Object.entries(dialogues).map(([id, d]) => ['content/dialogue/' + id + '.json', stringify(d)])),
+    'content/text/world.csv': world_text.csv(),
+    'content/text/dialogue.csv': dialogue_text.csv(),
+    'content/text/evidence.csv': evidence_text.csv(),
+  };
+}
+
+// Godot would otherwise import CSV files as translations.
+const KEEP_IMPORT = '[remap]\n\nimporter="keep"\n';
+
 function fixtureFiles() {
   const content = buildContent();
+  const reference = contentFiles(content);
   return {
-    'nav.json': navFixtures(),
-    'walker.json': walkerFixtures(),
-    'iso.json': isoFixtures(),
-    'graph.json': graphFixtures(),
-    'encounters.json': encounterFixtures(content),
-    'save.json': saveFixtures(),
+    'nav.json': stringify(navFixtures()),
+    'walker.json': stringify(walkerFixtures()),
+    'iso.json': stringify(isoFixtures()),
+    'graph.json': stringify(graphFixtures()),
+    'encounters.json': stringify(encounterFixtures(content)),
+    'save.json': stringify(saveFixtures()),
+    ...reference,
+    ...Object.fromEntries(Object.keys(reference).filter(k => k.endsWith('.csv')).map(k => [k + '.import', KEEP_IMPORT])),
   };
 }
 
@@ -697,10 +739,9 @@ const parityDir = join(godot, 'tests', 'parity');
 if (mode === 'fixtures' || mode === 'check') {
   const files = fixtureFiles();
   let stale = [];
-  for (const [name, data] of Object.entries(files)) {
+  for (const [name, text] of Object.entries(files)) {
     const path = join(parityDir, name);
-    const text = stringify(data);
-    if (mode === 'fixtures') { mkdirSync(parityDir, { recursive: true }); writeFileSync(path, text); }
+    if (mode === 'fixtures') { mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, text); }
     else if (!existsSync(path) || readFileSync(path, 'utf8') !== text) stale.push(name);
   }
   if (stale.length) {
@@ -710,14 +751,7 @@ if (mode === 'fixtures' || mode === 'check') {
   console.log(mode === 'check' ? 'Godot parity fixtures match the TypeScript implementation.' : 'Wrote ' + Object.keys(files).length + ' fixture files to godot/tests/parity.');
 } else if (mode === 'content') {
   const force = process.argv.includes('--force');
-  const { sceneJson, dialogues, world_text, dialogue_text, evidence_text } = buildContent();
-  const out = {
-    'content/scenes/cumana.json': stringify(sceneJson),
-    ...Object.fromEntries(Object.entries(dialogues).map(([id, d]) => ['content/dialogue/' + id + '.json', stringify(d)])),
-    'content/text/world.csv': world_text.csv(),
-    'content/text/dialogue.csv': dialogue_text.csv(),
-    'content/text/evidence.csv': evidence_text.csv(),
-  };
+  const out = contentFiles(buildContent());
   for (const [rel, text] of Object.entries(out)) {
     const path = join(godot, rel);
     if (existsSync(path) && !force) { console.log('kept (exists): ' + rel); continue; }

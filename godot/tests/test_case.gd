@@ -31,8 +31,19 @@ func near(actual, expected, eps := 1e-9, message := "", ignore := []) -> void:
 		fail("%s (at %s)\n      expected: %s\n      actual:   %s" % [message, "/".join(where), _short(expected), _short(actual)])
 
 
+## The content as exported from TypeScript, frozen next to the fixtures.
+## Tests run on this copy, so writers can change res://content freely; the
+## live content is checked by the validator (and test_content_is_valid).
+const REFERENCE_CONTENT := "res://tests/parity/content"
+
+
+static func reference_content() -> CosmosContent:
+	return CosmosContent.load_from(REFERENCE_CONTENT)
+
+
+## Numbers are read exactly as JavaScript wrote them (see CosmosJson).
 static func load_json(path: String) -> Variant:
-	return JSON.parse_string(FileAccess.get_file_as_string(path))
+	return CosmosJson.parse(FileAccess.get_file_as_string(path))
 
 
 ## Fixture numbers that are not finite are written as strings.

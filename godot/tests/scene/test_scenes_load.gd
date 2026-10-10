@@ -46,9 +46,12 @@ func test_painted_replacements_work_in_the_scene() -> void:
 	var saved_path: String = Session.save_path
 	Session.save_path = "user://test_visuals_save.json"
 	Session.autosave = false
+	Session.content = reference_content()
 	Session.new_game()
-	var original: String = Session.content.scene.player.visual
-	Session.content.scene.player.visual = "res://art/examples/humboldt_sprites.tscn"
+	for s in Session.content.scene.structures:
+		if s.id == "well":
+			s.visual = "res://art/examples/well_painted.tscn"
+	Session.content.scene.player = {"visual": "res://art/examples/humboldt_sprites.tscn"}
 	var main: Node = load("res://scenes/main.tscn").instantiate()
 	tree.root.add_child(main)
 	await tree.process_frame
@@ -69,7 +72,7 @@ func test_painted_replacements_work_in_the_scene() -> void:
 	ok(String(sprite.animation).begins_with("idle_"), "standing plays an idle animation (%s)" % sprite.animation)
 	main.queue_free()
 	await tree.process_frame
-	Session.content.scene.player.visual = original
+	Session.content = CosmosContent.load_from()
 	Session.autosave = true
 	Session.save_path = saved_path
 	Session.load_game()

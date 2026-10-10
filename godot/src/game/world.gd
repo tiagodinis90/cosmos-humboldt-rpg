@@ -35,6 +35,8 @@ var _overlay: Node2D
 var _ground: Node2D
 var _camera: Camera2D
 var _last_click_ms := -1000
+## False while the scene file cannot be read (nothing is built).
+var playable := false
 
 
 func _ready() -> void:
@@ -44,17 +46,25 @@ func _ready() -> void:
 	build()
 	Session.state_changed.connect(_on_state_changed)
 	Session.content_reloaded.connect(build)
+	Session.game_loaded.connect(restore_from_save)
 
 
-## (Re)build every visual from content and restore Humboldt from the save.
+## (Re)build every visual from content. Humboldt comes from the save the
+## first time; on a content reload he stays where he is (his route is
+## dropped, since the map may have changed).
 func build() -> void:
 	content = Session.content
-	map = content.map.duplicate(true)
 	for child in get_children():
 		if child != _camera:
 			child.queue_free()
 	_structures.clear()
 	_figures.clear()
+	playable = content.usable()
+	if not playable:
+		# The scene file cannot be read: show nothing until it is fixed and
+		# reloaded (F5); the HUD explains what is wrong.
+		return
+	map = content.map.duplicate(true)
 	_ground = _instantiate_visual("", GROUND_VISUAL)
 	_ground.name = "Ground"
 	add_child(_ground)
@@ -84,13 +94,33 @@ func build() -> void:
 	_overlay = Node2D.new()
 	_overlay.name = "Markers"
 	_overlay.z_index = 4000
-	_overlay.draw.connect(_draw_overlay)
+	var overlay := _overlay
+	_overlay.draw.connect(func(): if overlay == _overlay: _draw_overlay())
 	add_child(_overlay)
 	bounds = CosmosIso.screen_bounds(map.width, map.height, 140.0)
 	bounds.minY -= 240.0
+	if walker.is_empty():
+		var saved := CosmosStateRules.normalize_exploration(Session.state.get("exploration"), map)
+		walker = CosmosWalker.create(saved.position, saved.heading)
+	else:
+		walker = CosmosWalker.create(CosmosNav.nearest_walkable(walker.position, map), walker.heading)
+	_keys_moved = false
+	_apply_state_to_visuals()
+	_snap_view()
+
+
+## Put Humboldt where the save says (new game, load) and move the camera there.
+func restore_from_save() -> void:
+	if not playable:
+		return
 	var saved := CosmosStateRules.normalize_exploration(Session.state.get("exploration"), map)
 	walker = CosmosWalker.create(saved.position, saved.heading)
-	_apply_state_to_visuals()
+	_keys_moved = false
+	_since_commit = 0.0
+	_snap_view()
+
+
+func _snap_view() -> void:
 	_update_view()
 	camera_top_left = CosmosIso.camera_target(CosmosIso.to_screen(walker.position, 40.0), view, bounds, _camera_offset())
 	_place_camera()
@@ -98,10 +128,18 @@ func build() -> void:
 	_sort_and_fade()
 
 
+## The content's replacement scene, or the provisional drawing when there is
+## none or it does not follow the visual contract (the validator says why).
 func _instantiate_visual(scene_path: String, fallback: Script) -> Node2D:
 	if scene_path != "" and ResourceLoader.exists(scene_path):
-		var packed: PackedScene = load(scene_path)
-		return packed.instantiate()
+		var packed = load(scene_path)
+		var node = packed.instantiate() if packed is PackedScene else null
+		var needs: Array = ["configure", "apply_state"] + (["set_pose"] if fallback != STRUCTURE_VISUAL else [])
+		if node is Node2D and needs.all(func(m): return node.has_method(m)):
+			return node
+		push_warning("Visual %s does not follow the visual contract; using the provisional drawing." % scene_path)
+		if node != null:
+			node.free()
 	var node := Node2D.new()
 	node.set_script(fallback)
 	return node
@@ -112,6 +150,8 @@ func _on_state_changed() -> void:
 
 
 func _apply_state_to_visuals() -> void:
+	if not playable:
+		return
 	var flags: Array = Session.state.flags
 	var period := CosmosEncounters.period(flags)
 	for entry in _structures.values():
@@ -132,7 +172,7 @@ func _apply_state_to_visuals() -> void:
 # --- input -------------------------------------------------------------------------
 
 func input_blocked() -> bool:
-	return Session.state.get("activeEncounter") != null or Session.ui_blocking
+	return not playable or Session.state.get("activeEncounter") != null or Session.ui_blocking
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -144,13 +184,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		_last_click_ms = now
 		click_screen_point(_scene_point(event.position), run)
 		get_viewport().set_input_as_handled()
-	elif event is InputEventMouseMotion:
+	elif event is InputEventMouseMotion and playable:
 		var hit := pick(_scene_point(event.position))
 		var id: String = hit.get("hotspot", {}).get("id", "")
 		if id != hovered:
 			hovered = id
 			_overlay.queue_redraw()
-	elif event.is_action("cosmos_show_interactions"):
+	elif event.is_action("cosmos_show_interactions") and playable:
 		show_all = event.is_pressed()
 		_overlay.queue_redraw()
 
@@ -221,6 +261,8 @@ func _process(delta: float) -> void:
 
 ## One frame of simulation; tests call this directly with fixed steps.
 func step(dt: float) -> void:
+	if not playable:
+		return
 	var event = null
 	var moved := false
 	if not input_blocked():
@@ -289,7 +331,13 @@ func arrive(hotspot: Dictionary) -> void:
 	match result.kind:
 		"encounter":
 			walker = CosmosWalker.stop(walker)
-			Session.set_state(CosmosEncounters.open(state, result.id, content))
+			var opened = CosmosEncounters.open(state, result.id, content)
+			if opened == null:
+				push_warning("Cannot open conversation: " + CosmosGraph.last_error)
+				Session.set_state(state)
+				hint_requested.emit(content.t("ui.hint.conversation_unavailable"))
+			else:
+				Session.set_state(opened)
 		"chapter":
 			Session.set_state(state)
 			var chapter: Dictionary = content.scene.get("chapters", {}).get(result.id, {})

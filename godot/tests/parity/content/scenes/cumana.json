@@ -1,0 +1,555 @@
+{
+ "id": "cumana",
+ "note": "Provisional layout. World units: 32 per tile, roughly 2.7 cm each. See docs/godot-content-workflow.md.",
+ "map": {
+  "width": 1536,
+  "height": 1024,
+  "tileSize": 32,
+  "margin": 12,
+  "spawn": {
+   "x": 150,
+   "y": 720
+  },
+  "extra_obstacles": [
+   {
+    "x": 0,
+    "y": 884,
+    "width": 1160,
+    "height": 140
+   },
+   {
+    "x": 1250,
+    "y": 884,
+    "width": 286,
+    "height": 140
+   }
+  ]
+ },
+ "shore": {
+  "beach": 828,
+  "water": 884,
+  "pier": {
+   "from": 1160,
+   "to": 1250
+  }
+ },
+ "structures": [
+  {
+   "id": "house-west",
+   "kind": "house",
+   "footprint": {
+    "x": 60,
+    "y": 130,
+    "width": 240,
+    "height": 230
+   },
+   "height": 128,
+   "roof": 58,
+   "visual": ""
+  },
+  {
+   "id": "store",
+   "kind": "house",
+   "footprint": {
+    "x": 420,
+    "y": 150,
+    "width": 330,
+    "height": 270
+   },
+   "height": 138,
+   "roof": 66,
+   "visual": ""
+  },
+  {
+   "id": "customs",
+   "kind": "house",
+   "footprint": {
+    "x": 900,
+    "y": 110,
+    "width": 420,
+    "height": 290
+   },
+   "height": 156,
+   "roof": 72,
+   "visual": ""
+  },
+  {
+   "id": "storehouse",
+   "kind": "house",
+   "footprint": {
+    "x": 1060,
+    "y": 690,
+    "width": 280,
+    "height": 130
+   },
+   "height": 104,
+   "roof": 44,
+   "visual": ""
+  },
+  {
+   "id": "damaged-wall",
+   "kind": "wall",
+   "footprint": {
+    "x": 820,
+    "y": 590,
+    "width": 150,
+    "height": 34
+   },
+   "height": 72,
+   "hotspot": "damaged-wall",
+   "visual": ""
+  },
+  {
+   "id": "sea-wall",
+   "kind": "seawall",
+   "footprint": {
+    "x": 1390,
+    "y": 470,
+    "width": 110,
+    "height": 360
+   },
+   "height": 46,
+   "visual": ""
+  },
+  {
+   "id": "cargo",
+   "kind": "crates",
+   "footprint": {
+    "x": 330,
+    "y": 770,
+    "width": 170,
+    "height": 60
+   },
+   "height": 46,
+   "visual": ""
+  },
+  {
+   "id": "field-table",
+   "kind": "table",
+   "footprint": {
+    "x": 330,
+    "y": 600,
+    "width": 84,
+    "height": 42
+   },
+   "height": 30,
+   "hotspot": "field-case",
+   "visual": ""
+  },
+  {
+   "id": "plant-press",
+   "kind": "press",
+   "footprint": {
+    "x": 160,
+    "y": 505,
+    "width": 64,
+    "height": 36
+   },
+   "height": 26,
+   "hotspot": "bonpland",
+   "visual": ""
+  },
+  {
+   "id": "well",
+   "kind": "well",
+   "footprint": {
+    "x": 1112,
+    "y": 502,
+    "width": 36,
+    "height": 36
+   },
+   "height": 28,
+   "hotspot": "plaza",
+   "visual": ""
+  },
+  {
+   "id": "pirogue",
+   "kind": "boat",
+   "footprint": {
+    "x": 640,
+    "y": 846,
+    "width": 160,
+    "height": 28
+   },
+   "height": 22,
+   "visual": ""
+  },
+  {
+   "id": "palm-a",
+   "kind": "palm",
+   "footprint": {
+    "x": 318,
+    "y": 458,
+    "width": 20,
+    "height": 20
+   },
+   "height": 210,
+   "visual": ""
+  },
+  {
+   "id": "palm-b",
+   "kind": "palm",
+   "footprint": {
+    "x": 790,
+    "y": 470,
+    "width": 20,
+    "height": 20
+   },
+   "height": 190,
+   "visual": ""
+  },
+  {
+   "id": "palm-c",
+   "kind": "palm",
+   "footprint": {
+    "x": 1345,
+    "y": 410,
+    "width": 20,
+    "height": 20
+   },
+   "height": 220,
+   "visual": ""
+  },
+  {
+   "id": "tamarind",
+   "kind": "tree",
+   "footprint": {
+    "x": 1240,
+    "y": 560,
+    "width": 28,
+    "height": 28
+   },
+   "height": 150,
+   "visual": ""
+  }
+ ],
+ "figures": [
+  {
+   "id": "ines",
+   "kind": "ines",
+   "position": {
+    "x": 612,
+    "y": 484
+   },
+   "heading": 1.5707963267948966,
+   "hotspot": "ines",
+   "visual": ""
+  },
+  {
+   "id": "bonpland",
+   "kind": "bonpland",
+   "position": {
+    "x": 252,
+    "y": 545
+   },
+   "heading": 2.827433388230814,
+   "hotspot": "bonpland",
+   "visual": ""
+  },
+  {
+   "id": "porter",
+   "kind": "porter",
+   "position": {
+    "x": 980,
+    "y": 860
+   },
+   "heading": 0.7853981633974483,
+   "visual": ""
+  },
+  {
+   "id": "clerk",
+   "kind": "clerk",
+   "position": {
+    "x": 1300,
+    "y": 858
+   },
+   "heading": 2.356194490192345,
+   "visual": ""
+  }
+ ],
+ "hotspots": [
+  {
+   "id": "ines",
+   "kind": "person",
+   "point": {
+    "x": 612,
+    "y": 484
+   },
+   "radius": 76,
+   "markerHeight": 74,
+   "label_key": "hotspot.ines.label",
+   "description_key": "hotspot.ines.description"
+  },
+  {
+   "id": "bonpland",
+   "kind": "person",
+   "point": {
+    "x": 252,
+    "y": 545
+   },
+   "radius": 76,
+   "markerHeight": 80,
+   "label_key": "hotspot.bonpland.label",
+   "description_key": "hotspot.bonpland.description"
+  },
+  {
+   "id": "field-case",
+   "kind": "object",
+   "point": {
+    "x": 372,
+    "y": 621
+   },
+   "radius": 78,
+   "markerHeight": 58,
+   "label_key": "hotspot.field-case.label",
+   "description_key": "hotspot.field-case.description"
+  },
+  {
+   "id": "damaged-wall",
+   "kind": "object",
+   "point": {
+    "x": 895,
+    "y": 607
+   },
+   "radius": 84,
+   "markerHeight": 100,
+   "label_key": "hotspot.damaged-wall.label",
+   "description_key": "hotspot.damaged-wall.description"
+  },
+  {
+   "id": "quay",
+   "kind": "place",
+   "point": {
+    "x": 1205,
+    "y": 930
+   },
+   "radius": 84,
+   "markerHeight": 36,
+   "label_key": "hotspot.quay.label",
+   "description_key": "hotspot.quay.description"
+  },
+  {
+   "id": "plaza",
+   "kind": "place",
+   "point": {
+    "x": 1130,
+    "y": 520
+   },
+   "radius": 84,
+   "markerHeight": 60,
+   "label_key": "hotspot.plaza.label",
+   "description_key": "hotspot.plaza.description"
+  }
+ ],
+ "interactions": {
+  "ines": [
+   {
+    "when": {
+     "op": "not",
+     "condition": {
+      "op": "flag",
+      "name": "cumana_fieldwork_complete"
+     }
+    },
+    "do": {
+     "chapter": "cumana-fieldwork"
+    }
+   },
+   {
+    "do": {
+     "encounter": "ines-november"
+    }
+   }
+  ],
+  "bonpland": [
+   {
+    "do": {
+     "encounter": "bonpland"
+    }
+   }
+  ],
+  "field-case": [
+   {
+    "when": {
+     "op": "hasNews",
+     "encounter": "instruments"
+    },
+    "do": {
+     "encounter": "instruments"
+    }
+   },
+   {
+    "do": {
+     "remark_key": "remark.field-case.packed"
+    }
+   }
+  ],
+  "damaged-wall": [
+   {
+    "when": {
+     "op": "not",
+     "condition": {
+      "op": "flag",
+      "name": "cumana_fieldwork_complete"
+     }
+    },
+    "do": {
+     "remark_key": "remark.damaged-wall.july"
+    }
+   },
+   {
+    "when": {
+     "op": "not",
+     "condition": {
+      "op": "flag",
+      "name": "cumana_survey_complete"
+     }
+    },
+    "do": {
+     "encounter": "wall-survey"
+    }
+   },
+   {
+    "when": {
+     "op": "flag",
+     "name": "wall_survey_reliable"
+    },
+    "do": {
+     "remark_key": "remark.damaged-wall.measured"
+    }
+   },
+   {
+    "when": {
+     "op": "flag",
+     "name": "wall_survey_unreliable"
+    },
+    "do": {
+     "remark_key": "remark.damaged-wall.unreliable"
+    }
+   },
+   {
+    "do": {
+     "remark_key": "remark.damaged-wall.unmeasured"
+    }
+   }
+  ],
+  "quay": [
+   {
+    "when": {
+     "op": "flag",
+     "name": "cumana_fieldwork_complete"
+    },
+    "do": {
+     "remark_key": "remark.quay.november",
+     "voice": {
+      "when": {
+       "op": "skill",
+       "skill": "political",
+       "atLeast": 2
+      },
+      "skill": "political",
+      "text_key": "remark.quay.voice.political"
+     }
+    }
+   },
+   {
+    "when": {
+     "op": "visits",
+     "hotspot": "quay",
+     "atMost": 0
+    },
+    "do": {
+     "remark_key": "remark.quay.first",
+     "voice": {
+      "when": {
+       "op": "skill",
+       "skill": "political",
+       "atLeast": 2
+      },
+      "skill": "political",
+      "text_key": "remark.quay.voice.political"
+     }
+    }
+   },
+   {
+    "do": {
+     "remark_key": "remark.quay.again",
+     "voice": {
+      "when": {
+       "op": "skill",
+       "skill": "political",
+       "atLeast": 2
+      },
+      "skill": "political",
+      "text_key": "remark.quay.voice.political"
+     }
+    }
+   }
+  ],
+  "plaza": [
+   {
+    "when": {
+     "op": "flag",
+     "name": "cumana_fieldwork_complete"
+    },
+    "do": {
+     "remark_key": "remark.plaza.november",
+     "voice": {
+      "when": {
+       "op": "skill",
+       "skill": "political",
+       "atLeast": 2
+      },
+      "skill": "political",
+      "text_key": "remark.plaza.voice.political"
+     }
+    }
+   },
+   {
+    "when": {
+     "op": "visits",
+     "hotspot": "plaza",
+     "atMost": 0
+    },
+    "do": {
+     "remark_key": "remark.plaza.first",
+     "voice": {
+      "when": {
+       "op": "skill",
+       "skill": "political",
+       "atLeast": 2
+      },
+      "skill": "political",
+      "text_key": "remark.plaza.voice.political"
+     }
+    }
+   },
+   {
+    "do": {
+     "remark_key": "remark.plaza.again",
+     "voice": {
+      "when": {
+       "op": "skill",
+       "skill": "political",
+       "atLeast": 2
+      },
+      "skill": "political",
+      "text_key": "remark.plaza.voice.political"
+     }
+    }
+   }
+  ],
+  "*": [
+   {
+    "do": {
+     "remark_key": "remark.default"
+    }
+   }
+  ]
+ },
+ "chapters": {
+  "cumana-fieldwork": {
+   "note_key": "chapter.cumana-fieldwork.unported"
+  }
+ }
+}

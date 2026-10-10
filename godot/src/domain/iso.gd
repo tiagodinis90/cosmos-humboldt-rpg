@@ -184,7 +184,7 @@ static func smooth_camera(current: Dictionary, target: Dictionary, dt: float, ha
 	var next := {"x": current.x + (target.x - current.x) * k, "y": current.y + (target.y - current.y) * k}
 	var dx: float = target.x - next.x
 	var dy: float = target.y - next.y
-	if sqrt(dx * dx + dy * dy) < 0.05:
+	if CosmosNav.hypot(dx, dy) < 0.05:
 		return {"x": target.x, "y": target.y}
 	return next
 
@@ -206,5 +206,5 @@ static func world_direction_for_keys(up: bool, down: bool, left: bool, right: bo
 	if sx == 0.0 and sy == 0.0:
 		return {"x": 0.0, "y": 0.0}
 	var w := to_world({"x": sx, "y": sy / 2.0})
-	var length := sqrt(w.x * w.x + w.y * w.y)
+	var length := CosmosNav.hypot(w.x, w.y)
 	return {"x": w.x / length, "y": w.y / length}

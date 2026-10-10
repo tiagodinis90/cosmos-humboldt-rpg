@@ -106,7 +106,7 @@ static func tick(walker: Dictionary, map: Dictionary, dt: float) -> Dictionary:
 ## Keyboard movement in a world-space direction. Cancels any click route and
 ## slides along obstacles.
 static func push(walker: Dictionary, map: Dictionary, direction: Dictionary, dt: float) -> Dictionary:
-	var length := sqrt(direction.x * direction.x + direction.y * direction.y)
+	var length := CosmosNav.hypot(direction.x, direction.y)
 	if length < 1e-6 or dt <= 0.0:
 		return stop(walker)
 	var travel := WALK_SPEED * dt

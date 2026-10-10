@@ -21,17 +21,18 @@ func _ready() -> void:
 	var reload := Button.new()
 	reload.text = "Reload content"
 	reload.pressed.connect(func():
+		var current = _ids[_picker.selected] if _picker.selected >= 0 and _picker.selected < _ids.size() else ""
 		Session.reload_content()
 		_fill_picker()
 		if not _ids.is_empty():
-			show_encounter(_ids[max(0, _picker.selected)]))
+			var i := maxi(0, _ids.find(current))
+			_picker.select(i)
+			show_encounter(_ids[i]))
 	bar.add_child(reload)
-	var close := Button.new()
-	close.text = "Close"
-	close.pressed.connect(func():
-		visible = false
-		Session.ui_blocking = false)
-	bar.add_child(close)
+	var close_button := Button.new()
+	close_button.text = "Close"
+	close_button.pressed.connect(close)
+	bar.add_child(close_button)
 	_problems = Label.new()
 	_problems.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_problems.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -45,6 +46,17 @@ func _ready() -> void:
 		show_encounter(_ids[0])
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and event.is_action_pressed("cosmos_close"):
+		close()
+		get_viewport().set_input_as_handled()
+
+
+func close() -> void:
+	visible = false
+	Session.set_blocking("graph", false)
+
+
 func _fill_picker() -> void:
 	_picker.clear()
 	_ids = Session.content.encounters.keys()
@@ -55,7 +67,7 @@ func _fill_picker() -> void:
 
 func open(encounter_id: String) -> void:
 	visible = true
-	Session.ui_blocking = true
+	Session.set_blocking("graph", true)
 	_fill_picker()
 	_picker.select(_ids.find(encounter_id))
 	show_encounter(encounter_id)
@@ -110,7 +122,9 @@ func show_encounter(id: String) -> void:
 			body.append("sets: " + ", ".join(PackedStringArray(card.sets)))
 		text.text = "\n".join(body)
 		node.add_child(text)
-		node.set_slot(0, true, 0, Color("#e4be52"), links.is_empty() == false, 0, Color("#e4be52"))
+		# Slot 0 (the card text) only receives edges; each link row below it
+		# sends one, so output port i is link i.
+		node.set_slot(0, true, 0, Color("#e4be52"), false, 0, Color.WHITE)
 		for i in links.size():
 			var l := Label.new()
 			l.text = "→ " + links[i].label

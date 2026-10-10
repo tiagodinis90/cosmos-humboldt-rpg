@@ -255,6 +255,9 @@ static func choose(graph: Dictionary, progress: Dictionary, context: Dictionary,
 ## Structural problems in a graph, in the same order as the reference engine.
 static func validate(graph: Dictionary) -> Array:
 	var errors: Array = []
+	var cards = graph.get("cards")
+	if not cards is Dictionary:
+		return ["Missing cards"]
 	var reached := {}
 	var queue: Array = [graph.get("start", "")]
 	var endings := 0
@@ -263,42 +266,46 @@ static func validate(graph: Dictionary) -> Array:
 		if reached.has(id):
 			continue
 		reached[id] = true
-		var card = graph.cards.get(id)
-		if card == null:
+		var card = cards.get(id)
+		if not card is Dictionary:
 			errors.append("Missing card " + str(id))
 			continue
 		if card.get("id") != id:
 			errors.append("Mismatched card id " + str(id))
-		if card.type == "end":
+		var type = card.get("type")
+		if type == "end":
 			endings += 1
 			continue
 		var links: Array = []
-		if card.type == "line" or card.type == "passive":
-			links = [card.next]
-		if card.type == "fork":
-			for r in card.routes:
-				links.append(r.next)
-			links.append(card.otherwise)
-		if card.type == "choice":
+		if type == "line" or type == "passive":
+			links = [card.get("next")]
+		if type == "fork":
+			for r in card.get("routes", []):
+				links.append(r.get("next") if r is Dictionary else null)
+			links.append(card.get("otherwise"))
+		if type == "choice":
 			var ids := {}
-			for choice in card.choices:
-				if ids.has(choice.id):
-					errors.append("Duplicate choice " + str(id) + ":" + str(choice.id))
-				ids[choice.id] = true
-				links.append(choice.next)
-				if choice.has("check"):
-					links.append(choice.check.success)
-					links.append(choice.check.failure)
-			if card.choices.is_empty():
+			var choices = card.get("choices", [])
+			for choice in choices:
+				if not choice is Dictionary:
+					continue
+				if ids.has(choice.get("id")):
+					errors.append("Duplicate choice " + str(id) + ":" + str(choice.get("id")))
+				ids[choice.get("id")] = true
+				links.append(choice.get("next"))
+				if choice.get("check") is Dictionary:
+					links.append(choice.check.get("success"))
+					links.append(choice.check.get("failure"))
+			if choices is Array and choices.is_empty():
 				errors.append("No choices " + str(id))
 		for link in links:
-			if not graph.cards.has(link):
+			if not cards.has(link):
 				errors.append("Broken edge " + str(id) + " -> " + str(link))
 			else:
 				queue.append(link)
 	if endings == 0:
 		errors.append("No reachable ending")
-	for id in graph.cards:
+	for id in cards:
 		if not reached.has(id):
 			errors.append("Unreachable card " + str(id))
 	return errors

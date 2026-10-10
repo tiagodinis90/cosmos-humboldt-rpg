@@ -696,6 +696,90 @@
    ]
   },
   {
+   "name": "out of reach behind a facade",
+   "start": {
+    "position": {
+     "x": 150,
+     "y": 720
+    }
+   },
+   "steps": [
+    {
+     "type": "walkTo",
+     "hotspot": "sealed"
+    },
+    {
+     "type": "tick",
+     "dt": 0.03333333333333333,
+     "count": 900
+    }
+   ],
+   "records": [
+    {
+     "walker": {
+      "position": {
+       "x": 150,
+       "y": 720
+      },
+      "heading": -0.23000282427445834,
+      "route": [
+       {
+        "x": 560,
+        "y": 624
+       },
+       {
+        "x": 784,
+        "y": 432
+       },
+       {
+        "x": 880,
+        "y": 80
+       },
+       {
+        "x": 1104.616184786363,
+        "y": 97.97205626891777
+       }
+      ],
+      "target": "sealed",
+      "running": false,
+      "stride": 0
+     },
+     "event": null
+    },
+    {
+     "walker": {
+      "position": {
+       "x": 1104.616184786363,
+       "y": 97.97205626891777
+      },
+      "heading": 0.0798422017607277,
+      "route": [],
+      "target": null,
+      "running": false,
+      "stride": 1305.2549896786536
+     },
+     "event": {
+      "type": "out-of-reach",
+      "hotspot": "sealed"
+     }
+    }
+   ],
+   "extraHotspots": [
+    {
+     "id": "sealed",
+     "label": "Sealed",
+     "description": "",
+     "kind": "object",
+     "point": {
+      "x": 1110,
+      "y": 255
+     },
+     "radius": 40,
+     "markerHeight": 0
+    }
+   ]
+  },
+  {
    "name": "inside radius interacts at once",
    "start": {
     "position": {

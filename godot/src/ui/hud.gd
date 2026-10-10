@@ -23,17 +23,28 @@ var _toast_time := 0.0
 
 
 func _ready() -> void:
+	# Mouse-only buttons: keeping keyboard focus would let Space/Enter (used
+	# by the dialogue) and Tab (show interactions) press them by accident.
+	for b in [_fieldbook_button, _dev_button]:
+		b.focus_mode = Control.FOCUS_NONE
 	_fieldbook_button.pressed.connect(func(): fieldbook_requested.emit())
 	_dev_button.pressed.connect(func(): dev_requested.emit())
 	Session.state_changed.connect(refresh)
 	Session.content_reloaded.connect(refresh)
+	Session.save_failed.connect(func(_message): toast(Session.content.t("ui.toast.save_failed")))
 	dialogue.evidence_gained.connect(func(n): toast(Session.content.t("ui.toast.evidence_one" if n == 1 else "ui.toast.evidence", {"count": n})))
 	refresh()
 	var visits: Dictionary = Session.state.get("exploration", {}).get("visits", {}) if Session.state.get("exploration") is Dictionary else {}
-	if visits.is_empty():
+	if not Session.content.usable():
+		pass  # refresh() is already explaining the content problem
+	elif visits.is_empty():
 		show_hint(Session.content.t("ui.hint.start"))
 	else:
 		_message.visible = false
+	if Session.last_load_status.begins_with("the save could not be read"):
+		toast(Session.content.t("ui.toast.save_unreadable"))
+	elif Session.last_load_status.begins_with("recovered"):
+		toast(Session.content.t("ui.toast.save_recovered"))
 
 
 func refresh() -> void:
@@ -44,10 +55,15 @@ func refresh() -> void:
 	_fieldbook_button.text = "%s  %d" % [c.t("ui.fieldbook"), _entry_count()]
 	_controls.text = c.t("ui.controls")
 	var talking := Session.state.get("activeEncounter") != null
+	if not c.usable():
+		var problems: Array = c.validate().slice(0, 4)
+		show_remark("Content problem", "The scene cannot be shown until this is fixed:\n• %s\n\nFix the file and press F5." % "\n• ".join(PackedStringArray(problems)), {})
+		return
 	_controls.visible = not talking and not _message.visible
 	if talking:
 		_message.visible = false
 	_dev_button.disabled = talking
+	_fieldbook_button.disabled = talking
 
 
 func _entry_count() -> int:

@@ -1,13 +1,14 @@
 extends CosmosTestCase
-## Encounter runtime parity: the Godot content files (exported once from the
-## TypeScript encounters) must behave exactly like the TypeScript code,
-## including consequences, persistent check attempts and routing.
+## Encounter runtime parity: the content exported from the TypeScript
+## encounters (the frozen copy in tests/parity/content) must behave exactly
+## like the TypeScript code, including consequences, persistent check
+## attempts and routing.
 
 var content: CosmosContent
 
 
 func setup(_tree) -> void:
-	content = CosmosContent.load_from()
+	content = reference_content()
 
 
 func _dice(values: Array) -> Callable:
@@ -43,8 +44,9 @@ func _summary(s: Dictionary, error) -> Dictionary:
 	}
 
 
+## The live content (what writers edit) has no problems.
 func test_content_is_valid() -> void:
-	eq(content.validate(), [], "content validation problems")
+	eq(CosmosContent.load_from().validate(), [], "content validation problems")
 
 
 func test_content_map_matches_reference() -> void:

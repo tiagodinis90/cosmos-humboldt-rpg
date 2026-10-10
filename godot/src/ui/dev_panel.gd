@@ -5,6 +5,7 @@ extends PanelContainer
 ## part of the game rules; it only edits Session.state like the game does.
 
 signal inspect_requested(encounter_id: String)
+signal reload_requested
 
 var _box: VBoxContainer
 var _status: Label
@@ -28,7 +29,7 @@ func _ready() -> void:
 
 func toggle() -> void:
 	visible = not visible
-	Session.ui_blocking = visible
+	Session.set_blocking("dev", visible)
 	if visible:
 		_render()
 
@@ -38,6 +39,13 @@ func _button(text: String, action: Callable) -> Button:
 	b.text = text
 	b.pressed.connect(action)
 	return b
+
+
+func _label(text: String) -> Label:
+	var l := Label.new()
+	l.text = text
+	l.custom_minimum_size.x = 120
+	return l
 
 
 func _row(children: Array) -> HBoxContainer:
@@ -59,17 +67,25 @@ func _render() -> void:
 	_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	_status.theme_type_variation = "Muted"
 	var p: Dictionary = Session.state.get("exploration", {}).get("position", {}) if Session.state.get("exploration") is Dictionary else {}
-	_status.text = "Save: %s (%s)\nPeriod: %s · Position: %s\nFlags: %s" % [
+	var status_format := "Save: %s (%s)\nPeriod: %s · Position: %s\nFlags: %s"
+	if Session.last_save_error != "":
+		status_format = Session.last_save_error.replace("%", "%%") + "\n" + status_format
+	_status.text = status_format % [
 		ProjectSettings.globalize_path(Session.save_path), Session.last_load_status,
 		CosmosEncounters.period(Session.state.flags),
 		"(%.0f, %.0f)" % [p.get("x", 0.0), p.get("y", 0.0)] if not p.is_empty() else "spawn",
 		", ".join(PackedStringArray(Session.state.flags)) if not Session.state.flags.is_empty() else "none"]
 	_box.add_child(_status)
 	_box.add_child(_row([
-		_button("Reload content (F5)", func(): Session.reload_content()),
+		_button("Reload content (F5)", func(): reload_requested.emit()),
 		_button("Check content", _check),
 		_button("New game", func(): Session.new_game()),
 	]))
+	var languages: Array = [_label("Language")]
+	for code in c.locales:
+		var b := _button(code + (" ✓" if code == c.locale else ""), func(): Session.set_locale(code))
+		languages.append(b)
+	_box.add_child(_row(languages))
 	var november: bool = Session.state.flags.has("cumana_fieldwork_complete")
 	_box.add_child(_button("Switch to July" if november else "Switch to November (skip the browser-only chapter)", _toggle_period))
 	for skill in ["logic", "empathy", "aesthetics", "political"]:
@@ -115,5 +131,9 @@ func _skill(skill: String, delta: int) -> void:
 
 
 func _open(id: String) -> void:
+	var opened = CosmosEncounters.open(Session.state, id, Session.content)
+	if opened == null:
+		_problems.text = "[color=#f0a090]Cannot open '%s': %s[/color]" % [id, CosmosGraph.last_error]
+		return
 	toggle()
-	Session.set_state(CosmosEncounters.open(Session.state, id, Session.content))
+	Session.set_state(opened)

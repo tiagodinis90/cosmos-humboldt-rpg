@@ -12,6 +12,7 @@ const KINDS := ["measurement", "observation", "testimony", "inference", "hypothe
 
 
 func _ready() -> void:
+	_close.focus_mode = Control.FOCUS_NONE
 	_close.pressed.connect(close)
 	visible = false
 
@@ -19,12 +20,12 @@ func _ready() -> void:
 func open() -> void:
 	render()
 	visible = true
-	Session.ui_blocking = true
+	Session.set_blocking("fieldbook", true)
 
 
 func close() -> void:
 	visible = false
-	Session.ui_blocking = false
+	Session.set_blocking("fieldbook", false)
 
 
 func toggle() -> void:

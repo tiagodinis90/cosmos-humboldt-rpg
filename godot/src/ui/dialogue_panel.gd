@@ -10,6 +10,14 @@ const SKILL_COLOURS := {
 	"logic": "#8fb8d8", "empathy": "#e0a2a8", "aesthetics": "#c7a6e2", "political": "#e4b766",
 }
 
+## Where the panel sits. On wide screens it takes the right side from
+## `wide_left` (a fraction of the width); on tall screens the bottom from
+## `tall_top`. Edit these in the Inspector; the panel follows the window.
+@export_range(0.0, 1.0) var wide_left := 0.58
+@export_range(0.0, 1.0) var tall_top := 0.38
+## Screens wider than this ratio (width / height) use the side layout.
+@export var wide_ratio := 1.2
+
 @onready var _place: Label = %Place
 @onready var _title: Label = %Title
 @onready var _log: RichTextLabel = %Log
@@ -21,8 +29,12 @@ var _rendered_key := ""
 
 
 func _ready() -> void:
+	_continue.focus_mode = Control.FOCUS_NONE
 	_continue.pressed.connect(_on_continue)
 	Session.state_changed.connect(render)
+	Session.content_reloaded.connect(func():
+		_rendered_key = ""
+		render())
 	get_viewport().size_changed.connect(_layout)
 	_layout()
 	render()
@@ -30,12 +42,12 @@ func _ready() -> void:
 
 func _layout() -> void:
 	var size := get_viewport_rect().size
-	if size.x >= size.y * 1.2:
-		anchor_left = 0.58
+	if size.x >= size.y * wide_ratio:
+		anchor_left = wide_left
 		anchor_top = 0.0
 	else:
 		anchor_left = 0.0
-		anchor_top = 0.38
+		anchor_top = tall_top
 	anchor_right = 1.0
 	anchor_bottom = 1.0
 	offset_left = 0
@@ -95,6 +107,7 @@ func render() -> void:
 			button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 			button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			button.flat = true
+			button.focus_mode = Control.FOCUS_NONE
 			var label: String = c.t(choice.label_key)
 			if choice.has("check"):
 				var chance := CosmosGraph.success_chance(CosmosGraph.check_score(choice.check, ctx, progress), choice.check.difficulty)
@@ -169,7 +182,7 @@ func _on_choose(id: String) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not visible or not event is InputEventKey or not event.pressed or event.echo:
+	if not visible or Session.ui_blocking or not event is InputEventKey or not event.pressed or event.echo:
 		return
 	if event.is_action("cosmos_continue") and _continue.visible:
 		_on_continue()

@@ -13,6 +13,7 @@ var hud: CanvasLayer
 
 func setup(t: SceneTree) -> void:
 	tree = t
+	Session.content = reference_content()
 	Session.save_path = TEST_SAVE
 	_delete_save()
 	Session.autosave = true
@@ -27,6 +28,7 @@ func teardown(_t: SceneTree) -> void:
 	_delete_save()
 	Session.save_path = Session.DEFAULT_SAVE_PATH
 	Session.ui_blocking = false
+	Session.content = CosmosContent.load_from()
 
 
 func _delete_save() -> void:

@@ -18,7 +18,7 @@ The first Godot vertical slice: Cumaná, 1799, as a walkable isometric scene. Yo
 | Show everything you can use | hold Tab |
 | Dialogue | 1–9 choose, Space continue |
 | Fieldbook | J |
-| Playtest tools (reload content, check content, skills, July/November, open any conversation, graph view) | F1 |
+| Playtest tools (reload content, check content, language, skills, July/November, open any conversation, graph view) | F1 |
 | Reload edited content | F5 (in game) |
 
 **Try:** walk to Bonpland at his plant press. Help him with the boards, then tell him the walls matter more than the plants: that is a red check, which can be tried only once. Close the conversation, quit and start again: Humboldt is where you left him, and Bonpland remembers. Then examine the field instruments for a white check that you can retry only when your Logic improves (F1 → Logic +).
@@ -27,7 +27,7 @@ The first Godot vertical slice: Cumaná, 1799, as a walkable isometric scene. Yo
 
 ```
 godot --headless --path godot --import                       # first time / after adding files
-godot --headless --path godot -s res://tests/run_tests.gd    # parity, unit and scene tests
+godot --headless --path godot -s res://tests/run_tests.gd    # 50 tests: parity, robustness and scene tests
 godot --headless --path godot -s res://tools/validate_content.gd
 ```
 

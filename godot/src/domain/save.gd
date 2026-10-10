@@ -10,8 +10,9 @@ extends RefCounted
 ## also carries the dice-cycle expedition state that Godot does not have.
 ##
 ## Policy: an unknown format/version or damaged required fields (flags,
-## skills, bonpland) are refused and the game starts fresh, leaving the file
-## untouched; damaged optional fields are repaired one by one. A walk in
+## skills, bonpland) are refused and the game starts fresh; Session keeps a
+## copy of the refused file first. Damaged optional fields are repaired one
+## by one. A walk in
 ## progress is not saved: the player reloads standing where they stopped.
 
 const FORMAT := "cosmos-save"
@@ -46,21 +47,25 @@ static func encode(state: Dictionary) -> String:
 static func decode(raw: String) -> Variant:
 	if raw.strip_edges() == "":
 		return null
-	var json := JSON.new()
-	if json.parse(raw) != OK or not json.data is Dictionary:
+	var data = CosmosJson.parse(raw)
+	if not data is Dictionary:
 		return null
-	var envelope: Dictionary = json.data
+	var envelope: Dictionary = data
 	if envelope.get("format") != FORMAT or envelope.get("version") != float(VERSION):
 		return null
 	var state = envelope.get("state")
-	if not state is Dictionary:
-		return null
-	if not CosmosStateRules._is_string_array(state.get("flags")):
-		return null
-	var skills = state.get("skills")
-	if not skills is Dictionary or skills.values().any(func(v): return not CosmosStateRules._is_finite_number(v)):
-		return null
-	var bonpland = state.get("bonpland")
-	if not bonpland is Dictionary or not CosmosStateRules._is_finite_number(bonpland.get("relationship")) or not CosmosStateRules._is_finite_number(bonpland.get("morale")):
+	if not state is Dictionary or not is_playable(state):
 		return null
 	return CosmosStateRules.sanitize(state)
+
+
+## The fields the game cannot run without. A save missing one is refused,
+## and Session never applies a state missing one.
+static func is_playable(state: Dictionary) -> bool:
+	if not CosmosStateRules._is_string_array(state.get("flags")):
+		return false
+	var skills = state.get("skills")
+	if not skills is Dictionary or skills.values().any(func(v): return not CosmosStateRules._is_finite_number(v)):
+		return false
+	var bonpland = state.get("bonpland")
+	return bonpland is Dictionary and CosmosStateRules._is_finite_number(bonpland.get("relationship")) and CosmosStateRules._is_finite_number(bonpland.get("morale"))

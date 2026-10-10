@@ -24,7 +24,31 @@ static func pt(x: float, y: float) -> Dictionary:
 static func distance(a: Dictionary, b: Dictionary) -> float:
 	var dx: float = a.x - b.x
 	var dy: float = a.y - b.y
-	return sqrt(dx * dx + dy * dy)
+	return hypot(dx, dy)
+
+
+## Math.hypot exactly as V8 computes it (normalise by the larger value, then
+## a compensated sum). Plain sqrt(x*x + y*y) differs in the last bit for
+## about a third of inputs, which can flip "within reach" at a boundary.
+static func hypot(x: float, y: float) -> float:
+	if is_nan(x) or is_nan(y):
+		return INF if is_inf(x) or is_inf(y) else NAN
+	var ax := absf(x)
+	var ay := absf(y)
+	var m := maxf(ax, ay)
+	if m == INF:
+		return INF
+	if m == 0.0:
+		return 0.0
+	var sum := 0.0
+	var compensation := 0.0
+	for v in [ax, ay]:
+		var n: float = v / m
+		var summand := n * n - compensation
+		var preliminary := sum + summand
+		compensation = (preliminary - sum) - summand
+		sum = preliminary
+	return sqrt(sum) * m
 
 
 static func blocked(p: Dictionary, map: Dictionary) -> bool:

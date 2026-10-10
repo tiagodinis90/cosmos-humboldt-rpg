@@ -41,15 +41,54 @@ static func has_news(state: Dictionary, id: String, content: CosmosContent) -> b
 	return false
 
 
-static func open(state: Dictionary, id: String, content: CosmosContent) -> Dictionary:
+## Returns the new state, or null with CosmosGraph.last_error set when the
+## conversation does not exist or cannot start (the state is then unchanged).
+static func open(state: Dictionary, id: String, content: CosmosContent) -> Variant:
 	var e := content.encounter(id)
+	if e.is_empty() or not e.get("graph") is Dictionary:
+		CosmosGraph.last_error = "Unknown encounter " + id
+		return null
 	var progress = CosmosGraph.start(e.graph, context(state), state.get("checks"))
+	if progress == null:
+		return null
 	var out := _copy(state)
 	var dialogues: Dictionary = (state.get("dialogues") if state.get("dialogues") is Dictionary else {}).duplicate()
 	dialogues[id] = progress
 	out.dialogues = dialogues
 	out.activeEncounter = id
 	return out
+
+
+## A conversation that can no longer be shown (its file was removed or
+## renamed, or a writer deleted the card the player was on) would leave the
+## player stuck: it is closed without consequences, keeping the checks
+## already tried. Returns the state unchanged when nothing needs repair.
+static func repair(state: Dictionary, content: CosmosContent) -> Dictionary:
+	var id = state.get("activeEncounter")
+	if id == null:
+		return state
+	if not active(state, content).is_empty() and _resumable(state.dialogues[id], content.encounter(id)):
+		return state
+	var out := _copy(state)
+	out.activeEncounter = null
+	var dialogues: Dictionary = (state.get("dialogues") if state.get("dialogues") is Dictionary else {}).duplicate()
+	var progress = dialogues.get(id)
+	if progress is Dictionary:
+		out.checks = CosmosGraph.merge_ledger(state.get("checks"), progress)
+	dialogues.erase(id)
+	out.dialogues = dialogues
+	push_warning("Conversation '%s' could not be resumed (content changed); it was closed." % str(id))
+	return out
+
+
+static func _resumable(progress: Dictionary, encounter: Dictionary) -> bool:
+	var cards = encounter.get("graph", {}).get("cards")
+	if not cards is Dictionary:
+		return false
+	var card = cards.get(progress.nodeId)
+	if progress.finished:
+		return true
+	return card is Dictionary and (card.get("type") == "line" or card.get("type") == "choice")
 
 
 static func active(state: Dictionary, content: CosmosContent) -> Dictionary:
@@ -123,16 +162,18 @@ static func close(state: Dictionary, content: CosmosContent) -> Dictionary:
 	var morale := 0.0
 	var bonpland_changed := false
 	for rule in e.get("consequences", []):
+		if not rule is Dictionary:
+			continue
 		var applies := true
 		if rule.has("when"):
-			applies = CosmosGraph.condition_met(rule.when, ctx, {"flags": []})
+			applies = rule.when is Dictionary and CosmosGraph.condition_met(rule.when, ctx, {"flags": []})
 		if rule.has("when_new"):
 			applies = applies and fresh.has(rule.when_new)
 		if not applies:
 			continue
-		if rule.has("evidence"):
+		if rule.get("evidence") is Dictionary:
 			gained.append(_evidence_record(rule.evidence, state.flags))
-		if rule.has("bonpland"):
+		if rule.get("bonpland") is Dictionary:
 			bonpland_changed = true
 			relationship += float(rule.bonpland.get("relationship", 0))
 			morale += float(rule.bonpland.get("morale", 0))
