@@ -17,24 +17,35 @@ You need [Godot 4.7.x Standard](https://godotengine.org/download) (not the .NET 
 | Building and object positions, sizes, heights | `"structures"` in `godot/content/scenes/cumana.json` | No |
 | How a building, object or person looks | a scene of your own in `godot/art/…`, linked from `"visual"` | No |
 | Interface colours, fonts, panel styles | `godot/ui/theme/cosmos_theme.tres` (Godot's theme editor) | No |
-| Interface layout | `godot/scenes/ui/*.tscn` (Godot's 2D/Control editor) | No |
+| Interface layout | `godot/scenes/ui/*.tscn` (Godot's 2D/Control editor). The dialogue panel's position follows the window: set `wide_left` and `tall_top` on its root node in the Inspector | No |
+| Which language is shown | Project Settings → `cosmos/text/locale`, or F1 → Language | No |
 | Rules: walking, checks, saving | `godot/src/domain/*.gd` | Yes (programmers) |
 
-The text files are ordinary CSV and open in LibreOffice Calc, Excel or Google Sheets. Keep the first column (`key`) as it is and edit the `en` column. **To add a language**, add a column named after it (for example `pt`) and fill it in. The game falls back to `en` for any empty cell.
+The text files are ordinary CSV and open in LibreOffice Calc, Excel or Google Sheets. Keep the first column (`key`) as it is and edit the `en` column. Text containing commas, quotes or line breaks must be in double quotes (spreadsheets do this for you); a quote that is opened and never closed is reported with its file and line.
+
+**To add a language**, add a column named after it (for example `pt`) and fill it in. Choose the language with F1 → Language while playing, or for good in Project Settings → `cosmos/text/locale` (or start the game with `-- --locale=pt`). Any empty cell shows the English text, so a half-finished translation is playable.
 
 ## The loop: edit → check → see it
 
 1. Edit a file in `godot/content`.
-2. In the running game, press **F5** to reload all content. Your position and save are kept.
+2. In the running game, press **F5** to reload all content. Humboldt stays where he is and the save is kept; an open conversation is redrawn with your new text. If the scene file cannot be read (a missing comma, say), the game keeps the version it has and tells you, so you can fix the file and press F5 again.
 3. Press **F1** (playtest tools) to:
    - check the content for mistakes ("Check content");
+   - switch language;
    - jump between July and November;
    - raise or lower skills to see gated lines;
    - open any conversation directly;
    - open its **graph** view.
-4. Without opening the game, run `godot --headless --path godot -s res://tools/validate_content.gd`. It lists problems in plain sentences ("Missing text 'bonpland.line.bon.helped' (used by bonpland / card bon.helped)…") and exits with an error when something is wrong. CI runs the same check.
+4. Without opening the game, run `godot --headless --path godot -s res://tools/validate_content.gd`. It lists problems in plain sentences and exits with an error when something is wrong. CI runs the same check. Examples of what it catches:
+   - `Missing text 'bonpland.line.bon.helped' (used by bonpland / card bon.helped)…`
+   - `dialogue/bonpland.json, card 'bon.helped': unknown field 'text_kye' (did you mean 'text_key'?).`
+   - `dialogue/bonpland.json, card 'bon.start': 'otherwise' is missing.`
+   - `… check: unknown skill 'empaty' (use one of: logic, empathy, aesthetics, political).`
+   - `Structure 'well': the visual … needs a Sprite2D child named "Sprite" with a picture.`
 
-Missing text never crashes the game: it shows up in-game as `⟦the.key⟧` so you can spot it.
+Missing text never crashes the game: it shows up in-game as `⟦the.key⟧` so you can spot it. A conversation file with problems is left out of the game until it is fixed; walking up to that character shows a message pointing to Check content.
+
+The automated tests run on a frozen copy of the original content (`godot/tests/parity/content`), not on `godot/content`, so your edits never make them fail; only the content check does, when something is actually broken.
 
 ## Reading and changing a conversation
 
@@ -69,7 +80,7 @@ Conditions look like `{"op": "flag", "name": "cumana_fieldwork_complete"}`, `{"o
 
 - **Always safe:** changing any text in the CSV files, adding a language column, reordering CSV rows.
 - **Safe:** adding new cards, choices, flags or keys with new ids.
-- **Needs care:** renaming or deleting an existing card id, choice id, check id or flag. Old saves refer to them; a conversation saved in the middle of a deleted card cannot be resumed. If you rename, tell a programmer so a save migration can be written.
+- **Needs care:** renaming or deleting an existing card id, choice id, check id or flag. Old saves refer to them. A conversation saved in the middle of a deleted card is closed when the save loads (the player starts it again; checks already tried stay tried), and a renamed flag is simply not set in old saves. If you rename something players have already reached, tell a programmer so a save migration can be written.
 - **Run the check** (F1 → Check content, or the validator) after any JSON edit. A missing comma is reported with its line number.
 
 ### History and invention
@@ -84,8 +95,8 @@ Nothing visual is baked into the game rules. Each building, object and person is
 2. **Paint** over the template, or make something entirely new at a similar scale. Save it under `godot/art/painted/…`; never save over `art/templates`, which can be regenerated.
 3. **Make a visual scene.** In Godot: New Scene → Node2D → attach the right script, then add your painting as a child named `Sprite`:
    - **Buildings and objects:** script `res://art/sprite_structure.gd`; a `Sprite2D` named `Sprite`. Set `anchor_px` in the Inspector to the pixel of the front ground corner. For variants that should appear after a story event, add more `Sprite2D` children named after the period (`november`) or a flag (`cumana_survey_complete`); the game shows the matching one.
-   - **Characters:** script `res://art/sprite_figure.gd`; an `AnimatedSprite2D` named `Sprite` with animations named `idle_s`, `walk_s`, `idle_se`, `walk_se` and so on. You can paint only the east-facing directions; west-facing ones are mirrored automatically. Put the origin at the feet.
-4. **Link it** in `godot/content/scenes/cumana.json`: set `"visual": "res://art/painted/…tscn"` on the structure or figure, or under `"player"` for Humboldt. Leave `"visual": ""` to keep the provisional drawing.
+   - **Characters:** script `res://art/sprite_figure.gd`; an `AnimatedSprite2D` named `Sprite` with animations named `idle_s`, `walk_s`, `idle_se`, `walk_se` and so on. Paint `s`, `n` and the east side (`e`, `se`, `ne`); the west side (`w`, `sw`, `nw`) is mirrored automatically. Or add plain `idle` and `walk` animations, used for any direction you have not painted. The content check lists any direction with nothing to show. Put the origin at the feet.
+4. **Link it** in `godot/content/scenes/cumana.json`: set `"visual": "res://art/painted/…tscn"` on the structure or figure, or under `"player"` for Humboldt. Leave `"visual": ""` to keep the provisional drawing. A scene that does not follow these steps (no script, or the child not named `Sprite`) is reported by the content check, and the game shows the provisional drawing instead of crashing.
 5. Press **F5** in the running game, or restart it, to see your art in place. Walk around it: the game sorts depth and fades a building when it hides Humboldt, using the building's footprint, so you never edit draw orders.
 
 Two worked examples are included:
