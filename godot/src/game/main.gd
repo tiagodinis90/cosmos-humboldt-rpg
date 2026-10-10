@@ -52,8 +52,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func reload_content() -> void:
 	var before := Session.content
-	Session.reload_content()
+	var problems := Session.reload_content()
 	if Session.content == before:
 		hud.toast(Session.content.t("ui.toast.content_not_reloaded"))
+	elif not problems.is_empty():
+		hud.toast(Session.content.t("ui.toast.content_reloaded_with_problems", {"count": problems.size()}))
 	else:
 		hud.toast(Session.content.t("ui.toast.content_reloaded"))

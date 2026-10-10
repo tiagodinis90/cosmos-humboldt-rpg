@@ -27,7 +27,7 @@ The first Godot vertical slice: Cumaná, 1799, as a walkable isometric scene. Yo
 
 ```
 godot --headless --path godot --import                       # first time / after adding files
-godot --headless --path godot -s res://tests/run_tests.gd    # 50 tests: parity, robustness and scene tests
+godot --headless --path godot -s res://tests/run_tests.gd    # 52 tests: parity, robustness and scene tests
 godot --headless --path godot -s res://tools/validate_content.gd
 ```
 

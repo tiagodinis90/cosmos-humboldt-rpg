@@ -162,3 +162,19 @@ func test_an_unreadable_scene_file_is_explained_and_recovered_with_f5() -> void:
 	Session.content_reloaded.emit()
 	Session.state_changed.emit()
 	ok(world.playable and not world.input_blocked(), "reloading working content brings the scene back")
+
+
+func test_f5_toast_says_whether_content_was_reloaded() -> void:
+	var good := Session.content
+	main.reload_content()
+	ok(Session.content != good, "readable content is swapped in")
+	var problems := Session.content.validate().size()
+	var expected := Session.content.t("ui.toast.content_reloaded") if problems == 0 else Session.content.t("ui.toast.content_reloaded_with_problems", {"count": problems})
+	eq(hud.get_node("%Toast").text, expected, "the toast says it reloaded, and how many problems remain")
+	var current := Session.content
+	current.root = "res://no_such_content"
+	main.reload_content()
+	ok(Session.content == current, "an unreadable scene file keeps the content in use")
+	eq(hud.get_node("%Toast").text, current.t("ui.toast.content_not_reloaded"), "and the toast says it was not reloaded")
+	current.root = good.root
+	Session.content = good

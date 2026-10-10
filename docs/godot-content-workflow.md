@@ -28,7 +28,7 @@ The text files are ordinary CSV and open in LibreOffice Calc, Excel or Google Sh
 ## The loop: edit → check → see it
 
 1. Edit a file in `godot/content`.
-2. In the running game, press **F5** to reload all content. Humboldt stays where he is and the save is kept; an open conversation is redrawn with your new text. If the scene file cannot be read (a missing comma, say), the game keeps the version it has and tells you, so you can fix the file and press F5 again.
+2. In the running game, press **F5** to reload all content. Humboldt stays where he is and the save is kept; an open conversation is redrawn with your new text. The message says how many problems remain, if any. If the scene file cannot be read (a missing comma, say), the game keeps the version it has and tells you, so you can fix the file and press F5 again.
 3. Press **F1** (playtest tools) to:
    - check the content for mistakes ("Check content");
    - switch language;

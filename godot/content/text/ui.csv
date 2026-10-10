@@ -8,6 +8,7 @@ ui.hint.unreachable,You cannot get there from here.
 ui.hint.out_of_reach,You cannot get close enough to {name} from here.
 ui.hint.conversation_unavailable,This conversation cannot open: its content has a problem. Press F1 and choose Check content.
 ui.toast.content_reloaded,Content reloaded.
+ui.toast.content_reloaded_with_problems,"Content reloaded, with {count} problem(s): press F1, then Check content."
 ui.toast.content_not_reloaded,"Content not reloaded: the scene file has problems. Press F1, then Check content."
 ui.toast.save_failed,Progress could not be saved. See the playtest tools (F1) for details.
 ui.toast.save_unreadable,"The save could not be read, so a new game started. A copy of the old save was kept next to it."
