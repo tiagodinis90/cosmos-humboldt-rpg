@@ -1,0 +1,13 @@
+{
+  "anchor_px": [
+    134.0,
+    390.0
+  ],
+  "id": "palm-c",
+  "kind": "palm",
+  "note": "anchor_px is the footprint's front ground corner (maxX, maxY). Keep it when painting over.",
+  "size_px": [
+    268,
+    480
+  ]
+}

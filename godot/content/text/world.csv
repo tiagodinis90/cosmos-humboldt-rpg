@@ -1,0 +1,37 @@
+key,en
+speaker.narrator,Narrator
+speaker.bonpland,Bonpland
+speaker.ines,Inés
+speaker.logic,Logic
+speaker.empathy,Empathy
+speaker.aesthetics,Aesthetics
+speaker.political,Political
+date.july,July 1799
+date.november,November 1799
+hotspot.ines.label,Inés Ávila
+hotspot.ines.description,"A shipping clerk who knows which walls were repaired, and by whom."
+hotspot.bonpland.label,Aimé Bonpland
+hotspot.bonpland.description,"Your companion, at his plant press."
+hotspot.field-case.label,Field instruments
+hotspot.field-case.description,"Thermometers, a barometer, a hygrometer and a card of blues."
+hotspot.damaged-wall.label,Broken masonry
+hotspot.damaged-wall.description,A courtyard wall with repairs of different ages.
+hotspot.quay.label,The pier
+hotspot.quay.description,"Boats, porters and a clerk counting barrels."
+hotspot.plaza.label,The square
+hotspot.plaza.description,"The public square, with a well at its centre."
+remark.field-case.packed,The case is packed again. Everything it can tell you today is in the fieldbook.
+remark.damaged-wall.july,"Repairs from the 1797 earthquake: the newer stones are paler and set at a slightly different angle. Inés would know which houses were rebuilt, and who paid."
+remark.damaged-wall.measured,"The masons have started. They agreed to work around your chalk baseline on the lowest course, and complained about it all morning."
+remark.damaged-wall.unreliable,"The masons are resetting the stones. Whatever the wall could have told you is in your notebook now, or nowhere."
+remark.damaged-wall.unmeasured,"The masons are resetting the stones. You never measured the crack, and now it is mortar."
+remark.quay.november,"A small open trading boat, about thirty feet long, is being caulked for the voyage west to Caracas. José de la Cruz is counting your trunks onto the sand and arguing with the owner about the weight."
+remark.quay.voice.political,The customs house stands nearer the water than the church does. That tells you what the town was built for.
+remark.quay.first,Pirogues are unloading salt and dried fish. At the end of the pier a clerk counts barrels into a ledger. The men carrying them are not in it.
+remark.quay.again,The tide has turned. Two boats wait while the clerk argues with a third.
+remark.plaza.november,"Cracks run up the front of the church. Since the earthquake, mass has been said outside, under the market awnings."
+remark.plaza.voice.political,"Church, cabildo and auction block, all within sight of one another. The arrangement is not an accident."
+remark.plaza.first,"Your rented house faces this square. Every morning young African men and women are put up for sale here, oiled and paraded, and buyers pull their mouths open to look at their teeth."
+remark.plaza.again,Water carriers queue at the well. The order of the queue follows the households they work for.
+remark.default,There is nothing more to do here for now.
+chapter.cumana-fieldwork.unported,The July–November chapter with Inés is only playable in the browser prototype for now.

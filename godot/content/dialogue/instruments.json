@@ -1,0 +1,413 @@
+{
+ "id": "instruments",
+ "status": "provisional draft (AI-assisted); see docs/production/human-led-creative-production.md",
+ "title_key": "instruments.title",
+ "place_key": "instruments.place",
+ "exits": [
+  "inst.close"
+ ],
+ "graph": {
+  "start": "inst.open",
+  "cards": {
+   "inst.open": {
+    "type": "line",
+    "id": "inst.open",
+    "speaker": "narrator",
+    "text_key": "instruments.line.inst.open",
+    "next": "inst.voices"
+   },
+   "inst.voices": {
+    "type": "passive",
+    "id": "inst.voices",
+    "next": "inst.options",
+    "probes": [
+     {
+      "id": "inst.logic",
+      "skill": "logic",
+      "atLeast": 2,
+      "text_key": "instruments.voice.inst.logic"
+     },
+     {
+      "id": "inst.aesthetics",
+      "skill": "aesthetics",
+      "atLeast": 2,
+      "text_key": "instruments.voice.inst.aesthetics"
+     },
+     {
+      "id": "inst.empathy",
+      "skill": "empathy",
+      "atLeast": 2,
+      "text_key": "instruments.voice.inst.empathy"
+     },
+     {
+      "id": "inst.political",
+      "skill": "political",
+      "atLeast": 2,
+      "text_key": "instruments.voice.inst.political"
+     }
+    ]
+   },
+   "inst.options": {
+    "type": "choice",
+    "id": "inst.options",
+    "prompt_key": "instruments.prompt.inst.options",
+    "choices": [
+     {
+      "id": "inst.sun",
+      "label_key": "instruments.choice.inst.sun",
+      "next": "inst.sun_result",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "reading_sun"
+       }
+      },
+      "flags": [
+       "reading_sun"
+      ]
+     },
+     {
+      "id": "inst.shade",
+      "label_key": "instruments.choice.inst.shade",
+      "next": "inst.options",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "reading_shade_reliable"
+       }
+      },
+      "flags": [
+       "reading_shade"
+      ],
+      "check": {
+       "id": "cumana_shade_reading",
+       "kind": "white",
+       "skill": "logic",
+       "difficulty": 8,
+       "success": "inst.shade_good",
+       "failure": "inst.shade_poor",
+       "modifiers": [
+        {
+         "when": {
+          "op": "flag",
+          "name": "cumana_temperature_context"
+         },
+         "amount": 1,
+         "reason_key": "instruments.reason.cumana_shade_reading.0"
+        }
+       ]
+      }
+     },
+     {
+      "id": "inst.compare",
+      "label_key": "instruments.choice.inst.compare",
+      "next": "inst.compare_fork",
+      "when": {
+       "op": "all",
+       "conditions": [
+        {
+         "op": "flag",
+         "name": "reading_sun"
+        },
+        {
+         "op": "flag",
+         "name": "reading_shade"
+        },
+        {
+         "op": "not",
+         "condition": {
+          "op": "flag",
+          "name": "paired_compared"
+         }
+        }
+       ]
+      },
+      "flags": [
+       "paired_compared"
+      ]
+     },
+     {
+      "id": "inst.sky",
+      "label_key": "instruments.choice.inst.sky",
+      "next": "inst.sky_result",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "sky_read"
+       }
+      },
+      "flags": [
+       "sky_read"
+      ]
+     },
+     {
+      "id": "inst.close",
+      "label_key": "instruments.choice.inst.close",
+      "next": "inst.end"
+     }
+    ]
+   },
+   "inst.sun_result": {
+    "type": "line",
+    "id": "inst.sun_result",
+    "speaker": "logic",
+    "text_key": "instruments.line.inst.sun_result",
+    "next": "inst.options"
+   },
+   "inst.shade_good": {
+    "type": "line",
+    "id": "inst.shade_good",
+    "speaker": "logic",
+    "text_key": "instruments.line.inst.shade_good",
+    "next": "inst.options",
+    "sets": [
+     "reading_shade_reliable"
+    ]
+   },
+   "inst.shade_poor": {
+    "type": "line",
+    "id": "inst.shade_poor",
+    "speaker": "logic",
+    "text_key": "instruments.line.inst.shade_poor",
+    "next": "inst.options",
+    "sets": [
+     "reading_shade_doubtful"
+    ]
+   },
+   "inst.compare_fork": {
+    "type": "fork",
+    "id": "inst.compare_fork",
+    "routes": [
+     {
+      "when": {
+       "op": "flag",
+       "name": "reading_shade_reliable"
+      },
+      "next": "inst.compare_good"
+     }
+    ],
+    "otherwise": "inst.compare_doubt"
+   },
+   "inst.compare_good": {
+    "type": "line",
+    "id": "inst.compare_good",
+    "speaker": "logic",
+    "text_key": "instruments.line.inst.compare_good",
+    "next": "inst.options",
+    "sets": [
+     "cumana_repeatability"
+    ]
+   },
+   "inst.compare_doubt": {
+    "type": "line",
+    "id": "inst.compare_doubt",
+    "speaker": "logic",
+    "text_key": "instruments.line.inst.compare_doubt",
+    "next": "inst.options"
+   },
+   "inst.sky_result": {
+    "type": "line",
+    "id": "inst.sky_result",
+    "speaker": "aesthetics",
+    "text_key": "instruments.line.inst.sky_result",
+    "next": "inst.sky_choice"
+   },
+   "inst.sky_choice": {
+    "type": "choice",
+    "id": "inst.sky_choice",
+    "choices": [
+     {
+      "id": "inst.sky_conditions",
+      "label_key": "instruments.choice.inst.sky_conditions",
+      "next": "inst.sky_logged",
+      "flags": [
+       "cyanometer_conditions"
+      ]
+     },
+     {
+      "id": "inst.sky_number",
+      "label_key": "instruments.choice.inst.sky_number",
+      "next": "inst.options"
+     }
+    ]
+   },
+   "inst.sky_logged": {
+    "type": "line",
+    "id": "inst.sky_logged",
+    "speaker": "logic",
+    "text_key": "instruments.line.inst.sky_logged",
+    "next": "inst.options"
+   },
+   "inst.end": {
+    "type": "end",
+    "id": "inst.end",
+    "text_key": "instruments.line.inst.end"
+   }
+  }
+ },
+ "consequences": [
+  {
+   "when": {
+    "op": "flag",
+    "name": "reading_sun"
+   },
+   "evidence": {
+    "id": "scene_sand_sun",
+    "kind": "measurement",
+    "date_key": "date.$period",
+    "location_key": "location.cuman_beside_the_lodging",
+    "content_key": "evidence.scene_sand_sun.content",
+    "method_key": "evidence.scene_sand_sun.method",
+    "uncertainty_key": "evidence.scene_sand_sun.uncertainty",
+    "source_key": "evidence.scene_sand_sun.source"
+   }
+  },
+  {
+   "when": {
+    "op": "flag",
+    "name": "reading_shade_doubtful"
+   },
+   "evidence": {
+    "id": "scene_shade_wall",
+    "kind": "measurement",
+    "date_key": "date.$period",
+    "location_key": "location.cuman_beside_the_lodging",
+    "content_key": "evidence.scene_shade_wall.content",
+    "method_key": "evidence.scene_shade_wall.method",
+    "uncertainty_key": "evidence.scene_shade_wall.uncertainty",
+    "source_key": "evidence.scene_shade_wall.source"
+   }
+  },
+  {
+   "when": {
+    "op": "flag",
+    "name": "reading_shade_reliable"
+   },
+   "evidence": {
+    "id": "scene_shade_air",
+    "kind": "measurement",
+    "date_key": "date.$period",
+    "location_key": "location.cuman_beside_the_lodging",
+    "content_key": "evidence.scene_shade_air.content",
+    "method_key": "evidence.scene_shade_air.method",
+    "uncertainty_key": "evidence.scene_shade_air.uncertainty",
+    "source_key": "evidence.scene_shade_air.source"
+   }
+  },
+  {
+   "when": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "paired_compared"
+     },
+     {
+      "op": "flag",
+      "name": "reading_shade_reliable"
+     }
+    ]
+   },
+   "evidence": {
+    "id": "scene_exposure",
+    "kind": "inference",
+    "date_key": "date.$period",
+    "location_key": "location.cuman_beside_the_lodging",
+    "content_key": "evidence.scene_exposure.reliable.content",
+    "uncertainty_key": "evidence.scene_exposure.reliable.uncertainty",
+    "source_key": "evidence.scene_exposure.reliable.source",
+    "basis": [
+     "scene_sand_sun",
+     "scene_shade_air"
+    ]
+   }
+  },
+  {
+   "when": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "paired_compared"
+     },
+     {
+      "op": "not",
+      "condition": {
+       "op": "flag",
+       "name": "reading_shade_reliable"
+      }
+     }
+    ]
+   },
+   "evidence": {
+    "id": "scene_exposure",
+    "kind": "inference",
+    "date_key": "date.$period",
+    "location_key": "location.cuman_beside_the_lodging",
+    "content_key": "evidence.scene_exposure.doubtful.content",
+    "uncertainty_key": "evidence.scene_exposure.doubtful.uncertainty",
+    "source_key": "evidence.scene_exposure.doubtful.source",
+    "basis": [
+     "scene_sand_sun",
+     "scene_shade_wall"
+    ]
+   }
+  },
+  {
+   "when": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "sky_read"
+     },
+     {
+      "op": "flag",
+      "name": "cyanometer_conditions"
+     }
+    ]
+   },
+   "evidence": {
+    "id": "scene_cyanometer",
+    "kind": "measurement",
+    "date_key": "date.$period",
+    "location_key": "location.cuman_beside_the_lodging",
+    "content_key": "evidence.scene_cyanometer.conditions.content",
+    "method_key": "evidence.scene_cyanometer.conditions.method",
+    "uncertainty_key": "evidence.scene_cyanometer.conditions.uncertainty",
+    "source_key": "evidence.scene_cyanometer.conditions.source"
+   }
+  },
+  {
+   "when": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "sky_read"
+     },
+     {
+      "op": "not",
+      "condition": {
+       "op": "flag",
+       "name": "cyanometer_conditions"
+      }
+     }
+    ]
+   },
+   "evidence": {
+    "id": "scene_cyanometer",
+    "kind": "measurement",
+    "date_key": "date.$period",
+    "location_key": "location.cuman_beside_the_lodging",
+    "content_key": "evidence.scene_cyanometer.number.content",
+    "method_key": "evidence.scene_cyanometer.number.method",
+    "uncertainty_key": "evidence.scene_cyanometer.number.uncertainty",
+    "source_key": "evidence.scene_cyanometer.number.source"
+   }
+  }
+ ]
+}

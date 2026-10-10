@@ -1,0 +1,38 @@
+key,en
+ui.place,Cumaná · New Andalusia
+ui.verb.person,Talk
+ui.verb.object,Examine
+ui.verb.place,Look
+ui.hint.start,"Click the ground to walk; double-click to run. Click a person or an object to walk up to it. Hold Tab to see everything you can use. J opens the fieldbook, F1 the playtest tools."
+ui.hint.unreachable,You cannot get there from here.
+ui.hint.out_of_reach,You cannot get close enough to {name} from here.
+ui.hint.conversation_unavailable,This conversation cannot open: its content has a problem. Press F1 and choose Check content.
+ui.toast.content_reloaded,Content reloaded.
+ui.toast.content_reloaded_with_problems,"Content reloaded, with {count} problem(s): press F1, then Check content."
+ui.toast.content_not_reloaded,"Content not reloaded: the scene file has problems. Press F1, then Check content."
+ui.toast.save_failed,Progress could not be saved. See the playtest tools (F1) for details.
+ui.toast.save_unreadable,"The save could not be read, so a new game started. A copy of the old save was kept next to it."
+ui.toast.save_recovered,Recovered your progress from an interrupted save.
+ui.controls,click: walk · double-click: run · WASD · hold Tab: interactions · J: fieldbook · F1: playtest tools
+ui.fieldbook,Fieldbook
+ui.fieldbook.title,"Cumaná, 1799"
+ui.fieldbook.count,{count} entries. Kinds are kept apart on purpose.
+ui.fieldbook.count_one,One entry. Kinds are kept apart on purpose.
+ui.fieldbook.empty,Nothing recorded yet. Walk to someone or something and look closely.
+ui.fieldbook.how,How:
+ui.fieldbook.limits,Limits:
+ui.fieldbook.close,Close (J)
+ui.kind.measurement,Measurements
+ui.kind.observation,Observations
+ui.kind.testimony,Testimony
+ui.kind.inference,Inferences
+ui.kind.hypothesis,Open questions
+ui.dialogue.continue,Continue
+ui.dialogue.end,End conversation
+ui.dialogue.success,SUCCESS
+ui.dialogue.failure,FAILURE
+ui.check.white,WHITE
+ui.check.red,RED
+ui.toast.evidence,Fieldbook: {count} new entries (J)
+ui.toast.evidence_one,Fieldbook: one new entry (J)
+ui.dev.title,Playtest tools (F1)

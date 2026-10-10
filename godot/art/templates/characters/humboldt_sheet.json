@@ -1,0 +1,21 @@
+{
+  "cell_px": [
+    64,
+    96
+  ],
+  "columns": "0 = idle, 1-8 = walk cycle",
+  "feet_px": [
+    32.0,
+    88.0
+  ],
+  "rows": [
+    "e",
+    "se",
+    "s",
+    "sw",
+    "w",
+    "nw",
+    "n",
+    "ne"
+  ]
+}

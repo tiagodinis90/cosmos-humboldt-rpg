@@ -1,0 +1,13 @@
+{
+  "anchor_px": [
+    118.0,
+    158.0
+  ],
+  "id": "plant-press",
+  "kind": "press",
+  "note": "anchor_px is the footprint's front ground corner (maxX, maxY). Keep it when painting over.",
+  "size_px": [
+    208,
+    188
+  ]
+}

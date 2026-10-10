@@ -1,0 +1,98 @@
+key,en
+instruments.title,The Field Table
+instruments.place,Beside the lodging
+instruments.line.inst.open,"One of the velvet-lined boxes lies open on the table. Each instrument has its own hollow: two mercury thermometers, a barometer in its leather tube, a hygrometer strung with a single hair, and the cyanometer, a card of blues numbered from almost white to almost black."
+instruments.voice.inst.logic,"Two thermometers. Until they agree in the same shade, neither of them has told you anything."
+instruments.voice.inst.aesthetics,The cyanometer is the only instrument in the case that asks you to look up.
+instruments.voice.inst.empathy,Bonpland packed the barometer himself. He is pretending not to watch you unwrap it.
+instruments.voice.inst.political,"Porters carried this case up from the boat. Nobody wrote down their names, only that nothing broke."
+instruments.prompt.inst.options,What do you measure?
+instruments.choice.inst.sun,Lay the first thermometer on the open sand and wait for the mercury to settle.
+instruments.choice.inst.shade,"Hang the second thermometer in the shade, clear of the warm stones."
+instruments.reason.cumana_shade_reading.0,You have measured this sand before
+instruments.choice.inst.compare,Set the two readings side by side.
+instruments.choice.inst.sky,Hold the cyanometer up against the sky over the harbour.
+instruments.choice.inst.close,Close the case.
+instruments.line.inst.sun_result,"The mercury climbs past anything you would accept as the temperature of air, and keeps climbing. When it stops you write 37.7 degrees. That is the sand, not the climate."
+instruments.line.inst.shade_good,"You hang it from a post an arm’s length from the wall and wait until two readings a minute apart agree. Twenty-nine degrees, near enough. Now you know what the shade is doing — here, at this hour."
+instruments.line.inst.shade_poor,"You hang it too close. The stones have been taking in sun since morning and are giving it back to the bulb. The number you write down is real, but it measures the wall as much as the air."
+instruments.line.inst.compare_good,"Eight degrees between sand and shade, a few steps apart. Neither number describes Cumaná. Together they describe a method: say where the instrument was, and anyone can check you."
+instruments.line.inst.compare_doubt,"The difference is there, but you cannot say how much of it belongs to the wall. Write both numbers down. Write why you do not trust the second."
+instruments.line.inst.sky_result,The sky over the harbour falls between the twenty-second blue and the twenty-third. You want to write that it is deeper than any sky over Berlin. The card only says it is darker than twenty-two.
+instruments.choice.inst.sky_conditions,"Note the hour, the haze over the water, and how long your eyes took to adjust."
+instruments.choice.inst.sky_number,Write down the number.
+instruments.line.inst.sky_logged,"Beside the number: four in the afternoon, thin haze to seaward, a minute in the shade first. An ugly sentence. Also the only kind someone else could repeat."
+instruments.line.inst.end,You close the lid. The readings go into the fieldbook with where and how they were taken.
+bonpland.title,Aimé Bonpland
+bonpland.place,At the plant press
+bonpland.line.bon.jul_open,Bonpland is kneeling over the plant press with a strap between his teeth. He takes it out to speak.
+bonpland.line.bon.jul_greet,"“Forty specimens since the boat, and this heat cooks them faster than the paper can dry them. If you have come to tell me it is hot, I have noticed.”"
+bonpland.voice.bon.empathy,He has not eaten since morning. He will not say so while the work is unfinished.
+bonpland.voice.bon.logic,Every sheet he changes is a measurement as well: how fast a leaf gives up its water in this air.
+bonpland.voice.bon.aesthetics,"He lays each leaf down the way a compositor sets type — no wasted space, nothing overlapping."
+bonpland.prompt.bon.jul_options,"Bonpland waits, strap in hand."
+bonpland.choice.bon.help,Kneel and hold the boards while he tightens the strap.
+bonpland.choice.bon.method,"Ask what he would measure first, if it were up to him."
+bonpland.choice.bon.walls,Tell him the walls matter more than the plants this week.
+bonpland.reason.bonpland_priorities.0,You helped with the press
+bonpland.choice.bon.leave,Leave him to the press.
+bonpland.line.bon.helped,"“Harder. No — like that.” The strap bites into the boards. He checks the edge of every sheet and nods once. “You have the hands of a mining inspector. That is not a compliment, but it will do.”"
+bonpland.line.bon.method_answer,"“Whatever nobody will be able to collect again. Your thermometer can come back next year. This orchid is flowering now, in this ditch, and the ditch will be filled in by spring. Everything else can wait for a second voyage.”"
+bonpland.line.bon.walls_yes,"He looks at the press, then at you. “Fine. When you measure your wall, I will hold the other end of the line. But the plants do not matter less because they do not fall on people.”"
+bonpland.line.bon.walls_no,"“More than the plants.” He goes back to the strap. “Write that in your book, then. I will write mine.”"
+bonpland.line.bon.jul_end,Bonpland goes back to the press. The strap creaks as he pulls it tight.
+bonpland.line.bon.nov_open,The press has been moved under the awning. Some of the drying papers are stained where water came through the roof during the shaking.
+bonpland.line.bon.nov_care,“You came back into the house for me. I noticed.” He does not look up. “I would have got out on my own. Probably.”
+bonpland.line.bon.nov_plain,“Half the sheets from the river are ruined. The other half I carried out under my coat like a thief.” He holds one up to the light. “You see? Still green.”
+bonpland.prompt.bon.nov_options,Bonpland is sorting what survived.
+bonpland.choice.bon.nov_write,Ask what he will write home about the earthquake.
+bonpland.choice.bon.nov_ines,Ask whether Inés should be named in your account.
+bonpland.choice.bon.nov_leave,Let him work.
+bonpland.line.bon.nov_write_answer,“That the ground moved and the plants did not care.” He almost smiles. “And that I was frightened. My family will want to know that more than the rest.”
+bonpland.line.bon.nov_ines_yes,"“She said yes. Then use her words, not yours. If you improve her sentences she will end up sounding like you.”"
+bonpland.line.bon.nov_ines_no,"“She said no. That is the end of it, Alexander. You can describe the wall. You cannot describe her.”"
+bonpland.line.bon.nov_ines_unasked,“Have you asked her?” He waits. “Then you do not have an answer yet. Neither do I.”
+bonpland.line.bon.nov_end,"Bonpland goes back to the papers, holding each sheet up to the light before deciding."
+ines-november.title,Inés Ávila
+ines-november.place,The store doorway
+ines-november.line.ines.open,"Inés has moved her stool inside the doorway, where the shade is. The ledger is open on her knees. Behind her, the shelves have been restacked lower than before."
+ines-november.line.ines.cool,"“You asked and I answered.” She turns a page. “If you have come about the wall, it is still there.”"
+ines-november.line.ines.warm,"“When your book is printed, will anyone here be able to read it?” She says it lightly, as if she already knows the answer."
+ines-november.line.ines.after_survey,“You spent a whole afternoon with that wall. The masons think you are paying for it.”
+ines-november.line.ines.before_survey,"“The masons come the day after tomorrow. If you want to look at that wall before they touch it, look at it now.”"
+ines-november.voice.ines.political,"The licence for this shop belongs to a man born in Spain; only a Spaniard may own one. The ledger, the stock and the cracked shelves are hers to look after."
+ines-november.voice.ines.empathy,She keeps the ledger open even when nobody is buying. It gives her hands somewhere to be.
+ines-november.prompt.ines.options,Inés waits for you to say something useful.
+ines-november.choice.ines.repairs,Ask who decides which buildings are repaired first.
+ines-november.choice.ines.helped,Mention that you helped clear the entrance on the fourth.
+ines-november.choice.ines.groves,Ask why the hills behind the town are so bare.
+ines-november.choice.ines.record,Ask whether anyone in town kept a record of the tremors.
+ines-november.choice.ines.leave,Leave her to the ledger.
+ines-november.line.ines.repairs_answer,"“The governor decides. The governor’s builder decides which stones. Then the families who can pay their masons twice go first, and the rest of us go when the masons are tired.”"
+ines-november.line.ines.helped_answer,“I saw you.” For a moment she says nothing else. “You carried the wrong end of the beam. But you carried it.”
+ines-november.line.ines.groves_answer,“There were groves up there when my mother was a girl. They were cut for firewood and cleared for planting. Everyone will tell you the land has been drier since.” She shrugs. “Everyone will also tell you it is God’s doing. Ask which they mean.”
+ines-november.line.ines.record_answer,“The priest rang the bell. That is the record. Ask him how many times and he will give you a different number every Sunday.”
+ines-november.line.ines.end,"Inés goes back to the ledger. She does not watch you leave, but she does not turn away either."
+wall-survey.title,The Survey of a Broken Wall
+wall-survey.place,The courtyard wall
+wall-survey.line.street.intro,"Cumaná, November 1799. The tremors have ceased. You open a notebook beside the damaged wall. Inés is asking Bonpland whether the stones should be moved before someone measures them. The paper holds accounts, sketches and one pattern for which you have no provenance."
+wall-survey.voice.street.logic,A mark in masonry and a memory of shaking are different kinds of observation.
+wall-survey.voice.street.empathy,Inés wants the entrance made safe. Your experiment is not her priority.
+wall-survey.voice.street.aesthetics,The irregular cracks resemble a coastline in a map you once drew.
+wall-survey.voice.street.political,Someone will pay for these repairs. It will not necessarily be the office that files the report.
+wall-survey.line.street.unexpected,"There it is again: a branching shape in the masonry. The similarity is difficult to ignore, and impossible to measure without returning to the old drawing. Resemblance alone cannot prove a connection."
+wall-survey.line.street.ordinary,"The two sets of marks disagree. You could draw them to resemble each other, but that would change the evidence. Inés has already pointed out where the wall is unsafe."
+wall-survey.prompt.street.options,What do you do with the damaged wall and the notes?
+wall-survey.choice.street.measure,Attempt to establish a repeatable survey of the damage.
+wall-survey.reason.cumana_wall_survey.0,Attributed eyewitness record
+wall-survey.reason.cumana_wall_survey.1,Comparative measurement practice
+wall-survey.reason.cumana_wall_survey.2,Bonpland holds the other end of the line
+wall-survey.choice.street.ask,Ask Inés if you may publish her account alongside your observations.
+wall-survey.choice.street.odd,Keep the unexplained branching pattern as an open question.
+wall-survey.choice.street.close,Close the fieldbook. You have recorded enough for today.
+wall-survey.line.street.survey_success,"You find a stable baseline, draw the measured angle and leave space for a later comparison. The result is reproducible, though its cause remains uncertain."
+wall-survey.line.street.survey_failure,The footing gives way twice and the pencil mark slips. You cannot claim a reliable measurement. The attempt belongs in the notebook all the same.
+wall-survey.line.street.permission_given,"You may include my name, she says. But write that I remember where people ran. I cannot tell you how long the ground shook."
+wall-survey.line.street.permission_denied,I told you what happened to the houses. I did not ask to be put in a book printed in Europe. Leave my name out.
+wall-survey.line.street.pattern_note,"The shapes have been observed, but their relation has not. That sentence is less satisfying than a discovery and considerably more useful."
+wall-survey.line.street.end,"The fieldbook now distinguishes a physical measurement, a person’s account and a question you do not yet know how to test."

@@ -1,0 +1,13 @@
+{
+  "anchor_px": [
+    334.0,
+    391.0
+  ],
+  "id": "storehouse",
+  "kind": "house",
+  "note": "anchor_px is the footprint's front ground corner (maxX, maxY). Keep it when painting over.",
+  "size_px": [
+    518,
+    421
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "anchor_px": [
+    214.0,
+    202.0
+  ],
+  "id": "pirogue",
+  "kind": "boat",
+  "note": "anchor_px is the footprint's front ground corner (maxX, maxY). Keep it when painting over.",
+  "size_px": [
+    296,
+    232
+  ]
+}

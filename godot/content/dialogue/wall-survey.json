@@ -1,0 +1,353 @@
+{
+ "id": "wall-survey",
+ "status": "provisional draft (AI-assisted); see docs/production/human-led-creative-production.md",
+ "title_key": "wall-survey.title",
+ "place_key": "wall-survey.place",
+ "exits": [
+  "street.close"
+ ],
+ "graph": {
+  "start": "street.intro",
+  "cards": {
+   "street.intro": {
+    "type": "line",
+    "id": "street.intro",
+    "speaker": "narrator",
+    "text_key": "wall-survey.line.street.intro",
+    "next": "street.passives"
+   },
+   "street.passives": {
+    "type": "passive",
+    "id": "street.passives",
+    "next": "street.memory",
+    "probes": [
+     {
+      "id": "street.logic",
+      "skill": "logic",
+      "atLeast": 2,
+      "text_key": "wall-survey.voice.street.logic"
+     },
+     {
+      "id": "street.empathy",
+      "skill": "empathy",
+      "atLeast": 2,
+      "text_key": "wall-survey.voice.street.empathy"
+     },
+     {
+      "id": "street.aesthetics",
+      "skill": "aesthetics",
+      "atLeast": 2,
+      "text_key": "wall-survey.voice.street.aesthetics"
+     },
+     {
+      "id": "street.political",
+      "skill": "political",
+      "atLeast": 2,
+      "text_key": "wall-survey.voice.street.political"
+     }
+    ]
+   },
+   "street.memory": {
+    "type": "fork",
+    "id": "street.memory",
+    "routes": [
+     {
+      "when": {
+       "op": "all",
+       "conditions": [
+        {
+         "op": "flag",
+         "name": "pattern_recurs"
+        },
+        {
+         "op": "skill",
+         "skill": "aesthetics",
+         "atLeast": 2
+        }
+       ]
+      },
+      "next": "street.unexpected"
+     }
+    ],
+    "otherwise": "street.ordinary"
+   },
+   "street.unexpected": {
+    "type": "line",
+    "id": "street.unexpected",
+    "speaker": "aesthetics",
+    "text_key": "wall-survey.line.street.unexpected",
+    "next": "street.options"
+   },
+   "street.ordinary": {
+    "type": "line",
+    "id": "street.ordinary",
+    "speaker": "narrator",
+    "text_key": "wall-survey.line.street.ordinary",
+    "next": "street.options"
+   },
+   "street.options": {
+    "type": "choice",
+    "id": "street.options",
+    "prompt_key": "wall-survey.prompt.street.options",
+    "choices": [
+     {
+      "id": "street.measure",
+      "label_key": "wall-survey.choice.street.measure",
+      "next": "street.options",
+      "flags": [
+       "wall_survey_attempted"
+      ],
+      "check": {
+       "id": "cumana_wall_survey",
+       "kind": "white",
+       "skill": "logic",
+       "difficulty": 10,
+       "success": "street.survey_success",
+       "failure": "street.survey_failure",
+       "modifiers": [
+        {
+         "when": {
+          "op": "flag",
+          "name": "cumana_attribution"
+         },
+         "amount": 1,
+         "reason_key": "wall-survey.reason.cumana_wall_survey.0"
+        },
+        {
+         "when": {
+          "op": "any",
+          "conditions": [
+           {
+            "op": "flag",
+            "name": "method_comparative"
+           },
+           {
+            "op": "flag",
+            "name": "cumana_repeatability"
+           }
+          ]
+         },
+         "amount": 1,
+         "reason_key": "wall-survey.reason.cumana_wall_survey.1"
+        },
+        {
+         "when": {
+          "op": "flag",
+          "name": "bonpland_will_assist_survey"
+         },
+         "amount": 1,
+         "reason_key": "wall-survey.reason.cumana_wall_survey.2"
+        }
+       ]
+      }
+     },
+     {
+      "id": "street.ask",
+      "label_key": "wall-survey.choice.street.ask",
+      "next": "street.options",
+      "when": {
+       "op": "not",
+       "condition": {
+        "op": "flag",
+        "name": "publication_permission_requested"
+       }
+      },
+      "flags": [
+       "publication_permission_requested"
+      ],
+      "check": {
+       "id": "ines_publication_consent",
+       "kind": "red",
+       "skill": "empathy",
+       "difficulty": 9,
+       "success": "street.permission_given",
+       "failure": "street.permission_denied"
+      }
+     },
+     {
+      "id": "street.odd",
+      "label_key": "wall-survey.choice.street.odd",
+      "next": "street.pattern_note",
+      "when": {
+       "op": "all",
+       "conditions": [
+        {
+         "op": "flag",
+         "name": "pattern_recurs"
+        },
+        {
+         "op": "not",
+         "condition": {
+          "op": "flag",
+          "name": "correspondence_provisional"
+         }
+        }
+       ]
+      },
+      "flags": [
+       "correspondence_provisional"
+      ]
+     },
+     {
+      "id": "street.close",
+      "label_key": "wall-survey.choice.street.close",
+      "next": "street.end"
+     }
+    ]
+   },
+   "street.survey_success": {
+    "type": "line",
+    "id": "street.survey_success",
+    "speaker": "logic",
+    "text_key": "wall-survey.line.street.survey_success",
+    "next": "street.options",
+    "sets": [
+     "wall_survey_reliable"
+    ]
+   },
+   "street.survey_failure": {
+    "type": "line",
+    "id": "street.survey_failure",
+    "speaker": "logic",
+    "text_key": "wall-survey.line.street.survey_failure",
+    "next": "street.options",
+    "sets": [
+     "wall_survey_unreliable"
+    ]
+   },
+   "street.permission_given": {
+    "type": "line",
+    "id": "street.permission_given",
+    "speaker": "ines",
+    "text_key": "wall-survey.line.street.permission_given",
+    "next": "street.options",
+    "sets": [
+     "ines_consented_publication"
+    ]
+   },
+   "street.permission_denied": {
+    "type": "line",
+    "id": "street.permission_denied",
+    "speaker": "ines",
+    "text_key": "wall-survey.line.street.permission_denied",
+    "next": "street.options",
+    "sets": [
+     "ines_refused_publication"
+    ]
+   },
+   "street.pattern_note": {
+    "type": "line",
+    "id": "street.pattern_note",
+    "speaker": "aesthetics",
+    "text_key": "wall-survey.line.street.pattern_note",
+    "next": "street.options"
+   },
+   "street.end": {
+    "type": "end",
+    "id": "street.end",
+    "text_key": "wall-survey.line.street.end"
+   }
+  }
+ },
+ "consequences": [
+  {
+   "when": {
+    "op": "flag",
+    "name": "wall_survey_reliable"
+   },
+   "evidence": {
+    "id": "cumana_wall_baseline",
+    "kind": "measurement",
+    "date_key": "date.november_1799",
+    "location_key": "location.cuman_the_courtyard_wall",
+    "content_key": "evidence.cumana_wall_baseline.content",
+    "method_key": "evidence.cumana_wall_baseline.method",
+    "uncertainty_key": "evidence.cumana_wall_baseline.uncertainty",
+    "source_key": "evidence.cumana_wall_baseline.source"
+   }
+  },
+  {
+   "when": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "wall_survey_unreliable"
+     },
+     {
+      "op": "not",
+      "condition": {
+       "op": "flag",
+       "name": "wall_survey_reliable"
+      }
+     }
+    ]
+   },
+   "evidence": {
+    "id": "cumana_wall_attempt",
+    "kind": "observation",
+    "date_key": "date.november_1799",
+    "location_key": "location.cuman_the_courtyard_wall",
+    "content_key": "evidence.cumana_wall_attempt.content",
+    "uncertainty_key": "evidence.cumana_wall_attempt.uncertainty",
+    "source_key": "evidence.cumana_wall_attempt.source"
+   }
+  },
+  {
+   "when": {
+    "op": "flag",
+    "name": "ines_consented_publication"
+   },
+   "evidence": {
+    "id": "cumana_ines_named",
+    "kind": "testimony",
+    "date_key": "date.november_1799",
+    "location_key": "location.cuman_the_courtyard_wall",
+    "content_key": "evidence.cumana_ines_named.content",
+    "source_key": "evidence.cumana_ines_named.source"
+   }
+  },
+  {
+   "when": {
+    "op": "all",
+    "conditions": [
+     {
+      "op": "flag",
+      "name": "ines_refused_publication"
+     },
+     {
+      "op": "not",
+      "condition": {
+       "op": "flag",
+       "name": "ines_consented_publication"
+      }
+     }
+    ]
+   },
+   "evidence": {
+    "id": "cumana_ines_unnamed",
+    "kind": "testimony",
+    "date_key": "date.november_1799",
+    "location_key": "location.cuman_the_courtyard_wall",
+    "content_key": "evidence.cumana_ines_unnamed.content",
+    "source_key": "evidence.cumana_ines_unnamed.source"
+   }
+  },
+  {
+   "when": {
+    "op": "flag",
+    "name": "correspondence_provisional"
+   },
+   "evidence": {
+    "id": "cumana_branching_pattern",
+    "kind": "hypothesis",
+    "date_key": "date.november_1799",
+    "location_key": "location.cuman_the_courtyard_wall",
+    "content_key": "evidence.cumana_branching_pattern.content",
+    "uncertainty_key": "evidence.cumana_branching_pattern.uncertainty",
+    "source_key": "evidence.cumana_branching_pattern.source"
+   }
+  }
+ ],
+ "concluded_flag": "cumana_survey_complete"
+}
