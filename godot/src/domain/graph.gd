@@ -114,7 +114,7 @@ static func _settle(graph: Dictionary, initial: Dictionary, context: Dictionary)
 	for depth in 64:
 		var card = graph.cards.get(progress.nodeId)
 		if card == null:
-			return _fail("Missing dialogue card: " + str(progress.nodeId))
+			return _fail("Missing dialogue card: " + ("undefined" if progress.nodeId == null else str(progress.nodeId)))
 		if card.type == "end":
 			return _with(_arrive(progress, card), {"finished": true})
 		if card.type == "line":
@@ -125,11 +125,16 @@ static func _settle(graph: Dictionary, initial: Dictionary, context: Dictionary)
 			return _fail("Non-interactive dialogue loop: " + str(card.id))
 		seen[card.id] = true
 		if card.type == "fork":
-			var next: String = card.otherwise
-			for route in card.routes:
+			# Like TypeScript (`route?.next ?? card.otherwise`): "otherwise"
+			# is only read when no route matches; a missing target then fails
+			# as a missing card.
+			var next = null
+			for route in card.get("routes", []):
 				if condition_met(route.when, context, progress):
-					next = route.next
+					next = route.get("next")
 					break
+			if next == null:
+				next = card.get("otherwise")
 			progress = _with(progress, {"nodeId": next})
 		else:
 			var insights: Array = progress.insights.duplicate()
@@ -300,7 +305,7 @@ static func validate(graph: Dictionary) -> Array:
 				errors.append("No choices " + str(id))
 		for link in links:
 			if not cards.has(link):
-				errors.append("Broken edge " + str(id) + " -> " + str(link))
+				errors.append("Broken edge " + str(id) + " -> " + ("undefined" if link == null else str(link)))
 			else:
 				queue.append(link)
 	if endings == 0:

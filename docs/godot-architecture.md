@@ -86,7 +86,7 @@ Evaluated on Godot 4.7.2 (v4.1.0, MIT) and not adopted for this slice; see [godo
 
 ```
 godot --headless --path godot --import                          # once, or after adding files
-godot --headless --path godot -s res://tests/run_tests.gd       # 52 tests: parity, robustness, scenes
+godot --headless --path godot -s res://tests/run_tests.gd       # 53 tests: parity, robustness, scenes
 godot --headless --path godot -s res://tools/validate_content.gd
 godot --path godot -s res://tools/capture_screenshots.gd -- --out=<dir>   # needs a display (or xvfb-run)
 npm test                                                        # TS tests + fixture freshness

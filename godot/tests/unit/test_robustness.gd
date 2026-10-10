@@ -240,3 +240,19 @@ func test_saved_numbers_round_trip_exactly() -> void:
 	ok(CosmosJson._bits(CosmosJson.to_double("5e-324")) == 1, "smallest subnormal")
 	eq(CosmosJson.parse("{\"a\": \"1.5\", \"b\": [1.5, -0.25e1]}"), {"a": "1.5", "b": [1.5, -2.5]}, "numbers inside strings are left alone")
 	eq(CosmosJson.parse("[1.2.3]"), null, "malformed numbers are still errors")
+
+
+## The two engines agree on graphs with missing fields too (TypeScript's
+## results for these cases are quoted from scripts/load-ts.mjs runs).
+func test_graphs_with_missing_fields_match_the_reference() -> void:
+	eq(CosmosGraph.validate({"start": "a", "cards": {"a": {"type": "line", "id": "a"}, "z": {"type": "end", "id": "z"}}}),
+		["Broken edge a -> undefined", "No reachable ending", "Unreachable card z"], "a line without next")
+	var fork := {"start": "f", "cards": {
+		"f": {"type": "fork", "id": "f", "routes": [{"when": {"op": "flag", "name": "x"}, "next": "b"}]},
+		"b": {"type": "line", "id": "b", "next": "e", "text_key": "k"},
+		"e": {"type": "end", "id": "e"}}}
+	var ctx := {"skills": {}, "flags": ["x"]}
+	var p = CosmosGraph.start(fork, ctx, CosmosGraph.empty_ledger())
+	ok(p != null and p.nodeId == "b", "a matching route does not need 'otherwise'")
+	eq(CosmosGraph.start(fork, {"skills": {}, "flags": []}, CosmosGraph.empty_ledger()), null, "without a match the missing 'otherwise' fails cleanly")
+	eq(CosmosGraph.last_error, "Missing dialogue card: undefined", "with the reference's message")
