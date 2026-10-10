@@ -1,5 +1,6 @@
 import type { GameState } from '../types';
 import type { DialogueGraph, GraphProgress } from './graph-engine';
+import { addEvidence, type Evidence } from '../investigation/evidence';
 
 /**
  * Fictional November 1799 scene that tests the new graph interpreter.
@@ -69,6 +70,7 @@ export const SURVEY_GRAPH: DialogueGraph = {
                 { op: 'flag', name: 'method_comparative' },
                 { op: 'flag', name: 'cumana_repeatability' },
               ] }, amount: 1, reason: 'Comparative measurement practice' },
+              { when: { op: 'flag', name: 'bonpland_will_assist_survey' }, amount: 1, reason: 'Bonpland holds the other end of the line' },
             ],
           },
         },
@@ -105,22 +107,22 @@ export const SURVEY_GRAPH: DialogueGraph = {
       ],
     },
     'street.survey_success': {
-      type: 'line', id: 'street.survey_success', speaker: 'Logic',
+      type: 'line', id: 'street.survey_success', speaker: 'Logic', sets: ['wall_survey_reliable'],
       text: 'You find a stable baseline, draw the measured angle and leave space for a later comparison. The result is reproducible, though its cause remains uncertain.',
       next: 'street.options',
     },
     'street.survey_failure': {
-      type: 'line', id: 'street.survey_failure', speaker: 'Logic',
+      type: 'line', id: 'street.survey_failure', speaker: 'Logic', sets: ['wall_survey_unreliable'],
       text: 'The footing gives way twice and the pencil mark slips. You cannot claim a reliable measurement. The attempt belongs in the notebook all the same.',
       next: 'street.options',
     },
     'street.permission_given': {
-      type: 'line', id: 'street.permission_given', speaker: 'Inés',
+      type: 'line', id: 'street.permission_given', speaker: 'Inés', sets: ['ines_consented_publication'],
       text: 'You may include my name, she says. But write that I remember where people ran. I cannot tell you how long the ground shook.',
       next: 'street.options',
     },
     'street.permission_denied': {
-      type: 'line', id: 'street.permission_denied', speaker: 'Inés',
+      type: 'line', id: 'street.permission_denied', speaker: 'Inés', sets: ['ines_refused_publication'],
       text: 'I told you what happened to the houses. I did not ask to be put in a book printed in Europe. Leave my name out.',
       next: 'street.options',
     },
@@ -136,11 +138,59 @@ export const SURVEY_GRAPH: DialogueGraph = {
   },
 };
 
+/** Evidence produced by the survey, kept separate by kind and provenance. */
+export function surveyEvidence(progress: GraphProgress): Evidence[] {
+  const flags = new Set(progress.flags);
+  const at = { date: 'November 1799', location: 'Cumaná, the courtyard wall' };
+  const evidence: Evidence[] = [];
+  if (flags.has('wall_survey_reliable')) {
+    evidence.push({
+      id: 'cumana_wall_baseline', kind: 'measurement', ...at,
+      content: 'Angle of the main crack measured against a chalk baseline on the lowest course; repeatable.',
+      method: 'Baseline between two fixed stones; angle drawn from both ends.',
+      uncertainty: 'Records the damage, not the earthquake that caused it.',
+      source: 'Survey by Humboldt; scene dramatized',
+    });
+  } else if (flags.has('wall_survey_unreliable')) {
+    evidence.push({
+      id: 'cumana_wall_attempt', kind: 'observation', ...at,
+      content: 'Attempted to survey the crack; the footing gave way and no reliable angle was taken.',
+      uncertainty: 'No measurement. The attempt is recorded so it is not mistaken for one.',
+      source: 'Survey by Humboldt; scene dramatized',
+    });
+  }
+  if (flags.has('ines_consented_publication')) {
+    evidence.push({
+      id: 'cumana_ines_named', kind: 'testimony', ...at,
+      content: 'Inés Ávila agrees to be named. She remembers where people ran, not how long the ground shook.',
+      source: 'Inés Ávila, fictional conversation',
+    });
+  } else if (flags.has('ines_refused_publication')) {
+    evidence.push({
+      id: 'cumana_ines_unnamed', kind: 'testimony', ...at,
+      content: 'A resident’s account of the damage, kept without her name at her request.',
+      source: 'Unnamed resident (fictional)',
+    });
+  }
+  if (flags.has('correspondence_provisional')) {
+    evidence.push({
+      id: 'cumana_branching_pattern', kind: 'hypothesis', ...at,
+      content: 'A branching crack resembles an earlier drawing. Resemblance noted; no mechanism proposed.',
+      uncertainty: 'Could be coincidence or the observer’s eye.',
+      source: 'Unverified comparison',
+    });
+  }
+  return evidence;
+}
+
 export function concludeSurvey(state: GameState, progress: GraphProgress): GameState {
   if (!progress.finished) throw new Error('The survey is not finished');
   if (state.flags.includes('cumana_survey_complete')) return state;
+  const decisions = progress.transcript
+    ? progress.transcript.flatMap(entry => entry.type === 'choice' ? [entry.label] : [])
+    : progress.history;
   const lines: string[] = [
-    'The survey records the following decisions: ' + progress.history.join(', ') + '.',
+    'The survey records the following decisions: ' + decisions.join(' / ') + '.',
   ];
   const check = progress.lastRoll;
   if (check) {
@@ -154,6 +204,7 @@ export function concludeSurvey(state: GameState, progress: GraphProgress): GameS
     phase: 'cycle_start',
     survey: progress,
     flags: [...new Set([...state.flags, ...progress.flags, 'cumana_survey_complete'])],
+    evidence: addEvidence(state.evidence ?? [], surveyEvidence(progress)),
     journal: [...state.journal, {
       id: 'cumana-graph-survey',
       title: 'The Survey of a Broken Wall',

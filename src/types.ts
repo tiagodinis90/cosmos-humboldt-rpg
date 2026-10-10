@@ -1,5 +1,7 @@
 import type { FieldworkProgress } from './narrative/cumana';
-import type { GraphProgress } from './narrative/graph-engine';
+import type { CheckLedger, GraphProgress } from './narrative/graph-engine';
+import type { ExplorationState } from './exploration/scene-state';
+import type { Evidence } from './investigation/evidence';
 // ===== COSMOS: A Humboldtian RPG =====
 // Gameplay inspired by Citizen Sleeper's dice-cycle system
 
@@ -171,6 +173,16 @@ export interface GameState {
   shipConfig: ShipConfig;
   fieldwork?: FieldworkProgress;
   survey?: GraphProgress;
+  /** Position, heading and visits in the walkable scene (save v2). */
+  exploration?: ExplorationState;
+  /** Field evidence gathered outside the fieldwork chapter (save v2). */
+  evidence?: Evidence[];
+  /** Latest progress of each in-scene conversation, by encounter id (save v2). */
+  dialogues?: Record<string, GraphProgress>;
+  /** Conversation currently open over the scene, if any (save v2). */
+  activeEncounter?: string;
+  /** Check attempts that persist between conversations (save v2). */
+  checks?: CheckLedger;
   cycle: number;
   dice: DiceRoll[];
   diceCount: number;

@@ -1,15 +1,8 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import ts from 'typescript';
+import { load } from './load-ts.mjs';
 
-const load = async (path) => {
-  const source = readFileSync(new URL(path, import.meta.url), 'utf8');
-  const result = ts.transpileModule(source, {fileName:path,compilerOptions:{target:ts.ScriptTarget.ES2020,module:ts.ModuleKind.ESNext},reportDiagnostics:true});
-  assert.equal(result.diagnostics?.filter(d=>d.category===ts.DiagnosticCategory.Error).length,0);
-  return import('data:text/javascript;charset=utf-8,'+encodeURIComponent(result.outputText));
-};
-const engine=await load('../src/narrative/graph-engine.ts');
-const story=await load('../src/narrative/survey.ts');
+const engine=await load('src/narrative/graph-engine.ts');
+const story=await load('src/narrative/survey.ts');
 const graph=story.SURVEY_GRAPH;
 assert.deepEqual(engine.validateGraph(graph),[]);
 const low={logic:1,empathy:1,aesthetics:1,political:1};
@@ -82,3 +75,9 @@ assert.equal(snakeEyes.passed,false);
 assert.throws(()=>engine.rollGraphCheck(sample,{skills:low,flags:[]},ordinary,()=>1),/Random source/);
 assert.deepEqual(engine.validateGraph({start:'missing',cards:{}}),['Missing card missing','No reachable ending']);
 console.log('Graph: validation, recursive conditions, passive voices, red/white checks, dice and dialogue flow passed.');
+
+// Displayed odds follow the same double-six / double-one rules as the roll.
+assert.equal(engine.successChance(0, 2), 35 / 36, 'only double one fails an easy check');
+assert.equal(engine.successChance(-20, 99), 1 / 36, 'only double six passes an impossible check');
+assert.equal(engine.successChance(2, 9), 21 / 36);
+console.log('Graph: success odds passed.');

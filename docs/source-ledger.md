@@ -1,6 +1,6 @@
 # Historical source ledger
 
-**Main source**: Andrea Wulf, *The Invention of Nature: Alexander von Humboldt's New World* (Alfred A. Knopf, 2015). The user's reference copy is not stored in Git.
+**Main source**: Andrea Wulf, *The Invention of Nature: Alexander von Humboldt's New World* (Alfred A. Knopf, 2015). The user's reference copy (PDF/EPUB) is not stored in Git and must never be committed; quote facts, not its prose.
 
 Labels used here: **H** attested historical chronology or reported activity; **D** original dramatization; **S** speculative fiction. These labels classify scenes, not the truth of every line spoken by a historical person.
 
@@ -20,6 +20,27 @@ Labels used here: **H** attested historical chronology or reported activity; **D
 | `cumana.november`, `cumana.after` | Part II, ch. 4 | On 4 November 1799, Cumaná experienced an earthquake; Humboldt observed and attempted measurements as the buildings shook, while Bonpland was nearby. | H: earthquake and scientific interest. D: choices, dialogue, safely observing from a doorway, interaction with neighbours. S: branching marks in damaged paper. |
 | `cumana.departure` | Part II, ch. 4 | Roughly two weeks after the November earthquake, Humboldt and Bonpland departed for Caracas by a small coastal vessel, accompanied by José de la Cruz. | H: general itinerary, timing and accompanying figure. D: speech, belongings, attribution choice. |
 
+
+## Walkable Cumaná scene (`src/narrative/encounters.ts`, `src/exploration/cumana-scene.ts`)
+
+Checked on 9 October 2026 against the user's EPUB of Wulf (2015): chapter 3 (end, *In Search of a Destination*) and chapter 4 (*South America*). Wulf's endnotes give the primary references listed below; those primary texts have **not** been read directly yet.
+
+| Element | What Wulf states | Primary reference via Wulf's notes | Adaptation boundary |
+| --- | --- | --- | --- |
+| `inst.sun_result`, evidence `scene_sand_sun` | On landing, Humboldt put his thermometer into the white sand and wrote 37.7 °C. | *Personal Narrative* (1814–29), vol. 2, p. 184 (ch. 3 n. 57). | H: the reading. D: the table, the moment in the scene and the second thermometer. |
+| `inst.shade_*`, `scene_shade_air` (~29 °C) | No shade reading is reported. | — | D: value is illustrative and labelled as such in the fieldbook. |
+| Field case (velvet-lined boxes, thermometers, barometer, hygrometer) | 42 instruments packed in velvet-lined boxes (ch. 3); barometer, thermometer, sextant, cyanometer, humidity measurements on Chimborazo (prologue). | Diary/letters cited in ch. 3. | H: instruments existed and were used. D: which ones lie open in Cumaná. |
+| Cyanometer reading (22nd–23rd blue) | Humboldt measured the blueness of the sky with a cyanometer (documented for Chimborazo). | Prologue. | D: use in Cumaná and the value are illustrative. |
+| Bonpland at the plant press | They pressed so many plants they had to order more reams of paper; Bonpland said he would go mad if the wonders did not stop. | AH to WH, 16 July 1799; *Personal Narrative* vol. 3, p. 72 (ch. 4 nn. 3–6). | H: workload and enthusiasm. D: every line Bonpland says, the priorities argument and the red check. |
+| `quake` aftermath, Bonpland's lines | 4 November 1799, about 4 p.m.: Bonpland was nearly knocked over while leaning over a table of plants; Humboldt timed the shocks. | *Personal Narrative* vol. 3, pp. 316–17; Diary, 4 Nov 1799 (ch. 4 n. 17). | H: event and roles. D: stained papers, dialogue. |
+| Plaza remark (slave market) | The slave market was opposite their rented house in the main square; every morning young African men and women were oiled, paraded and had their mouths forced open by buyers. It made Humboldt a lifelong abolitionist. | *Personal Narrative* vol. 2, p. 246 (ch. 4 n. 16). | H: as stated. Written plainly, not gated behind a skill. The political voice adds interpretation only. |
+| Inés's political voice (shop licence) | Only those born in Spain could own shops or mines in the colonies. | Arana 2013, p. 26ff. (ch. 3 n. 58). | H: the rule. D: Inés keeps the books for a shop she cannot own (she remains fictional). |
+| `ines.groves_answer`, evidence `cumana_dry_groves` | Just outside Cumaná, locals told Humboldt that the land had grown drier as ancient groves were cleared. | *Personal Narrative* vol. 3, pp. 24–5 (ch. 4 n. 44). | H: that such testimony was reported. D: Inés as the speaker, her mother's memory. Kept as testimony with "no measurements" so the Lake Valencia chapter can test it. |
+| Quay remark (November) | In mid-November they chartered a small open thirty-foot trading boat westwards with José de la Cruz, an Indian servant; the trunks held more than 4,000 plant specimens. | Diary, June–July 1801: José had been with them since August 1799 (ch. 4 n. 20). | H: boat, timing, José. D: José counting trunks and arguing about weight. |
+| Damaged buildings, masons, repair order | Cumaná was almost destroyed by an earthquake in 1797. | ch. 3. | H: 1797 damage. D: cracks in this set, the masons, the governor's repair order and the church bell record. |
+| Castle on the hill, layout of the lane, the pier | — | — | D: original set. The castle silhouette is a nod to Cumaná's fortifications, not a survey of them. |
+
+Not yet verified and therefore kept out of the scene: Carlos del Pino or other named guides at Cumaná; specific church or cabildo buildings; exact location of the lodging relative to the harbour.
 
 ## Questions for source verification
 

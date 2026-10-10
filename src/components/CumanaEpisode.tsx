@@ -1,5 +1,6 @@
 import type { Skill } from '../types';
 import { FIELD_NODES, fieldworkChoices, type FieldworkProgress } from '../narrative/cumana';
+import type { EvidenceKind } from '../investigation/evidence';
 
 type Props = {
   progress: FieldworkProgress;
@@ -12,11 +13,13 @@ type Props = {
 export default function CumanaEpisode({ progress, skills, priorFlags, onChoose }: Props) {
   const node = FIELD_NODES[progress.nodeId];
   const choices = fieldworkChoices(progress, skills, priorFlags);
-  const evidenceColors = {
+  const evidenceColors: Record<EvidenceKind, string> = {
     measurement: 'text-forest-300',
+    observation: 'text-forest-200',
     testimony: 'text-gold-300',
     hypothesis: 'text-blue-300',
-  } as const;
+    inference: 'text-blue-200',
+  };
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-forest-950 via-forest-900 to-forest-950 p-5 py-12">
